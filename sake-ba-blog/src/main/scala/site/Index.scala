@@ -14,25 +14,17 @@ object Index extends templates.SakeBaBlogStaticPage {
           "Tutorijali iz programiranja, matematike i slično."
       )
 
-  override def stylesInline =
-    super.stylesInline ++ List("""
-        body { padding-top: 55px; }
-      """)
-
   override def pageContent = frag(
-    div(cls := "page-header text-center")(
-      h1("Dobrodošli!")
-    ),
     div(cls := "well well-lg col-md-6 col-md-push-3 pages-toc")(
       row(
         half(
-          "Mapa sajta:",
+          "Mapa sajta:".md,
           div(SiteMapHTML.siteMap)
         ),
         half(
           s"""
-            PDF verzije tutorijala:
-            - [Uvod u programiranje](${Site.programiranjePdf.ref}) (Java)
+            Tutorijali u PDF-u:
+            - [Uvod u programiranje](${Site.programiranjePdf.ref})
             - [Scala](${Site.scalaPdf.ref})
             - [Matematika](${Site.matematikaPdf.ref})
           """.md

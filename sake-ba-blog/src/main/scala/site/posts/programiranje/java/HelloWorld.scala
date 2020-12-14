@@ -15,15 +15,23 @@ object HelloWorld extends JavaTemplate {
   override def blogSettings =
     super.blogSettings
       .withCreatedDate(LocalDate.of(2018, 2, 4))
-      .withSections(introSection, compileAndRunSection, commentsSection)
+      .withSections(
+        introSection,
+        helloSection,
+        compileAndRunSection,
+        commentsSection
+      )
 
   def introSection = Section(
-    "Poyy svijete!",
+    "Uvod",
     div(
-      """
+      s"""
         Vjerovatno vam je do sada dodijao JShell i kucanje u konzoli... :D  
         Sada ćemo vidjeti kako se ustvari pokreću Java programi.  
         Sastoji se iz 2 dijela: kompajliranje i pokretanje (en. run).  
+        
+        > Napomena: ovaj dio nije obavezan, ali pomaže za razumijevanje procesa.  
+        > Možete preskočiti na [${helloSection.name}](${helloSection.ref}) ako želite.
 
         ---
         Kompajler (en. compiler) je program koji provjerava sintaksu našeg programa,
@@ -34,7 +42,7 @@ object HelloWorld extends JavaTemplate {
         
         Ulaz u kompajler je izvorni tekst programa (en. source code) 
           koji smo napisali (obični tekstualni fajlovi s nastavkom `.java` ),
-          a izlaz  su fajlovi koji sadrže izvršni kod, koji se može pokrenuti nekako, izvršiti (`.class` fajlovi).
+          a izlaz  su fajlovi koji sadrže izvršni kod, koji se može pokrenuti nekako, izvršiti (to su `.class` fajlovi).
       """.md,
       row(
         half(
@@ -53,7 +61,13 @@ object HelloWorld extends JavaTemplate {
             "Kompajliranje i pokretanje Java programa"
           )
         )
-      ),
+      )
+    )
+  )
+
+  def helloSection = Section(
+    "Poyy svijete!",
+    div(
       """
         ---
         Da vidimo napokon kako izgleda obavezni "Hello World" primjer:

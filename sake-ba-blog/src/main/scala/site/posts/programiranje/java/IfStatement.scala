@@ -5,12 +5,12 @@ import scalatags.Text.all._
 import utils.Imports._
 import ba.sake.hepek.plantuml.PlantumlHelpers._
 
-object Branching extends JavaTemplate {
+object IfStatement extends JavaTemplate {
 
   override def pageSettings =
     super.pageSettings
-      .withTitle("Uslovno grananje")
-      .withDescription("Uslovno grananje toka programa u Javi.")
+      .withTitle("If naredba")
+      .withDescription("If naredba u Javi.")
 
   override def blogSettings =
     super.blogSettings
@@ -27,7 +27,7 @@ object Branching extends JavaTemplate {
         U Javi za ovu svrhu imamo 2 naredbe: `if` i `switch`.
       """.md
     ),
-    List(ifSection, switchSection)
+    List(ifSection)
   )
 
   def ifSection = Section(
@@ -41,13 +41,39 @@ object Branching extends JavaTemplate {
         Ovo "uslov ispunjen" može biti DA ili NE, tj. ISTINA (en. true) ili NEISTINA (en. false).
         Ovaj **tip podatka** se naziva **Boolean** po matematičaru George Boole-u.
       
-          Ako se sjećate logike iz matematike, tablica istine, "I", "ILI", "NE" i ostalih, TO JE TO! :D
-          - Logička operacija "I" (en. and) se u Javi piše kao `&&`
-          - Logička operacija "ILI" (en. or) se u Javi piše kao `||`
-          - Logička operacija "NE" (en. negate, not) se u Javi piše kao `!`, 
-            i piše se prije uslova koji negira, npr. `!small`.
+        Ako se sjećate logike iz matematike, tablica istine, "I", "ILI", "NE" i ostalih, TO JE TO! :D
+        - Logička operacija "I" (en. and) se u Javi piše sa `&&`
+        - Logička operacija "ILI" (en. or) se u Javi piše sa `||`
+        - Logička operacija "NE" (en. negate, not) se u Javi piše sa `!`, 
+          i piše se prije uslova koji negira, npr. `!small`.
       
-          Primjer:
+        ---
+        Primjer:
+      """.md,
+      chl.java.withLineHighlight("3")(
+        """
+          double temperatura = -3;
+          boolean uslovHladno = temperatura < 5;
+          if (uslovHladno) {  // može i "if(temperatura < 5)"
+            System.out.println("Obuci se, studeno je pravo!");
+          }
+          System.out.println("Temperatura je: " + temperatura);
+        """
+      ),
+      """
+      Navedeni primjer ispisaće sljedeće:
+      ```bash
+      Obuci se, studeno je pravo!
+      Temperatura je: -3
+      ```
+      Ako izmijenimo temperaturu na `20`, vidjećemo da se prvi `println` neće izvršiti,
+        jer uslov nije ispunjen:
+      ```bash
+      Temperatura je: 20
+      ```
+      
+      ---
+      Da vidimo još jedan primjer:
       """.md,
       chl.java.withLineHighlight("4,6")(
         """
@@ -68,7 +94,8 @@ object Branching extends JavaTemplate {
 
         Nakon linije 6 program nastavlja normalno sa svojim izvršenjem.  
 
-        Slijedi i vizuelni dijagram izvršenja ove naredbe:
+        ---
+        Dijagram toka izvršenja `if-else` naredbe:
       """.md,
       div(Classes.txtAlignCenter)(
         plantSvg("""
@@ -92,50 +119,13 @@ object Branching extends JavaTemplate {
       """
         Možemo imati i više uslova u jednoj naredbi, tj. niz `if-elseif-elseif-...-else`.  
         Ovi uslovi bi trebali biti **međusobno isključivi** tj. smisleni.
-        > Ako napišete `if (broj>5) {/* prvi */} else if (broj>7) {/* drugi */}` to nema puno smisla jer
-        >   ako broj nije veći od 5, ne može biti veći od 7, nema šansone. :D  
-        > Ako jeste veći od 5, biće izvršen prvi blok, ali drugi blok koda NIKAD NEĆE BITI IZVRŠEN!
+        Ako napišete  
+          `if (broj>5) {/* prvi */} else if (broj>7) {/* drugi */}` to nema puno smisla jer
+          ako broj nije veći od 5, ne može biti veći od 7, nema šansone. :D  
+        Ako jeste veći od 5, biće izvršen prvi blok, ali drugi blok koda NIKAD NEĆE BITI IZVRŠEN!
     
         Ako postoji grana `else`, ona će biti izvršena **ako nijedan uslov nije ispunjen**.
         Ako ne postoji `else` i nijedan uslov nije ispunjen, ništa neće biti izvršeno od te cijele if naredbe.
-      """.md
-    )
-  )
-
-  def switchSection = Section(
-    "Switch naredba",
-    div(
-      """
-        Grananje pomoću `switch-case` naredbe može učiniti kod dosta preglednijim.  
-        Ova naredba se koristi umjesto mnoštva if-else grana, 
-          od koje svaka grana provjerava **je li varijabla jednaka** nekoj vrijednosti.  
-        U Javi možete "switchati" cijele brojeve, karaktere, stringove i enumeracije.
-      """.md,
-      chl.java.withLineHighlight("2,6-8")(
-        """
-        int i = 5;
-        switch (i) {
-            case 3:
-                System.out.println("Tri");
-                break;
-            case 5:
-                System.out.println("Pet");
-                break;
-            default:
-                System.out.println("Ne znam...");
-                break;
-        }
-      """
-      ),
-      """
-          Na liniji 2 ispituje se čemu je **jednaka vrijednost varijable `i`**, 
-            **redom odozgo** naravno.  
-          Prvi slučaj (en. case) koji bude ispunjen će biti izvršen.  
-          Ako je vrijednost varijable `i` broj 5, ispisaće se na ekran "Pet".
-          
-          Često ne znamo koliko ima mogućih slučajeva, 
-            pa onda trebamo odlučiti šta da uradimo po tom pitanju.  
-          Za to nam služi ključna riječ `default`. To je ustvari ona `else` grana u `if` naredbi! ;)
       """.md
     )
   )

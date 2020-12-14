@@ -79,8 +79,8 @@ object Basics extends JavaTemplate {
           Npr. `5 % 2` je `1`.
 
           ---
-          Kada želimo koristiti **realne** brojeve (sa zarezom), onda moramo poslije broja napisati tačku.  
-          Tačka se koristi jer se znak zarez koristi za neke druge stvari... Otom potom.  
+          Kada želimo koristiti **realne** brojeve (sa zarezom), pišemo tačku nakon broja.  
+          Tačka se koristi umjesto zareza, jer se zarez koristi za neke druge stvari... Otom potom.  
           Uglavnom, da vidimo kako rade realni brojevi (en. **float**ing point):
         """.md,
       jshell.withOutputLines("2,4,6,8,10,12,14")("""
@@ -97,7 +97,7 @@ object Basics extends JavaTemplate {
           Sada se sve čini onako kako treba. :)
 
           ---
-          Redoslijed operatora (en. precedence) radi očekivano.  
+          Redoslijed operacija (en. precedence) radi očekivano.  
           Npr. množenje se radi prije sabiranja.  
           Ako želimo baš, baš, biti sigurni da će program raditi kako treba, možemo koristiti zagrade.
         """.md,
@@ -210,7 +210,7 @@ object Basics extends JavaTemplate {
           - int t$df_x = 5
 
           Mogu se koristiti simboli `_` i `$` ali ih treba izbjegavati, 
-            pogotovo kao prvi karakter u nazivu varijable!
+            pogotovo kao prvo slovo u nazivu varijable!
 
           Preporučeno je (konvencija, dobra praksa) da varijable počinju malim slovom,
             da su *camelCase* (svaka iduća riječ počinje velikim slovom), npr. `myVariable`.  

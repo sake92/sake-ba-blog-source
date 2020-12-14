@@ -57,7 +57,7 @@ object Types extends JavaTemplate {
         """
           I šta smo dobili? Samo cijeli dio... Ali, nekad nam ovo baš i treba!  
           Uglavnom, pouka je da trebamo slušati šta nam Java poručuje!  
-          To radi za naše dobro, nju nije briga ako je rezultat netačan, ako je to što želimo... :D
+          To radi za naše dobro, nju nije briga ako je rezultat netačan, ako je to ono što želimo... :D
           
           ---
           Naravno, imamo još puno toga reći o tipovima, tek smo "zagrebali površinu"!  
