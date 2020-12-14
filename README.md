@@ -11,4 +11,4 @@ Written with help of:
 
 ## Render PDFs
 Run this command to generate PDFs of *blog.sake.ba*, one file per category:
-`sbt> sakeBaBlog/generatePdfs`
+`sbt> sakeBaBlog/pdfGenerate`
