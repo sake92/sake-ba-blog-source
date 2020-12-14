@@ -21,7 +21,6 @@ object Index extends JavaTemplate {
         uvodSection,
         komunikacijaSection,
         apstrakcijeSection,
-        paradigmeSection,
         programiSection
       )
 
@@ -83,30 +82,6 @@ object Index extends JavaTemplate {
         U matematici imamo apstrakciju broja. Kada kažemo broj obično mislimo na cijeli broj. Ali ne kažemo koji broj!?  
         Dakle, samo znamo da mislimo na **neki** broj.
     """.md
-  )
-
-  def paradigmeSection = Section(
-    "Paradigme",
-    """
-        Jedan od značajnijih problema koje p.j. pokušavaju riješiti je **kompleksnost**.  
-        Kako programi postaju veći, to su komplikovaniji za razumjeti.  
-        Zato danas imamo nekoliko paradigmi (pristupa, načina) za razvijanje programa, od kojih su najpoznatije:
-    
-        - **proceduralno**
-        - **funkcionalno**
-        - **objektno orijentisano**
-        - **logičko**
-
-        Dosta jezika danas je miks dvije ili više ovih paradigmi.  
-        Ove paradigme *usmjeravaju naš način razmišljanja* o problemima po svom nekom šablonu/fazonu.
-
-        Npr. kod proceduralnog/imperativnog načina razmišljanja **mijenjamo varijable** "u mjestu".  
-        Ovdje moramo pamtiti/zamisliti koja je vrijednost neke varijable *u datom trenutku*, što je većini ljudi izazovan zadatak.
-
-        Kod funkcionalnog/matematičkog načina razmišljanja pravimo **nove varijable** a stare ne diramo! 
-        To nam pomaže kod razumijevanja određenog dijela koda, ne moramo pamtiti u glavi stanje "cijelog svijeta" 
-          i na šta utiče promjena date varijable. Ali, otom potom...
-        """.md
   )
 
   def programiSection = Section(

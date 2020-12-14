@@ -23,7 +23,7 @@ object ManifestJSON extends Renderable {
     val mf = Index.manifest
       .withBackgroundColor("#000")
       .withName("Saketovi tutorijali")
-      .withShortName("Sake tuts")
+      .withShortName("Sake tutorijali")
       .withDescription("Tutorijali iz programiranja")
       .withIcons(icons)
     HepekPickler.write(mf)
