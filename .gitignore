@@ -20,6 +20,7 @@ bin/
 pdfs/
 
 .bloop/
+.bsp/
 .idea/
 .metals/
 project/.bloop/
