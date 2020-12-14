@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Uvod u OOP." /><meta name="og:title" content="blog.sake.ba" /><title>Uvod u OOP - blog.sake.ba</title><link rel="shortcut icon" href="../../../../images/favicon.png" type="image/x-icon" /><link rel="manifest" href="../../../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../../styles/main.css" /><link rel="stylesheet" href="../../../../styles/print.css" /><style>
+        body { padding-top: 73px; }
+      </style><style>
+      /* scrollspy stuff */
+      nav#tocScrollspy  .nav>li>a {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-size: .9em;
+      }
+      nav#tocScrollspy .nav .nav>li>a {
+          padding-top: 1px;
+          padding-bottom: 1px;
+          padding-left: 3em;
+          font-size: .7em;
+      }
+      
+      /* turn off affix on screens less than md */
+      @media (max-width: 991px) { 
+          .affix { position: static; }
+      }
+      @media (min-width: 992px) {
+          /* col-3 is 25% but it's nicer like this */
+          .affix { width: 23%; }
+      }
+      @media (min-width: 992px) {
+          .affix {
+              overflow-y: auto;
+              height: 85%; /* nicer if not full height */
+          }
+      }
+      .affix { padding-left: 2em; }
+    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../../index.html"><span><img src="../../../../images/favicon.png" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class=""><a href="../index.html">Programiranje</a></li><li class=""><a href="../../scala/index.html">Scala</a></li><li class=""><a href="../../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-1 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"></ul></nav></div><div class="col-md-8"><div class="hidden-print"><div><span class="glyphicon glyphicon-time"></span> 14.12.2019</div><div><span class="glyphicon glyphicon-user"></span>  Sakib Hadžiavdić</div></div><article><div><section><h3 id="paradigme">Paradigme</h3><p>Jedan od značajnijih problema koje p.j. pokušavaju riješiti je <strong>kompleksnost</strong>.<br />
+Kako programi postaju veći, to su komplikovaniji za razumjeti.<br />
+Zato danas imamo nekoliko paradigmi (pristupa, načina) za razvijanje programa, od kojih su najpoznatije:</p>
+<ul>
+<li><strong>proceduralno</strong></li>
+<li><strong>funkcionalno</strong></li>
+<li><strong>objektno orijentisano</strong></li>
+<li><strong>logičko</strong></li>
+</ul>
+<p>Dosta jezika danas je miks dvije ili više ovih paradigmi.<br />
+Ove paradigme <em>usmjeravaju naš način razmišljanja</em> o problemima po svom nekom šablonu/fazonu.</p>
+<p>Npr. kod proceduralnog/imperativnog načina razmišljanja <strong>mijenjamo varijable</strong> &quot;u mjestu&quot;.<br />
+Ovdje moramo pamtiti/zamisliti koja je vrijednost neke varijable <em>u datom trenutku</em>, što je većini ljudi izazovan zadatak.</p>
+<p>Kod funkcionalnog/matematičkog načina razmišljanja pravimo <strong>nove varijable</strong> a stare ne diramo!
+To nam pomaže kod razumijevanja određenog dijela koda, ne moramo pamtiti u glavi stanje &quot;cijelog svijeta&quot;
+i na šta utiče promjena date varijable. Ali, otom potom...</p>
+</section></div></article><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#paradigme">Paradigme</a><ul class="nav nav-pills nav-stacked"></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../../scripts/main.js"></script><script>
+            // activate scrollspy on body
+            $('body').scrollspy({
+                target: '#tocScrollspy',
+                offset: 55 // ~~ when the first heading starts...
+            });
+            
+            // fix scrollspy for current page sections
+            $('#tocScrollspy').affix({
+                offset: { top: 10 } // when to start moving fixed div
+            });
+          </script></body></html>

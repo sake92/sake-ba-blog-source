@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Osnove Jave." /><meta name="og:title" content="blog.sake.ba" /><title>Osnove - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.png" type="image/x-icon" /><link rel="manifest" href="../../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="stylesheet" href="../../../styles/print.css" /><style>
+        body { padding-top: 73px; }
+      </style><style>
+      /* scrollspy stuff */
+      nav#tocScrollspy  .nav>li>a {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-size: .9em;
+      }
+      nav#tocScrollspy .nav .nav>li>a {
+          padding-top: 1px;
+          padding-bottom: 1px;
+          padding-left: 3em;
+          font-size: .7em;
+      }
+      
+      /* turn off affix on screens less than md */
+      @media (max-width: 991px) { 
+          .affix { position: static; }
+      }
+      @media (min-width: 992px) {
+          /* col-3 is 25% but it's nicer like this */
+          .affix { width: 23%; }
+      }
+      @media (min-width: 992px) {
+          .affix {
+              overflow-y: auto;
+              height: 85%; /* nicer if not full height */
+          }
+      }
+      .affix { padding-left: 2em; }
+    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../index.html"><span><img src="../../../images/favicon.png" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class="active"><a href="index.html">Programiranje</a></li><li class=""><a href="../scala/index.html">Scala</a></li><li class=""><a href="../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class=""><a href="index.html">Početna</a></li><li class=""><a href="instalacija.html">Instalacija</a></li><li class="active"><a href="basics.html">Osnove</a></li><li class=""><a href="types.html">Tipovi</a></li><li class=""><a href="statements.html">Naredbe</a></li><li class=""><a href="hello-world.html">Poyy sviete!</a></li><li class=""><a href="branching.html">Uslovno grananje</a></li><li class=""><a href="loops.html">Ponavljanje naredbi</a></li><li class=""><a href="functions.html">Funkcije</a></li><li class=""><a href="arrays.html">Nizovi</a></li><li class=""><a href="types2.html">Tipovi, opet</a></li><li class=""><a href="classes.html">Klase</a></li><li class=""><a href="scope.html">Scope, opseg</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"><div><span class="glyphicon glyphicon-time"></span> 25.03.2018</div><div><span class="glyphicon glyphicon-user"></span>  Sakib Hadžiavdić</div></div><article><div><section><h3 id="j-shell">JShell</h3><p>Da bi se igrali sa JShellom morate imati instaliranu Javu verzije 9 ili više.<br />
+Ispratite <a href="instalacija.html">sekciju za instalaciju</a>.</p>
+<p>Koristićemo JShell program za upoznavanje i igranje s Java jezikom.<br />
+Otvorite konzolu (bez ikakvog straha! :D), ukucajte <code>jshell</code> i udarite Enter.<br />
+Dobićete tzv. interaktivni shell u kojem možete kucati Javu.<br />
+Zovu ga još i REPL (Read Evaluate Print Loop), jer dobija unos od nas,
+evaluira ga, isprinta neki odgovor, i ponavlja ukrug.</p>
+</section><section><h3 id="izrazi-i-operatori">Izrazi i operatori</h3><div><p>Za početak, JShell možemo koristiti kao primitivni kalkulator.<br />
+Tako ćemo steći osjećaj kako se ponašaju brojevi u Javi,
+i usput objasniti neke osnovne koncepte i pojmove.<br />
+Ako ukucamo u REPL broj 5 i pritisnemo Enter, vidjećemo sljedeće:</p>
+<pre class="command-line" data-output="2" data-prompt="jshell&gt;"><code class="language-batch">
+        5
+        $1 ==&gt; 5
+      </code></pre><p>REPL je razumio i odgovorio nam da je to vrijednost <code>5</code>.<br />
+U programiranju se kaže da je broj <strong>izraz</strong>.
+<em>Izraz</em> u programiranju ima isto značenje kao i u matematici.<br />
+Dakle, misli se na nešto što ima <strong>vrijednost</strong>.
+Nešto što možemo prikazati, s čim možemo baratati.</p>
+<hr />
+<p>Ako se opet prisjetimo (dosadne) matematike, sjetićemo se da se simboli
+<code>+</code>, <code>-</code>, <code>*</code>, itd. nazivaju <strong>operatori</strong>.<br />
+Pošto smo rekli da je REPL kao kalkulator, da vidimo šta sve možemo uraditi:</p>
+<pre class="command-line" data-output="2,4,6,8,10,12,14" data-prompt="jshell&gt;"><code class="language-batch">
+        2 + 2
+        $2 ==&gt; 4
+        2 - 5
+        $3 ==&gt; -3
+        7 * 3
+        $4 ==&gt; 21
+        9 / 4
+        $5 ==&gt; 2
+      </code></pre><p>Izgleda da dijeljenje ne radi kako treba... Našli smo grešku! :D<br />
+Ali, nije tako. Java <em>podrazumijeva</em> da želimo podijeliti dva <strong>cijela</strong> broja!<br />
+Ako se sjetimo osnovne škole, <code>5 / 2</code> je ustvari <code>2</code> <strong>cijelih</strong> i <strong>ostatak</strong> <code>1</code>. :)<br />
+Dakle, kada dijelimo dva cijela broja, ustvari radimo &quot;cjelobrojno dijeljenje&quot;.</p>
+<p>Također, možemo dobiti i ostatak od dijeljenja, pomoću operatora <code>%</code>.<br />
+Npr. <code>5 % 2</code> je <code>1</code>.</p>
+<hr />
+<p>Kada želimo koristiti <strong>realne</strong> brojeve (sa zarezom), onda moramo poslije broja napisati tačku.<br />
+Tačka se koristi jer se znak zarez koristi za neke druge stvari... Otom potom.<br />
+Uglavnom, da vidimo kako rade realni brojevi (en. <strong>float</strong>ing point):</p>
+<pre class="command-line" data-output="2,4,6,8,10,12,14" data-prompt="jshell&gt;"><code class="language-batch">
+        3.0 + 5.1
+        $6 ==&gt; 8.1
+        7.3 - 2.9
+        $7 ==&gt; 4.4
+        5.5 * -2.0
+        $8 ==&gt; -11.0
+        9.0 / 4.0
+        $9 ==&gt; 2.25
+      </code></pre><p>Sada se sve čini onako kako treba. :)</p>
+<hr />
+<p>Redoslijed operatora (en. precedence) radi očekivano.<br />
+Npr. množenje se radi prije sabiranja.<br />
+Ako želimo baš, baš, biti sigurni da će program raditi kako treba, možemo koristiti zagrade.</p>
+<pre class="command-line" data-output="2,4,6,8,10,12,14" data-prompt="jshell&gt;"><code class="language-batch">
+        2 + 2 * 2
+        $10 ==&gt; 6
+        (2 + 2) * 2
+        $11 ==&gt; 8
+      </code></pre></div></section><section><h3 id="varijable">Varijable</h3><div><p>Primijetite šta REPL ispisuje kao odgovor, poslije svake unesene linije: <code>$1 ==&gt; 5</code>.<br />
+Ako ukucamo <code>$1</code> u REPL vidjećemo sljedeće:</p>
+<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
+        $1
+        $1 ==&gt; 5
+      </code></pre><p>Dakle, REPL nam kaže da je <strong>vrijednost</strong> varijable <code>$1</code> jednaka <code>5</code>.<br />
+Izraz <code>5</code> je spremljen u <strong>varijablu</strong> <code>$1</code>, koju možemo koristiti umjesto broja <code>5</code>.</p>
+<blockquote>
+<p>Šta je to varijabla?<br />
+Zamislite da imate kutije raznih oblika i dimenzija.<br />
+Varijabla je baš kao <strong>kutija sa natpisom</strong> koji vi želite.
+Npr. kutija u kojoj čuvamo neki broj.</p>
+</blockquote>
+<p>Kreiraćemo novu varijablu pod nazivom <code>brojJabuka</code>,
+za čuvanje <code>int</code>egera (en. &quot;integer&quot; je cijeli broj).<br />
+Ovo <code>int</code> je tip varijable (veličina i oblik kutije)!
+Kasnije ćemo govoriti malo detaljnije o tipovima.</p>
+<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
+        int brojJabuka;
+        brojJabuka ==&gt; 0
+        |  created variable brojJabuka : int
+      </code></pre><p>Pošto nismo dali vrijednost našoj varijabli,
+Java nam pomaže tako što postavlja <code>brojJabuka</code> na vrijednost <code>0</code>.<br />
+Obično je to ono što želimo, ali je najbolje postaviti početnu vrijednost <strong>eksplicitno</strong>,
+čim uvodimo novu varijablu.
+Tako odmah znamo koja joj je početna vrijednost i ne moramo razmišljati o tome... :)<br />
+To radimo ovako:</p>
+<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
+        int brojJabuka = 0;
+        brojJabuka ==&gt; 0
+        |  created variable brojJabuka : int
+      </code></pre><p>Vrlo jednostavno, nakon naziva varijable slijedi znak jednako i vrijednost, ovdje je to <code>0</code>.<br />
+Primijetite da ovaj znak jednakosti <strong>nije matematička jednakost</strong> već operacija dodjele!<br />
+Tj. kao da kažemo &quot;postavi varijablu <code>brojJabuka</code> na nulu!&quot;.</p>
+<p>Varijablu možemo izmijeniti, tj. postaviti na novu vrijednost:</p>
+<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
+        brojJabuka = 5;
+        brojJabuka ==&gt; 5
+        |  assigned to brojJabuka : int
+      </code></pre><p>Sada je vrijednost promijenjena na <code>5</code>.
+Nakon ove linije, gdje god koristimo <code>brojJabuka</code> to je kao da napišemo <code>5</code>.</p>
+<hr />
+<p>Također, možemo iskoristiti <strong>prethodnu vrijednost varijable</strong> da bismo dobili novu:</p>
+<pre class="command-line" data-output="2,4" data-prompt="jshell&gt;"><code class="language-batch">
+        brojJabuka = brojJabuka + 1;
+        brojJabuka ==&gt; 6
+        brojJabuka += 1;
+        $23 ==&gt; 7
+      </code></pre><p>U izrazu <code>brojJabuka + 1</code>, vrijednost <code>brojJabuka</code> odnosi se na <strong>zadnju vrijednost varijable</strong>,
+dakle vrijednost prije ove linije, tj. <code>5</code>.</p>
+<p>Postoji i skraćena verzija za ovo, prikazana na liniji 3, s operatorom <code>+=</code>.<br />
+Također imaju skraćene verzije i za oduzimanje, množenje, dijeljenje i modulo:
+<code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code> respektivno.<br />
+Ovo &quot;respektivno&quot; je fancy izraz za &quot;u navedenom redoslijedu&quot;. :D</p>
+</div><section><h4 id="nazivi-varijabli">Nazivi varijabli</h4><p>Nazivi varijabli i tipova (en. identifiers) ne mogu imati razmake u sebi,
+ne mogu biti nijedna od rezervisanih riječi kao što je <code>class</code>, <code>int</code>.<br />
+Ne mogu biti neki rezervisani znakovi, kao npr. <code>,</code>, <code>&amp;</code> itd.<br />
+Ne mogu počinjati brojem.
+Primjeri nevalidnih naziva varijabli (isprobajte u JShellu):</p>
+<ul>
+<li>int my variable = 5</li>
+<li>int int = 5</li>
+<li>int , = 5</li>
+<li>int 5something = 5</li>
+</ul>
+<p>Primjeri validnih naziva varijabli:</p>
+<ul>
+<li>int _abc = 5</li>
+<li>int $xyz = 5</li>
+<li>int Z = 5</li>
+<li>int t$df_x = 5</li>
+</ul>
+<p>Mogu se koristiti simboli <code>_</code> i <code>$</code> ali ih treba izbjegavati,
+pogotovo kao prvi karakter u nazivu varijable!</p>
+<p>Preporučeno je (konvencija, dobra praksa) da varijable počinju malim slovom,
+da su <em>camelCase</em> (svaka iduća riječ počinje velikim slovom), npr. <code>myVariable</code>.<br />
+Konstante (varijable koje se neće mijenjati) se pišu velikim slovima
+i riječi su razdvojene donjom crticom, npr. <code>MY_CONST</code>.</p>
+</section></section></div></article><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#j-shell">JShell</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#izrazi-i-operatori">Izrazi i operatori</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#varijable">Varijable</a><ul class="nav nav-pills nav-stacked"><li><a href="#nazivi-varijabli">Nazivi varijabli</a></li></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script>
+            // activate scrollspy on body
+            $('body').scrollspy({
+                target: '#tocScrollspy',
+                offset: 55 // ~~ when the first heading starts...
+            });
+            
+            // fix scrollspy for current page sections
+            $('#tocScrollspy').affix({
+                offset: { top: 10 } // when to start moving fixed div
+            });
+          </script></body></html>

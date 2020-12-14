@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Uvod u programiranje." /><meta name="og:title" content="blog.sake.ba" /><title>Uvod u programiranje - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.png" type="image/x-icon" /><link rel="manifest" href="../../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="stylesheet" href="../../../styles/print.css" /><style>
+        body { padding-top: 73px; }
+      </style><style>
+      /* scrollspy stuff */
+      nav#tocScrollspy  .nav>li>a {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-size: .9em;
+      }
+      nav#tocScrollspy .nav .nav>li>a {
+          padding-top: 1px;
+          padding-bottom: 1px;
+          padding-left: 3em;
+          font-size: .7em;
+      }
+      
+      /* turn off affix on screens less than md */
+      @media (max-width: 991px) { 
+          .affix { position: static; }
+      }
+      @media (min-width: 992px) {
+          /* col-3 is 25% but it's nicer like this */
+          .affix { width: 23%; }
+      }
+      @media (min-width: 992px) {
+          .affix {
+              overflow-y: auto;
+              height: 85%; /* nicer if not full height */
+          }
+      }
+      .affix { padding-left: 2em; }
+    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../index.html"><span><img src="../../../images/favicon.png" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class="active"><a href="index.html">Programiranje</a></li><li class=""><a href="../scala/index.html">Scala</a></li><li class=""><a href="../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class="active"><a href="index.html">Početna</a></li><li class=""><a href="instalacija.html">Instalacija</a></li><li class=""><a href="basics.html">Osnove</a></li><li class=""><a href="types.html">Tipovi</a></li><li class=""><a href="statements.html">Naredbe</a></li><li class=""><a href="hello-world.html">Poyy sviete!</a></li><li class=""><a href="branching.html">Uslovno grananje</a></li><li class=""><a href="loops.html">Ponavljanje naredbi</a></li><li class=""><a href="functions.html">Funkcije</a></li><li class=""><a href="arrays.html">Nizovi</a></li><li class=""><a href="types2.html">Tipovi, opet</a></li><li class=""><a href="classes.html">Klase</a></li><li class=""><a href="scope.html">Scope, opseg</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"><div><span class="glyphicon glyphicon-time"></span> 01.07.2017</div><div><span class="glyphicon glyphicon-user"></span>  Sakib Hadžiavdić</div></div><article><div><section><h3 id="uvod">Uvod</h3><p>Vrlo je teško ustanoviti odakle početi s objašnjavanjem termina i suštine programiranja.
+Pretpostavljam da znate makar neke osnove matematike, i naravno koristiti računar...</p>
+<p>Dosta vremena ćemo posvetiti objašnjavanju koncepata i terminologije.
+Terminologija je možda i najbitnija jer ćete kasnije lakše razgovarati o datim konceptima
+i brže ćete učiti ostale programske jezike, &quot;povezivati kockice&quot;...</p>
+</section><section><h3 id="komunikacija">Komunikacija</h3><p>Mi ljudi za sebe tvrdimo da smo inteligentna bića.
+Jedan od dokaza za to je i mnoštvo naših načina komunikacije.
+Komunikacija podrazumijeva <strong>razmjenu informacija</strong> između dva ili više učesnika (ne moraju biti ljudi),
+koristeći zajedničke znakove i pravila.<br />
+U ovo se ubrajaju vizuelne metode (znakovni jezici, grimase, kolutanje očima), audio metode (govor, muzika),
+fizičke (kad vas neko udari jer ste nepristojni npr.).<br />
+Danas u svijetu postoji više od 5.000 jezika, od kojih većina nažalost lagano izumire.</p>
+<p>Ljudi pričaju i sa robotima, ako ništa gledali ste futurističke filmove.<br />
+Ako se nas ljude pita, to je <em>idealan način za komuniciranje</em>.<br />
+Međutim, <strong>mašine su u suštini vrlo glupe</strong>, nemaju inteligenciju kao živa bića.</p>
+<p>Mašine nemaju mozak, tijelo, uši, glasne žice... Sve im to moramo obezbijediti, da bi bile &quot;inteligentne&quot;.
+Neki od tih organa su predstavljeni kompjuterom, mehaničkim dijelovima, mikrofonom, zvučnikom itd.</p>
+<p>Kompjuter je mozak mašine, on upravlja svime.
+Na njega su povezani svi ostali uređaji (organi).<br />
+Nama ljudima <strong>misli dolaze same od sebe</strong> (većini, neki ljudi ne misle nikako), ali kompjuterima ne.
+I to im moramo &quot;ručno&quot; unijeti...
+Te kompjuterske misli su ustvari naše <strong>naredbe</strong>, koje se skupno nazivaju <strong>program</strong>.</p>
+<p>Ovdje smo da naučimo neke od načina za komuniciranje s kompjuterima.<br />
+Naime, ljudi su razvili na stotine <strong>programskih jezika</strong> koje se koriste za pisanje kompjuterskih programa.<br />
+Ovi jezici su slični našim jezicima, imaju svoju <strong>sintaksu</strong>, <strong>gramatiku</strong> i <strong>pravopis</strong>.</p>
+</section><section><h3 id="apstrakcije">Apstrakcije</h3><p>Kroz život, svjesno ili nesvjesno, naučili smo koristiti apstrakcije.
+Apstrakcija je ustvari <em>generalizovanje</em>, uopćavanje nečeg konkretnog.
+U <strong>datom kontekstu</strong> bitna su nam <strong>samo neka svojstva</strong> datog objekta/stvari/koncepta.
+Naprimjer kada kažemo automobil, podrazumijevamo nešto sa 4 točka, motorom itd.<br />
+To je apstraktni automobil, njegova takoreći definicija, dok je konkretan automobil npr. komšijin Pežo(v) 307, iz 2001. godine.</p>
+<p>U fizici i hemiji imamo apstrakciju atoma. Zatim se uvodi apstrakcija molekule, koja se sastoje od više atoma.
+Kada se govori o molekulama, znamo da su &quot;ispod&quot; atomi, ali nas u datom kontekstu to ne zanima!
+Kontekst predstavlja skup okolnosti i činjenica, još jedna vrlo bitna stvar kada se govori o apstrakcijama.</p>
+<p>U matematici imamo apstrakciju broja. Kada kažemo broj obično mislimo na cijeli broj. Ali ne kažemo koji broj!?<br />
+Dakle, samo znamo da mislimo na <strong>neki</strong> broj.</p>
+</section><section><h3 id="programi">Programi</h3><div><p>Rekli smo da je program <strong>niz naredbi</strong> koje računar treba izvršiti,
+u cilju dobijanja nekog rezultata.<br />
+Kako svi ljudi razmišljaju na sebi svojstven način,
+postoji teoretski beskonačno mnogo rješenja (programa) za jedan te isti problem!</p>
+<p>Programi često komuniciraju i sa &quot;vanjskim svijetom&quot;.<br />
+Npr. ako trebamo učitati neki tekstualni fajl i prebrojati sve riječi,
+taj fajl <strong>nije dio programa</strong> već je <strong>ulaz</strong> (en. input) u naš program.
+Isto vrijedi i za klik miša, unos sa tastature, mikrofona i sl.</p>
+<p>Analogno, kada želimo ispisati nešto na ekran, pustiti muziku na zvučnik, to se zove <strong>izlaz</strong> (en. output) iz našeg programa.</p>
+<p>Naravno, da ne bismo &quot;izmišljali toplu vodu&quot; možemo se okoristiti znanjem stečenim kroz ljudsku historiju.<br />
+Ljudi su nadošli na koncept algoritma, koji predstavlja nedvosmislenu specifikaciju za rješavanje nekog problema.<br />
+Tj. <strong>algoritam</strong> je niz precizno definisanih koraka za dobijanje nekog rezultata.<br />
+Laički rečeno, to je recept za implementaciju neke funkcije.</p>
+<div class="row"><div class="col-lg-6 col-md-6"><p>U toku pisanja koda nekog programa često će nam se pojavljivati <strong>greške</strong>.<br />
+Tj. program se izvršava ali ne radi kako bismo željeli. Te greške se nazivaju bagovi (en. bug - buba, insekt).<br />
+Za program koji ima takve greške kaže se da je  <em>bagovit</em>.<br />
+Proces u kojem tražimo greške i ispravljamo ih naziva se debagovanje.</p>
+</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../../images/programming/error.jpg" class="img-responsive" alt="To je to." /><div class="caption text-center"><p>To je to.</p></div></div></div></div></div></section></div></article><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#uvod">Uvod</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#komunikacija">Komunikacija</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#apstrakcije">Apstrakcije</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#programi">Programi</a><ul class="nav nav-pills nav-stacked"></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script>
+            // activate scrollspy on body
+            $('body').scrollspy({
+                target: '#tocScrollspy',
+                offset: 55 // ~~ when the first heading starts...
+            });
+            
+            // fix scrollspy for current page sections
+            $('#tocScrollspy').affix({
+                offset: { top: 10 } // when to start moving fixed div
+            });
+          </script></body></html>

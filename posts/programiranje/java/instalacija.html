@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Postupak downloada i instalacije Java platforme: JDK, JRE, javac, java." /><meta name="og:title" content="blog.sake.ba" /><title>Instalacija - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.png" type="image/x-icon" /><link rel="manifest" href="../../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="stylesheet" href="../../../styles/print.css" /><style>
+        body { padding-top: 73px; }
+      </style><style>
+      /* scrollspy stuff */
+      nav#tocScrollspy  .nav>li>a {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-size: .9em;
+      }
+      nav#tocScrollspy .nav .nav>li>a {
+          padding-top: 1px;
+          padding-bottom: 1px;
+          padding-left: 3em;
+          font-size: .7em;
+      }
+      
+      /* turn off affix on screens less than md */
+      @media (max-width: 991px) { 
+          .affix { position: static; }
+      }
+      @media (min-width: 992px) {
+          /* col-3 is 25% but it's nicer like this */
+          .affix { width: 23%; }
+      }
+      @media (min-width: 992px) {
+          .affix {
+              overflow-y: auto;
+              height: 85%; /* nicer if not full height */
+          }
+      }
+      .affix { padding-left: 2em; }
+    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../index.html"><span><img src="../../../images/favicon.png" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class="active"><a href="index.html">Programiranje</a></li><li class=""><a href="../scala/index.html">Scala</a></li><li class=""><a href="../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class=""><a href="index.html">Početna</a></li><li class="active"><a href="instalacija.html">Instalacija</a></li><li class=""><a href="basics.html">Osnove</a></li><li class=""><a href="types.html">Tipovi</a></li><li class=""><a href="statements.html">Naredbe</a></li><li class=""><a href="hello-world.html">Poyy sviete!</a></li><li class=""><a href="branching.html">Uslovno grananje</a></li><li class=""><a href="loops.html">Ponavljanje naredbi</a></li><li class=""><a href="functions.html">Funkcije</a></li><li class=""><a href="arrays.html">Nizovi</a></li><li class=""><a href="types2.html">Tipovi, opet</a></li><li class=""><a href="classes.html">Klase</a></li><li class=""><a href="scope.html">Scope, opseg</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"><div><span class="glyphicon glyphicon-time"></span> 02.07.2017</div><div><span class="glyphicon glyphicon-user"></span>  Sakib Hadžiavdić</div></div><article><div><section><h3 id="instalacija-jave">Instalacija Jave</h3><div><p>Ako vam je baš mrsko instalirati Javu, postoje i online verzije</p>
+<ul>
+<li><a href="https://www.jdoodle.com/online-java-compiler">Java</a></li>
+<li><a href="https://tryjshell.org/">JShell</a></li>
+</ul>
+<p>Zgodne su za probavanje i igranje sa Javom.</p>
+<hr />
+<p>Preporučujem da instalirate <a href="https://jdk.java.net/11">Javu 11</a>.<br />
+Samo downloadujte i raspakujte zip npr. u <code>C:\Java</code>.<br />
+Idući korak je <a href="#dodavanje-path-varijabli">dodavanje PATH varijable</a>.</p>
+<hr />
+<p>Instalacija <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Jave 8</a> je malo komplikovanija, ali je dostupna i za 32-bitne i 64-bitne računare.<br />
+Naravno, možete instalirati više verzija Jave, ali samo jednu možete dodati u <code>PATH</code>!</p>
+<div class="thumbnail"><img src="../../../images/java/download-jdk-1.jpg" class="img-responsive" alt="JDK download step 1" /><div class="caption text-center"><p>JDK download step 1</p></div></div><p>Kada se otvori stranica sa prethodne slike kliknite na dugme <strong>download JDK</strong>.</p>
+<blockquote>
+<p>JDK (Java Development Kit) su alati za razvijanje Java programa: kompajler, debager itd.
+JDK sadrži JRE (Java Runtime Environment) koji služi za pokretanje Java programa (JVM, Java API klase itd).</p>
+</blockquote>
+<p>Na sljedećoj slici kliknite na &quot;jdk-8u131-windows-x64.exe&quot;.<br />
+To je instalacija za 64-bitni Windows.<br />
+Ako znate da imate 32-bitni Windows onda skinite tu verziju...</p>
+<div class="thumbnail"><img src="../../../images/java/download-jdk-2.jpg" class="img-responsive" alt="JDK download step 2" /><div class="caption text-center"><p>JDK download step 2</p></div></div><p>Preporučujem da Javu instalirate u folder pod nazivom <code>C:\Java</code>.<br />
+Ovo ne morate raditi ali je korisno kada vam treba više verzija Jave.<br />
+Također, neki programi na Windowsu imaju problema kada putanja sadrži razmak,
+zato nećemo instalirati u <code>Program Files</code>...</p>
+<blockquote>
+<p><strong>Napomena</strong>: Ne trebate instalirati i JRE!<br />
+Kada vam dođe prozor za JRE kliknite Cancel! (iksić).<br />
+Upravo sam vam uštedio 100-tinjak megabajta, nema na čemu... :D</p>
+</blockquote>
+<p>Dakle, kada se završi download, otvorite instalaciju i kliknite Next.<br /><div class="thumbnail"><img src="../../../images/java/install-jdk-folder.jpg" class="img-responsive" alt="JDK folder" /><div class="caption text-center"><p>JDK folder</p></div></div><p>Zatim kliknite dugme &quot;Change...&quot; i prepravite putanju foldera na <code>C:\Java\jdk1.8.0_131</code>.<br />
+JRE će već biti instaliran zajedno sa JDK! Tako da nam ne treba još jedna instalacija...</p>
+<div class="thumbnail"><img src="../../../images/java/install-jre-no.jpg" class="img-responsive" alt="JRE, nope!" /><div class="caption text-center"><p>JRE, nope!</p></div></div></p></div></section><section><h3 id="dodavanje-path-varijabli">Dodavanje PATH varijabli</h3><div><p><p>Dio koji slijedi vezan je više za sam rad operativnog sistema (Windows u našem slučaju) nego za Javu.<br />
+Otvorite <code>Computer Properties</code> na Windowsu (desni klik na My Computer -&gt; Properties). Otvoriće vam se sljedeći prozor:</p>
+<div class="thumbnail"><img src="../../../images/os/windows/computer-properties.jpg" class="img-responsive" alt="Computer Properties" /><div class="caption text-center"><p>Computer Properties</p></div></div>Kliknite na Advanced System Settings. Dobićete sljedeći prozor: <div class="thumbnail"><img src="../../../images/os/windows/system-properties.jpg" class="img-responsive" alt="System Properties" /><div class="caption text-center"><p>System Properties</p></div></div></p><p><p>Otvorite <code>Advanced</code> tab i kliknite <code>Environment Variables...</code>.<br />
+Dodajte 3 sistemske varijable u donji prozor (u System Variables):</p>
+<table class="table table-hover"><tr><th>Naziv varijable</th><th>Vrijednost</th></tr><tr><td>JAVA_HOME</td><td>C:\Java\jdk1.8.0_131</td></tr><tr><td>JDK_HOME</td><td>%JAVA_HOME%</td></tr><tr><td>JRE_HOME</td><td>%JAVA_HOME%\jre</td></tr></table><p><strong>Glavno</strong>, otvorite <code>PATH</code> varijablu i dodajte <code>;%JAVA_HOME%\bin</code> na kraj.<br />
+Nemojte zaboravit tačkazarez kopirati! :D<br />
+Bez navodnika, naravno! Kliknite Ok, Ok...</p>
+<p>To je to! Uspješno ste instalirali Javu! :)<br />
+Stanje bi trebalo biti otprilike ovako:</p>
+<div class="thumbnail"><img src="../../../images/os/windows/system-variables.jpg" class="img-responsive" alt="System Properties" /><div class="caption text-center"><p>System Properties</p></div></div></p></div></section><section><h3 id="provjera">Provjera</h3><div><p>Da bi provjerili jesmo li uspješno obavili zadatak,
+otvorićemo Command Prompt (kod Linuxaša se rekne Shell).<br />
+Otvorite Start, ukucajte <code>cmd</code> i kliknite <kbd>Enter</kbd>. Ukucajte <code>java -version</code>.<br />
+Ako dobijete poruku
+<code>'java' is not recognized as an internal or external command, operable program or batch file.</code>
+nešto nije uredu, provjerite sve korake sekcije <a href="#dodavanje-path-varijabli">Dodavanje PATH varijabli</a> ponovo!</p>
+Ako dobijete nešto slično sljedećoj slici, sve je OK:<div class="thumbnail"><img src="../../../images/os/windows/cmd-java-version.jpg" class="img-responsive" alt="Java verzija" /><div class="caption text-center"><p>Java verzija</p></div></div></div></section></div></article><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#instalacija-jave">Instalacija Jave</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#dodavanje-path-varijabli">Dodavanje PATH varijabli</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#provjera">Provjera</a><ul class="nav nav-pills nav-stacked"></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script>
+            // activate scrollspy on body
+            $('body').scrollspy({
+                target: '#tocScrollspy',
+                offset: 55 // ~~ when the first heading starts...
+            });
+            
+            // fix scrollspy for current page sections
+            $('#tocScrollspy').affix({
+                offset: { top: 10 } // when to start moving fixed div
+            });
+          </script></body></html>
