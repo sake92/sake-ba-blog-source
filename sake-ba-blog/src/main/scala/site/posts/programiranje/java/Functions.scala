@@ -22,9 +22,7 @@ object Functions extends JavaTemplate {
       """
         Prvo malo terminologije:
         
-        Potprogram (en. subprogram, subroutine) je **dio programa** koji možemo pozvati po **imenu**.  
-        U nekim jezicima pravi se razlika između *funkcije* (potprogram koji ima rezultat), 
-          i *procedure* (nema rezultat).  
+        Potprogram (en. subprogram, subroutine, procedure) je **dio programa** koji možemo pozvati po **imenu**.  
         Java ih zove... khm... **metode**... :D  
         Ja ću najčešće koristiti termin "funkcija" ili "metoda", kako kad.
 
@@ -42,7 +40,7 @@ object Functions extends JavaTemplate {
         - tip vrijednosti koju **vraća funkcija**. 
         Kod nas je to `int`, jer je rezultat sabiranja dva `int`a također `int`.  
         - naziv funkcije, kod nas je to "suma"
-        - lista parametara u zagradama, ovdje su to brojevi `a` i `b`: `int a, int b`.  
+        - lista parametara u zagradama, ovdje su to brojevi: `int a, int b`.  
         Ako nema parametara onda idu samo zagrade, npr. `mojaFunkcija()`
         - tijelo funkcije u vitičastim zagradama
         - ključna riječ `return` i **rezultat** funkcije
@@ -58,7 +56,7 @@ object Functions extends JavaTemplate {
         $6 ==> 5
       """),
       """
-        Funkcija se poziva navođenjem njenog imena, i parametara unutar zagrada.  
+        Funkcija se poziva navođenjem njenog imena, i argumenata unutar zagrada.  
         Npr. `suma(1, 4)`.  
         Pošto poziv funkcije vraća vrijednost `int`, možemo je spasiti u varijablu,  
           npr. `int rezultat = suma(1, 4)`.  

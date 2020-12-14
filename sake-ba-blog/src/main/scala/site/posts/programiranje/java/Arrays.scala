@@ -111,8 +111,8 @@ object Arrays extends JavaTemplate {
       chl.java(
         """
         int[][] brStanaraPoStanovima = { 
-          {1, 2, 3, 4}, // prvi red (sprat)
-          {5, 6, 2}     // drugi red (sprat)
+          {1, 2, 3, 4}, // prvi sprat
+          {5, 6, 2}     // drugi sprat
         };
         
         for (int i = 0; i < brStanaraPoStanovima.length; ++i) {

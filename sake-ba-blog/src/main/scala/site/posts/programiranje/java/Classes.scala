@@ -22,9 +22,9 @@ object Classes extends JavaTemplate {
       """
       Recimo da imamo zadatak da napravimo program za praćenje učenika u razredu.  
       Za svakog učenika moramo unijeti ime, prezime i prosječnu ocjenu.  
-      Trebamo ispisati sve ove podatke i na kraju naći prosjek razreda.
+      Trebamo ispisati sve ove podatke i na kraju naći prosjek ocjena u razredu.
       
-      Kako bismo ovo uradili s do sada naučenim konceptima?  
+      Kako bismo ovo uradili sa do sada naučenim konceptima?  
       Imena možemo staviti npr. u niz `String[] imena`.  
       Prezimena možemo staviti npr. u niz `String[] prezimena`.  
       Ocjene ćemo staviti npr. u niz `double[] prosjeci`. 
@@ -79,7 +79,8 @@ object Classes extends JavaTemplate {
       ```java
       Ucenik ucenik = new Ucenik();
       ```
-      Ovaj operator poziva "funkciju" koja kreira novi objekat i naziva se **konstruktor**.   
+      Ovaj operator naziva se **konstruktor**.  
+      Konstruktor je kao "funkcija" koja kreira novi objekat i vrati nam referencu na njega.    
       Kompajler nam **automatski kreira konstruktor** za nas, kasnije ćemo vidjeti kako sami možemo definisati konstruktor(e).
       """.md
     )

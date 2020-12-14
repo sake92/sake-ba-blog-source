@@ -46,8 +46,7 @@ object Types2 extends JavaTemplate {
       "Referentni tipovi",
       div(
         """
-        U referentne tipove ubrajaju se svi tipovi koji **nisu primitivni**.  
-        Zato se negdje nazivaju i "neprimitivnim tipovima"...  
+        U referentne tipove ubrajaju se svi **tipovi koji nisu primitivni**.  
         Ove tipove **možemo definisati i mi sami**.  
         Konvencija je da se pišu velikim početnim slovom.
 
@@ -56,8 +55,12 @@ object Types2 extends JavaTemplate {
 
         ##### Reference
         **Varijable** koje imaju referentni tip nazivaju se **reference**.  
-        VAŽNO: Svaka referenca može imati vrijednost `null`!!!  
-        Primitivne varijable nikada ne mogu biti `null`.
+        
+        > VRLO VAŽNO: Svaka referenca može imati vrijednost `null`!!!  
+        > Primitivne varijable nikada ne mogu biti `null`.
+        
+        > Vrijednost `null` je specijalna vrijednost.  
+        > Ona označava da je varijabla "prazna", neupotrebljiva. 
         """.md
       )
     )
