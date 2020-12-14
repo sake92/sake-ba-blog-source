@@ -16,7 +16,7 @@ object SiteMapHTML {
         }
         frag(
           li(hyperlink(caller.relTo(mp))(mp.pageSettings.title)),
-          ul(childrenPages)
+          li(ul(childrenPages))
         )
       case mp =>
         li(hyperlink(caller.relTo(mp))(mp.pageSettings.title))
