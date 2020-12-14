@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="While petlja u Javi." /><meta name="og:title" content="blog.sake.ba" /><title>While petlja - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.png" type="image/x-icon" /><link rel="manifest" href="../../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="stylesheet" href="../../../styles/print.css" /><style>
+        body { padding-top: 73px; }
+      </style><style>
+      /* scrollspy stuff */
+      nav#tocScrollspy  .nav>li>a {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-size: .9em;
+      }
+      nav#tocScrollspy .nav .nav>li>a {
+          padding-top: 1px;
+          padding-bottom: 1px;
+          padding-left: 3em;
+          font-size: .7em;
+      }
+      
+      /* turn off affix on screens less than md */
+      @media (max-width: 991px) { 
+          .affix { position: static; }
+      }
+      @media (min-width: 992px) {
+          /* col-3 is 25% but it's nicer like this */
+          .affix { width: 23%; }
+      }
+      @media (min-width: 992px) {
+          .affix {
+              overflow-y: auto;
+              height: 85%; /* nicer if not full height */
+          }
+      }
+      .affix { padding-left: 2em; }
+    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../index.html"><span><img src="../../../images/favicon.png" alt="" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class="active"><a href="index.html">Programiranje</a></li><li class=""><a href="../scala/index.html">Scala</a></li><li class=""><a href="../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class=""><a href="index.html">Početna</a></li><li class=""><a href="instalacija.html">Instalacija</a></li><li class=""><a href="basics.html">Osnove</a></li><li class=""><a href="types.html">Tipovi</a></li><li class=""><a href="statements.html">Naredbe</a></li><li class=""><a href="hello-world.html">Poyy sviete!</a></li><li class=""><a href="if-statement.html">If naredba</a></li><li class=""><a href="switch-statement.html">Switch naredba</a></li><li class="active"><a href="while-loop.html">While petlja</a></li><li class=""><a href="for-loop.html">For petlja</a></li><li class=""><a href="functions.html">Funkcije</a></li><li class=""><a href="arrays.html">Nizovi</a></li><li class=""><a href="types2.html">Tipovi, opet</a></li><li class=""><a href="classes.html">Klase</a></li><li class=""><a href="scope.html">Scope, opseg</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"><div><span class="glyphicon glyphicon-time"></span> 04.02.2018</div><div><span class="glyphicon glyphicon-user"></span>  Sakib Hadžiavdić</div></div><div><section><h3 id="ponavljanje-naredbi">Ponavljanje naredbi</h3><div><p>Kada želimo ponavljati izvršiti neki dio koda više puta,
+najjednostavniji način je copy-paste.
+Kopiramo ga n-puta i završeno! :D</p>
+<p>Međutim, ovo nije fleksibilno kada kasnije želimo da izmijenimo taj djelić koda.<br />
+Tada moramo izmijeniti sve linije... :/</p>
+<p>Zato postoje specijalne naredbe za <strong>ponavljanje</strong>: <code>while</code> i <code>for</code>.<br />
+Zovu se još i &quot;petlje&quot;, jer se vrlo lahko zapetljati u njima.</p>
+</div><section><h4 id="while-naredba">While naredba</h4><div><p>U sljedećem primjeru želimo izvršavati kod sve dok je neki <strong>uslov</strong> ispunjen (en. while je &quot;dok&quot;).</p>
+<pre class="line-numbers" data-line="2" data-line-offset="0" data-start="1"><code class="language-java">
+          int i = 0;
+          while(i &lt; 10) {
+              System.out.println(&quot;Cifra i je: &quot; + i);
+              i = i + 1;
+          }
+          
+        </code></pre><p>Naravno, unutar tog bloka <strong>uslov se mora mijenjati</strong>, inače se program <em>neće nikad zaustaviti</em>.<br />
+To se naziva <strong>beskonačna petlja</strong> i obično nije poželjna... :)</p>
+<p>Uslov se ispituje u svakoj <strong>iteraciji</strong> petlje. Dakle, svaki put kada se dođe do linije 5 uslov će se ponovo ispitati.
+Ako uslov nije zadovoljen, petlja se zaustavlja i program se nastavlja izvršavati na liniji 6.
+Slijedi i vizuelni dijagram izvršenja ove naredbe:</p>
+<div class="text-center"><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="266px" preserveAspectRatio="none" style="width:225px;height:266px;background:#EEEBDC;" version="1.1" viewBox="0 0 225 266" width="225px" zoomAndPan="magnify"><defs/><g><ellipse cx="112.5" cy="20" fill="#000000" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"/><rect fill="#FFFFFF" height="161.9761" style="stroke: #000000; stroke-width: 2.0;" width="203" x="11" y="40"/><path d="M58,40 L58,49.2969 L48,59.2969 L11,59.2969 " fill="none" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="37" x="14" y="53.9951">While</text><rect fill="#FEFECE" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="147" x="39" y="132.0073"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="127" x="49" y="153.146">naredbe while petlje</text><polygon fill="#FEFECE" points="92.5,76.2969,132.5,76.2969,144.5,88.2969,132.5,100.2969,92.5,100.2969,80.5,88.2969,92.5,76.2969" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="28" x="116.5" y="110.5073">jeste</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="40" x="92.5" y="92.105">uslov?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="20" x="60.5" y="85.7026">nije</text><rect fill="#FEFECE" height="33.9688" rx="12.5" ry="12.5" style="stroke: #A80036; stroke-width: 1.5;" width="116" x="54.5" y="221.9761"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="96" x="64.5" y="243.1147">ostale naredbe</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="112.5" x2="112.5" y1="100.2969" y2="132.0073"/><polygon fill="#A80036" points="108.5,122.0073,112.5,132.0073,116.5,122.0073,112.5,126.0073" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #0000FF; stroke-width: 2.0;" x1="112.5" x2="112.5" y1="165.9761" y2="177.9761"/><line style="stroke: #0000FF; stroke-width: 2.0;" x1="112.5" x2="198" y1="177.9761" y2="177.9761"/><polygon fill="#0000FF" points="194,140.5894,198,130.5894,202,140.5894,198,136.5894" style="stroke: #0000FF; stroke-width: 2.0;"/><line style="stroke: #0000FF; stroke-width: 2.0;" x1="198" x2="198" y1="88.2969" y2="177.9761"/><line style="stroke: #0000FF; stroke-width: 2.0;" x1="198" x2="144.5" y1="88.2969" y2="88.2969"/><polygon fill="#0000FF" points="154.5,84.2969,144.5,88.2969,154.5,92.2969,150.5,88.2969" style="stroke: #0000FF; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="24" x="116.5" y="175.7842">loop</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="80.5" x2="27" y1="88.2969" y2="88.2969"/><polygon fill="#A80036" points="23,126.5894,27,136.5894,31,126.5894,27,130.5894" style="stroke: #A80036; stroke-width: 1.5;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="27" x2="27" y1="88.2969" y2="189.9761"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="27" x2="112.5" y1="189.9761" y2="189.9761"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="112.5" x2="112.5" y1="189.9761" y2="221.9761"/><polygon fill="#A80036" points="108.5,211.9761,112.5,221.9761,116.5,211.9761,112.5,215.9761" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="112.5" x2="112.5" y1="30" y2="76.2969"/><polygon fill="#A80036" points="108.5,66.2969,112.5,76.2969,116.5,66.2969,112.5,70.2969" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[8f880f58acab0081e6beb16fb258f1b1]
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam shadowing false
+
+start
+
+partition While {
+  while (**uslov?**) is (jeste)
+    :naredbe while petlje;
+    -[#blue,bold]-> loop;
+  endwhile (nije)
+}
+
+:ostale naredbe;
+
+@enduml
+
+PlantUML version 1.2020.18(Wed Sep 30 19:40:44 UTC 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg></div></div></section></section></div><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#ponavljanje-naredbi">Ponavljanje naredbi</a><ul class="nav nav-pills nav-stacked"><li><a href="#while-naredba">While naredba</a></li></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script>
+            // activate scrollspy on body
+            $('body').scrollspy({
+                target: '#tocScrollspy',
+                offset: 55 // ~~ when the first heading starts...
+            });
+            
+            // fix scrollspy for current page sections
+            $('#tocScrollspy').affix({
+                offset: { top: 10 } // when to start moving fixed div
+            });
+          </script></body></html>
