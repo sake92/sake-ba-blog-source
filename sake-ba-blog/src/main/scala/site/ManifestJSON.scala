@@ -24,7 +24,7 @@ object ManifestJSON extends Renderable {
       .withBackgroundColor("#000")
       .withThemeColor("#000")
       .withName("Saketovi tutorijali")
-      .withShortName("Sake tutorijali")
+      .withShortName("Sake tuts")
       .withDescription("Tutorijali iz programiranja")
       .withIcons(icons)
     HepekPickler.write(mf)

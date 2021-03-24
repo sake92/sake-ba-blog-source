@@ -33,7 +33,7 @@ trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
   override def staticSiteSettings =
     super.staticSiteSettings
       .withIndexPage(site.Index)
-      .withMainPages(Site.mainPages)
+      .withMainPages(Site.bs.mainPages)
 
   override def siteSettings =
     super.siteSettings

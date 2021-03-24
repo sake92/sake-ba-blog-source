@@ -18,6 +18,8 @@ object Index extends templates.SakeBaBlogStaticPage {
     div(cls := "well well-lg col-md-6 col-md-push-3 pages-toc")(
       s"""
       #### Pozdrav i dobrodošli! :)
+
+      Click [here](${site.en.Index.ref}) for the English version of this blog!
       
       Ako ste totalni početnik, i želite naučiti programirati,
       preporučujem da počnete sa [dijagramima toka](${posts.programiranje.flowcharts.Index.ref}).
@@ -29,14 +31,14 @@ object Index extends templates.SakeBaBlogStaticPage {
       row(
         half(
           "Mapa sajta:".md,
-          div(SiteMapHTML.siteMap)
+          div(SiteMapHTML.siteMap(Site.bs.mainPages))
         ),
         half(
           s"""
             Tutorijali u PDF-u:
-            - [Uvod u programiranje](${Site.programiranjePdf.ref})
-            - [Scala](${Site.scalaPdf.ref})
-            - [Matematika](${Site.matematikaPdf.ref})
+            - [Uvod u programiranje](${Site.bs.programiranjePdf.ref})
+            - [Scala](${Site.bs.scalaPdf.ref})
+            - [Matematika](${Site.bs.matematikaPdf.ref})
           """.md
         )
       )
