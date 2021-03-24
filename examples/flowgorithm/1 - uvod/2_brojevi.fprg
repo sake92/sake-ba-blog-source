@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="LENOVO"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2020-12-13 08:01:41 PM"/>
+        <attribute name="created" value="TEVOT1ZPO0RFU0tUT1AtNEtST1ZDVTsyMDIwLTEyLTEzOzA3OjE0OjI3IFBNOzI4NTI="/>
+        <attribute name="edited" value="TEVOT1ZPO0RFU0tUT1AtNEtST1ZDVTsyMDIwLTEyLTEzOzA4OjAxOjQxIFBNOzg7Mjk2MA=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <output expression="10 + 3" newline="True"/>
+            <output expression="10 - 3" newline="True"/>
+            <output expression="10 * 3" newline="True"/>
+            <output expression="10 / 3" newline="True"/>
+            <output expression="10 % 3" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

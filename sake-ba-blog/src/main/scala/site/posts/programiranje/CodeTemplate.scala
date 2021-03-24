@@ -14,7 +14,8 @@ trait CodeTemplate extends SakeBaBlogPage with PrismDependencies {
     "scala",
     "java",
     "markup",
-    "markup-templating"
+    "markup-templating",
+    "vbnet"
   )
 
   override def prismSettings =

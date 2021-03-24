@@ -37,4 +37,26 @@ object Images {
     val error = jpg("programming/error")
   }
 
+  object flowcharts {
+
+    object intro {
+      val base           = "flowcharts/intro"
+      val program        = jpg(s"$base/program")
+      val zdravo_svijete = jpg(s"$base/zdravo_svijete")
+    }
+
+    object vars {
+      val base      = "flowcharts/vars"
+      val kvadrat_1 = jpg(s"$base/kvadrat_1")
+      val kvadrat_2 = jpg(s"$base/kvadrat_2")
+      val kvadrat_3 = jpg(s"$base/kvadrat_3")
+    }
+
+    object input {
+      val base    = "flowcharts/input"
+      val input_1 = jpg(s"$base/input_1")
+      val input_2 = jpg(s"$base/input_2")
+    }
+  }
+
 }

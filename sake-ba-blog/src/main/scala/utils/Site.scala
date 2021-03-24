@@ -10,6 +10,7 @@ object Site {
   val name = "blog.sake.ba"
 
   def mainPages: List[StaticPage] = List(
+    posts.programiranje.flowcharts.Index,
     posts.programiranje.java.Index,
     posts.programiranje.scala.Index,
     posts.programiranje.ProgrammingGlossary,

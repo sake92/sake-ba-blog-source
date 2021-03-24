@@ -16,6 +16,16 @@ object Index extends templates.SakeBaBlogStaticPage {
 
   override def pageContent = frag(
     div(cls := "well well-lg col-md-6 col-md-push-3 pages-toc")(
+      s"""
+      #### Pozdrav i dobrodošli! :)
+      
+      Ako ste totalni početnik, i želite naučiti programirati,
+      preporučujem da počnete sa [dijagramima toka](${posts.programiranje.flowcharts.Index.ref}).
+      Dosta je lakše početi sa *vizuelnim programiranjem*, a i kasnije će vam biti lakše razumjeti
+      tekstualnu reprezentaciju programa.
+      
+      ---
+      """.md,
       row(
         half(
           "Mapa sajta:".md,
