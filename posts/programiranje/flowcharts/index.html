@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Uvod u dijagrame toka." /><meta name="og:title" content="blog.sake.ba" /><title>Uvod u dijagrame toka - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.png" type="image/x-icon" /><link rel="manifest" href="../../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="stylesheet" href="../../../styles/print.css" /><style>
-        body { padding-top: 73px; }
+        body { padding-top: 57px; }
       </style><style>
       /* scrollspy stuff */
       nav#tocScrollspy  .nav>li>a {
@@ -29,8 +29,79 @@
           }
       }
       .affix { padding-left: 2em; }
-    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../index.html"><span><img src="../../../images/favicon.png" alt="" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class=""><a href="../java/index.html">Programiranje</a></li><li class=""><a href="../scala/index.html">Scala</a></li><li class=""><a href="../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-1 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"></ul></nav></div><div class="col-md-8"><div class="hidden-print"><div><span class="glyphicon glyphicon-time"></span> 01.07.2017</div><div><span class="glyphicon glyphicon-user"></span>  Sakib Hadžiavdić</div></div><div><section><h3 id="uvod">Uvod</h3><p>TODO</p>
-</section></div><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#uvod">Uvod</a><ul class="nav nav-pills nav-stacked"></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script>
+    </style><style>
+        nav#tocScrollspy .nav .nav>li>a {
+          font-size: .8em;
+      }
+      </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../index.html"><span><img src="../../../images/favicon.png" alt="" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class="active"><a href="index.html">Dijagrami toka</a></li><li class=""><a href="../java/index.html">Programiranje</a></li><li class=""><a href="../scala/index.html">Scala</a></li><li class=""><a href="../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class="active"><a href="index.html">Početna</a></li><li class=""><a href="variables.html">Varijable</a></li><li class=""><a href="input.html">Unos podataka</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"></div><div><section><h3 id="uvod">Uvod</h3><p>Kompjuteri izvršavaju <strong>naredbe</strong> jednu za drugom.<br />
+Naredbe su logički grupisane u <strong>programe</strong>.<br />
+Jedan program sadrži naredbe koje kompjuter treba izvršiti.</p>
+<p>Program se može predstaviti <strong>vizuelno</strong> pomoću <strong>dijagrama toka</strong> (engl. flowchart).<br />
+Vrlo praktična aplikacija koju ćemo koristiti za to je <a href="http://www.flowgorithm.org/download/index.htm">Flowgorithm</a>.<br />
+Molim vas da skinete Flowgorithm i instalirate!</p>
+<p>Svi primjeri mogu se downloadati u ZIP formatu <a href="../../../files/flowcharts/flowgorithm.zip">ovdje</a>.</p>
+<section><h4 id="prvi-program-u-flowgorithmu">Prvi program u Flowgorithmu</h4><p>Svaki program ima svoj <strong>početak</strong> i <strong>kraj</strong>.<br />
+U Flowgorithmu početak je označen sa <code>Main</code>, kraj je označen sa <code>End</code>.<br />
+Strelica nakon svake naredbe pokazuje na <strong>iduću naredbu</strong> koja se treba izvršiti.</p>
+<p>Ako kliknemo na dugme <code>Run</code> (trokutić koji izgleda kao &quot;play&quot; dugme),
+program će se <strong>pokrenuti i odmah završiti</strong>!<br />
+Nismo vidjeli da se išta desilo... :D<br />
+Samo vidimo u lijevom donjem uglu &quot;Program has finished running.&quot;</p>
+<img src="../../../images/flowcharts/intro/program.jpg" class="img-responsive" alt="" /></section><section><h4 id="pozdrav-svijete">Pozdrav svijete!</h4><p>Hajde da ispišemo nešto na ekran:</p>
+<ul>
+<li>kliknite na strelicu, prikazaće se lista naredbi koje možemo dodati na to mjesto.</li>
+<li>kliknite na <code>Output</code></li>
+<li>dvokliknite na novu Output naredbu</li>
+<li>upišite <code>&quot;Pozdrav svijete!&quot;</code> (sa navodnicima!) i klikni OK</li>
+</ul>
+<p>Ako sada kliknemo Run, vidjećemo novi prozor sa porukom <code>&quot;Pozdrav svijete!&quot;</code>.</p>
+<div class="thumbnail"><img src="../../../images/flowcharts/intro/zdravo_svijete.jpg" class="img-responsive" alt="Pozdrav svijete!" /><div class="caption text-center"><p>Pozdrav svijete!</p></div></div><p>Čestitam, napisali smo svoj prvi program!</p>
+<h5>Vježbe</h5>
+<ol>
+<li>Ispišite <code>123</code> na ekran</li>
+<li>Ispišite <code>12 + 3</code> na ekran</li>
+<li>Ispišite <code>3.14</code> na ekran<br />
+(brojevi sa zarezom se ustvari pišu sa tačkom!)</li>
+</ol>
+</section><section><h4 id="matematicke-operacije">Matematičke operacije</h4><p>Naravno, možemo raditi matematičke operacije nad brojevima.
+Probajte ispisati sljedeće izraze:</p>
+<ul>
+<li><code>10 + 3</code></li>
+<li><code>10 - 3</code></li>
+<li><code>10 * 3</code></li>
+<li><code>10 / 3</code></li>
+<li><code>10 % 3</code></li>
+</ul>
+<p>Zadnja operacija je malkice misteriozna.<br />
+Ona daje <strong>cjelobrojni ostatak pri dijeljenju</strong>.<br />
+Npr. <code>10 / 3</code> je <code>3</code> i ostatak <code>1</code>. :)<br />
+Tako da je <code>10 % 3 = 1</code>.</p>
+<p>Naravno, možemo koristiti zagrade ako nam trebaju:</p>
+<ul>
+<li><code>(2 + 2) * 2</code></li>
+<li><code>2 + (2 * 2)</code></li>
+</ul>
+</section><section><h4 id="spajanje-teksta">Spajanje teksta!</h4><p>U prethodnim primjerima ispisivali smo neke jednostavne vrijednosti.<br />
+Nekad nam treba da te vrijednosti &quot;spojimo&quot; u jednu.<br />
+Za to nam služi znak <code>&amp;</code>:</p>
+<ul>
+<li><code>&quot;abc&quot; &amp; &quot;xyz&quot;</code> bi ispisalo isto kao i <code>&quot;abcxyz&quot;</code></li>
+<li><code>&quot;abc&quot; &amp; 5</code> je isto kao <code>&quot;abc5&quot;</code></li>
+<li><code>7 &amp; 5</code> je isto kao .. ? Šta mislite? :D<br />
+Probajte sami!</li>
+<li><code>7 &amp; 5 + 1</code></li>
+</ul>
+<p>Probajte razne kombinacije, brojeve sa zarezom itd.<br />
+Probajte spojiti više od 2 vrijednosti!</p>
+<p>Malo terminologije:</p>
+<blockquote>
+<ul>
+<li>tekst koji se piše sa navodnim znacima, npr. <code>&quot;Meho&quot;</code> naziva se <strong>String</strong></li>
+<li>broj bez zareza naziva se <strong>Integer</strong> (engl. &quot;cijeli broj&quot;)</li>
+<li>broj sa zarezom/tačkom naziva se <strong>Real</strong> (engl. &quot;realni broj&quot;)</li>
+</ul>
+</blockquote>
+</section></section></div><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#uvod">Uvod</a><ul class="nav nav-pills nav-stacked"><li><a href="#prvi-program-u-flowgorithmu">Prvi program u Flowgorithmu</a></li><li><a href="#pozdrav-svijete">Pozdrav svijete!</a></li><li><a href="#matematicke-operacije">Matematičke operacije</a></li><li><a href="#spajanje-teksta">Spajanje teksta!</a></li></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-vbnet.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script>
             // activate scrollspy on body
             $('body').scrollspy({
                 target: '#tocScrollspy',

@@ -1,7 +1,20 @@
 
 body {
-  font-size: 18px;
+  font-size: 16px;
   color: azure;
+}
+
+.navbar-brand {
+  padding: 10px 15px;
+}
+
+
+/* deemphasize side contents */
+.nav-pills a {
+  color: #888888;
+}
+.nav-pills a:hover {
+  color: #fff;
 }
 
 /* default SVG maximum height */
@@ -18,10 +31,12 @@ object[type="image/svg+xml"] {
   font-weight: bold;
 }
 
+
 /* prismjs sets 0.3em and then we get unnecessary horizontal slider. This fixes it. */
 pre[class*="language-"] {
   border-width: 0.3rem !important;
 }
+
 
 /* anchor offset when clicking it :) https://stackoverflow.com/a/22655654/4496364 */
 :target:before {
