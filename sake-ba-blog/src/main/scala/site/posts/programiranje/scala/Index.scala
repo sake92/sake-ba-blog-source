@@ -13,7 +13,7 @@ object Index extends ScalaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2018, 4, 23))
+    //.withCreatedDate(LocalDate.of(2018, 4, 23))
       .withSections(scalaSection)
 
   def scalaSection = Section(

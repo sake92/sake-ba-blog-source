@@ -13,7 +13,7 @@ object Arrays extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2019, 1, 19))
+    //.withCreatedDate(LocalDate.of(2019, 1, 19))
       .withSections(nizoviSection)
 
   def nizoviSection = Section(

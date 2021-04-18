@@ -13,7 +13,7 @@ object Basics extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2018, 3, 25))
+    //.withCreatedDate(LocalDate.of(2018, 3, 25))
       .withSections(
         jshellSection,
         expressionsAndOperatorsSection,

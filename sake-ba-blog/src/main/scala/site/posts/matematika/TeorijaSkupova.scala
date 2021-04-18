@@ -16,7 +16,7 @@ object TeorijaSkupova extends MatematikaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2017, 6, 11))
+    //.withCreatedDate(LocalDate.of(2017, 6, 11))
       .withSections(
         uvodSection,
         operacijeSection,

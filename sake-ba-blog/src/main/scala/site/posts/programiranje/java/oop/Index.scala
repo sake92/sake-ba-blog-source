@@ -19,7 +19,7 @@ object Index extends CodeTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2019, 12, 14))
+    //.withCreatedDate(LocalDate.of(2019, 12, 14))
       .withSections(
         paradigmeSection
       )

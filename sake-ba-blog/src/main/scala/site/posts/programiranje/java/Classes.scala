@@ -13,7 +13,7 @@ object Classes extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2019, 7, 14))
+    //.withCreatedDate(LocalDate.of(2019, 7, 14))
       .withSections(klaseSection)
 
   def klaseSection = Section(

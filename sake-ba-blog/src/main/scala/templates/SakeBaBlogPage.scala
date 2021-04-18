@@ -15,15 +15,17 @@ import Imports._
 
 trait SakeBaBlogPage extends SakeBaBlogStaticPage with HepekBootstrap3BlogPage {
 
-  override def blogSettings =
-    super.blogSettings
-      .withAuthor("Sakib Hadžiavdić")
-      .withCreatedDate(LocalDate.now)
-
   override def tocSettings =
     Some(TocSettings(title = "Sadržaj", tocType = TocType.Scrollspy(55)))
 
   override def pageHeader = None
+
+  override def stylesInline = // overrides inline style, added with navbar... :/
+    super.stylesInline ++ List("""
+        nav#tocScrollspy .nav .nav>li>a {
+          font-size: .8em;
+      }
+      """)
 }
 
 trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
@@ -57,7 +59,7 @@ trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
 
   override def stylesInline = // overrides inline style, added with navbar... :/
     super.stylesInline ++ List("""
-        body { padding-top: 73px; }
+        body { padding-top: 57px; }
       """)
 
   // Bootswatch cyborg theme

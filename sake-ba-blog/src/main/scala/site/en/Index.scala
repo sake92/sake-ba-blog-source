@@ -19,11 +19,7 @@ object Index extends EnglishStaticPage {
       s"""
       #### Welcome! :)
 
-      This is where I write my blog posts in English.
-
-      Klikni [ovdje](${site.Index.ref}) za bosansku verziju!
-
-      ---
+      > [Ovdje](${site.Index.ref}) je bosanska verzija.
       """.md
     )
   )

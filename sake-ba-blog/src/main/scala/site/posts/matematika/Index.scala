@@ -11,7 +11,7 @@ object Index extends MatematikaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2017, 6, 10))
+    //.withCreatedDate(LocalDate.of(2017, 6, 10))
       .withSections(matematikaUvodSection)
 
   def matematikaUvodSection = Section(

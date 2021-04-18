@@ -13,7 +13,7 @@ object Types extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      .withCreatedDate(LocalDate.of(2018, 4, 5))
+    //.withCreatedDate(LocalDate.of(2018, 4, 5))
       .withSections(tipoviSection, stringsSection)
 
   def tipoviSection =
