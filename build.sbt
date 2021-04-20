@@ -10,7 +10,7 @@ inThisBuild(
 lazy val sakeBaBlog = (project in file("sake-ba-blog"))
   .settings(
     libraryDependencies ++= Seq(
-      "ba.sake"                %% "hepek"                    % "0.8.9",
+      "ba.sake"                %% "hepek"                    % "0.9.0+0-e355f4f3+20210420-0400-SNAPSHOT",
       "org.scala-lang.modules" %% "scala-collection-contrib" % "0.2.1"
     ),
     (hepek in Compile) := {

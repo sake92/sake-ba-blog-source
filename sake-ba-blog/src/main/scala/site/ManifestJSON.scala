@@ -1,8 +1,8 @@
 package site
 
 import java.nio.file.Paths
+import com.github.plokhotnyuk.jsoniter_scala.core._
 import ba.sake.hepek.core.Renderable
-import ba.sake.hepek.html.utils.HepekPickler
 import ba.sake.hepek.html.pwa.WebAppManifestIcon
 
 object ManifestJSON extends Renderable {
@@ -14,10 +14,12 @@ object ManifestJSON extends Renderable {
   override def render = {
     val icons = IconSizes.map { s =>
       val sizeStr = s"${s}x${s}"
+      val purpose = Option.when(s == 192)("any maskable")
       WebAppManifestIcon(
         s"images/icons/icon-$sizeStr.png",
         sizeStr,
-        "image/png"
+        "image/png",
+        purpose
       )
     }
     val mf = Index.manifest
@@ -27,6 +29,8 @@ object ManifestJSON extends Renderable {
       .withShortName("Sake tuts")
       .withDescription("Tutorijali iz programiranja")
       .withIcons(icons)
-    HepekPickler.write(mf)
+      .withDisplay("standalone")
+
+    writeToString(mf)
   }
 }

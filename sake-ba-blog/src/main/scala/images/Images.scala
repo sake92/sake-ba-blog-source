@@ -4,8 +4,8 @@ import ba.sake.hepek.Resources.images._
 
 object Images {
 
-  val favicon      = png("favicon")
-  val faviconWhite = png("favicon")
+  val favicon = svg("favicon")
+  val logo    = png("logo")
 
   object math {
     val skup    = svg("math/skupovi")

@@ -8,6 +8,7 @@ trait CodeTemplate extends SakeBaBlogPage with PrismDependencies {
 
   private val hlLangs = List(
     "core",
+    "basic",
     "c",
     "clike",
     "batch",

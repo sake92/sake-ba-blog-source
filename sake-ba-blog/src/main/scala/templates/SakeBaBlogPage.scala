@@ -19,13 +19,6 @@ trait SakeBaBlogPage extends SakeBaBlogStaticPage with HepekBootstrap3BlogPage {
     Some(TocSettings(title = "Sadržaj", tocType = TocType.Scrollspy(55)))
 
   override def pageHeader = None
-
-  override def stylesInline = // overrides inline style, added with navbar... :/
-    super.stylesInline ++ List("""
-        nav#tocScrollspy .nav .nav>li>a {
-          font-size: .8em;
-      }
-      """)
 }
 
 trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
@@ -41,7 +34,7 @@ trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
     super.siteSettings
       .withName(Site.name)
       .withFaviconNormal(Images.favicon.ref)
-      .withFaviconInverted(Images.faviconWhite.ref)
+      .withFaviconInverted(Images.logo.ref)
 
   override def pageSettings = super.pageSettings.withLanguage("bs")
 
