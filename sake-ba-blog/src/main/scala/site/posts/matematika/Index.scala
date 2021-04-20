@@ -29,7 +29,7 @@ object Index extends MatematikaTemplate {
           """.md
         ),
         half(
-          image("https://i.imgur.com/UOhQzH5.gif", "Vako nekako")
+          image("https://i.imgur.com/UOhQzH5.gif", 400, 286, "Vako nekako")
         )
       ),
       row(

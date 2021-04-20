@@ -114,7 +114,7 @@ object Index extends JavaTemplate {
             Proces u kojem tražimo greške i ispravljamo ih naziva se debagovanje.
           """.md
         ),
-        half(image(Images.programming.error.ref, "To je to."))
+        half(image(Images.programming.error.ref, 400, 286, "To je to."))
       )
     )
   )

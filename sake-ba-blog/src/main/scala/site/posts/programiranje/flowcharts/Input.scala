@@ -44,7 +44,12 @@ object Input extends FlowchartsTemplate {
           Mi ćemo tu vrijednost spremiti u varijablu `ime`
         - ispišite ime
         """.md,
-        image(Images.flowcharts.input.input_1.ref, "Program čeka na unos"),
+        image(
+          Images.flowcharts.input.input_1.ref,
+          1560,
+          655,
+          "Program čeka na unos"
+        ),
         """
         Vidimo da program sada čeka da unesemo neki tekst.  
         Da bi nam pomogao, Flowgorithm je ispisao "Please enter a value of type String for ime".  
@@ -52,7 +57,12 @@ object Input extends FlowchartsTemplate {
         
         Vidimo da program odgovara ispisom na konzolu:
         """.md,
-        image(Images.flowcharts.input.input_2.ref, "Ispis unesene vrijednosti"),
+        image(
+          Images.flowcharts.input.input_2.ref,
+          682,
+          671,
+          "Ispis unesene vrijednosti"
+        ),
         """
         ##### Vježbe
         1. Izmijeniti primjer sa kvadratom, omogućiti korisniku da unese dužinu stranice.

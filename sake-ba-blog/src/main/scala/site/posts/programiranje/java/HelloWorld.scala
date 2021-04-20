@@ -58,6 +58,8 @@ object HelloWorld extends JavaTemplate {
         half(
           image(
             Images.java.compiler.ref,
+            584,
+            138,
             "Kompajliranje i pokretanje Java programa"
           )
         )

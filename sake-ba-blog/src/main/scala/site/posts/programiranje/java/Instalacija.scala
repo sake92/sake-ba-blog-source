@@ -45,7 +45,7 @@ object Instalacija extends JavaTemplate {
         Instalacija [Jave 8]($installJava8) je malo komplikovanija, ali je dostupna i za 32-bitne i 64-bitne računare.        
         Naravno, možete instalirati više verzija Jave, ali samo jednu možete dodati u `PATH`!
       """.md,
-      image(Images.java.downloadJDK1.ref, "JDK download step 1"),
+      image(Images.java.downloadJDK1.ref, 1030, 768, "JDK download step 1"),
       """
         Kada se otvori stranica sa prethodne slike kliknite na dugme **download JDK**.
 
@@ -56,7 +56,7 @@ object Instalacija extends JavaTemplate {
         To je instalacija za 64-bitni Windows.  
         Ako znate da imate 32-bitni Windows onda skinite tu verziju... 
        """.md,
-      image(Images.java.downloadJDK2.ref, "JDK download step 2"),
+      image(Images.java.downloadJDK2.ref, 1030, 768, "JDK download step 2"),
       """
           Preporučujem da Javu instalirate u folder pod nazivom `C:\Java`.  
           Ovo ne morate raditi ali je korisno kada vam treba više verzija Jave.  
@@ -70,12 +70,12 @@ object Instalacija extends JavaTemplate {
       p(
         "Dakle, kada se završi download, otvorite instalaciju i kliknite Next.",
         br,
-        image(Images.java.installJDKFolder.ref, "JDK folder"),
+        image(Images.java.installJDKFolder.ref, 500, 380, "JDK folder"),
         """
             Zatim kliknite dugme "Change..." i prepravite putanju foldera na `C:\Java\jdk1.8.0_131`.  
             JRE će već biti instaliran zajedno sa JDK! Tako da nam ne treba još jedna instalacija...
         """.md,
-        image(Images.java.installJRENope.ref, "JRE, nope!")
+        image(Images.java.installJRENope.ref, 500, 380, "JRE, nope!")
       )
     )
   )
@@ -89,9 +89,9 @@ object Instalacija extends JavaTemplate {
              Dio koji slijedi vezan je više za sam rad operativnog sistema (Windows u našem slučaju) nego za Javu.  
              Otvorite `Computer Properties` na Windowsu (desni klik na My Computer -> Properties). Otvoriće vam se sljedeći prozor:
           """.md,
-          image(Images.os.winCompProps.ref, "Computer Properties"),
+          image(Images.os.winCompProps.ref, 780, 570, "Computer Properties"),
           "Kliknite na Advanced System Settings. Dobićete sljedeći prozor: ",
-          image(Images.os.winSysProps.ref, "System Properties")
+          image(Images.os.winSysProps.ref, 412, 468, "System Properties")
         ),
         p(
           """
@@ -112,7 +112,7 @@ object Instalacija extends JavaTemplate {
             To je to! Uspješno ste instalirali Javu! :)  
             Stanje bi trebalo biti otprilike ovako:
           """.md,
-          image(Images.os.winSysVars.ref, "System Properties")
+          image(Images.os.winSysVars.ref, 618, 646, "System Properties")
         )
       )
     )
@@ -129,7 +129,7 @@ object Instalacija extends JavaTemplate {
           nešto nije uredu, provjerite sve korake sekcije $linkToAddPath ponovo!
       """.md,
       "Ako dobijete nešto slično sljedećoj slici, sve je OK:",
-      image(Images.os.winJavaVer.ref, "Java verzija")
+      image(Images.os.winJavaVer.ref, 604, 388, "Java verzija")
     )
   )
 

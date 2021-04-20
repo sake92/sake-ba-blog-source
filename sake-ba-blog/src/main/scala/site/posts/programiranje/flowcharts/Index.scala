@@ -50,7 +50,7 @@ object Index extends FlowchartsTemplate {
         Nismo vidjeli da se išta desilo... :D  
         Samo vidimo u lijevom donjem uglu "Program has finished running."
         """.md,
-        image(Images.flowcharts.intro.program.ref)
+        image(Images.flowcharts.intro.program.ref, 1093, 657)
       )
     )
 
@@ -67,7 +67,12 @@ object Index extends FlowchartsTemplate {
         
         Ako sada kliknemo Run, vidjećemo novi prozor sa porukom `"Pozdrav svijete!"`.  
         """.md,
-        image(Images.flowcharts.intro.zdravo_svijete.ref, "Pozdrav svijete!"),
+        image(
+          Images.flowcharts.intro.zdravo_svijete.ref,
+          1920,
+          1020,
+          "Pozdrav svijete!"
+        ),
         """
         
         Čestitam, napisali smo svoj prvi program!

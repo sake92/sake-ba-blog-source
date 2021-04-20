@@ -69,7 +69,7 @@ object Variables extends FlowchartsTemplate {
         To smo naučili u prethodnoj sekciji!  
         Umjesto broja/stringa/izraza, sada samo upišete `a` (naziv varijable). :)
         """.md,
-        image(Images.flowcharts.vars.kvadrat_1.ref, "Varijable"),
+        image(Images.flowcharts.vars.kvadrat_1.ref, 1552, 763, "Varijable"),
         """
         Malo terminologije:
         - **deklaracija** znači "uvođenje varijable", kažemo programu da želimo koristiti tu varijablu.  
@@ -91,7 +91,7 @@ object Variables extends FlowchartsTemplate {
         Zatim ćemo joj dodijeliti vrijednost: `a * 4`.  
         Kada pokrenete program, trebali bi dobiti vrijednost `20`.
         """.md,
-        image(Images.flowcharts.vars.kvadrat_2.ref, "Obim kvadrata")
+        image(Images.flowcharts.vars.kvadrat_2.ref, 1550, 764, "Obim kvadrata")
       )
     )
 
@@ -109,7 +109,12 @@ object Variables extends FlowchartsTemplate {
         "a=" & a & " obim=" & obim & " povrsina=" & povrsina
         ```
         """.md,
-        image(Images.flowcharts.vars.kvadrat_3.ref, "Površina kvadrata")
+        image(
+          Images.flowcharts.vars.kvadrat_3.ref,
+          1542,
+          830,
+          "Površina kvadrata"
+        )
       )
     )
 
