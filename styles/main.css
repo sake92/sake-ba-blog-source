@@ -1,12 +1,42 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+
 body {
+  font-family: 'Work Sans', sans-serif;
   font-size: 16px;
   color: azure;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Montserrat', sans-serif;
 }
 
 .navbar-brand {
   padding: 10px 15px;
 }
+
+.pages-toc ul { 
+  list-style: none;
+}
+
+.pages-toc > ul > li > a {
+  font-weight: bold;
+}
+
+
+
+/* improve contrast */
+.thumbnail {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+  color: #ffffff;
+  background-color: #007eb3;
+}
+
 
 
 /* deemphasize side contents */
@@ -17,19 +47,14 @@ body {
   color: #fff;
 }
 
+
+
 /* default SVG maximum height */
 object[type="image/svg+xml"] {
   max-height: 300px;
   width: 100%;
 }
 
-.pages-toc ul { 
-  list-style: none;
-}
-
-.pages-toc > ul > li > a {
-  font-weight: bold;
-}
 
 
 /* prismjs sets 0.3em and then we get unnecessary horizontal slider. This fixes it. */

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Kratak uvod u teoriju skupova. Unija, presjek, razlika, De Morgan." /><meta name="og:title" content="blog.sake.ba" /><title>Teorija skupova - blog.sake.ba</title><link rel="shortcut icon" href="../../images/favicon.png" type="image/x-icon" /><link rel="manifest" href="../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css" /><link rel="stylesheet" href="../../styles/main.css" /><link rel="stylesheet" href="../../styles/print.css" /><style>
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Kratak uvod u teoriju skupova. Unija, presjek, razlika, De Morgan." /><meta name="og:title" content="blog.sake.ba" /><title>Teorija skupova - blog.sake.ba</title><link rel="shortcut icon" href="../../images/favicon.svg" type="image/svg+xml" /><link rel="manifest" href="../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.4.1/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css" /><link rel="stylesheet" href="../../styles/main.css" /><link rel="stylesheet" href="../../styles/print.css" /><style>
         body { padding-top: 57px; }
       </style><style>
       /* scrollspy stuff */
@@ -11,7 +11,7 @@
           padding-top: 1px;
           padding-bottom: 1px;
           padding-left: 3em;
-          font-size: .7em;
+          font-size: .8em;
       }
       
       /* turn off affix on screens less than md */
@@ -29,11 +29,7 @@
           }
       }
       .affix { padding-left: 2em; }
-    </style><style>
-        nav#tocScrollspy .nav .nav>li>a {
-          font-size: .8em;
-      }
-      </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../index.html"><span><img src="../../images/favicon.png" alt="" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class=""><a href="../programiranje/flowcharts/index.html">Dijagrami toka</a></li><li class=""><a href="../programiranje/java/index.html">Programiranje</a></li><li class=""><a href="../programiranje/scala/index.html">Scala</a></li><li class=""><a href="../programiranje/programming-glossary.html">Glosarij</a></li><li class="active"><a href="index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class=""><a href="index.html">Početna</a></li><li class="active"><a href="teorija-skupova.html">Teorija skupova</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"></div><div><section><h3 id="uvod">Uvod</h3><p>Teorija skupova (en. Set theory) je jedna od osnovnih grana matematike.<br />
+    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../index.html"><span><img src="../../images/logo.png" alt="logo" width="32" height="32" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class=""><a href="../programiranje/flowcharts/index.html">Dijagrami toka</a></li><li class=""><a href="../programiranje/java/index.html">Programiranje</a></li><li class=""><a href="../programiranje/scala/index.html">Scala</a></li><li class=""><a href="../programiranje/programming-glossary.html">Glosarij</a></li><li class="active"><a href="index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class=""><a href="index.html">Početna</a></li><li class="active"><a href="teorija-skupova.html">Teorija skupova</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"></div><div><section><h3 id="uvod">Uvod</h3><p>Teorija skupova (en. Set theory) je jedna od osnovnih grana matematike.<br />
 Ona, između ostalog, daje odgovor na to da li neki objekat pripada datom skupu objekata.<br />
 Skup mora biti jasno i nedvosmisleno definisan.</p>
 <p><strong>Skup</strong> kao pojam se obično ne definiše već se uzima kao osnovni pojam.<br />
@@ -111,7 +107,7 @@ Označava se sa <strong>´U´</strong>.</p>
 Na slici desno vidimo primjer s dva skupa: ´A = \{1,2,4\}´ i ´B = \{2,3\}´.<br />
 Univerzum (´U´) je pravougaonik koji obuhvata ova dva skupa. Recimo da je to skup ´\mathbb{N}´.
 To je igralište iz kojeg ne smijemo izlaziti.</p>
-</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/skupovi.svg" class="img-responsive" alt="Vennov dijagram" /><div class="caption text-center"><p>Vennov dijagram</p></div></div></div></div><section><h4 id="unija">Unija</h4><div class="row"><div class="col-lg-6 col-md-6"><p>Unija dva skupa ´A´ i ´B´ označava se sa ´A \cup B´.<br />
+</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/skupovi.svg" class="img-responsive" alt="" width="640" height="480" /><div class="caption text-center">Vennov dijagram</div></div></div></div><section><h4 id="unija">Unija</h4><div class="row"><div class="col-lg-6 col-md-6"><p>Unija dva skupa ´A´ i ´B´ označava se sa ´A \cup B´.<br />
 Primijetite da ovo nije obično slovo U već specijalni simbol, mada izgleda kao ´\cup´nija.<br />
 Unija predstavlja novi skup koji sadrži sve elemente skupa ´A´ i sve elemente skupa ´B´.<br />
 U našem primjeru to bi bilo ´A \cup B = \{1,2,3,4\}´.<br />
@@ -122,7 +118,7 @@ Skup ne mora bit predstavljen krugom, niđe veze... xD Dobro zapažanje!</p>
 Znak ´\land´ se čita kao &quot;i&quot;.<br />
 O logičkim operatorima ćemo reći nešto više u idućem poglavlju.</p>
 </blockquote>
-</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/unija.svg" class="img-responsive" alt="Unija skupova" /><div class="caption text-center"><p>Unija skupova</p></div></div></div></div></section><section><h4 id="presjek">Presjek</h4><div><div class="row"><div class="col-lg-6 col-md-6"><p>Često se postavlja pitanje šta dva skupa imaju zajedničko.<br />
+</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/unija.svg" class="img-responsive" alt="" width="640" height="480" /><div class="caption text-center">Unija skupova</div></div></div></div></section><section><h4 id="presjek">Presjek</h4><div><div class="row"><div class="col-lg-6 col-md-6"><p>Često se postavlja pitanje šta dva skupa imaju zajedničko.<br />
 Presjek dva skupa ´A´ i ´B´ označava se sa ´A \cap B´.<br />
 Presjek predstavlja novi skup koji sadrži one elemente koji se nalaze i u ´A´ skupu i u ´B´ skupu.<br />
 U našem primjeru to bi bilo ´A \cap B = \{2\}´ (na slici obojeno crvenom bojom!).<br />
@@ -132,7 +128,7 @@ Rezultat je, naravno, prazan skup, ´\emptyset´ tj. ´\{\}´.<br />
 Prazan skup ipak ima neku svrhu... :D<br />
 Za ovakve skupove, koji nemaju zajedničke elemente, kaže se da su
 <strong>disjunktni</strong>.</p>
-</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/presjek.svg" class="img-responsive" alt="Presjek skupova" /><div class="caption text-center"><p>Presjek skupova</p></div></div></div></div><blockquote>
+</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/presjek.svg" class="img-responsive" alt="" width="640" height="480" /><div class="caption text-center">Presjek skupova</div></div></div></div><blockquote>
 <p>Matematika se često bavi pitanjem jednakosti, kako možemo jednu te istu stvar izraziti na više načina.<br />
 Ti rezultati nam mogu koristiti za skraćivanje algebarskih izraza, optimizacije i sl.</p>
 <p>Za uniju možemo reći da je <strong>komutativna</strong>.<br />
@@ -149,7 +145,7 @@ Ova operacija se naziva <em>razlika</em>.</p>
 Razliku čine elementi skupa ´A´ koji se ne nalaze skupu ´B´.<br />
 U našem primjeru to bi bilo ´A \ B = \{1,4\}´.</p>
 <p>Razliku možemo formalno zapisati kao ´A \setminus B = \{x | x \in A \land x \notin B\}´.</p>
-</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/razlika.svg" class="img-responsive" alt="Razlika skupova" /><div class="caption text-center"><p>Razlika skupova</p></div></div></div></div><p>Postoje još dvije zanimljive operacije, prva je <em>simetrična razlika</em>  (´\Delta´).<br />
+</div><div class="col-lg-6 col-md-6"><div class="thumbnail"><img src="../../images/math/razlika.svg" class="img-responsive" alt="" width="640" height="480" /><div class="caption text-center">Razlika skupova</div></div></div></div><p>Postoje još dvije zanimljive operacije, prva je <em>simetrična razlika</em>  (´\Delta´).<br />
 Simetrična razlika predstavlja uniju razlika skupova ´A´ i ´B´, tj. ´A \Delta B = (A \ B) \cup (B \ A)´.<br />
 Kroz naš primjer bilo bi ´A \Delta B = \{1,3,4\}´</p>
 <p>Druga operacija je <em>komplement skupa</em>.
@@ -188,7 +184,7 @@ Npr. naš skup ´A = \{1,2,4\}´ ima 3 elementa. Pišemo ´|A|=3´.</p>
 Nećemo u detalje.
 Reći ćemo samo da <strong>postoji više beskonačnosti</strong>! Npr. ´|\mathbb{N}| \not = |\mathbb{Z}|´.<br />
 Ne zaboravimo i ´|\emptyset|=0´, naravno.</p>
-</section></div><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#uvod">Uvod</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#operacije-nad-skupovima">Operacije nad skupovima</a><ul class="nav nav-pills nav-stacked"><li><a href="#unija">Unija</a></li><li><a href="#presjek">Presjek</a></li><li><a href="#razlika">Razlika</a></li><li><a href="#de-morganovi-zakoni">De Morganovi zakoni</a></li></ul></li><li><a href="#relacije-izmedju-skupova">Relacije između skupova</a><ul class="nav nav-pills nav-stacked"><li><a href="#podskup-i-nadskup">Podskup i nadskup</a></li></ul></li><li><a href="#kardinalnost-skupa">Kardinalnost skupa</a><ul class="nav nav-pills nav-stacked"></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/contrib/auto-render.min.js"></script><script src="../../scripts/main.js"></script><script>
+</section></div><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#uvod">Uvod</a><ul class="nav nav-pills nav-stacked"></ul></li><li><a href="#operacije-nad-skupovima">Operacije nad skupovima</a><ul class="nav nav-pills nav-stacked"><li><a href="#unija">Unija</a></li><li><a href="#presjek">Presjek</a></li><li><a href="#razlika">Razlika</a></li><li><a href="#de-morganovi-zakoni">De Morganovi zakoni</a></li></ul></li><li><a href="#relacije-izmedju-skupova">Relacije između skupova</a><ul class="nav nav-pills nav-stacked"><li><a href="#podskup-i-nadskup">Podskup i nadskup</a></li></ul></li><li><a href="#kardinalnost-skupa">Kardinalnost skupa</a><ul class="nav nav-pills nav-stacked"></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/contrib/auto-render.min.js"></script><script src="../../scripts/main.js"></script><script>
               // couldn't find better escape character, all other are used in Markdown
               renderMathInElement(
                 document.body, {
