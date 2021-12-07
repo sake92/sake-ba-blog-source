@@ -12,7 +12,7 @@ inThisBuild(
 lazy val sakeBaBlog = (project in file("sake-ba-blog"))
   .settings(
     libraryDependencies ++= Seq(
-      "ba.sake" %% "hepek" % "0.0.0+1-6f36b103-SNAPSHOT"
+      "ba.sake" %% "hepek" % "0.0.0+1-c418d93f-SNAPSHOT"
     ),
     (hepek in Compile) := {
       WebKeys.assets.value
