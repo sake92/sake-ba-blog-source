@@ -16,7 +16,7 @@ object Index extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-    //.withCreatedDate(LocalDate.of(2017, 7, 1))
+      //.withCreatedDate(LocalDate.of(2017, 7, 1))
       .withSections(
         uvodSection,
         komunikacijaSection,

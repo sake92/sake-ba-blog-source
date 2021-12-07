@@ -1,7 +1,7 @@
 package site
 
 import java.nio.file.Paths
-import com.github.plokhotnyuk.jsoniter_scala.core._
+import ba.sake.tupson.JsonRW.toJson
 import ba.sake.hepek.core.Renderable
 import ba.sake.hepek.html.pwa.WebAppManifestIcon
 
@@ -22,15 +22,16 @@ object ManifestJSON extends Renderable {
         purpose
       )
     }
-    val mf = Index.manifest
-      .withBackgroundColor("#000")
-      .withThemeColor("#000")
-      .withName("Saketovi tutorijali")
-      .withShortName("Sake tuts")
-      .withDescription("Tutorijali iz programiranja")
-      .withIcons(icons)
-      .withDisplay("standalone")
+    val mf = Index.manifest.copy(
+      name = "Saketovi tutorijali",
+      short_name = Some("Sake tuts"),
+      description = Some("Tutorijali iz programiranja"),
+      background_color = Some("#000"),
+      theme_color = Some("#000"),
+      icons = icons,
+      display = "standalone"
+    )
 
-    writeToString(mf)
+    mf.toJson
   }
 }

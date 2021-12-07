@@ -17,7 +17,7 @@ object Variables extends FlowchartsTemplate {
 
   override def blogSettings =
     super.blogSettings
-    //.withCreatedDate(LocalDate.of(2020, 12, 16))
+      //.withCreatedDate(LocalDate.of(2020, 12, 16))
       .withSections(uvodSection)
 
   def uvodSection = Section(

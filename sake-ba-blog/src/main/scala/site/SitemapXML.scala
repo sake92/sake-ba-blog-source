@@ -24,9 +24,11 @@ object SitemapXML extends Renderable {
 
     """<?xml version="1.0" encoding="utf-8"?>""" +
       tag("urlset")(
-        attr("xmlns") := "http://www.sitemaps.org/schemas/sitemap/0.9",
+        attr("xmlns")     := "http://www.sitemaps.org/schemas/sitemap/0.9",
         attr("xmlns:xsi") := "http://www.w3.org/2001/XMLSchema-instance",
-        attr("xsi:schemaLocation") := "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+        attr(
+          "xsi:schemaLocation"
+        ) := "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
       )(
         allURLs
       )

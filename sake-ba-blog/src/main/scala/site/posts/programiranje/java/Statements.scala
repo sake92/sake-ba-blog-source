@@ -15,7 +15,7 @@ object Statements extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-    //.withCreatedDate(LocalDate.of(2018, 4, 27))
+      //.withCreatedDate(LocalDate.of(2018, 4, 27))
       .withSections(statementsSection)
 
   def statementsSection = Section(

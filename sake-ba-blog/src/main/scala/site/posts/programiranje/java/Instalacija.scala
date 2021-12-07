@@ -16,7 +16,7 @@ object Instalacija extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-    //.withCreatedDate(LocalDate.of(2017, 7, 2))
+      //.withCreatedDate(LocalDate.of(2017, 7, 2))
       .withSections(uvodSection, dodavanjePATHSection, provjeraSection)
 
   val linkToAddPath =

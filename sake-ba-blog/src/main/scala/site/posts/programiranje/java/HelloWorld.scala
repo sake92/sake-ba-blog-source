@@ -14,7 +14,7 @@ object HelloWorld extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-    //.withCreatedDate(LocalDate.of(2018, 2, 4))
+      //.withCreatedDate(LocalDate.of(2018, 2, 4))
       .withSections(
         introSection,
         helloSection,

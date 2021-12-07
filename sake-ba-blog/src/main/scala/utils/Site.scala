@@ -27,6 +27,6 @@ object Site {
   object en {
 
     def mainPages: List[StaticPage] = List(
-      )
+    )
   }
 }

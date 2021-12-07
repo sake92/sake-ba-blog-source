@@ -45,7 +45,9 @@ object PdfGenApp {
     val options = new ChromeOptions()
     options.addArguments("headless") // don't open Chrome window...
     options.addArguments("window-size=1200x600")
-    options.addArguments("disable-web-security") // Ajax doesn't work without this !!!
+    options.addArguments(
+      "disable-web-security"
+    ) // Ajax doesn't work without this !!!
     options.setBinary(
       """C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"""
     )
