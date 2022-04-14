@@ -24,3 +24,4 @@ pdfs/
 .idea/
 .metals/
 project/.bloop/
+project/metals.sbt

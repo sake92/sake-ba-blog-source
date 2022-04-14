@@ -2,6 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 
+:root {
+  --flowrun-font-monospace: 'Fira Mono', monospace;
+  --flowrun-font-color: black;
+  --flowrun-white: #eeffff;
+}
 
 body {
   font-family: 'Work Sans', sans-serif;
@@ -71,3 +76,21 @@ pre[class*="language-"] {
   margin: -50px 0 0;
 }
 
+
+
+/**/
+
+.flowrun-instance {
+  min-height: 40rem;
+}
+.flowrun-instance .flowrun-gen-code {
+  padding: 0;
+}
+.flowrun-instance .flowrun-gen-code .flowrun-btn-copy-gencode {
+  background-color: white;
+}
+pre[class*=language-].flowrun-code {
+  padding: 3rem 0 0 1rem;
+  border: none;
+  border-radius: 0;
+}

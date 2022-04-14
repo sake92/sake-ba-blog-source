@@ -21,6 +21,8 @@ trait CodeTemplate extends SakeBaBlogPage with PrismDependencies {
 
   override def prismSettings =
     super.prismSettings
+      .withVersion("1.27.0")
       .withTheme(Themes.Twilight)
-      .withLanguages(prismjs.PrismConsts.languages filter hlLangs.contains)
+      .withLanguages(prismjs.PrismConsts.languages.filter(hlLangs.contains))
+
 }

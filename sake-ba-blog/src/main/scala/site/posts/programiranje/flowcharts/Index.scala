@@ -32,7 +32,7 @@ object Index extends FlowchartsTemplate {
 
   def firstProgSection =
     Section(
-      "Zdravo svijete!",
+      "Prvi program",
       frag(
         s"""
         Svaki program ima svoj **početak** i **kraj**.  
@@ -41,10 +41,11 @@ object Index extends FlowchartsTemplate {
         
         Ako kliknemo na dugme `Run` (trokutić koji izgleda kao "play" dugme),
         program će se **pokrenuti i odmah završiti**!  
-        Nismo vidjeli da se išta desilo... :D  
-        Samo vidimo u lijevom donjem uglu "Program has finished running."
+        Nije se ništa značajno desilo, samo vidimo u output panelu da je program završio.
         """.md,
-        image(Images.flowcharts.intro.program.ref, 1093, 657)
+        div(
+          div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
+        )
       )
     )
 
