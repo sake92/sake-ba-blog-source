@@ -7,13 +7,11 @@ import images.Images
 
 object Index extends FlowchartsTemplate {
 
-  val zipFile = resources.resource("files/flowcharts/flowgorithm.zip").ref
-
   override def pageSettings =
     super.pageSettings
-      .withTitle("Uvod u dijagrame toka")
-      .withLabel("Početna")
-      .withDescription("Uvod u dijagrame toka.")
+      .withTitle("Uvod u vizuelno programiranje")
+      .withLabel("Uvod")
+      .withDescription("Uvod u vizuelno programiranje, dijagrami toka.")
 
   override def blogSettings =
     super.blogSettings
@@ -25,25 +23,21 @@ object Index extends FlowchartsTemplate {
     s"""
     Kompjuteri izvršavaju **naredbe** jednu za drugom.  
     Naredbe su logički grupisane u **programe**.  
-    Jedan program sadrži naredbe koje kompjuter treba izvršiti.
+    Program sadrži naredbe koje kompjuter treba izvršiti.
     
     Program se može predstaviti **vizuelno** pomoću **dijagrama toka** (engl. flowchart).  
-    Vrlo praktična aplikacija koju ćemo koristiti za to je [Flowgorithm](http://www.flowgorithm.org/download/index.htm).  
-    Molim vas da skinete Flowgorithm i instalirate!
-    
-    Svi primjeri mogu se downloadati u ZIP formatu [ovdje]($zipFile).
     """.md,
     List(firstProgSection, helloWorldSection, mathSection, textSection)
   )
 
   def firstProgSection =
     Section(
-      "Prvi program u Flowgorithmu",
+      "Zdravo svijete!",
       frag(
         s"""
         Svaki program ima svoj **početak** i **kraj**.  
-        U Flowgorithmu početak je označen sa `Main`, kraj je označen sa `End`.  
-        Strelica nakon svake naredbe pokazuje na **iduću naredbu** koja se treba izvršiti.
+        Početak je označen sa `Begin`, kraj je označen sa `End`.  
+        Strelica pokazuje na **iduću naredbu** koja se treba izvršiti.
         
         Ako kliknemo na dugme `Run` (trokutić koji izgleda kao "play" dugme),
         program će se **pokrenuti i odmah završiti**!  

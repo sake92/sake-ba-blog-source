@@ -18,7 +18,6 @@ trait SakeBaBlogPage extends SakeBaBlogStaticPage with HepekBootstrap3BlogPage {
   override def tocSettings =
     Some(TocSettings(title = "Sadržaj", tocType = TocType.Scrollspy(55)))
 
-  override def pageHeader = None
 }
 
 trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {

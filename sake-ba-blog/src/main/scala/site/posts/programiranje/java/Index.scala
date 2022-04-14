@@ -5,7 +5,6 @@ import scalatags.Text.all._
 import utils.Imports._, grid._, Image._
 import images.Images
 
-// TODO izbacit paradigme
 object Index extends JavaTemplate {
 
   override def pageSettings =

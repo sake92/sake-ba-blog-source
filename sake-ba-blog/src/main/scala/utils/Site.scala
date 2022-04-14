@@ -15,7 +15,6 @@ object Site {
       posts.programiranje.flowcharts.Index,
       posts.programiranje.java.Index,
       posts.programiranje.scala.Index,
-      posts.programiranje.ProgrammingGlossary,
       posts.matematika.Index
     )
 

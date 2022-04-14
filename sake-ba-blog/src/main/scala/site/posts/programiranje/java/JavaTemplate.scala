@@ -4,7 +4,7 @@ package java
 
 trait JavaTemplate extends CodeTemplate {
 
-  override def pageCategory = Some("Programiranje")
+  override def pageCategory = Some("Programiranje (Java)")
 
   override def categoryPosts = List(
     Index,

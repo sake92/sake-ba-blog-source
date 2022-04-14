@@ -7,7 +7,8 @@ case class Term(name: String, explanation: Frag)
 
 object ProgrammingGlossary extends templates.SakeBaBlogStaticPage {
 
-  override def pageSettings = super.pageSettings.withTitle("Glosarij")
+  override def pageSettings =
+    super.pageSettings.withTitle("Programerska Terminologija")
 
   override def pageContent =
     div(cls := "well well-lg col-md-6 col-md-push-3 ")(
