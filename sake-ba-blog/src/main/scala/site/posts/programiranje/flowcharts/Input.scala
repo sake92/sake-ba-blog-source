@@ -17,7 +17,7 @@ object Input extends FlowchartsTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2020, 12, 16))
+      //.withCreatedDate(LocalDate.of(2022, 4, 24))
       .withSections(uvodSection)
 
   def uvodSection = Section(
@@ -26,7 +26,7 @@ object Input extends FlowchartsTemplate {
     U prethodnim primjerima koristili smo vrijednosti koje su ufiksane u program.  
     Npr. vrijednost `a = 5` za dužinu stranice kvadrata.  
     Bilo bi zgodno kada bi mogli **dati korisniku da unese proizvoljnu vrijednost**.  
-    Naravno, to je moguće, i u Flowgorithmu imamo naredbu `Input`.
+    Naravno, to je moguće, i za to služi naredba `Input`.
     """.md,
     List(unosSection)
   )
@@ -36,34 +36,24 @@ object Input extends FlowchartsTemplate {
       "Unos podataka",
       frag(
         s"""
-        - otvorite novi Flowgorithm prozor
-        - deklarišite varijablu `ime`, sa tipom `String`
-        - kliknite na strelicu i odaberite `Input` naredbu
-        - dvokliknite tu novu naredbu i unesite `ime`.  
-          Ovo znači da kada program dođe do ove linije, pitaće korisnika da unese svoje ime.  
-          Mi ćemo tu vrijednost spremiti u varijablu `ime`
-        - ispišite ime
+        U donjem prozoru uradite sljedeće:
+        - deklarišite varijablu `String ime`
+        - nakon nje dodajte `Input` naredbu
+        - kliknite na novu `Input` naredbu i unesite `ime`.  
+          Ovo znači da kada program dođe do ove linije, pitaće korisnika da unese svoje `ime`.  
+          Vrijednost koju korisnik upiše program će spremiti u varijablu `ime`
+        - ispišite `ime`
         """.md,
-        image(
-          Images.flowcharts.input.input_1.ref,
-          1560,
-          655,
-          "Program čeka na unos"
+        div(
+          div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
         ),
+        br,
         """
         Vidimo da program sada čeka da unesemo neki tekst.  
-        Da bi nam pomogao, Flowgorithm je ispisao "Please enter a value of type String for ime".  
         Unesite svoje ime i kliknite Enter.
         
-        Vidimo da program odgovara ispisom na konzolu:
-        """.md,
-        image(
-          Images.flowcharts.input.input_2.ref,
-          682,
-          671,
-          "Ispis unesene vrijednosti"
-        ),
-        """
+        Vidimo da program odgovara ispisom u izlaznom panelu.
+
         ##### Vježbe
         1. Izmijeniti primjer sa kvadratom, omogućiti korisniku da unese dužinu stranice.
         1. Napraviti program za unos 2 stranice pravougaonika, zatim ispisati njegov obim.
