@@ -11,7 +11,9 @@ object Index extends FlowchartsTemplate {
     super.pageSettings
       .withTitle("Vizuelno programiranje")
       .withLabel("Uvod")
-      .withDescription("Uvod u vizuelno programiranje, dijagrami toka.")
+      .withDescription(
+        "Uvod u vizuelno programiranje, dijagrami toka, flowrun, flowchart."
+      )
 
   override def blogSettings =
     super.blogSettings

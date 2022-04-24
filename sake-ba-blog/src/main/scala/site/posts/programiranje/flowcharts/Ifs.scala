@@ -13,7 +13,9 @@ object Ifs extends FlowchartsTemplate {
     super.pageSettings
       .withTitle("If-else naredba")
       .withLabel("If-else")
-      .withDescription("If-else naredba. Flowchart dijagram")
+      .withDescription(
+        "If-else naredba. Vizuelno programiranje, flowrun, flowchart."
+      )
 
   override def blogSettings =
     super.blogSettings

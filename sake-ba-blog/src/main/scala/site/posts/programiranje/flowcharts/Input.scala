@@ -13,7 +13,9 @@ object Input extends FlowchartsTemplate {
     super.pageSettings
       .withTitle("Unos podataka")
       .withLabel("Unos podataka")
-      .withDescription("Unos podataka")
+      .withDescription(
+        "Unos podataka. Vizuelno programiranje, flowrun, flowchart."
+      )
 
   override def blogSettings =
     super.blogSettings

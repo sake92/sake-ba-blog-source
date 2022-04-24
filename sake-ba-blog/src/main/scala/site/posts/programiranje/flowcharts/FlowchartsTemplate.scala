@@ -15,7 +15,10 @@ trait FlowchartsTemplate extends CodeTemplate {
     Index,
     Variables,
     Input,
-    Ifs
+    Ifs,
+    While,
+    DoWhile,
+    ForLoop
   )
 
   override def bodyContent = frag(

@@ -13,7 +13,9 @@ object Variables extends FlowchartsTemplate {
     super.pageSettings
       .withTitle("Varijable")
       .withLabel("Varijable")
-      .withDescription("Uvod u varijable, programiranje.")
+      .withDescription(
+        "Uvod u varijable. Vizuelno programiranje, flowrun, flowchart."
+      )
 
   override def blogSettings =
     super.blogSettings
