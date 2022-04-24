@@ -31,8 +31,8 @@ object Index extends templates.SakeBaBlogStaticPage {
 
         Ako ste totalni početnik, i želite naučiti programirati,
         preporučujem da počnete sa [dijagramima toka](${posts.programiranje.flowcharts.Index.ref}).
-        Dosta je lakše početi s *vizuelnim programiranjem*, jer praćenjem linija je lakše shvatiti kako program radi.  
-        Ovaj serijal tutorijala vodi vas kroz osnovne gradivne dijelove programa.
+        Dosta je lakše početi s *vizuelnim programiranjem*, jer praćenjem linija lakše je shvatiti kako program radi.  
+        Ovi tutorijali vode vas kroz osnovne gradivne dijelove programa.
 
         ---
         Nakon toga možete nastaviti s [Java](${posts.programiranje.java.Index.ref}) programskim jezikom.  

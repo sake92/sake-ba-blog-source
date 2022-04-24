@@ -82,7 +82,14 @@ pre[class*="language-"] {
 
 .flowrun-instance {
   min-height: 40rem;
+  max-height: 85vh;
 }
+
+.flowrun-instance select,
+.flowrun-instance input {
+    line-height: 0.9rem;
+}
+
 .flowrun-instance .flowrun-gen-code {
   padding: 0;
 }
