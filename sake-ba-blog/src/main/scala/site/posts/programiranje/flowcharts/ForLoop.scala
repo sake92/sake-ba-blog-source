@@ -13,7 +13,9 @@ object ForLoop extends FlowchartsTemplate {
     super.pageSettings
       .withTitle("For petlja")
       .withLabel("For")
-      .withDescription("For petlja. Vizuelno programiranje, flowrun, flowchart.")
+      .withDescription(
+        "For petlja. Vizuelno programiranje, flowrun, flowchart."
+      )
 
   override def blogSettings =
     super.blogSettings
@@ -22,7 +24,8 @@ object ForLoop extends FlowchartsTemplate {
 
   def uvodSection = Section(
     "Uvod",
-    frag("""
+    frag(
+      """
     Ova naredba je malo komplikovanija.  
     For petlja sadrži sljedeće dijelove:
     - naziv varijable
@@ -48,10 +51,10 @@ object ForLoop extends FlowchartsTemplate {
     Plus, ovako je dosta čitljivije.
 
     """.md,
-    div(
-          div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
-        ),
-        br,
+      div(
+        div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
+      ),
+      br
     )
   )
 

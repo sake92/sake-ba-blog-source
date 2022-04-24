@@ -13,7 +13,9 @@ object DoWhile extends FlowchartsTemplate {
     super.pageSettings
       .withTitle("Do While petlja")
       .withLabel("Do While")
-      .withDescription("Do While petlja. Vizuelno programiranje, flowrun, flowchart.")
+      .withDescription(
+        "Do While petlja. Vizuelno programiranje, flowrun, flowchart."
+      )
 
   override def blogSettings =
     super.blogSettings
@@ -22,7 +24,8 @@ object DoWhile extends FlowchartsTemplate {
 
   def uvodSection = Section(
     "Uvod",
-    frag("""
+    frag(
+      """
     Ova naredba je slična While.  
     Glavna razlika je ta da DoWhile provjerava uslov **nakon što izvrši naredbe**.  
     DoWhile će izvršiti blok naredbi **minimalno jednom**.
@@ -41,10 +44,10 @@ object DoWhile extends FlowchartsTemplate {
 
 
     """.md,
-    div(
-          div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
-        ),
-        br,
+      div(
+        div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
+      ),
+      br
     )
   )
 

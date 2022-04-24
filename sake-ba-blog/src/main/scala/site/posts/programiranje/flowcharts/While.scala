@@ -13,7 +13,9 @@ object While extends FlowchartsTemplate {
     super.pageSettings
       .withTitle("While petlja")
       .withLabel("While")
-      .withDescription("While petlja. Vizuelno programiranje, flowrun, flowchart.")
+      .withDescription(
+        "While petlja. Vizuelno programiranje, flowrun, flowchart."
+      )
 
   override def blogSettings =
     super.blogSettings
@@ -22,7 +24,8 @@ object While extends FlowchartsTemplate {
 
   def uvodSection = Section(
     "Uvod",
-    frag("""
+    frag(
+      """
     Kada želimo da ponovimo dio koda više puta, uvijek možemo copy-paste te naredbe.  
     Naravno, to nije uvijek efikasno niti moguće.  
     Npr. kada želimo ponoviti dio koda *pod nekim uslovom*, može biti 0 ili n puta..  
@@ -45,10 +48,10 @@ object While extends FlowchartsTemplate {
     U izrazu `x+1`, `x` se odnosi na zadnju vrijednost *prije ove naredbe*.
 
     """.md,
-    div(
-          div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
-        ),
-        br,
+      div(
+        div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
+      ),
+      br
     )
   )
 
