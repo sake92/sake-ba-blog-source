@@ -14,7 +14,8 @@ trait FlowchartsTemplate extends CodeTemplate {
   override def categoryPosts = List(
     Index,
     Variables,
-    Input
+    Input,
+    Ifs
   )
 
   override def bodyContent = frag(
