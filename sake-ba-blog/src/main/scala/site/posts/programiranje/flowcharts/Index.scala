@@ -26,6 +26,8 @@ object Index extends FlowchartsTemplate {
     Program sadrži naredbe koje kompjuter treba izvršiti.
     
     Program se može predstaviti **vizuelno** pomoću **dijagrama toka** (engl. flowchart).  
+    Koristićemo ugrađeni editor, koji može i pokrenuti program koji napravimo.  
+    Ako želite da sačuvate svoje programe koje napravite, možete se registrovati na [flowrun.io](https://flowrun.io/).
     """.md,
     List(firstProgSection, exercisesSection)
   )
@@ -49,11 +51,11 @@ object Index extends FlowchartsTemplate {
         br,
         s"""
         Hajde da ispišemo nešto na ekran:
-        - kliknite na strelicu, prikazaće se lista naredbi koje možemo dodati
-        - kliknite na `Output`
-        - dvokliknite na novu Output naredbu
-        - upišite `"Pozdrav svijete!"` (sa navodnicima!) i klikni OK
-        - kliknite Run
+        1. kliknite na strelicu, prikazaće se lista naredbi koje možemo dodati
+        1. kliknite na `Output`
+        1. dvokliknite na novu Output naredbu
+        1. upišite `"Pozdrav svijete!"` (sa navodnicima!) i klikni OK
+        1. kliknite Run
         
         Vidjećemo da program sada ispiše poruku `"Pozdrav svijete!"`.  
         """.md
