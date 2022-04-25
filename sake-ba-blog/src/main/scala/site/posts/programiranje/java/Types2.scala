@@ -21,7 +21,7 @@ object Types2 extends JavaTemplate {
       "Tipovi, opet",
       div(
         """      
-        Rekli smo da ćemo nastaviti malo detaljnije o tipovima. :)  
+        Rekli smo da ćemo nastaviti malo detaljnije o tipovima.  
         Java ima 2 vrste tipova: primitivne i referentne.  
         """.md
       ),

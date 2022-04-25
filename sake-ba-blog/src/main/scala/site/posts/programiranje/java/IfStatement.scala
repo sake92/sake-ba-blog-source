@@ -95,32 +95,10 @@ object IfStatement extends JavaTemplate {
         Nakon linije 6 program nastavlja normalno sa svojim izvršenjem.  
 
         ---
-        Dijagram toka izvršenja `if-else` naredbe:
-      """.md,
-      div(Classes.txtAlignCenter)(
-        plantSvg("""
-          @startuml 
-          skinparam backgroundColor #EEEBDC
-          skinparam shadowing false
-
-          start
-
-          if (**uslov?**) then (jeste)
-            :uradi nešto;
-          else (nije)
-            :uradi nešto drugo;
-          endif
-
-          stop
-
-          @enduml
-        """)
-      ),
-      """
         Možemo imati i više uslova u jednoj naredbi, tj. niz `if-elseif-elseif-...-else`.  
         Ovi uslovi bi trebali biti **međusobno isključivi** tj. smisleni.
         Ako napišete  
-          `if (broj>5) {/* prvi */} else if (broj>7) {/* drugi */}` to nema puno smisla jer
+          `if (broj>5) { } else if (broj>7) { }` to nema puno smisla jer
           ako broj nije veći od 5, ne može biti veći od 7, nema šansone. :D  
         Ako jeste veći od 5, biće izvršen prvi blok, ali drugi blok koda NIKAD NEĆE BITI IZVRŠEN!
     

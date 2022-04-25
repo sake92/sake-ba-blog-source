@@ -34,7 +34,7 @@ object ForLoop extends JavaTemplate {
       ),
       """
           Uopćena sintaksa for petlje je sljedeća: `for(inicijalizacije; uslov; koraci)`.  
-          Vidimo da su dijelovi `for` petlje razdvojeni tačkazarezom.  
+          Dijelovi `for` petlje su razdvojeni tačkazarezom.  
 
           Umjesto da deklarišemo varijable prije petlje, zgodno je deklarisati ih u sklopu petlje, 
             jer nam poslije petlje one ne trebaju.  
@@ -44,30 +44,7 @@ object ForLoop extends JavaTemplate {
           
           Dio **koraci** dolazi **na kraju petlje**, isto kao linija 4 u našoj `while` petlji.  
           Koraci obično *utiču na uslov za izlaz* iz petlje.  
-          Slijedi i vizuelni dijagram izvršenja ove naredbe:
-      """.md,
-      div(Classes.txtAlignCenter, cls := "embed-responsive-item")(
-        plantSvg("""
-          @startuml 
-          skinparam backgroundColor #EEEBDC
-          skinparam shadowing false
-
-          start
-
-          partition For {
-            :inicijalizacije;
-            while (**uslov?**) is (jeste)
-              :naredbe for petlje;
-              :koraci;
-              -[#blue,bold]-> loop;
-            endwhile (nije)
-          }
-
-          :ostale naredbe;
-
-          @enduml
-        """)
-      )
+      """.md
     )
   )
 

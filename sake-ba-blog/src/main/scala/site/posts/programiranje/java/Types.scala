@@ -140,7 +140,7 @@ object Types extends JavaTemplate {
           > - string "1" nije isto kao broj 1
           > - karakter '1' nije isto kao broj 1
           > - string "1" nije isto kao karakter '1'
-          > - postoje posebne funkcije za pretvaranje iz jednog tipa u drugi, ali otom potom...
+          > - postoje posebne funkcije za pretvaranje iz jednog tipa u drugi
        """.md
       )
     )

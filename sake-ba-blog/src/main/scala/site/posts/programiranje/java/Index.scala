@@ -25,8 +25,10 @@ object Index extends JavaTemplate {
 
   def uvodSection = Section(
     "Uvod",
-    """
-      Pretpostavljam da znate makar neke osnove matematike, i naravno koristiti računar. :)  
+    s"""
+      Pretpostavljam da ste prešli [vizuelno programiranje](${site.posts.programiranje.flowcharts.Index.ref}).   
+      Ako niste, toplo preporučujem da prvo pređete taj dio!
+
       Dosta vremena ćemo posvetiti objašnjavanju koncepata i terminologije.  
       Terminologija je vrlo bitna, jer ćete kasnije lakše razgovarati o datim konceptima
         i brže ćete učiti ostale programske jezike, "povezivati kockice".
@@ -57,7 +59,7 @@ object Index extends JavaTemplate {
         I to im moramo "ručno" unijeti...
         Te kompjuterske misli su ustvari naše **naredbe**, koje se skupno nazivaju **program**.
 
-        Ovdje smo da naučimo neke od načina za komuniciranje s kompjuterima.  
+        Ovdje smo da naučimo neke od načina za komuniciranje sa kompjuterima.  
         Naime, ljudi su razvili na stotine **programskih jezika** koje se koriste za pisanje kompjuterskih programa.  
         Ovi jezici su slični našim jezicima, imaju svoju **sintaksu**, **gramatiku** i **pravopis**.
       """.md
@@ -70,7 +72,7 @@ object Index extends JavaTemplate {
         Apstrakcija je ustvari *generalizovanje*, uopćavanje nečeg konkretnog.
         U **datom kontekstu** bitna su nam **samo neka svojstva** datog objekta/stvari/koncepta.
         Naprimjer kada kažemo automobil, podrazumijevamo nešto sa 4 točka, motorom itd.  
-        To je apstraktni automobil, njegova takoreći definicija, dok je konkretan automobil npr. komšijin Pežo(v) 307, iz 2001. godine.
+        To je apstraktni automobil, njegova takoreći definicija, dok je konkretan automobil npr. komšijin Peugeot 307, iz 2001. godine.
         
         U fizici i hemiji imamo apstrakciju atoma. Zatim se uvodi apstrakcija molekule, koja se sastoje od više atoma.
         Kada se govori o molekulama, znamo da su "ispod" atomi, ali nas u datom kontekstu to ne zanima!

@@ -44,7 +44,7 @@ object Index extends CodeTemplate {
 
         Kod funkcionalnog/matematičkog načina razmišljanja pravimo **nove varijable** a stare ne diramo! 
         To nam pomaže kod razumijevanja određenog dijela koda, ne moramo pamtiti u glavi stanje "cijelog svijeta" 
-          i na šta utiče promjena date varijable. Ali, otom potom...
+          i na šta utiče promjena date varijable.
         """.md
   )
 

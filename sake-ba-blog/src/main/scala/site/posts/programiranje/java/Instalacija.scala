@@ -30,8 +30,8 @@ object Instalacija extends JavaTemplate {
     "Instalacija Jave",
     div(
       s"""
-        Ako vam je baš mrsko instalirati Javu, postoje i online verzije
-        - [Java](https://www.jdoodle.com/online-java-compiler)
+        Ako vam je baš mrsko instalirati Javu, postoje i online alternative:
+        - [JDoodle](https://www.jdoodle.com/online-java-compiler)
         - [JShell](https://tryjshell.org/)
 
         Zgodne su za probavanje i igranje sa Javom.

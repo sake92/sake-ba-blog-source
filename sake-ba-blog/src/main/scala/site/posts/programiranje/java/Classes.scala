@@ -46,7 +46,7 @@ object Classes extends JavaTemplate {
         """
       ),
       """
-      Iako ovaj kod radi kako treba, nekako se ne osjećamo dobro zbog njega... :D  
+      Iako ovaj kod radi kako treba, nekako se ne osjećamo dobro zbog njega...   
       Indeksi pršte na sve strane, šta ako je jedan od nizova kraći itd?  
       Također, ovi nizovi nam uopće ne govore da su **dio jedne cjeline**.  
       Neko ko čita ovaj kod mora se dobro zapitati šta oni predstavljaju.  
@@ -80,7 +80,7 @@ object Classes extends JavaTemplate {
       Ucenik ucenik = new Ucenik();
       ```
       Ovaj operator naziva se **konstruktor**.  
-      Konstruktor je kao "funkcija" koja kreira novi objekat i vrati nam referencu na njega.    
+      Konstruktor je specijalna funkcija koja kreira novi objekat i vrati nam referencu na njega.    
       Kompajler nam **automatski kreira konstruktor** za nas, kasnije ćemo vidjeti kako sami možemo definisati konstruktor(e).
       """.md
     )

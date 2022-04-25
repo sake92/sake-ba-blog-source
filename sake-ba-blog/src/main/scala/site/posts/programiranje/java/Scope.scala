@@ -23,7 +23,7 @@ object Scope extends JavaTemplate {
       Svaka varijabla u Javi ima svoj scope.  
       Scope je **dio programa** u kom je ta varijabla **vidljiva** tj. može se tu koristiti.  
       Scope-ovi mogu biti ugniježdeni.  
-      Unutrašnji scope može vidjeti/koristiti varijable iz vanjskog scope.  
+      Unutrašnji scope može vidjeti tj. koristiti varijable iz vanjskog scope.  
       Unutrašnji scope može definisati **novu varijablu** koja se zove **isto** kao varijabla u vanjskom scope!
 
       Postoje dva najvažnija scope-a a to su: scope klase i scope metode.  

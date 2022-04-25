@@ -80,7 +80,7 @@ object Basics extends JavaTemplate {
 
           ---
           Kada želimo koristiti **realne** brojeve (sa zarezom), pišemo tačku nakon broja.  
-          Tačka se koristi umjesto zareza, jer se zarez koristi za neke druge stvari... Otom potom.  
+          Tačka se koristi umjesto zareza, jer se zarez koristi za neke druge stvari.  
           Uglavnom, da vidimo kako rade realni brojevi (en. **float**ing point):
         """.md,
       jshell.withOutputLines("2,4,6,8,10,12,14")("""

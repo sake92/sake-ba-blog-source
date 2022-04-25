@@ -9,7 +9,7 @@ import ba.sake.hepek.prismjs.PrismConsts
 
 trait FlowchartsTemplate extends CodeTemplate {
 
-  override def pageCategory = Some("Vizuelno progamiranje")
+  override def pageCategory = Some("Vizuelno programiranje")
 
   override def categoryPosts = List(
     Index,

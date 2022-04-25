@@ -59,28 +59,7 @@ object WhileLoop extends JavaTemplate {
 
         Uslov se ispituje u svakoj **iteraciji** petlje. Dakle, svaki put kada se dođe do linije 5 uslov će se ponovo ispitati.
         Ako uslov nije zadovoljen, petlja se zaustavlja i program se nastavlja izvršavati na liniji 6.
-        Slijedi i vizuelni dijagram izvršenja ove naredbe:
-      """.md,
-      div(Classes.txtAlignCenter)(
-        plantSvg("""
-          @startuml
-          skinparam backgroundColor #EEEBDC
-          skinparam shadowing false
-
-          start
-
-          partition While {
-            while (**uslov?**) is (jeste)
-              :naredbe while petlje;
-              -[#blue,bold]-> loop;
-            endwhile (nije)
-          }
-
-          :ostale naredbe;
-
-          @enduml
-        """)
-      )
+      """.md
     )
   )
 }
