@@ -26,28 +26,33 @@ object DoWhile extends FlowchartsTemplate {
     "Uvod",
     frag(
       """
-    Ova naredba je slična While.  
-    Glavna razlika je ta da DoWhile provjerava uslov **nakon što izvrši naredbe**.  
-    DoWhile će izvršiti blok naredbi **minimalno jednom**.
+      Ova naredba je slična While.  
+      Glavna razlika je ta da DoWhile provjerava uslov **nakon što izvrši naredbe**.  
+      DoWhile će izvršiti blok naredbi **minimalno jednom**.
 
-    ---
-    Napravićemo program koji čita broj od korisnika, koji mora biti pozitivan:
-    - deklarišite Integer x
-    - dodajte DoWhile sa uslovom `x <= 0`
-    - unesite `x` u tijelu DoWhile
+      ---
+      Napravićemo program koji čita broj od korisnika, koji mora biti pozitivan:
+      - deklarišite Integer x
+      - dodajte DoWhile sa uslovom `x <= 0`
+      - unesite `x` u tijelu DoWhile
 
-    Ovaj program možemo pročitati ovako:  
-      "Unesi broj x, dok god je manji ili jednak nuli"
+      Ovaj program možemo pročitati ovako:  
+        "Unesi broj x, dok god je manji ili jednak nuli"
 
-    Kada pokrenete program probajte unijeti sljedeće vrijednosti: 1, 17, -55, 6.  
-    DoWhile će završiti samo kada unesete pozitivan broj.
+      Kada pokrenete program probajte unijeti sljedeće vrijednosti: 1, 17, -55, 6.  
+      DoWhile će završiti samo kada unesete pozitivan broj.
 
 
-    """.md,
+      """.md,
       div(
         div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
       ),
-      br
+      br,
+      """
+      ##### Vježbe
+      1. Unosite String s i ispišite ga, sve dok ne bude jednak "END"
+      1. Unosite jednu po jednu ocjenu dok korisnik ne unese `0`. Zatim ispišite prosjek tih ocjena
+      """.md
     )
   )
 
