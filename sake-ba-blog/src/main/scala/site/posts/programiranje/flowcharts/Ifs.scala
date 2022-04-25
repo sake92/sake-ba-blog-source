@@ -81,7 +81,17 @@ object Ifs extends FlowchartsTemplate {
         | true  | true  | true      |
         | true  | false | true      |
         | false | true  | true      |
-        | false | true  | false      |
+        | false | true  | false     |
+        
+        ---
+        Na kraju, imamo i operaciju negacije, koja samo "obrne" vrijednost Booleana.  
+        Na bosanskom se čita "NE" (engl. "not"), a pišemo je kao `!`.  
+        Ovaj operator piše se *prije vrijednosti koju negiramo*, npr `!uslov`.
+
+        | A     | !A |
+        |---    |--------|
+        | true  | false      |
+        | false  | true      |
         """.md
       )
     )

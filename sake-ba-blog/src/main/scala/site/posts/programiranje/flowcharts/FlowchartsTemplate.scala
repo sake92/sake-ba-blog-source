@@ -18,7 +18,11 @@ trait FlowchartsTemplate extends CodeTemplate {
     Ifs,
     While,
     DoWhile,
-    ForLoop
+    ForLoop,
+    PredefinedFunctions,
+    CustomFunctions,
+    ReturnFunctions,
+    RecursiveFunctions
   )
 
   override def bodyContent = frag(

@@ -29,7 +29,10 @@ object Index extends FlowchartsTemplate {
     
     Program se može predstaviti **vizuelno** pomoću **dijagrama toka** (engl. flowchart).  
     Koristićemo ugrađeni editor, koji može i pokrenuti program koji napravimo.  
-    Ako želite da sačuvate svoje programe koje napravite, možete se registrovati na [flowrun.io](https://flowrun.io/).
+    
+    ---
+    Ako želite da sačuvate svoje programe koje napravite, možete se registrovati na [flowrun.io](https://flowrun.io/).  
+    Tu možete vidjeti i neke programe koje su napravili drugi korisnici, kliknite [ovdje](https://flowrun.io/explore).
     """.md,
     List(firstProgSection, exercisesSection)
   )
