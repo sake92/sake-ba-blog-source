@@ -36,7 +36,7 @@ object ReturnFunctions extends FlowchartsTemplate {
       - dodajte novu funkciju `kvadrat` sa tipom Integer
       - dodajte novi parametar `Integer x`
       - kliknite na `return` element i upišite `x*x`
-      - u main funkciji ispišute `kvadrat(5)`
+      - u main funkciji ispišite `kvadrat(5)`
 
       Program će ispisati 25 kada ga pokrenete.
 

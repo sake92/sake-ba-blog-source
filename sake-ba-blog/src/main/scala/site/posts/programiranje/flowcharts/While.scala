@@ -32,13 +32,13 @@ object While extends FlowchartsTemplate {
       Za to nam služi While naredba/petlja.
 
       While ima 2 dijela:
-      - uslovni izraz - provjerava se svaki put prije izvršavanja While petlje
-      - tijelo - naredbe koje se izvršavaju kada je uslov ispunjen
+      - uslovni izraz - provjerava se svaki put prije izvršavanja tijela petlje
+      - tijelo (engl. body) - naredbe koje se izvršavaju kada je uslov ispunjen
 
       ---
       Napravićemo program koji ispisuje brojeve od 1 do 5:
-      - deklarišite Integer x = 1
-      - dodajte While sa uslovom `x <= 5`
+      - deklarišite `Integer x = 1`
+      - dodajte `While` sa uslovom `x <= 5`
       - ispišite `x` u tijelu While
       - dodijelite `x = x + 1` nakon ispisa
 

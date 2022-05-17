@@ -35,8 +35,8 @@ object CustomFunctions extends FlowchartsTemplate {
       ---
       Hajde da definišemo funkciju `pozdrav(ime)`:
       - dodajte novu funkciju u lijevom panelu
-      - kliknite na fun1 na dijagramu i promijenite ime u `pozdrav`
-      - kliknite + da dodate novi parametar i nazovite ga `ime`, selektujte tip String
+      - kliknite na `fun1` na dijagramu i promijenite ime u `pozdrav`
+      - kliknite + da dodate novi parametar `String ime`
       - ispišite `"Pozdrav " + ime`
       - kliknite na `main` funkciju
       - dodajte novu Call naredbu i upišite `pozdrav("Meho")`

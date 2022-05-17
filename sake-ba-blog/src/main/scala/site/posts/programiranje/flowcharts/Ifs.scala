@@ -32,7 +32,7 @@ object Ifs extends FlowchartsTemplate {
     Napravićemo program koji će ispisati da li je broj pozitivan ili negativan:
       - deklarišite `Integer x`
       - odradite unos `x`
-      - dodajte If blok s vrijednošću `x > 0`
+      - dodajte `If` blok s vrijednošću `x > 0`
       - u `true` grani ispišite "pozitivan"
       - u `false` grani ispišite "negativan"
 
@@ -81,12 +81,12 @@ object Ifs extends FlowchartsTemplate {
         | true  | true  | true      |
         | true  | false | true      |
         | false | true  | true      |
-        | false | true  | false     |
+        | false | false  | false     |
         
         ---
         Na kraju, imamo i operaciju negacije, koja samo "obrne" vrijednost Booleana.  
         Na bosanskom se čita "NE" (engl. "not"), a pišemo je kao `!`.  
-        Ovaj operator piše se *prije vrijednosti koju negiramo*, npr `!uslov`.
+        Ovaj operator piše se *prije vrijednosti koju negiramo*, npr. `!uslov`.
 
         | A     | !A |
         |---    |--------|

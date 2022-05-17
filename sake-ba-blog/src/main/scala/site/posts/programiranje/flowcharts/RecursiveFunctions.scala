@@ -38,8 +38,8 @@ object RecursiveFunctions extends FlowchartsTemplate {
       Napisaćemo rekurzivnu funkciju koja odbrojava od `x` do `1`:
       - dodajte novu funkciju `countdown`
       - dodajte joj parametar `Integer x`
-      - dodajte If sa uslovom `x > 0`
-      - ispišite x u true grani
+      - dodajte `If` sa uslovom `x > 0`
+      - ispišite `x` u true grani
       - pozovite `countdown(x-1)` nakon ispisa
       - pozovite `countdown(5)` u main funkciji
 
@@ -60,16 +60,16 @@ object RecursiveFunctions extends FlowchartsTemplate {
       Zatim će ispisati 1 i pozvati `countdown(0)`.    
       U ovom trenutku **uslov će biti false** tako da će se funkcija završiti.
 
-      Kada se ovaj poziv funkcije završi, kreće se sa "odmotavanjem":
+      Tek kada se ovaj poziv funkcije završi, kreće se sa "odmotavanjem":
       - završiće se poziv `countdown(1)`
       - završiće se poziv `countdown(2)`
       - završiće se poziv `countdown(3)`
       - završiće se poziv `countdown(4)`
       - završiće se poziv `countdown(5)`
-      - završiće se main
+      - završiće se `main`
 
       Najbitniji dio je **bazni/završni slučaj** tj. uslov završetka rekurzije.  
-      To je ova false grana, jer npr. kad ne bi imali ovaj If uslov, rekurzija se nikad ne bi završila.
+      To je ova false grana, jer npr. kad ne bi imali ovaj If uslov, rekurzija se nikad ne bi završila.  
       U tom slučaju program bi se zaledio i morali bismo ga zaustaviti (klikom na Stop dugme).  
       Možete probati pozvati main u mainu, doći će do **beskonačne rekurzije**.
 

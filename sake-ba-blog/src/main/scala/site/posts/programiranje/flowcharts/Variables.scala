@@ -26,12 +26,12 @@ object Variables extends FlowchartsTemplate {
     "Uvod",
     """
     Varijable nam služe za **spremanje informacija/podataka**.  
-    Npr. ako računamo prosjeke ocjena učenika (29 ih ima), morali bi pisati broj 29 više puta u programu. 
-    Ako dođe novi učenik, morali bi na svim mjestima u programu izmijeniti 29 na 30... 
-    Varijable nam pomažu da izbjegnemo ovakve situacije.
+    Recimo ako računamo prosjeke ocjena učenika (npr. ima 29 učenika trenutno), morali bi napisati broj `29` više puta u programu. 
+    Ako dođe novi učenik, morali bi na svim mjestima u programu izmijeniti `29` na `30`... 
+    Varijable nam pomažu da izbjegnemo ovakve situacije.  
     
     ---
-    Sve varijable imaju **naziv** i **tip**.  
+    Svaka varijabla ima **naziv** i **tip**.  
     Tip nam ograničava **šta možemo spremiti u tu varijablu**:
     - `Integer` - cijeli broj
     - `Real` - realni broj

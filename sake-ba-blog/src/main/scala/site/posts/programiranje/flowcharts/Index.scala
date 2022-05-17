@@ -58,11 +58,11 @@ object Index extends FlowchartsTemplate {
         Hajde da ispišemo nešto na ekran:
         1. kliknite na strelicu, prikazaće se lista naredbi koje možemo dodati
         1. kliknite na `Output`
-        1. dvokliknite na novu Output naredbu
-        1. upišite `"Pozdrav svijete!"` (sa navodnicima!) i klikni OK
+        1. kliknite na novu `Output` naredbu
+        1. upišite `"Pozdrav svijete!"`, sa navodnicima!
         1. kliknite Run
         
-        Vidjećemo da program sada ispiše poruku `"Pozdrav svijete!"`.  
+        Program sada ispisuje poruku `"Pozdrav svijete!"` u izlaznom panelu.  
         """.md
       )
     )
@@ -101,7 +101,7 @@ object Index extends FlowchartsTemplate {
 
         #### Spajanje teksta
 
-        U prethodnim primjerima ispisivali smo neke jednostavne vrijednosti.  
+        U prethodnim primjerima ispisivali smo neke jednostavne tekstualne vrijednosti.  
         Nekad nam treba da te vrijednosti spojimo u jednu.  
         Za to nam služi znak `+`:
         - `"abc" + "xyz"` bi ispisalo isto kao i `"abcxyz"`

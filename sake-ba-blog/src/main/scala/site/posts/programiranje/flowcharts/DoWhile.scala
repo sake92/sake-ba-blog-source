@@ -27,7 +27,7 @@ object DoWhile extends FlowchartsTemplate {
     frag(
       """
       Ova naredba je slična While.  
-      Glavna razlika je ta da DoWhile provjerava uslov **nakon što izvrši naredbe**.  
+      Glavna razlika je da DoWhile provjerava uslov **tek nakon što izvrši naredbe**.  
       DoWhile će izvršiti blok naredbi **minimalno jednom**.
 
       ---

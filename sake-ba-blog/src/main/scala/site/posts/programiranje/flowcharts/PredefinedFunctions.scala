@@ -31,7 +31,7 @@ object PredefinedFunctions extends FlowchartsTemplate {
       Za Stringove imamo operator +, koji ih nadovezuje, "štikla" ih.
 
       U "pravim" programima ne izmišljamo toplu vodu,
-      iskorištavamo već postojeći kod.  
+      već iskorištavamo postojeći kod.  
       Taj kod može biti "ugrađen" u sami jezik, ili kod koji smo mi napisali.
 
       Moramo negdje "spremiti" taj kod, parametrizirati ga ako je potrebno.  

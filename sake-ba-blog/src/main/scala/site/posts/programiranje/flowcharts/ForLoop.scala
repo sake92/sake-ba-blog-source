@@ -32,7 +32,7 @@ object ForLoop extends FlowchartsTemplate {
       - početna vrijednost - start
       - krajnja vrijednost - end
       - inkrement/korak - step
-      - tijelo/narebe
+      - tijelo/naredbe
       
       Izvršavanje For petlje je isto kao sljedeće:
       - Deklarisanje `Integer i` sa početnom vrijednošću

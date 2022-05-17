@@ -26,7 +26,7 @@ object Input extends FlowchartsTemplate {
     "Uvod",
     """
     U prethodnim primjerima koristili smo vrijednosti koje su ufiksane u program.  
-    Npr. vrijednost `a = 5` za dužinu stranice kvadrata.  
+    Npr. vrijednost `5` za dužinu stranice kvadrata.  
     Bilo bi zgodno kada bi mogli **dati korisniku da unese proizvoljnu vrijednost**.  
     Naravno, to je moguće, i za to služi naredba `Input`.
     """.md,
@@ -51,7 +51,7 @@ object Input extends FlowchartsTemplate {
         ),
         br,
         """
-        Vidimo da program sada čeka da unesemo neki tekst.  
+        Program sada čeka da unesemo neki tekst.  
         Unesite svoje ime i kliknite Enter.
         
         Vidimo da program odgovara ispisom u izlaznom panelu.
