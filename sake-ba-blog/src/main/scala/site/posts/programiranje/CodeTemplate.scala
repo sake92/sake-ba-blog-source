@@ -14,6 +14,8 @@ trait CodeTemplate extends SakeBaBlogPage with PrismDependencies {
     "batch",
     "scala",
     "java",
+    "javascript",
+    "haskell",
     "markup",
     "markup-templating",
     "vbnet"

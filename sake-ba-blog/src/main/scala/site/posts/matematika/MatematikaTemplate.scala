@@ -3,9 +3,7 @@ package site.posts.matematika
 import ba.sake.hepek.katex.KatexDependencies
 import ba.sake.hepek.html.statik.BlogPostPage
 
-trait MatematikaTemplate
-    extends templates.SakeBaBlogPage
-    with KatexDependencies {
+trait MatematikaTemplate extends templates.BsBlogPage with KatexDependencies {
 
   override def pageCategory = Some("Matematika")
 

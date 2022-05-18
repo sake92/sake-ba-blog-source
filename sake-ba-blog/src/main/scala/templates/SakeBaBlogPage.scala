@@ -13,29 +13,52 @@ import images.Images
 import utils._
 import Imports._
 
-trait SakeBaBlogPage extends SakeBaBlogStaticPage with HepekBootstrap3BlogPage {
+//////// engleski
+trait EnBlogPage extends SakeBaBlogPage with EnStaticPage {
+
+  override def tocSettings =
+    Some(TocSettings(title = "Content", tocType = TocType.Scrollspy(55)))
+
+}
+
+trait EnStaticPage extends SakeBaBlogStaticPage {
+  override def pageSettings = super.pageSettings.withLanguage("en")
+
+  override def staticSiteSettings =
+    super.staticSiteSettings
+      .withIndexPage(site.en.Index)
+      .withMainPages(Site.en.mainPages)
+}
+
+//////// bosanski
+trait BsBlogPage extends BsStaticPage with SakeBaBlogPage {
 
   override def tocSettings =
     Some(TocSettings(title = "Sadržaj", tocType = TocType.Scrollspy(55)))
 
 }
 
-trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
-
-  override def navbar = Some(Navbar)
+trait BsStaticPage extends SakeBaBlogStaticPage {
+  override def pageSettings = super.pageSettings.withLanguage("bs")
 
   override def staticSiteSettings =
     super.staticSiteSettings
       .withIndexPage(site.Index)
       .withMainPages(Site.bs.mainPages)
+}
+
+//////////// common
+trait SakeBaBlogPage extends HepekBootstrap3BlogPage
+
+trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
+
+  override def navbar = Some(Navbar)
 
   override def siteSettings =
     super.siteSettings
       .withName(Site.name)
       .withFaviconNormal(Images.favicon.ref)
       .withFaviconInverted(Images.logo.ref)
-
-  override def pageSettings = super.pageSettings.withLanguage("bs")
 
   override def headContent = frag(
     super.headContent,

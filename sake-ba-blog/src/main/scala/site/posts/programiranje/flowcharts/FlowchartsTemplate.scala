@@ -7,7 +7,7 @@ import scalatags.Text.all._
 import utils.Imports._
 import ba.sake.hepek.prismjs.PrismConsts
 
-trait FlowchartsTemplate extends CodeTemplate {
+trait FlowchartsTemplate extends CodeTemplate with templates.BsBlogPage {
 
   override def pageCategory = Some("Vizuelno programiranje")
 

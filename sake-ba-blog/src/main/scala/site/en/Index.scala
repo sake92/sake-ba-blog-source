@@ -3,8 +3,9 @@ package site.en
 import scalatags.Text.all._
 import utils._
 import utils.Imports._, grid._, Image._
+import templates.EnStaticPage
 
-object Index extends EnglishStaticPage {
+object Index extends EnStaticPage {
 
   override def pageSettings =
     super.pageSettings

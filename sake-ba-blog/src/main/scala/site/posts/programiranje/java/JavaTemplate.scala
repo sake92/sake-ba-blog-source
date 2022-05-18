@@ -2,7 +2,7 @@ package site.posts.programiranje
 
 package java
 
-trait JavaTemplate extends CodeTemplate {
+trait JavaTemplate extends CodeTemplate with templates.BsBlogPage {
 
   override def pageCategory = Some("Java")
 

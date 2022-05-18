@@ -27,6 +27,7 @@ object Site {
   object en {
 
     def mainPages: List[StaticPage] = List(
+      site.en.posts.programming.Index
     )
   }
 }
