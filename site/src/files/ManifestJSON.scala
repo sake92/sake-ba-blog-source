@@ -9,7 +9,7 @@ object ManifestJSON extends Renderable {
 
   val IconSizes = List(72, 96, 128, 144, 152, 192, 384, 512)
 
-  override def relPath = Paths.get("site/manifest.json")
+  override def relPath = Paths.get("files/manifest.json")
 
   override def render = {
     val icons = IconSizes.map { s =>
