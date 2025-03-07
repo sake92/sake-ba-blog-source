@@ -116,7 +116,7 @@ object Instalacija extends JavaTemplate {
             Otvorite `Advanced` tab i kliknite `Environment Variables...`.  
             Dodajte 3 sistemske varijable u donji prozor (u System Variables):
           """.md,
-          table(cls := "table table-hover")(
+          table(cls := "striped")(
             tr(th("Naziv varijable"), th("Vrijednost")),
             tr(td("JAVA_HOME"), td("""C:\Java\jdk1.8.0_131""")),
             tr(td("JDK_HOME"), td("%JAVA_HOME%")),
