@@ -1,7 +1,9 @@
 package files.posts.programiranje
 
-import scalatags.Text.all._
-import utils.Imports._
+import scalatags.Text.all.*
+import scalatags.Text.tags2.nav
+import utils.Imports.*
+import utils.Site
 
 case class Term(name: String, explanation: Frag)
 
@@ -12,6 +14,7 @@ object ProgrammingGlossary extends templates.SakeBaBlogStaticPage {
 
   override def pageContent =
     tag("main")(cls:="pico container")(
+      nav(navLogo),
       terms.sortBy(_.name).map { t =>
         frag(h4(t.name), t.explanation, hr)
       }

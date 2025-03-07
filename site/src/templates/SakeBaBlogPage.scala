@@ -2,21 +2,26 @@ package templates
 
 import java.time.LocalDate
 import scalatags.Text.all.*
+import scalatags.Text.tags2.{article, aside, main, nav}
 import ba.sake.hepek.anchorjs.AnchorjsDependencies
 import utils.*
 import Imports.*
 import ba.sake.hepek.html.statik.{BlogPostPage, Section, StaticPage}
 
 //////// engleski
-trait EnBlogPage extends SakeBaBlogPage with EnStaticPage 
+trait EnBlogPage extends SakeBaBlogPage with EnStaticPage
 
 trait EnStaticPage extends SakeBaBlogStaticPage {
   override def pageSettings = super.pageSettings.withLanguage("en")
 
+  override def mainPages: List[StaticPage] = List(
+    files.en.posts.programming.Index
+  )
+
   override def staticSiteSettings =
     super.staticSiteSettings
       .withIndexPage(files.en.Index)
-      .withMainPages(Site.en.mainPages)
+      .withMainPages(mainPages)
 }
 
 //////// bosanski
@@ -28,24 +33,41 @@ trait BsStaticPage extends SakeBaBlogStaticPage {
   override def staticSiteSettings =
     super.staticSiteSettings
       .withIndexPage(files.Index)
-      .withMainPages(Site.bs.mainPages)
+      .withMainPages(mainPages)
 }
 
 //////////// common
 trait SakeBaBlogPage extends SakeBaBlogStaticPage with BlogPostPage {
-  override def pageContent: Frag = tag("main")(cls:="pico container")(
-        
-         /* div(cls := "hidden-print")(
-            blogSettings.createdDate.map(cd => div(cd.format(blogSettings.dateFormat))),
-            blogSettings.author.map(author => div(author))
-          ),*/
-          tag("article")(
-            renderSections(blogSettings.sections)
+  override def pageContent: Frag = main(cls := "pico container")(
+    nav(
+      navLogo,
+      ul(
+        mainPages.map(mp =>
+          val classes =
+            if mp.pageCategory == this.pageCategory then "" else "secondary"
+          li(a(href := mp.ref, cls := classes)(mp.pageSettings.title))
+        )
+      )
+    ),
+    div(cls := "blog-post")(
+      aside(
+        nav(
+          ul(
+            categoryPosts.map(bp =>
+              val classes =
+                if bp.relPath == this.relPath then "" else "secondary"
+              li(a(href := bp.ref, cls := classes)(bp.pageSettings.label))
+            )
           )
-        
+        )
+      ),
+      article(
+        renderSections(blogSettings.sections)
+      )
     )
+  )
 
-   def renderSections(secs: List[Section], depth: Int = 2): List[Frag] =
+  def renderSections(secs: List[Section], depth: Int = 2): List[Frag] =
     secs.map { s =>
       val hTag = tag("h" + (depth + 1))
       tag("section")(
@@ -57,26 +79,41 @@ trait SakeBaBlogPage extends SakeBaBlogStaticPage with BlogPostPage {
 }
 
 trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
-  
+
+  def mainPages: List[StaticPage] = List(
+    files.posts.programiranje.flowcharts.Index,
+    files.posts.programiranje.java.Index,
+    files.posts.programiranje.java.oop.Index,
+    files.posts.programiranje.scala.Index,
+    files.posts.matematika.Index
+  )
+
   override def siteSettings =
     super.siteSettings
       .withName(Site.name)
       .withFaviconNormal(files.images.`favicon.svg`.ref)
       .withFaviconInverted(files.images.`logo.png`.ref)
 
+  val navLogo = ul(
+    li(
+      a(href := staticSiteSettings.indexPage.map(_.ref).getOrElse("/"))(
+        span(
+          img(src := "/images/logo.png", alt := "logo", height := "32px")
+        ),
+        strong("blog.sake.ba")
+      )
+    )
+  )
+
   override def headContent = frag(
     super.headContent,
     link(rel := "manifest", href := relTo(files.ManifestJSON))
   )
 
-  override def pageContent: Frag = tag("main")(cls:="pico container")(
-    super.pageContent
-  )
-
   override def styleURLs =
     super.styleURLs ++ List(
       files.styles.vendor.`pico.conditional.min.css`.ref,
-      files.styles.`main.css`.ref,
+      files.styles.`main.css`.ref
       //files.styles.`print.css`.ref
     )
   override def scriptURLs = super.scriptURLs.appended(

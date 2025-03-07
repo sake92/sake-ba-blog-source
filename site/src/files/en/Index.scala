@@ -1,7 +1,8 @@
 package files.en
 
-import scalatags.Text.all._
-import utils._
+import scalatags.Text.all.*
+import scalatags.Text.tags2.nav
+import utils.*
 import utils.Imports.*
 import templates.EnStaticPage
 
@@ -16,6 +17,7 @@ object Index extends EnStaticPage {
       )
 
   override def pageContent = tag("main")(cls:="pico container")(
+    nav(navLogo),
     div(
       s"""
       #### Welcome! :)
@@ -25,7 +27,7 @@ object Index extends EnStaticPage {
       Site map:
       
       """.md,
-      div(SiteMapHTML.siteMap(Site.en.mainPages))
+      div(SiteMapHTML.siteMap(mainPages))
     )
   )
 

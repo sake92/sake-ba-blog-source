@@ -2,10 +2,10 @@ package files.posts.programiranje
 
 package flowcharts
 
-import scalatags.Text.all._
-
-import utils.Imports._
+import scalatags.Text.all.*
+import utils.Imports.*
 import ba.sake.hepek.prismjs.PrismConsts
+import scalatags.Text.tags2.{article, aside, main, nav}
 
 trait FlowchartsTemplate extends CodeTemplate with templates.BsBlogPage {
 
@@ -27,12 +27,40 @@ trait FlowchartsTemplate extends CodeTemplate with templates.BsBlogPage {
 
   override def bodyContent = frag(
     flowrunTemplateHtml,
-    super.bodyContent    
+    super.bodyContent
   )
 
-  override def pageContent: Frag = tag("main")(cls:="container")(
-    tag("article")(
-      renderSections(blogSettings.sections)
+  // ovdje moramo pješke dodavat "pico" klasu jer ne želimo flowrun stilizirat!
+  override def pageContent: Frag = main(cls := "container")(
+    div(cls := "pico")(
+      nav(
+        navLogo,
+        ul(
+          mainPages.map(mp =>
+            val classes =
+              if mp.pageCategory == this.pageCategory then "" else "secondary"
+            li(a(href := mp.ref, cls := classes)(mp.pageSettings.title))
+          )
+        )
+      )
+    ),
+    div(cls := "blog-post")(
+      div(cls := "pico")(
+        aside(
+          nav(
+            ul(
+              categoryPosts.map(bp =>
+                val classes =
+                  if bp.relPath == this.relPath then "" else "secondary"
+                li(a(href := bp.ref, cls := classes)(bp.pageSettings.label))
+              )
+            )
+          )
+        )
+      ),
+      article(
+        renderSections(blogSettings.sections)
+      )
     )
   )
 
@@ -41,7 +69,7 @@ trait FlowchartsTemplate extends CodeTemplate with templates.BsBlogPage {
       List(
         files.fonts.`fonts.css`.ref,
         files.styles.vendor.`toastify.min.css`.ref,
-        files.styles.vendor.`flowrun.css`.ref,
+        files.styles.vendor.`flowrun.css`.ref
       )
     )
   override def scriptURLs = super.scriptURLs.appendedAll(

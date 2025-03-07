@@ -10,10 +10,11 @@ import utils.Site
 
 object SitemapXML extends Renderable {
 
-  override def relPath = Paths.get("site/sitemap.xml")
+  override def relPath = Paths.get("files/sitemap.xml")
 
   override def render = {
-    val pages = Site.bs.mainPages.flatMap {
+    val mainPages = Index.mainPages ++ en.Index.mainPages
+    val pages = mainPages.flatMap {
       case mp: BlogPostPage => mp.categoryPosts
       case mp               => List()
     }

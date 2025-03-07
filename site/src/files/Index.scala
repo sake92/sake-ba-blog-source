@@ -1,11 +1,12 @@
 package files
 
-import scalatags.Text.all._
-import utils._
+import scalatags.Text.all.*
+import scalatags.Text.tags2.{nav, main}
+import utils.*
 import utils.Imports.*
 
 object Index extends templates.SakeBaBlogStaticPage {
-  
+
   override def pageSettings =
     super.pageSettings
       .withTitle("Početna stranica")
@@ -14,8 +15,18 @@ object Index extends templates.SakeBaBlogStaticPage {
           "Tutorijali iz programiranja, java, scala, matematika i slično."
       )
 
-  override def pageContent = tag("main")(cls:="pico container")(
-        s"""
+  override def pageContent = main(cls := "pico container")(
+    nav(
+      navLogo,
+      ul(
+        mainPages.map(mp =>
+          val classes =
+            if mp.relPath == this.relPath then "" else "secondary"
+          li(a(href := mp.ref, cls := classes)(mp.pageSettings.title))
+        )
+      )
+    ),
+    s"""
         # Saketovi tutorijali
 
         Moje ime je Sakib, bujrum! :)  
@@ -37,17 +48,15 @@ object Index extends templates.SakeBaBlogStaticPage {
         Tako da ako se odlučite i za neki drugi jezik kasnije, neće vam biti teško da ga savladate.
 
         ---
-        """.md
-      ,
-      "Mapa sajta:".md,
-      div(SiteMapHTML.siteMap(Site.bs.mainPages)),
-      s"""
+        """.md,
+    "Mapa sajta:".md,
+    div(SiteMapHTML.siteMap(mainPages)),
+    s"""
             Tutorijali u PDF formatu (nisu uvijek najnovije verzije):
             - [Uvod u programiranje](${Site.bs.programiranjePdf.ref})
             - [Scala](${Site.bs.scalaPdf.ref})
             - [Matematika](${Site.bs.matematikaPdf.ref})
           """.md
-    
   )
 
 }

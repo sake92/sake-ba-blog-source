@@ -1,10 +1,11 @@
 package files
 
-import scalatags.Text.all._
+import scalatags.Text.all.*
 import ba.sake.hepek.core.RelativePath
+import scalatags.Text.tags2.nav
 import templates.SakeBaBlogStaticPage
 import utils.Site
-import utils.Imports._
+import utils.Imports.*
 
 object NotFound extends SakeBaBlogStaticPage {
 
@@ -20,6 +21,7 @@ object NotFound extends SakeBaBlogStaticPage {
 
   override def pageContent =
     tag("main")(cls:="pico container")(
+      nav(navLogo),
       """
           This content is not available in your country.  
           Sorry about that. :/
