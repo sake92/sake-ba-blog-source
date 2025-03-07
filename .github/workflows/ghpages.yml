@@ -18,12 +18,12 @@ jobs:
           persist-credentials: false
 
       - name: Build
-        run: sbt "clean; sakeBaBlog/hepek"
+        run: ./mill site.hepek
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: sake-ba-blog/target/web/public/main/site
+          FOLDER: sake-ba-blog/site/hepek_output
           
