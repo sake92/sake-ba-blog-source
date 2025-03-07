@@ -1,0 +1,505 @@
+
+:root {
+    --flowrun-green: #258139;
+    --flowrun-green-darker: #214426;
+    --flowrun-yellow: #ffd166;
+    --flowrun-yellow-darker: #8f6400;
+    --flowrun-light_blue: #8de4ff;
+    --flowrun-light_blue-darker: #00799e;
+    --flowrun-blue: #015692;
+    --flowrun-blue-darker: #002a3a;
+    --flowrun-red-lighter: #ff7139;
+    --flowrun-red: #d43627;
+    --flowrun-red-darker: #7a0d03;
+    --flowrun-grey: #f6f6f6;
+    --flowrun-grey-darker: #dfdfdf;
+    --flowrun-white: #fff;
+
+    --flowrun-font-monospace: 'Courier Prime';
+    --flowrun-font-color: var(--flowrun-green-darker);
+}
+
+.flowrun-instance * {
+    padding: 0;
+    box-sizing: border-box;
+}
+.flowrun-instance *:not(.flowrun-code *) {
+    /* all except prismjs stuff */
+    margin: 0;
+}
+
+.flowrun-instance a,
+.flowrun-instance a:hover {
+    text-decoration: none;
+}
+
+.flowrun-functions-list,
+.flowrun-instance select,
+.flowrun-instance input {
+    font-family: var(--flowrun-font-monospace);
+    padding: 0.1rem;
+}
+.flowrun-output-statement :not(.material-icons) {
+    font-family: var(--flowrun-font-monospace);
+}
+
+.flowrun-functions-list,
+.flowrun-output,
+.flowrun-diagram {   
+    color: var(--flowrun-font-color);
+}
+
+#flowrun-template {
+    display: none;
+}
+
+/**************************/
+/* MISC */
+/* these are on top coz we override them as needed */
+/**************************/
+.flowrun--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+input[type="text"].flowrun--disabled {
+    opacity: 1;
+    border: none;
+}
+
+.flowrun--running {
+    border: 3px var(--flowrun-red-lighter) solid;
+}
+
+.flowrun-instance .flowrun--panel {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 2px 1px 5px grey;
+    background-color: var(--flowrun-white);
+    border-radius: 0.25rem;
+}
+
+.flowrun-instance>* {
+    margin-bottom: 1rem;
+}
+
+
+/****************************/
+/* FUNCTIONS */
+/****************************/
+.flowrun-functions-list {
+    background-color: var(--flowrun-white);
+}
+
+.flowrun-instance.flowrun-layout-d-o .flowrun-functions-list,
+.flowrun-instance.flowrun-layout-d_o .flowrun-functions-list,
+.flowrun-instance.flowrun-layout-d-o_c .flowrun-functions-list {
+    display: none;
+}
+
+.flowrun-instance .flowrun-fun-chooser {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.flowrun-fun-chooser>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--flowrun-light_blue);
+}
+
+.flowrun-fun-chooser>div>label {
+    display: block;
+    width: 80%;
+    cursor: pointer;
+    padding: 0.33rem;
+    padding-left: 1rem;
+}
+
+.flowrun-instance .flowrun-fun-chooser>div>button {
+    margin-right: 0.33rem;
+}
+
+.flowrun-fun-chooser .material-icons {
+    color: var(--flowrun-red-darker);
+}
+
+.flowrun-btn-fun-add {
+    width: 100%;
+    text-align: center;
+}
+
+.flowrun-input-radio {
+    display: none;
+}
+
+.flowrun-input-radio:checked~span {
+    font-weight: bold;
+    font-size: 1.07em;
+}
+
+
+/**************************/
+/* DIAGRAM */
+/**************************/
+.flowrun-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    user-select: none;
+}
+
+.flowrun-diagram-header {
+    flex-grow: 0;
+    flex-basis: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.flowrun-draw {
+    /* no idea, but it works with this :D */
+    display: contents;
+}
+
+.flowrun-draw svg {
+    width: 100%;
+}
+
+/* debug variables */
+.flowrun-debug-vars {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+}
+.flowrun-debug-vars * {
+    background-color: var(--flowrun-grey-darker);
+}
+
+.flowrun-debug-vars:empty {
+    /* hide when empty */
+    display: none;
+}
+
+.flowrun-debug-vars table {
+	border-collapse: collapse;
+}
+
+.flowrun-debug-vars th,
+.flowrun-debug-vars td {
+	text-align: left;
+	border-collapse: collapse;
+	border-bottom: 1px solid var(--flowrun-green-darker);
+}
+
+.flowrun-debug-vars th:nth-child(2),
+.flowrun-debug-vars td:nth-child(2) {
+	padding-left: 0.5rem;
+}
+
+/* config widget */
+.flowrun-config {
+    position: absolute;
+    left: 1rem;
+    top: 3rem;
+    padding: 5px;
+}
+.flowrun-config[open] {
+    background-color: var(--flowrun-grey-darker);
+}
+.flowrun-instance .flowrun-config summary {
+    margin-bottom: 0.5rem;
+}
+.flowrun-config-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/**************************/
+/* OUTPUT */
+/**************************/
+.flowrun-output {
+    overflow: auto;
+}
+
+.flowrun-output samp {
+    font-size: 0.9em;
+    white-space: pre;
+}
+
+.flowrun-output-statement {
+    border-left: 3px var(--flowrun-grey-darker) solid;
+}
+
+.flowrun-output-runtime {
+    border-left: 3px var(--flowrun-green) solid;
+}
+
+.flowrun-output-runtime.flowrun--error {
+    color: var(--flowrun-red);
+    border-left: 3px var(--flowrun-red) solid;
+}
+
+.flowrun-output-help {
+    background-color: var(--flowrun-grey-darker);
+    color: var(--flowrun-blue-darker);
+}
+
+.flowrun-output-syntax.flowrun--error {
+    color: var(--flowrun-red-lighter);
+    border-left: 3px var(--flowrun-red-lighter) solid;
+}
+
+.flowrun-scratchpad {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.flowrun-scratchpad>* {
+    flex: 1 1 auto;
+    padding: 0.5rem;
+}
+
+.flowrun-scratchpad>*:empty {
+    /* hide empty divs to fill in vertical space */
+    display: none;
+}
+
+
+/**************************/
+/* CODEGEN */
+/**************************/
+
+/* prism stuff */
+div.code-toolbar {
+    height: 100%;
+    overflow: auto;
+}
+
+pre[class*=language-].flowrun-code {
+    height: 100%;
+    margin: 0;
+}
+
+.flowrun-gen-code-btns {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    left: 1rem;
+    top: 5px;
+}
+
+.flowrun-gen-code {
+    position: relative;
+    padding: 2rem 0 0.5rem 0;
+}
+
+.flowrun-instance.flowrun-layout-f-d-o .flowrun-gen-code,
+.flowrun-instance.flowrun-layout-f-d_o .flowrun-gen-code,
+.flowrun-instance.flowrun-layout-d-o .flowrun-gen-code,
+.flowrun-instance.flowrun-layout-d_o .flowrun-gen-code {
+    display: none;
+}
+
+
+
+
+/**************************/
+/* NODES */
+/**************************/
+.node:not(.flowrun-not-selectable):not(.flowrun--selected):hover polygon,
+.node:not(.flowrun-not-selectable):not(.flowrun--selected):hover ellipse {
+    stroke: var(--flowrun-light_blue-darker);
+    stroke-width: 1.5;
+    stroke-dasharray: 10 3;
+    stroke-linejoin: round;
+}
+
+.node.flowrun--selected polygon,
+.node.flowrun--selected ellipse {
+    stroke: var(--flowrun-blue-darker);
+    stroke-width: 2;
+    stroke-dasharray: 10 3;
+    stroke-linejoin: round;
+}
+
+.node.flowrun--error polygon {
+    stroke: var(--flowrun-red);
+    stroke-width: 3px;
+    stroke-dasharray: 3 1;
+    stroke-linejoin: round;
+}
+
+
+/**************************/
+/* BUTTONS */
+/**************************/
+.flowrun-draw-exec-btns {
+    display: flex;
+}
+
+.flowrun-draw-copy-btns {
+    display: flex;
+}
+
+.flowrun-instance button[class^="flowrun-btn"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    cursor: pointer;
+    user-select: none;
+    color: var(--flowrun-green);
+    background: none;
+    border: none;
+}
+
+.flowrun-instance button[class^="flowrun-btn"]:hover {
+    background-color: var(--flowrun-grey);
+}
+
+.flowrun-stmt-inputs,
+.flowrun-param-inputs,
+.flowrun-user-inputs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.flowrun-instance.flowrun--hidden {
+    display: none;
+}
+
+
+/**************************/
+/* CTX menu */
+/**************************/
+.flowrun-context-menu {
+    position: absolute;
+    z-index: 10000;
+
+    display: flex;
+    flex-direction: column;
+    
+    width: 150px;
+    user-select: none;
+
+    transform: scale(0);
+    transform-origin: top left;
+}
+
+.flowrun-instance .flowrun-context-menu.active {
+    transform: scale(1);
+}
+
+.flowrun-instance .flowrun-context-menu>button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    font-size: 15px;
+    background: var(--flowrun-blue);
+    color: var(--flowrun-white);
+    border: 1px var(--flowrun-blue-darker) solid;
+}
+.flowrun-instance .flowrun-context-menu>button:disabled {
+    background-color: var(--flowrun-grey-darker);
+    color: var(--flowrun-blue-darker);
+}
+
+.flowrun-instance .flowrun-context-menu>*:hover {
+    background: var(--flowrun-blue-darker);
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .flowrun-draw svg {
+        height: 90vh;
+    }    
+}
+
+@media screen and (min-width: 600px) {
+
+    .flowrun-functions-list {
+        grid-area: flowrun-functions-list;
+    }
+
+    .flowrun-output {
+        grid-area: flowrun-output;
+    }
+
+    .flowrun-diagram {
+        grid-area: flowrun-diagram;
+    }
+
+    .flowrun-gen-code {
+        grid-area: flowrun-gen-code;
+    }
+
+    .flowrun-instance {
+        display: grid;
+        /* must deduct gap with calc! */
+        gap: 0.5rem;
+
+        grid-template-columns: 20% calc(45% - 1rem) 35%;
+        grid-template-rows: 50% calc(50% - .5rem);
+        grid-template-areas:
+            "flowrun-functions-list  flowrun-diagram  flowrun-output  "
+            "flowrun-functions-list  flowrun-diagram  flowrun-gen-code"
+        ;
+    }
+
+    .flowrun-instance.flowrun-layout-f-d-o {
+        grid-template-rows: 100%;
+        grid-template-areas:
+            "flowrun-functions-list  flowrun-diagram  flowrun-output"
+        ;
+    }
+
+    .flowrun-instance.flowrun-layout-f-d_o {
+        grid-template-columns: calc(30% - 0.5rem) 70%;
+        grid-template-rows: calc(70% - 0.5rem) 30%;
+        grid-template-areas:
+            "flowrun-functions-list  flowrun-diagram"
+            "flowrun-functions-list  flowrun-output"
+        ;
+    }
+
+    .flowrun-instance.flowrun-layout-d-o_c {
+        grid-template-areas:
+            "flowrun-diagram  flowrun-diagram  flowrun-output  "
+            "flowrun-diagram  flowrun-diagram  flowrun-gen-code"
+        ;
+    }
+
+    .flowrun-instance.flowrun-layout-d-o {
+        grid-template-columns: calc(50% - 0.5rem) 50%;
+        grid-template-rows: 100%;
+        grid-template-areas: "flowrun-diagram  flowrun-output";
+    }
+
+    .flowrun-instance.flowrun-layout-d_o {
+        grid-template-columns: 100%;
+        grid-template-rows: calc(70% - 0.5rem) 30%;
+        grid-template-areas:
+            "flowrun-diagram"
+            "flowrun-output"
+        ;
+    }
+
+    .flowrun-instance>* {
+        margin-bottom: 0;
+    }
+    .flowrun-instance .flowrun--panel {
+        margin-bottom: 0;
+    }
+}
+

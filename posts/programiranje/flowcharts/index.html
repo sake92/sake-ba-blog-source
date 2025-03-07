@@ -1,66 +1,124 @@
-<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Uvod u dijagrame toka." /><meta name="og:title" content="blog.sake.ba" /><title>Uvod u dijagrame toka - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="manifest" href="../../../manifest.json" /><link rel="stylesheet" href="https://unpkg.com/bootswatch@3.4.1/cyborg/bootstrap.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="stylesheet" href="../../../styles/print.css" /><style>
-        body { padding-top: 57px; }
-      </style><style>
-      /* scrollspy stuff */
-      nav#tocScrollspy  .nav>li>a {
-        padding-top: 1px;
-        padding-bottom: 1px;
-        font-size: .9em;
-      }
-      nav#tocScrollspy .nav .nav>li>a {
-          padding-top: 1px;
-          padding-bottom: 1px;
-          padding-left: 3em;
-          font-size: .8em;
-      }
-      
-      /* turn off affix on screens less than md */
-      @media (max-width: 991px) { 
-          .affix { position: static; }
-      }
-      @media (min-width: 992px) {
-          /* col-3 is 25% but it's nicer like this */
-          .affix { width: 23%; }
-      }
-      @media (min-width: 992px) {
-          .affix {
-              overflow-y: auto;
-              height: 85%; /* nicer if not full height */
-          }
-      }
-      .affix { padding-left: 2em; }
-    </style></head><body><div class="container-fluid"><div class="hidden-print"><nav class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="../../../index.html"><span><img src="../../../images/logo.png" alt="logo" width="32" height="32" /></span> blog.sake.ba</a></div><div class="collapse navbar-collapse" id="main-navbar"><ul class="nav navbar-nav navbar-left"></ul><ul class="nav navbar-nav navbar-right"><li class="active"><a href="index.html">Dijagrami toka</a></li><li class=""><a href="../java/index.html">Programiranje</a></li><li class=""><a href="../scala/index.html">Scala</a></li><li class=""><a href="../programming-glossary.html">Glosarij</a></li><li class=""><a href="../../matematika/index.html">Matematika</a></li></ul></div></div></nav></div><div class="row"><div class="col-md-3 hidden-print"><nav class="affix"><ul class="nav nav-pills nav-stacked"><li class="active"><a href="index.html">Početna</a></li><li class=""><a href="variables.html">Varijable</a></li><li class=""><a href="input.html">Unos podataka</a></li></ul></nav></div><div class="col-md-6"><div class="hidden-print"></div><div><section><h3 id="uvod">Uvod</h3><p>Kompjuteri izvršavaju <strong>naredbe</strong> jednu za drugom.<br />
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Uvod u vizuelno programiranje, dijagrami toka, flowrun, flowchart." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>Vizuelno programiranje - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="../../../fonts/fonts.css" /><link rel="stylesheet" href="../../../styles/vendor/toastify.min.css" /><link rel="stylesheet" href="../../../styles/vendor/flowrun.css" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../../site/manifest.json" /></head><body>
+<div id="flowrun-template">
+        <div class="flowrun-functions-list flowrun--panel">
+            <div class="flowrun-fun-chooser"></div>
+            <button class="flowrun-btn-fun-add" title="Add new function"> <span class="material-icons">add</span> </button>
+        </div>
+
+        <div class="flowrun-diagram flowrun--panel">
+            <div class="flowrun-diagram-header">
+                <div class="flowrun-draw-copy-btns">
+                    <button class="flowrun-btn-copy-source" title="Copy Source"> <span class="material-icons">file_copy</span> </button>
+                    <button class="flowrun-btn-copy-dot" title="Copy DOT"> <span class="material-icons">account_tree</span> </button>
+                </div>
+                <div>
+                    <input class="flowrun-program-name flowrun--disabled" type="text">
+                </div>
+                <div class="flowrun-draw-exec-btns">
+                    <button class="flowrun-btn-run" title="Run"> <span class="material-icons">play_arrow</span> </button>
+                    <button class="flowrun-btn-stop flowrun--disabled" title="Stop"> <span class="material-icons">stop</span> </button>
+                </div>
+            </div>
+            <div class="flowrun-draw"> </div>
+            
+            <!-- context menus -->
+        <div class="flowrun-edge-context-menu flowrun-context-menu">
+            <button class="flowrun-paste-stmt"> <span class="material-icons">content_paste</span> Paste</button>
+            <button class="flowrun-add-declare"> <span class="material-icons">post_add</span> Declare</button>
+            <button class="flowrun-add-assign"> <span class="material-icons">sync_alt</span> Assign</button>
+            <button class="flowrun-add-input"> <span class="material-icons">keyboard</span> Input</button>
+            <button class="flowrun-add-output"> <span class="material-icons">desktop_windows</span> Output</button>
+            <button class="flowrun-add-if"> <span class="material-icons">call_split</span> If</button>
+            <button class="flowrun-add-while"> <span class="material-icons">repeat</span> While</button>
+            <button class="flowrun-add-do-while"> <span class="material-icons">repeat</span> Do While</button>
+            <button class="flowrun-add-for"> <span class="material-icons">repeat</span> For loop</button>
+            <button class="flowrun-add-call"> <span class="material-icons">call</span> Call</button>
+        </div>
+
+        <div class="flowrun-node-context-menu flowrun-context-menu">
+            <button class="flowrun-copy-stmt"> <span class="material-icons">content_copy</span> Copy</button>
+            <button class="flowrun-delete"> <span class="material-icons">remove</span> Delete</button>
+        </div>
+
+            <div class="flowrun-debug-vars"></div>
+            <details class="flowrun-config">
+                <summary>Settings</summary>
+                <div class="flowrun-config-layout">
+                    <label>
+                        <input class="flowrun-cb-show-functions" type="checkbox">
+                        Show functions
+                    </label>
+                    <label>
+                        <input class="flowrun-cb-show-gen-code" type="checkbox">
+                        Show generated code
+                    </label>
+                </div>
+            </details>
+        </div>
+
+        <div class="flowrun-output flowrun--panel">
+            <div class="flowrun-scratchpad">
+                <div class="flowrun-output-statement"></div>
+                <div class="flowrun-output-syntax"></div>
+                <div class="flowrun-output-runtime"></div>
+            </div>
+        </div>
+
+        <div class="flowrun-gen-code flowrun--panel">
+            <pre class="flowrun-code"></pre>
+            <div class="flowrun-gen-code-btns">
+                <button class="flowrun-btn-copy-gencode" title="Copy Generated Code"> <span class="material-icons">code</span> </button>
+                <select class="flowrun-gencode-lang"></select>
+            </div>
+        </div>
+
+        <!-- this whole div will be deleted -->
+        <div class="flowrun-template-transient">
+            <button class="flowrun-btn-fun-delete" title="Delete function"> <span class="material-icons">remove</span> </button>
+            <button class="flowrun-btn-fun-add-param" title="Add new parameter"> <span class="material-icons">add</span> </button>
+            <button class="flowrun-btn-fun-delete-param" title="Delete parameter"> <span class="material-icons">remove</span> </button>
+            <select class="flowrun-input-select"></select>
+            <input class="flowrun-input-text" type="text" size="10">
+            <input type="radio" class="flowrun-input-radio">
+            <input type="checkbox" class="flowrun-input-checkbox">
+            <button class="flowrun-btn-enter"> <span class="material-icons">input</span> Enter</button>
+        </div>
+    </div>
+<main class="container"><div class="pico"><nav><ul><li><a href="../../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="index.html" class="">Vizuelno programiranje</a></li><li><a href="../java/index.html" class="secondary">Uvod u programiranje</a></li><li><a href="../java/oop/index.html" class="secondary">Uvod u OOP</a></li><li><a href="../scala/index.html" class="secondary">Scala</a></li><li><a href="../../matematika/index.html" class="secondary">Matematika</a></li></ul></nav></div><div class="blog-post"><div class="pico"><aside><nav><ul><li><a href="index.html" class="">Uvod</a></li><li><a href="variables.html" class="secondary">Varijable</a></li><li><a href="input.html" class="secondary">Unos podataka</a></li><li><a href="ifs.html" class="secondary">If-else</a></li><li><a href="while.html" class="secondary">While</a></li><li><a href="do-while.html" class="secondary">Do While</a></li><li><a href="for-loop.html" class="secondary">For</a></li><li><a href="predefined-functions.html" class="secondary">Ugrađene funkcije</a></li><li><a href="custom-functions.html" class="secondary">Definisanje funkcije</a></li><li><a href="return-functions.html" class="secondary">Definisanje funkcije 2</a></li><li><a href="recursive-functions.html" class="secondary">Rekurzivne funkcije</a></li></ul></nav></aside></div><article><section><h3 id="uvod">Uvod</h3><p>Kompjuteri izvršavaju <strong>naredbe</strong> jednu po jednu, redom.<br />
 Naredbe su logički grupisane u <strong>programe</strong>.<br />
-Jedan program sadrži naredbe koje kompjuter treba izvršiti.</p>
+Program sadrži naredbe koje kompjuter treba izvršiti.</p>
 <p>Program se može predstaviti <strong>vizuelno</strong> pomoću <strong>dijagrama toka</strong> (engl. flowchart).<br />
-Vrlo praktična aplikacija koju ćemo koristiti za to je <a href="http://www.flowgorithm.org/download/index.htm">Flowgorithm</a>.<br />
-Molim vas da skinete Flowgorithm i instalirate!</p>
-<p>Svi primjeri mogu se downloadati u ZIP formatu <a href="../../../files/flowcharts/flowgorithm.zip">ovdje</a>.</p>
-<section><h4 id="prvi-program-u-flowgorithmu">Prvi program u Flowgorithmu</h4><p>Svaki program ima svoj <strong>početak</strong> i <strong>kraj</strong>.<br />
-U Flowgorithmu početak je označen sa <code>Main</code>, kraj je označen sa <code>End</code>.<br />
-Strelica nakon svake naredbe pokazuje na <strong>iduću naredbu</strong> koja se treba izvršiti.</p>
-<p>Ako kliknemo na dugme <code>Run</code> (trokutić koji izgleda kao &quot;play&quot; dugme),
+Koristićemo ugrađeni editor, koji može i pokrenuti program koji napravimo.</p>
+<hr />
+<p>Ako želite da sačuvate svoje programe koje napravite, možete se registrovati na <a href="https://flowrun.io/">flowrun.io</a>.<br />
+Tu možete vidjeti i neke programe koje su napravili drugi korisnici, kliknite <a href="https://flowrun.io/explore">ovdje</a>.</p>
+<section><h4 id="pozdrav-svijete">Pozdrav svijete!</h4><div class="pico"><p>Svaki program ima svoj <strong>početak</strong> i <strong>kraj</strong>.<br />
+Početak je označen sa <code>Begin</code>, kraj je označen sa <code>End</code>.<br />
+Strelica pokazuje na <strong>iduću naredbu</strong> koja se treba izvršiti.</p>
+<p>Ako kliknemo na dugme <code>Run</code> (▶),
 program će se <strong>pokrenuti i odmah završiti</strong>!<br />
-Nismo vidjeli da se išta desilo... :D<br />
-Samo vidimo u lijevom donjem uglu &quot;Program has finished running.&quot;</p>
-<img src="../../../images/flowcharts/intro/program.jpg" class="img-responsive" alt="" width="1093" height="657" /></section><section><h4 id="pozdrav-svijete">Pozdrav svijete!</h4><p>Hajde da ispišemo nešto na ekran:</p>
-<ul>
-<li>kliknite na strelicu, prikazaće se lista naredbi koje možemo dodati na to mjesto.</li>
+Nije se ništa značajno desilo, samo vidimo u output panelu da je program završio.</p>
+</div><div><div class="flowrun-instance flowrun--editable flowrun-layout-d-o"></div></div><br /><p>Hajde da ispišemo nešto na ekran:</p>
+<ol>
+<li>kliknite na strelicu, prikazaće se lista naredbi koje možemo dodati</li>
 <li>kliknite na <code>Output</code></li>
-<li>dvokliknite na novu Output naredbu</li>
-<li>upišite <code>&quot;Pozdrav svijete!&quot;</code> (sa navodnicima!) i klikni OK</li>
-</ul>
-<p>Ako sada kliknemo Run, vidjećemo novi prozor sa porukom <code>&quot;Pozdrav svijete!&quot;</code>.</p>
-<div class="thumbnail"><img src="../../../images/flowcharts/intro/zdravo_svijete.jpg" class="img-responsive" alt="" width="1920" height="1020" /><div class="caption text-center">Pozdrav svijete!</div></div><p>Čestitam, napisali smo svoj prvi program!</p>
-<h5>Vježbe</h5>
+<li>kliknite na novu <code>Output</code> naredbu</li>
+<li>upišite <code>&quot;Pozdrav svijete!&quot;</code>, sa navodnicima!</li>
+<li>kliknite Run</li>
+</ol>
+<p>Program sada ispisuje poruku <code>&quot;Pozdrav svijete!&quot;</code> u izlaznom panelu.</p>
+</section><section><h4 id="vjezbe">Vježbe</h4><p>Čestitam, napisali smo svoj prvi program!<br />
+Probajte odraditi sljedeće vježbe:</p>
+<h4>Ispis</h4>
 <ol>
 <li>Ispišite <code>123</code> na ekran</li>
 <li>Ispišite <code>12 + 3</code> na ekran</li>
 <li>Ispišite <code>3.14</code> na ekran<br />
 (brojevi sa zarezom se ustvari pišu sa tačkom!)</li>
 </ol>
-</section><section><h4 id="matematicke-operacije">Matematičke operacije</h4><p>Naravno, možemo raditi matematičke operacije nad brojevima.
-Probajte ispisati sljedeće izraze:</p>
+<h4>Matematičke operacije</h4>
+<p>Naravno, možemo raditi matematičke operacije nad brojevima.<br />
+Ispišite sljedeće izraze:</p>
 <ul>
 <li><code>10 + 3</code></li>
 <li><code>10 - 3</code></li>
@@ -70,22 +128,20 @@ Probajte ispisati sljedeće izraze:</p>
 </ul>
 <p>Zadnja operacija je malkice misteriozna.<br />
 Ona daje <strong>cjelobrojni ostatak pri dijeljenju</strong>.<br />
-Npr. <code>10 / 3</code> je <code>3</code> i ostatak <code>1</code>. :)<br />
+Npr. <code>10 / 3</code> je <code>3</code> i ostatak <code>1</code>.<br />
 Tako da je <code>10 % 3 = 1</code>.</p>
 <p>Naravno, možemo koristiti zagrade ako nam trebaju:</p>
 <ul>
 <li><code>(2 + 2) * 2</code></li>
 <li><code>2 + (2 * 2)</code></li>
 </ul>
-</section><section><h4 id="spajanje-teksta">Spajanje teksta!</h4><p>U prethodnim primjerima ispisivali smo neke jednostavne vrijednosti.<br />
-Nekad nam treba da te vrijednosti &quot;spojimo&quot; u jednu.<br />
-Za to nam služi znak <code>&amp;</code>:</p>
+<h4>Spajanje teksta</h4>
+<p>U prethodnim primjerima ispisivali smo neke jednostavne tekstualne vrijednosti.<br />
+Nekad nam treba da te vrijednosti spojimo u jednu.<br />
+Za to nam služi znak <code>+</code>:</p>
 <ul>
-<li><code>&quot;abc&quot; &amp; &quot;xyz&quot;</code> bi ispisalo isto kao i <code>&quot;abcxyz&quot;</code></li>
-<li><code>&quot;abc&quot; &amp; 5</code> je isto kao <code>&quot;abc5&quot;</code></li>
-<li><code>7 &amp; 5</code> je isto kao .. ? Šta mislite? :D<br />
-Probajte sami!</li>
-<li><code>7 &amp; 5 + 1</code></li>
+<li><code>&quot;abc&quot; + &quot;xyz&quot;</code> bi ispisalo isto kao i <code>&quot;abcxyz&quot;</code></li>
+<li><code>&quot;abc&quot; + 5</code> je isto kao <code>&quot;abc5&quot;</code></li>
 </ul>
 <p>Probajte razne kombinacije, brojeve sa zarezom itd.<br />
 Probajte spojiti više od 2 vrijednosti!</p>
@@ -97,15 +153,4 @@ Probajte spojiti više od 2 vrijednosti!</p>
 <li>broj sa zarezom/tačkom naziva se <strong>Real</strong> (engl. &quot;realni broj&quot;)</li>
 </ul>
 </blockquote>
-</section></section></div><div id="disqus_thread" class="hidden-print"></div></div><div class="col-md-3 hidden-sm hidden-xs hidden-print"><nav id="tocScrollspy"><ul class="nav nav-pills nav-stacked"><li><a href="#uvod">Uvod</a><ul class="nav nav-pills nav-stacked"><li><a href="#prvi-program-u-flowgorithmu">Prvi program u Flowgorithmu</a></li><li><a href="#pozdrav-svijete">Pozdrav svijete!</a></li><li><a href="#matematicke-operacije">Matematičke operacije</a></li><li><a href="#spajanje-teksta">Spajanje teksta!</a></li></ul></li></ul></nav></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script src="https://unpkg.com/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-basic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-vbnet.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/wpd/prism-wpd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script>
-            // activate scrollspy on body
-            $('body').scrollspy({
-                target: '#tocScrollspy',
-                offset: 55 // ~~ when the first heading starts...
-            });
-            
-            // fix scrollspy for current page sections
-            $('#tocScrollspy').affix({
-                offset: { top: 10 } // when to start moving fixed div
-            });
-          </script></body></html>
+</section></section></article></div></main><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-basic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-batch.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-c.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-haskell.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-javascript.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-markup-templating.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-scala.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-vbnet.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="../../../scripts/main.js"></script><script src="../../../scripts/vendor/hpcc-js-wasm@1.12.8.min.js"></script><script src="../../../scripts/vendor/d3.v5.min.js"></script><script src="../../../scripts/vendor/d3-graphviz@4.1.0.min.js"></script><script src="../../../scripts/vendor/main.js"></script><script src="../../../scripts/flowrun-init.js"></script></body></html>
