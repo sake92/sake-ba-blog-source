@@ -1,20 +1,6 @@
 *.class
 *.log
 
-# sbt specific
-.cache
-.history
-.lib/
-dist/*
-lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
-project/project/
-target/
-bin/
-
-
 .vscode/
 
 pdfs/
@@ -23,5 +9,9 @@ pdfs/
 .bsp/
 .idea/
 .metals/
-project/.bloop/
-project/metals.sbt
+
+# Mill
+out/
+
+# Hepek
+hepek_output/
