@@ -30,19 +30,18 @@ object Monads extends ProgrammingTemplate {
   def introSection = Section(
     "Intro",
     s"""
-    Yes, yet another Monad tutorial, why not?
+    I know.. yet another Monad tutorial. :)
 
-    If you wonder what
-    - flatMap
-    - Monads
-    - Promise, Future, Rx, IO
-    - do, for, async/await
+    Have you ever thought "hmm, these all look *kinda same*":
+    - Promise, Future, Rx, IO, Monad
+    - `await`, `flatMap`, `do`, `for`
+    
+    then you might be right!  
+    Let's see!
 
-    have in common, then you are in a good place.
-
-    First we'll see how and why `Monad` came into Haskell (a *purely* functional language).  
+    First we'll see how and why the `Monad` abstraction came into Haskell (a *purely functional* programming language).  
     Then we will see a nicer syntax for writing functions that operate on monads.  
-    And lastly I will show you some similarities between Monad and async/await.
+    And lastly I will show you that `await`/`for`/`do` is "just nicer syntax" for `flatMap`.
     """.md
   )
 
@@ -50,13 +49,13 @@ object Monads extends ProgrammingTemplate {
     "Haskell",
     s"""
     A few relevant things about Haskell:
-    - it is a lazy language
+    - it is a **lazy** language
     - it wants to separate **pure functions** from **impure functions (actions)**
 
     ### Laziness
-    By "lazy" we mean non-strict evaluation.  
-    In Java for example, when you call a function `myFun(a, b)`, the order of evaluation is strict and consistent:
-    - arguments are evaluated from left to right, one after another
+    By "lazy" we mean evaluation is not strict.  
+    In Java for example, when you call a function `myFun(a, b)`, the *order of evaluation is strict* and *consistent*:
+    - first, the arguments are evaluated: left to right, one by one
     - function is evaluated
 
     But in Haskell that's not the case. *Nothing is evaluated until needed*.  
@@ -64,10 +63,10 @@ object Monads extends ProgrammingTemplate {
     This is fine+desirable+performant when your functions are pure (not *doing* anything),  
     but it is a big issue when they do **side effects**: write to a file/db etc.  
     For example, if you want these actions to be executed:
-    - `f1`: write to a file
-    - `f2`: read from that file
+    - `f1` - write to a file
+    - `f2` - read from that file
 
-    you need to make sure that `f1` always gets evaluated before `f2`!!  
+    you need to make sure that `f1` **always gets evaluated before** `f2`!!  
     In Haskell you are never sure because eval order is unspecified..
 
     > The next Haskell will be strict.  
@@ -81,9 +80,9 @@ object Monads extends ProgrammingTemplate {
     Impure functions go *beyond our program*, they "go outside", play and get dirty.  
     They read/write to a file/console/database etc.
 
-    So, Haskell wants you *not to get dirty*, and play as much as you can *inside* (stay safe).  
+    Haskell wants you *not to get dirty*, and play as much as you can *inside* (stay safe).  
     But how does it know which functions are "impure"?  
-    Usually by marking them with `IO` wrapper type (which is "a monad").
+    Well, by marking them with `IO` wrapper type (which is "a monad").
 
     ### Main function
     "Normal" programming languages have a `main` function, which usually looks something like this:
@@ -96,7 +95,7 @@ object Monads extends ProgrammingTemplate {
     main :: IO ()
     main = ...
     ```
-    Haskell marks the main as an IO action, so by definition it is impure.
+    Haskell marks the `main` as an IO action, so by definition it is impure.
     """.md
   )
 
@@ -105,7 +104,7 @@ object Monads extends ProgrammingTemplate {
     s"""
     Before monads were introduced, main function's type looked like this:  
       `main :: [Response] -> [Request]`.  
-    Example taken from [SO](https://stackoverflow.com/a/17004448/4496364):
+    Example taken from [StackOverflow](https://stackoverflow.com/a/17004448/4496364):
     ```haskell
     main :: [Response] -> [Request]
     main responses =
@@ -118,12 +117,12 @@ object Monads extends ProgrammingTemplate {
             firstLine = head . lines $$ input
             enteredNumber = read firstLine 
     ```
-    In a nutshell, you had to **write all of the impure stuff that your whole program will do as a return value**.  
+    In a nutshell, you had to **write all of the impure stuff** that your whole program will do **as a return value**.  
     That is represented as a *list of requests*: `[Request]`.  
-    Return values from those IO actions are delivered in the `[Response]` list, that you would use inside the program logic.  
+    Return values from those IO actions are delivered in the `[Response]` list, that you use inside the program logic.  
 
     The *number of responses* is the same as the *number of requests* you gave.  
-    So you have to keep in mind the indices and bounds of responses, which is a bummer. 
+    So you have to keep in mind the indices, which is a bummer. 
     What if you add one request in the middle? You'd have to change all indices after it...  
     Which request belongs to which response? That's really hard to see.  
     We can already see that this way of writing a program is very **cumbersome, unreadable, and limited**.
@@ -137,28 +136,31 @@ object Monads extends ProgrammingTemplate {
     s"""
     Back to `IO t`. The `IO t` is an action that will do some *side effects* before returning a value of type `t`.  
     This can be *anything*: writing to disk, sending HTTP requests etc.  
-    We have these impure functions in Haskell:
+    Examples of impure functions in Haskell:
     ```haskell
     getChar :: IO Char
     putChar :: Char -> IO ()
     ```
 
-    We already know some special *functions* that operate on the values *inside* the `IO`!  
-    For example, we have `fmap :: Functor f => (a -> b) -> f a -> f b` which transformes the value inside any Functor `f`.  
+    You are probably familiar with some *functions* that operate *on the value inside* the `IO`!  
+    For example, we have `fmap :: Functor f => (a -> b) -> f a -> f b` which transforms the value inside any Functor `f` (monad is a functor).  
     
     But what about chaining, sequencing actions one after another?  
     How can we ensure that `getChar` executes *strictly before* `putChar`?  
-    Monads to the rescue! Its core function is called `bind` (usually called `flatMap` in other languages):
+    Monads to the rescue! Its core function is called `flatMap` (or `bind`, or `>>=` ..):
     ```haskell
     (>>=) :: IO a -> (a -> IO b) -> IO b
     ```
-    FlatMap:
+    
+    The `flatMap` function:
     - takes an `IO a` action
-    - takes a function that takes `a` (from the `IO a` argument) and returns `IO b`
+    - takes a function that takes `a` (the `a` from `IO a`)
     - returns a new `IO b`
 
     So there we have it, Monad in all its glory! :)  
-    Let's see our solution:
+    It's "just" a semicolon (`;`), duhh, sequencing operations.
+    
+    Let's see our solution now:
     ```haskell
     echo = getChar >>= putChar
 
@@ -171,12 +173,12 @@ object Monads extends ProgrammingTemplate {
 
     In Scala you'd write `val echo = getChar.flatMap(putChar)`.
 
-    This is the main reason why Monads were introduced in Haskell.  
+    This is the **reason why Monads were introduced in Haskell**.  
     > In short, Haskell is the world's finest imperative programming language.  
     > ~ Simon Peyton Jones
 
     ### Syntax sugar for Monads
-    Haskell and some other languages have built in syntax support for Monads.  
+    Haskell and some other languages have built-in syntax for Monads.  
     Haskell has "do notation" and Scala has "for comprehensions".  
     It makes them more readable by flipping sides:
     ```haskell
@@ -197,10 +199,10 @@ object Monads extends ProgrammingTemplate {
     In case of Scala, it gets turned into a `flatMap`.
 
     ---
-    It turnes out that Monads are useful not only in the `IO` context, but for other types too.  
-    Whenever you have unwanted `Wrapper[Wrapper[T]]` wrappers, you need to "flatMap that shit" => Monads.  
+    It turns out that Monads are useful not only in the `IO` context, but for other types too.  
+    Whenever you have unwanted nesting like `Wrapper[Wrapper[T]]`, you need to "flatMap that shit", hence you need a Monad.  
     If you have `List[List[String]]` you probably needed a `flatMap` instead of `map`.  
-    If you have `Option[Option[String]]` => same thing.  
+    If you have `Option[Option[String]]`, same thing.  
     
     You can imagine doing the same example above with a `List[T]`, where `c` would be *one element of the list*.
     """.md
@@ -210,7 +212,7 @@ object Monads extends ProgrammingTemplate {
     "Async / Await",
     s"""
     After some time it came to my mind that we are doing a similar thing in JS/C#/Kotlin with `await`.
-    It is almost the same thing, we are "pulling a value from a Promise/Task":
+    It is almost the same thing, we are "pulling a value from a Promise/Task" (~Monads):
     ```js
     async function fetchUserMovies() {
       const user = await fetch('/user');
@@ -219,7 +221,7 @@ object Monads extends ProgrammingTemplate {
       return movies;
     }
     ```
-    Before this we used to write "normal functions":
+    Before this we used to write "normal callback functions":
     ```js
     function fetchUserMovies() {
         fetch('/user').then(user => {
@@ -230,7 +232,7 @@ object Monads extends ProgrammingTemplate {
         });
     }
     ```
-    Seems like `then` corresponds to `flatMap`, and `await` corresponds to `<-` in do syntax.  
+    Seems like `then` corresponds to `flatMap`, and `await` corresponds to `<-` syntax sugar.  
     Some noticable differences:
     - do/for is general, while await is specific just for Promise
     - do/for in statically typed languages is checked for proper types, while in JS you're on your own
@@ -243,16 +245,21 @@ object Monads extends ProgrammingTemplate {
     """
     To me, it feels very awkward to program in a lazy programming language.  
     It is hard to reason about and you *have to use monads* for doing even the simplest IO operations.  
-    Seems like it introduces more problems than it gives us benefits.
+    If you have a pure function and want to `println` a value.. nope, you gotta wrap everything in an `IO`.. wack.
+    
+    When used inside a normally strict language like Scala or Java, it "spreads like a virus".  
+    If you have an `IO[String]`, all code that calls it **must be an IO[..]**!! It's viral! No bueno!  
+    You have to ask yourself: is all that complexity *really worth it*? IMHO it is not, 99% of the time.  
+    Especially today when we have JVM virtual threads.
 
-    So, in my opinion, use Monads/Rx/whatever *only when you have to*!  
+    So, in my opinion, use Monads/Rx/whatever **only when you have to**!  
     The simpler the program - the better.  
 
     For example, in Java you can use threads and concurrent datastructures. 
     Web servers like Tomcat, Jetty etc. are working just fine with a thread-per-request model.
 
     But in JS you don't have that liberty, you **need to use Promises**.  
-    That's because JS doesn't have "normal threads", is uses an event-loop so you have to program asynchronous code.
+    That's because JS doesn't have "normal threads", is has only one thread with an event-loop so you have to program asynchronous code.
 
     ---
     I hope this gave you a better insight into scary Monads and the FP way of handling IO.
