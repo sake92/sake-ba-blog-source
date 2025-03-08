@@ -1,25 +1,24 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Monads introduction. Do notation, for comprehensions. Comparing monads with async and await syntax. Future, Observalbe, IO monad, Reactive programming." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>You already know Monad(ic) stuff - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../manifest.json" /></head><body><main class="pico container"><nav><ul><li><a href="../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="index.html" class="">Programming</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="monads.html" class="">Monadic stuff</a></li></ul></nav></aside><article><section><h3 id="intro">Intro</h3><p>Yes, yet another Monad tutorial, why not?</p>
-<p>If you wonder what</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Monads introduction. Do notation, for comprehensions. Comparing monads with async and await syntax. Future, Observalbe, IO monad, Reactive programming." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>You already know Monad(ic) stuff - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/wpd/prism-wpd.css" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../manifest.json" /></head><body><main class="pico container"><nav><ul><li><a href="../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="index.html" class="">Programming</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="monads.html" class="">Monadic stuff</a></li></ul></nav></aside><article><section><h3 id="intro">Intro</h3><p>I know.. yet another Monad tutorial. :)</p>
+<p>Have you ever thought &quot;hmm, these all look <em>kinda same</em>&quot;:</p>
 <ul>
-<li>flatMap</li>
-<li>Monads</li>
-<li>Promise, Future, Rx, IO</li>
-<li>do, for, async/await</li>
+<li>Promise, Future, Rx, IO, Monad</li>
+<li><code>await</code>, <code>flatMap</code>, <code>do</code>, <code>for</code></li>
 </ul>
-<p>have in common, then you are in a good place.</p>
-<p>First we'll see how and why <code>Monad</code> came into Haskell (a <em>purely</em> functional language).<br />
+<p>then you might be right!<br />
+Let's see!</p>
+<p>First we'll see how and why the <code>Monad</code> abstraction came into Haskell (a <em>purely functional</em> programming language).<br />
 Then we will see a nicer syntax for writing functions that operate on monads.<br />
-And lastly I will show you some similarities between Monad and async/await.</p>
+And lastly I will show you that <code>await</code>/<code>for</code>/<code>do</code> is &quot;just nicer syntax&quot; for <code>flatMap</code>.</p>
 </section><section><h3 id="haskell">Haskell</h3><p>A few relevant things about Haskell:</p>
 <ul>
-<li>it is a lazy language</li>
+<li>it is a <strong>lazy</strong> language</li>
 <li>it wants to separate <strong>pure functions</strong> from <strong>impure functions (actions)</strong></li>
 </ul>
 <h3>Laziness</h3>
-<p>By &quot;lazy&quot; we mean non-strict evaluation.<br />
-In Java for example, when you call a function <code>myFun(a, b)</code>, the order of evaluation is strict and consistent:</p>
+<p>By &quot;lazy&quot; we mean evaluation is not strict.<br />
+In Java for example, when you call a function <code>myFun(a, b)</code>, the <em>order of evaluation is strict</em> and <em>consistent</em>:</p>
 <ul>
-<li>arguments are evaluated from left to right, one after another</li>
+<li>first, the arguments are evaluated: left to right, one by one</li>
 <li>function is evaluated</li>
 </ul>
 <p>But in Haskell that's not the case. <em>Nothing is evaluated until needed</em>.<br />
@@ -28,10 +27,10 @@ This is fine+desirable+performant when your functions are pure (not <em>doing</e
 but it is a big issue when they do <strong>side effects</strong>: write to a file/db etc.<br />
 For example, if you want these actions to be executed:</p>
 <ul>
-<li><code>f1</code>: write to a file</li>
-<li><code>f2</code>: read from that file</li>
+<li><code>f1</code> - write to a file</li>
+<li><code>f2</code> - read from that file</li>
 </ul>
-<p>you need to make sure that <code>f1</code> always gets evaluated before <code>f2</code>!!<br />
+<p>you need to make sure that <code>f1</code> <strong>always gets evaluated before</strong> <code>f2</code>!!<br />
 In Haskell you are never sure because eval order is unspecified..</p>
 <blockquote>
 <p>The next Haskell will be strict.<br />
@@ -43,9 +42,9 @@ They are only considering &quot;insides&quot; of a program, its own memory.</p>
 <h3>Impure functions</h3>
 <p>Impure functions go <em>beyond our program</em>, they &quot;go outside&quot;, play and get dirty.<br />
 They read/write to a file/console/database etc.</p>
-<p>So, Haskell wants you <em>not to get dirty</em>, and play as much as you can <em>inside</em> (stay safe).<br />
+<p>Haskell wants you <em>not to get dirty</em>, and play as much as you can <em>inside</em> (stay safe).<br />
 But how does it know which functions are &quot;impure&quot;?<br />
-Usually by marking them with <code>IO</code> wrapper type (which is &quot;a monad&quot;).</p>
+Well, by marking them with <code>IO</code> wrapper type (which is &quot;a monad&quot;).</p>
 <h3>Main function</h3>
 <p>&quot;Normal&quot; programming languages have a <code>main</code> function, which usually looks something like this:</p>
 <pre><code class="language-java">static void main(String[] args) {
@@ -55,10 +54,10 @@ Usually by marking them with <code>IO</code> wrapper type (which is &quot;a mona
 <pre><code class="language-haskell">main :: IO ()
 main = ...
 </code></pre>
-<p>Haskell marks the main as an IO action, so by definition it is impure.</p>
+<p>Haskell marks the <code>main</code> as an IO action, so by definition it is impure.</p>
 </section><section><h3 id="history-and-pre-history">History and pre-history</h3><p>Before monads were introduced, main function's type looked like this:<br />
 <code>main :: [Response] -&gt; [Request]</code>.<br />
-Example taken from <a href="https://stackoverflow.com/a/17004448/4496364">SO</a>:</p>
+Example taken from <a href="https://stackoverflow.com/a/17004448/4496364">StackOverflow</a>:</p>
 <pre><code class="language-haskell">main :: [Response] -&gt; [Request]
 main responses =
   [
@@ -70,36 +69,37 @@ main responses =
         firstLine = head . lines $ input
         enteredNumber = read firstLine 
 </code></pre>
-<p>In a nutshell, you had to <strong>write all of the impure stuff that your whole program will do as a return value</strong>.<br />
+<p>In a nutshell, you had to <strong>write all of the impure stuff</strong> that your whole program will do <strong>as a return value</strong>.<br />
 That is represented as a <em>list of requests</em>: <code>[Request]</code>.<br />
-Return values from those IO actions are delivered in the <code>[Response]</code> list, that you would use inside the program logic.</p>
+Return values from those IO actions are delivered in the <code>[Response]</code> list, that you use inside the program logic.</p>
 <p>The <em>number of responses</em> is the same as the <em>number of requests</em> you gave.<br />
-So you have to keep in mind the indices and bounds of responses, which is a bummer.
+So you have to keep in mind the indices, which is a bummer.
 What if you add one request in the middle? You'd have to change all indices after it...<br />
 Which request belongs to which response? That's really hard to see.<br />
 We can already see that this way of writing a program is very <strong>cumbersome, unreadable, and limited</strong>.</p>
 <p>Notice also that the approach above works only because Haskell is lazy!</p>
 </section><section><h3 id="monads">Monads</h3><p>Back to <code>IO t</code>. The <code>IO t</code> is an action that will do some <em>side effects</em> before returning a value of type <code>t</code>.<br />
 This can be <em>anything</em>: writing to disk, sending HTTP requests etc.<br />
-We have these impure functions in Haskell:</p>
+Examples of impure functions in Haskell:</p>
 <pre><code class="language-haskell">getChar :: IO Char
 putChar :: Char -&gt; IO ()
 </code></pre>
-<p>We already know some special <em>functions</em> that operate on the values <em>inside</em> the <code>IO</code>!<br />
-For example, we have <code>fmap :: Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b</code> which transformes the value inside any Functor <code>f</code>.</p>
+<p>You are probably familiar with some <em>functions</em> that operate <em>on the value inside</em> the <code>IO</code>!<br />
+For example, we have <code>fmap :: Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b</code> which transforms the value inside any Functor <code>f</code> (monad is a functor).</p>
 <p>But what about chaining, sequencing actions one after another?<br />
 How can we ensure that <code>getChar</code> executes <em>strictly before</em> <code>putChar</code>?<br />
-Monads to the rescue! Its core function is called <code>bind</code> (usually called <code>flatMap</code> in other languages):</p>
+Monads to the rescue! Its core function is called <code>flatMap</code> (or <code>bind</code>, or <code>&gt;&gt;=</code> ..):</p>
 <pre><code class="language-haskell">(&gt;&gt;=) :: IO a -&gt; (a -&gt; IO b) -&gt; IO b
 </code></pre>
-<p>FlatMap:</p>
+<p>The <code>flatMap</code> function:</p>
 <ul>
 <li>takes an <code>IO a</code> action</li>
-<li>takes a function that takes <code>a</code> (from the <code>IO a</code> argument) and returns <code>IO b</code></li>
+<li>takes a function that takes <code>a</code> (the <code>a</code> from <code>IO a</code>)</li>
 <li>returns a new <code>IO b</code></li>
 </ul>
 <p>So there we have it, Monad in all its glory! :)<br />
-Let's see our solution:</p>
+It's &quot;just&quot; a semicolon (<code>;</code>), duhh, sequencing operations.</p>
+<p>Let's see our solution now:</p>
 <pre><code class="language-haskell">echo = getChar &gt;&gt;= putChar
 
 -- or more verbosely
@@ -109,13 +109,13 @@ echo = getChar &gt;&gt;= (\c -&gt; putChar c)
 echo = (&gt;&gt;=) getChar (\c -&gt; putChar c)
 </code></pre>
 <p>In Scala you'd write <code>val echo = getChar.flatMap(putChar)</code>.</p>
-<p>This is the main reason why Monads were introduced in Haskell.</p>
+<p>This is the <strong>reason why Monads were introduced in Haskell</strong>.</p>
 <blockquote>
 <p>In short, Haskell is the world's finest imperative programming language.<br />
 ~ Simon Peyton Jones</p>
 </blockquote>
 <h3>Syntax sugar for Monads</h3>
-<p>Haskell and some other languages have built in syntax support for Monads.<br />
+<p>Haskell and some other languages have built-in syntax for Monads.<br />
 Haskell has &quot;do notation&quot; and Scala has &quot;for comprehensions&quot;.<br />
 It makes them more readable by flipping sides:</p>
 <pre><code class="language-haskell">echo = do
@@ -131,13 +131,13 @@ It makes them more readable by flipping sides:</p>
 <p>The <code>&lt;-</code> symbol gets translated into <code>&gt;&gt;=</code> by Haskell's compiler.<br />
 In case of Scala, it gets turned into a <code>flatMap</code>.</p>
 <hr />
-<p>It turnes out that Monads are useful not only in the <code>IO</code> context, but for other types too.<br />
-Whenever you have unwanted <code>Wrapper[Wrapper[T]]</code> wrappers, you need to &quot;flatMap that shit&quot; =&gt; Monads.<br />
+<p>It turns out that Monads are useful not only in the <code>IO</code> context, but for other types too.<br />
+Whenever you have unwanted nesting like <code>Wrapper[Wrapper[T]]</code>, you need to &quot;flatMap that shit&quot;, hence you need a Monad.<br />
 If you have <code>List[List[String]]</code> you probably needed a <code>flatMap</code> instead of <code>map</code>.<br />
-If you have <code>Option[Option[String]]</code> =&gt; same thing.</p>
+If you have <code>Option[Option[String]]</code>, same thing.</p>
 <p>You can imagine doing the same example above with a <code>List[T]</code>, where <code>c</code> would be <em>one element of the list</em>.</p>
 </section><section><h3 id="async-await">Async / Await</h3><p>After some time it came to my mind that we are doing a similar thing in JS/C#/Kotlin with <code>await</code>.
-It is almost the same thing, we are &quot;pulling a value from a Promise/Task&quot;:</p>
+It is almost the same thing, we are &quot;pulling a value from a Promise/Task&quot; (~Monads):</p>
 <pre><code class="language-js">async function fetchUserMovies() {
   const user = await fetch('/user');
   const movies = await fetch(`/user/${user.id}/movies`);
@@ -145,7 +145,7 @@ It is almost the same thing, we are &quot;pulling a value from a Promise/Task&qu
   return movies;
 }
 </code></pre>
-<p>Before this we used to write &quot;normal functions&quot;:</p>
+<p>Before this we used to write &quot;normal callback functions&quot;:</p>
 <pre><code class="language-js">function fetchUserMovies() {
     fetch('/user').then(user =&gt; {
         fetch(`/user/${user.id}/movies`).then(movies =&gt; {
@@ -155,7 +155,7 @@ It is almost the same thing, we are &quot;pulling a value from a Promise/Task&qu
     });
 }
 </code></pre>
-<p>Seems like <code>then</code> corresponds to <code>flatMap</code>, and <code>await</code> corresponds to <code>&lt;-</code> in do syntax.<br />
+<p>Seems like <code>then</code> corresponds to <code>flatMap</code>, and <code>await</code> corresponds to <code>&lt;-</code> syntax sugar.<br />
 Some noticable differences:</p>
 <ul>
 <li>do/for is general, while await is specific just for Promise</li>
@@ -163,13 +163,17 @@ Some noticable differences:</p>
 </ul>
 </section><section><h3 id="my-opinions">My opinions</h3><p>To me, it feels very awkward to program in a lazy programming language.<br />
 It is hard to reason about and you <em>have to use monads</em> for doing even the simplest IO operations.<br />
-Seems like it introduces more problems than it gives us benefits.</p>
-<p>So, in my opinion, use Monads/Rx/whatever <em>only when you have to</em>!<br />
+If you have a pure function and want to <code>println</code> a value.. nope, you gotta wrap everything in an <code>IO</code>.. wack.</p>
+<p>When used inside a normally strict language like Scala or Java, it &quot;spreads like a virus&quot;.<br />
+If you have an <code>IO[String]</code>, all code that calls it <strong>must be an IO[..]</strong>!! It's viral! No bueno!<br />
+You have to ask yourself: is all that complexity <em>really worth it</em>? IMHO it is not, 99% of the time.<br />
+Especially today when we have JVM virtual threads.</p>
+<p>So, in my opinion, use Monads/Rx/whatever <strong>only when you have to</strong>!<br />
 The simpler the program - the better.</p>
 <p>For example, in Java you can use threads and concurrent datastructures.
 Web servers like Tomcat, Jetty etc. are working just fine with a thread-per-request model.</p>
 <p>But in JS you don't have that liberty, you <strong>need to use Promises</strong>.<br />
-That's because JS doesn't have &quot;normal threads&quot;, is uses an event-loop so you have to program asynchronous code.</p>
+That's because JS doesn't have &quot;normal threads&quot;, is has only one thread with an event-loop so you have to program asynchronous code.</p>
 <hr />
 <p>I hope this gave you a better insight into scary Monads and the FP way of handling IO.</p>
 </section><section><h3 id="additional-resources">Additional resources</h3><ul>
