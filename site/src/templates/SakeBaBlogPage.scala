@@ -67,7 +67,7 @@ trait SakeBaBlogPage extends SakeBaBlogStaticPage with BlogPostPage {
     )
   )
 
-  def renderSections(secs: List[Section], depth: Int = 2): List[Frag] =
+  def renderSections(secs: List[Section], depth: Int = 1): List[Frag] =
     secs.map { s =>
       val hTag = tag("h" + (depth + 1))
       tag("section")(

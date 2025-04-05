@@ -12,7 +12,7 @@ object Monads extends ProgrammingTemplate {
       .withTitle("You already know Monad(ic) stuff")
       .withLabel("Monadic stuff")
       .withDescription(
-        "Monads introduction. Do notation, for comprehensions. Comparing monads with async and await syntax. Future, Observalbe, IO monad, Reactive programming."
+        "Monads introduction. Do notation, for comprehensions. Comparing monads with async and await syntax. Future, Observable, IO monad, Reactive programming."
       )
 
   override def blogSettings =
