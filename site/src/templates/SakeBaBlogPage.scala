@@ -7,6 +7,7 @@ import ba.sake.hepek.anchorjs.AnchorjsDependencies
 import utils.*
 import Imports.*
 import ba.sake.hepek.html.statik.{BlogPostPage, Section, StaticPage}
+import scalatags.Text
 
 //////// engleski
 trait EnBlogPage extends SakeBaBlogPage with EnStaticPage
@@ -109,6 +110,8 @@ trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
     super.headContent,
     link(rel := "manifest", href := relTo(files.ManifestJSON))
   )
+
+  override def bodyAttrs = Seq(cls := "match-braces")
 
   override def styleURLs =
     super.styleURLs ++ List(

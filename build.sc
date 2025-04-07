@@ -6,6 +6,6 @@ import ba.sake.millhepek.MillHepekModule
 object site extends MillHepekModule with ScalaModule {
   def scalaVersion = "3.6.3"
   def ivyDeps = Agg(
-    ivy"ba.sake::hepek:0.29.0"
+    ivy"ba.sake::hepek:0.31.0"
   )
 }

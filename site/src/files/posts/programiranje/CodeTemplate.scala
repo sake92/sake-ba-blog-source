@@ -23,8 +23,6 @@ trait CodeTemplate extends SakeBaBlogPage with PrismDependencies {
 
   override def prismSettings =
     super.prismSettings
-      .withVersion("1.27.0")
       .withTheme(PrismThemes.Twilight)
-      .withLanguages(prismjs.PrismConsts.languages.filter(hlLangs.contains))
 
 }

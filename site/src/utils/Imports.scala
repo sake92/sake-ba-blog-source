@@ -1,9 +1,8 @@
 package utils
 
 import ba.sake.hepek.prismjs.PrismCodeHighlightComponents
-import ba.sake.hepek.plain.component.PlainUtilComponents
 
-object Imports extends PlainUtilComponents {
+object Imports {
 
   val chl = PrismCodeHighlightComponents.default
 
