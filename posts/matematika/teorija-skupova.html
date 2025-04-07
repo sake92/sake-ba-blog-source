@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Kratak uvod u teoriju skupova. Unija, presjek, razlika, De Morgan." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>Teorija skupova - blog.sake.ba</title><link rel="shortcut icon" href="../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css" /><link rel="stylesheet" href="../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../styles/main.css" /><link rel="manifest" href="../../manifest.json" /></head><body><main class="pico container"><nav><ul><li><a href="../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="../programiranje/flowcharts/index.html" class="secondary">Vizuelno programiranje</a></li><li><a href="../programiranje/java/index.html" class="secondary">Uvod u programiranje</a></li><li><a href="../programiranje/java/oop/index.html" class="secondary">Uvod u OOP</a></li><li><a href="../programiranje/scala/index.html" class="secondary">Scala</a></li><li><a href="index.html" class="">Matematika</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="index.html" class="secondary">Početna</a></li><li><a href="teorija-skupova.html" class="">Teorija skupova</a></li></ul></nav></aside><article><section><h3 id="uvod">Uvod</h3><p>Teorija skupova (en. Set theory) je jedna od osnovnih grana matematike.<br />
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Kratak uvod u teoriju skupova. Unija, presjek, razlika, De Morgan." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>Teorija skupova - blog.sake.ba</title><link rel="shortcut icon" href="../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.2/katex.min.css" /><link rel="stylesheet" href="../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../styles/main.css" /><link rel="manifest" href="../../manifest.json" /></head><body class="match-braces"><main class="pico container"><nav><ul><li><a href="../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="../programiranje/flowcharts/index.html" class="secondary">Vizuelno programiranje</a></li><li><a href="../programiranje/java/index.html" class="secondary">Uvod u programiranje</a></li><li><a href="../programiranje/java/oop/index.html" class="secondary">Uvod u OOP</a></li><li><a href="../programiranje/scala/index.html" class="secondary">Scala</a></li><li><a href="index.html" class="">Matematika</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="index.html" class="secondary">Početna</a></li><li><a href="teorija-skupova.html" class="">Teorija skupova</a></li></ul></nav></aside><article><section><h2 id="uvod">Uvod</h2><p>Teorija skupova (en. Set theory) je jedna od osnovnih grana matematike.<br />
 Ona, između ostalog, daje odgovor na to da li neki objekat pripada datom skupu objekata.<br />
 Skup mora biti jasno i nedvosmisleno definisan.</p>
 <p><strong>Skup</strong> kao pojam se obično ne definiše već se uzima kao osnovni pojam.<br />
@@ -61,7 +61,7 @@ Zašto? Pa zato što ´1´ nije direktno u skupu! Skup ´A´ sadrži dva skupa i
 <p>Simbol ´\forall´ znači &quot;za svako&quot;. Npr. ´\forall x, tvrdnja´ se čita kao &quot;za svako x vrijedi tvrdnja&quot;.<br />
 U paru ide i simbol ´\exists´ koji se čita kao &quot;postoji (bar jedno)&quot; ili &quot;ima&quot;.</p>
 </blockquote>
-</section><section><h3 id="operacije-nad-skupovima">Operacije nad skupovima</h3><div><p>Pošto element skupa može biti bilo šta, obično se ograničavamo samo na određeni tip stvari tj. na neki skup.<br />
+</section><section><h2 id="operacije-nad-skupovima">Operacije nad skupovima</h2><div><p>Pošto element skupa može biti bilo šta, obično se ograničavamo samo na određeni tip stvari tj. na neki skup.<br />
 Npr. kada govorimo o cijelim brojevima ne zanimaju nas imaginarni brojevi, jabuke i auta...<br />
 Skup stvari o kojima se <em>trenutno govori</em> naziva se <strong>univerzalni skup</strong>, ili kraće <strong>univerzum</strong>.<br />
 Označava se sa <strong>´U´</strong>.</p>
@@ -69,7 +69,7 @@ Označava se sa <strong>´U´</strong>.</p>
 Na slici desno vidimo primjer s dva skupa: ´A = \{1,2,4\}´ i ´B = \{2,3\}´.<br />
 Univerzum (´U´) je pravougaonik koji obuhvata ova dva skupa. Recimo da je to skup ´\mathbb{N}´.
 To je igralište iz kojeg ne smijemo izlaziti.</p>
-<img src="../../images/math/skupovi.svg" style="width: 640px; height: 480px;" alt="Vennov dijagram" /></div><section><h4 id="unija">Unija</h4><div><p>Unija dva skupa ´A´ i ´B´ označava se sa ´A \cup B´.<br />
+<img src="../../images/math/skupovi.svg" style="width: 640px; height: 480px;" alt="Vennov dijagram" /></div><section><h3 id="unija">Unija</h3><div><p>Unija dva skupa ´A´ i ´B´ označava se sa ´A \cup B´.<br />
 Primijetite da ovo nije obično slovo U već specijalni simbol, mada izgleda kao ´\cup´nija.<br />
 Unija predstavlja novi skup koji sadrži sve elemente skupa ´A´ i sve elemente skupa ´B´.<br />
 U našem primjeru to bi bilo ´A \cup B = \{1,2,3,4\}´.<br />
@@ -80,7 +80,7 @@ Skup ne mora bit predstavljen krugom, niđe veze... xD Dobro zapažanje!</p>
 Znak ´\land´ se čita kao &quot;i&quot;.<br />
 O logičkim operatorima ćemo reći nešto više u idućem poglavlju.</p>
 </blockquote>
-<img src="../../images/math/unija.svg" style="width: 640px; height: 480px;" alt="Unija skupova" /></div></section><section><h4 id="presjek">Presjek</h4><div><p>Često se postavlja pitanje šta dva skupa imaju zajedničko.<br />
+<img src="../../images/math/unija.svg" style="width: 640px; height: 480px;" alt="Unija skupova" /></div></section><section><h3 id="presjek">Presjek</h3><div><p>Često se postavlja pitanje šta dva skupa imaju zajedničko.<br />
 Presjek dva skupa ´A´ i ´B´ označava se sa ´A \cap B´.<br />
 Presjek predstavlja novi skup koji sadrži one elemente koji se nalaze i u ´A´ skupu i u ´B´ skupu.<br />
 U našem primjeru to bi bilo ´A \cap B = \{2\}´ (na slici obojeno crvenom bojom!).<br />
@@ -100,7 +100,7 @@ Vrijedi da je ´A \cup (B \cup C) = (A \cup B) \cup C´, tj. redoslijed nije bit
 Sada možemo pisati i ´A \cup B \cup C´...</p>
 <p>Sve navedeno vrijedi i za operaciju presjek!</p>
 </blockquote>
-</div></section><section><h4 id="razlika">Razlika</h4><div><p>Možemo postaviti i pitanje u čemu se skup ´A´ razlikuje od skupa ´B´.<br />
+</div></section><section><h3 id="razlika">Razlika</h3><div><p>Možemo postaviti i pitanje u čemu se skup ´A´ razlikuje od skupa ´B´.<br />
 Ova operacija se naziva <em>razlika</em>.</p>
 <p>Razlika skupova ´A´ i ´B´ označava se sa ´A \ B´.<br />
 Čita se kao &quot;A razlika B&quot;.<br />
@@ -116,15 +116,15 @@ gdje je ´U´ neki univerzum.<br />
 Negdje se naziva i <em>apsolutni komplement</em>.<br />
 Kroz naš primjer bilo bi ´\overline{A} = \{0,3,5,6,...\}´, pri čemu je ´U=\mathbb{N}´.<br />
 Druge oznake su ´A'´ i ´A^C´.</p>
-</div></section><section><h4 id="de-morganovi-zakoni">De Morganovi zakoni</h4><p>Dvije vrlo korisne formule vezane za komplemente skupova su <strong>De Morganovi zakoni</strong>:</p>
+</div></section><section><h3 id="de-morganovi-zakoni">De Morganovi zakoni</h3><p>Dvije vrlo korisne formule vezane za komplemente skupova su <strong>De Morganovi zakoni</strong>:</p>
 <ul>
 <li>´\overline{A \cup B} = \overline{A} \cap \overline{B}´</li>
 <li>´\overline{A \cap B} = \overline{A} \cup \overline{B}´</li>
 </ul>
-</section></section><section><h3 id="relacije-izmedju-skupova">Relacije između skupova</h3><p>Kao što smo već rekli na početku, skupovi su određeni samo elementima koje sadrže.<br />
+</section></section><section><h2 id="relacije-izmedju-skupova">Relacije između skupova</h2><p>Kao što smo već rekli na početku, skupovi su određeni samo elementima koje sadrže.<br />
 To nam je dovoljno da odredimo da li su dva skupa jednaka,
 ´A = B´ akko ´\forall x | x \in A \land x \in B´.</p>
-<section><h4 id="podskup-i-nadskup">Podskup i nadskup</h4><p>Za skup ´A´ kažemo da je <em>podskup</em> skupa ´B´ ako su svi elementi skupa ´A´ također elementi skupa ´B´.<br />
+<section><h3 id="podskup-i-nadskup">Podskup i nadskup</h3><p>Za skup ´A´ kažemo da je <em>podskup</em> skupa ´B´ ako su svi elementi skupa ´A´ također elementi skupa ´B´.<br />
 Ako je ´A´ podskup od ´B´ pišemo ´A \subseteq B´. (Znak ´\subseteq´ podsjeća na ´\le´, zar ne?)<br />
 Da, može biti i slučaj da je ´A=B´!</p>
 <p>Ako ´A \not = B´ (nisu isti skupovi) i ´A \subseteq B´ tada za ´A´ kažemo da je <strong>pravi podskup</strong> skupa ´B´.
@@ -140,7 +140,7 @@ Imamo dvije opcije:</p>
 </ul>
 <p>Logičari kažu da jeste (prva opcija) i vjerovaćemo im na riječ... xD<br />
 Kažu da je ovo primjer &quot;prazne istine&quot; jer za prazan skup možemo tvrditi šta god želimo... Otprilike.</p>
-</section></section><section><h3 id="kardinalnost-skupa">Kardinalnost skupa</h3><p>Kardinalnost skupa je <em>mjera</em> broja elemenata nekog skupa.<br />
+</section></section><section><h2 id="kardinalnost-skupa">Kardinalnost skupa</h2><p>Kardinalnost skupa je <em>mjera</em> broja elemenata nekog skupa.<br />
 Npr. naš skup ´A = \{1,2,4\}´ ima 3 elementa. Pišemo ´|A|=3´.</p>
 <p>Kod konačnih skupova, kardinalnost je obični broj, dok je kod beskonačnih.. kako-kad, komplikovano je!<br />
 Nećemo u detalje.

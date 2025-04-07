@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="API-First Scala" /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>API-First Scala - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/diff-highlight/prism-diff-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/match-braces/prism-match-braces.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/treeview/prism-treeview.css" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../manifest.json" /></head><body class="match-braces"><main class="pico container"><nav><ul><li><a href="../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="index.html" class="">Programming</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="monads.html" class="secondary">Monadic stuff</a></li><li><a href="api-first-scala.html" class="">API-First Scala</a></li></ul></nav></aside><article><section><h2 id="intro">Intro</h2><p>There are many ways to build APIs:</p>
+<ul>
+<li>YOLO approach</li>
+<li>code-first approach</li>
+<li>API-first approach</li>
+</ul>
+<h3>YOLO approach</h3>
+<p>In the &quot;YOLO mode&quot; you don't care much about the users of your API.<br />
+Maybe you have a few examples or docs you made, but nothing too serious.</p>
+<h3>Code-first approach</h3>
+<p>In the &quot;code-first&quot; approach you start with the coding right away.
+Schedules are tight, deadlines are near, pressure is real.</p>
+<p>The specification (if any) is mostly an afterthought.
+Consider Spring annotations, you can always sprinkle some <code>@ApiParam</code> here and there in your controllers.</p>
+<p>There are also approaches like <a href="https://tapir.softwaremill.com/en/latest/">Tapir</a>,
+where you use a Scala DSL to define your API.
+Then you implement the server logic, and generate the spec from that Scala code.
+Potentially the client(s) too.</p>
+<p>This approach is popular, since you start with coding right away.
+But it has some downsides:</p>
+<ul>
+<li>you kinda play russian roulette with the spec, since it is generated from the code, so you can't really call it stable</li>
+<li>it is more code to maintain, increasing your cognitive load and compile times</li>
+<li>bundle size is increased, since you have to include the dependencies</li>
+<li>sometimes you have to fight the DSL to get what you want (e.g polymorphic payloads and such)</li>
+<li>you are limited by what DSL provides, if you need some framework-specific feature, it's challenging to get to it (or impossible)</li>
+</ul>
+<h3>API-first approach</h3>
+<p>In the &quot;API-first&quot; approach you start with the API specification.
+You define the API usually with OpenAPI (Swagger) in a YAML or JSON file.
+Then you generate the server from that spec (and client code if need be).</p>
+<p>This approach has some advantages:</p>
+<ul>
+<li>you are in full control of the spec, it is <em>the source of truth</em></li>
+<li>spec is <em>stable</em> and <em>versioned</em></li>
+<li>less code to maintain, there is no DSLs or annotations that obfuscate your code</li>
+<li>you can leverage your framework's features to the max</li>
+</ul>
+<p>An example in Scala is the <a href="https://guardrail.dev">Guardrail</a> tool.
+It generates some server boilerplate code to the <code>target/.../src_managed/main</code> folder (you don't commit this to git).
+Then you implement the server logic by <em>overriding those abstract definitions</em>, fill in the blanks essentially.
+Note that when you change the <code>openapi.yaml</code>, the <code>src_managed</code> code is overwritten.
+Guardrail is a nice approach, sadly it doesn't support Scala 3 yet.</p>
+<p>A new kid on the block is the <a href="https://github.com/sake92/openapi4s">OpenApi4s</a> tool that I made.
+It takes a bit different approach, it doesn't hide the server code from you, it generates it <em>directly in your <code>src</code> folder</em>.
+Exactly like you would have written it by hand.<br />
+So how does it handle changes in the spec??? Overwrite the code every time? No, that would be silly, so let's see...</p>
+</section><section><h2 id="open-api4s">OpenApi4s</h2><p>TLDR: <a href="https://github.com/sake92/openapi4s">OpenApi4s</a> refactors your code automatically, by using <a href="https://github.com/sake92/regenesca">regenesca</a> diff+merge library.</p>
+<p>Generating the models and controllers is the easy part:</p>
+<ul>
+<li>parse the OpenAPI spec</li>
+<li>generate models</li>
+<li>generate controllers</li>
+</ul>
+<p>and that's it.</p>
+<hr />
+<p>The hard part is <em>how to handle changes in the spec</em>.</p>
+<p>Consider the classical <a href="https://petstore3.swagger.io">PetStore spec</a>.
+OpenApi4s will generate something like this for the <code>User</code> model:</p>
+<pre><code class="language-scala">case class User(
+  id: Option[Long],
+  username: Option[String],
+  firstName: Option[String],
+  lastName: Option[String],
+  email: Option[String],
+  password: Option[String],
+  phone: Option[String],
+  userStatus: Option[Int]
+) derives JsonRW
+</code></pre>
+<h3>Adding a new property</h3>
+<p>When you add a new <code>age</code> field of type <code>integer</code> to the <code>User</code> model.
+OpenApi4s will compare the newly generated <code>case class User</code> (in-memory), with the existing <code>case class User</code> in your source code.
+Then it will figure out that <code>age: Int</code> parameter is missing, and it will add it.</p>
+<pre><code class="language-diff-scala">--- a/api/src/com/example/petstore/api/models/User.scala
++++ b/api/src/com/example/petstore/api/models/User.scala
+@@ -14,5 +14,5 @@ case class User(
+   email: Option[String],
+   password: Option[String],
+   phone: Option[String],
+-  userStatus: Option[Int]
++  userStatus: Option[Int], age: Long
+ ) derives JsonRW
+</code></pre>
+<h3>Changing a property</h3>
+<p>Let's say you change the <code>userStatus</code>'s format from <code>int32</code> to <code>int64</code>.
+OpenApi4s will figure out that <code>userStatus: Option[Int]</code> needs to be changed to <code>userStatus: Option[Long]</code>.</p>
+<pre><code class="language-diff-scala">--- a/api/src/com/example/petstore/api/models/User.scala
++++ b/api/src/com/example/petstore/api/models/User.scala
+@@ -14,5 +14,6 @@ case class User(
+   email: Option[String],
+   password: Option[String],
+   phone: Option[String],
+-  userStatus: Option[Int]
++  userStatus: Option[Long]
+</code></pre>
+<h3>Adding a new endpoint</h3>
+<p>Adding a new endpoint to existing controller is easy too.
+It will just add another <code>case</code> to your existing routes.
+For example in sharaf framework it will add something like this:</p>
+<pre><code class="language-scala">case GET -&gt; Path(&quot;user&quot;, &quot;new-endpoint&quot;) =&gt;
+  Response.withStatus(StatusCodes.NOT_IMPLEMENTED)
+</code></pre>
+<p>It will even generate a boilerplate implementation for you.
+You can then fill in the blanks.</p>
+<h3>Changing an endpoint</h3>
+<p>Now this is a bit more tricky.
+OpenApi4s must not touch your existing code, since you might have already implemented some logic.
+So it will not touch your existing expressions, for example <code>Response.withStatus(..)</code> in the previous example.</p>
+<p>But it will update the query parameters if needed.</p>
+</section><section><h2 id="ci">CI</h2><h3>Preventing accidental overwrites</h3>
+<p>You might be cautious about the changes that OpenApi4s makes.
+Thinking, will it overwrite my code? How can I make sure it doesn't?
+A simple check you can do in your CI pipeline is to:</p>
+<ul>
+<li>touch the <code>openapi.yaml</code> file, just so that <code>mill</code> detects a change and triggers openapi4s</li>
+<li>compile the code, to regenerate the files</li>
+<li>see if there are any changes in the git diff</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-sh">echo &quot; &quot; &gt;&gt; api/resources/openapi.yaml
+./mill api.compile
+truncate -s -1 api/resources/openapi.yaml
+git diff --exit-code
+[ $? -eq 0 ]  || exit 1
+</code></pre>
+<h3>Preventing breaking changes</h3>
+<p>Since the <code>openapi.yaml</code> is now in <code>git</code>, you can do some cool stuff with it.
+One very useful check is preventing breaking changes.
+You can do it with <a href="https://github.com/OpenAPITools/openapi-diff">openapi-diff</a> for example:</p>
+<pre><code class="language-sh">git show origin/main:api/resources/public/openapi.json &gt; main_openapi.json
+
+cs launch org.openapitools.openapidiff:openapi-diff-cli:2.1.0-beta.12 -M org.openapitools.openapidiff.cli.Main -- --fail-on-incompatible main_openapi.json ./api/resources/public/openapi.json
+[ $? -eq 0 ]  || exit 1
+
+rm main_openapi.json
+</code></pre>
+<p>See the <a href="https://github.com/sake92/openapi4s-demo/blob/main/.github/workflows/ci.yml">CI script</a> in the openapi4s demo repo.</p>
+<p>Here is an example of <a href="https://github.com/sake92/openapi4s-demo/pull/2">compatible change PR</a>.<br />
+And an example of <a href="https://github.com/sake92/openapi4s-demo/pull/3">breaking change PR</a>, CI fails of course.</p>
+</section><section><h2 id="conclusion">Conclusion</h2><p>Hope you find this post (and OpenApi4s tool) useful.<br />
+You can find more tools to combine with api-first approach at <a href="https://openapi.tools/">https://openapi.tools/</a></p>
+<p>Check out the video demo too:</p>
+ <iframe width="100%" src="https://www.youtube.com/embed/kf0vGrlKNb8?si=l9_hclW2cr2Rc9Pd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <h3>Additional resources</h3>
+<ul>
+<li><a href="https://swagger.io/resources/articles/adopting-an-api-first-approach/">Understanding the API-First Approach</a></li>
+<li><a href="https://guardrail.dev">Guardrail</a></li>
+<li><a href="https://tapir.softwaremill.com/en/latest/">Tapir</a></li>
+<li><a href="https://www.baeldung.com/spring-rest-openapi-documentation">Documenting a Spring REST API Using OpenAPI 3.0</a></li>
+</ul>
+</section></article></div></main><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/diff-highlight/prism-diff-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/match-braces/prism-match-braces.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/treeview/prism-treeview.min.js"></script><script src="../../../scripts/main.js"></script></body></html>
