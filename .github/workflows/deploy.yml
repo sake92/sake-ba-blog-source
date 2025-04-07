@@ -1,5 +1,4 @@
-name: Deploy to blog.sake.ba
-
+name: Deploy
 on:
   push:
     branches:
@@ -12,9 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@4
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 11
+      - name: Deploy to GH Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: site/hepek_output
+      - name: Deploy to blog.sake.ba
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
