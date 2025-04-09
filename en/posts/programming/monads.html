@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Monads introduction. Do notation, for comprehensions. Comparing monads with async and await syntax. Future, Observable, IO monad, Reactive programming." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>You already know Monad(ic) stuff - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/diff-highlight/prism-diff-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/match-braces/prism-match-braces.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/treeview/prism-treeview.css" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../manifest.json" /></head><body class="match-braces"><main class="pico container"><nav><ul><li><a href="../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="index.html" class="">Programming</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="monads.html" class="">Monadic stuff</a></li><li><a href="api-first-scala.html" class="secondary">API-First Scala</a></li></ul></nav></aside><article><section><h2 id="intro">Intro</h2><p>I know.. yet another Monad tutorial. :)</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Monads introduction. Do notation, for comprehensions. Comparing monads with async and await syntax. Future, Observable, IO monad, Reactive programming." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>You already know Monad(ic) stuff - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../manifest.json" /></head><body class="match-braces"><main class="pico container"><nav><ul><li><a href="../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="index.html" class="">Programming</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="monads.html" class="">Monadic stuff</a></li><li><a href="api-first-scala.html" class="secondary">API-First Scala</a></li></ul></nav></aside><article><section><h2 id="intro">Intro</h2><p>I know.. yet another Monad tutorial. :)</p>
 <p>Have you ever thought &quot;hmm, these all look <em>kinda same</em>&quot;:</p>
 <ul>
 <li>Promise, Future, Rx, IO, Monad</li>
@@ -47,28 +47,25 @@ But how does it know which functions are &quot;impure&quot;?<br />
 Well, by marking them with <code>IO</code> wrapper type (which is &quot;a monad&quot;).</p>
 <h3>Main function</h3>
 <p>&quot;Normal&quot; programming languages have a <code>main</code> function, which usually looks something like this:</p>
-<pre><code class="language-java">static void main(String[] args) {
-}
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#C792EA">static</span><span style="color:#C792EA"> void</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">(</span><span style="color:#C792EA">String</span><span style="color:#89DDFF">[]</span><span style="color:#BABED8"> args</span><span style="color:#89DDFF">)</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
 <p>but in Haskell you have this:</p>
-<pre><code class="language-haskell">main :: IO ()
-main = ...
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#82AAFF">main</span><span style="color:#89DDFF"> ::</span><span style="color:#C792EA"> IO</span><span style="color:#89DDFF"> ()</span></span>
+<span class="line"><span style="color:#BABED8">main </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> ...</span></span></code></pre>
 <p>Haskell marks the <code>main</code> as an IO action, so by definition it is impure.</p>
 </section><section><h2 id="history-and-pre-history">History and pre-history</h2><p>Before monads were introduced, main function's type looked like this:<br />
 <code>main :: [Response] -&gt; [Request]</code>.<br />
 Example taken from <a href="https://stackoverflow.com/a/17004448/4496364">StackOverflow</a>:</p>
-<pre><code class="language-haskell">main :: [Response] -&gt; [Request]
-main responses =
-  [
-    AppendChan &quot;stdout&quot; &quot;Please enter a Number&quot;,
-    ReadChan &quot;stdin&quot;,
-    AppendChan &quot;stdout&quot; . show $ enteredNumber * 2
-  ]
-  where (Str input) = responses !! 1
-        firstLine = head . lines $ input
-        enteredNumber = read firstLine 
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#82AAFF">main</span><span style="color:#89DDFF"> ::</span><span style="color:#89DDFF"> [</span><span style="color:#C792EA">Response</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> -></span><span style="color:#89DDFF"> [</span><span style="color:#C792EA">Request</span><span style="color:#89DDFF">]</span></span>
+<span class="line"><span style="color:#BABED8">main responses </span><span style="color:#89DDFF">=</span></span>
+<span class="line"><span style="color:#89DDFF">  [</span></span>
+<span class="line"><span style="color:#BABED8">    AppendChan </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">stdout</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Please enter a Number</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#BABED8">    ReadChan </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">stdin</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#BABED8">    AppendChan </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">stdout</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> .</span><span style="color:#BABED8"> show </span><span style="color:#89DDFF">$</span><span style="color:#BABED8"> enteredNumber </span><span style="color:#89DDFF">*</span><span style="color:#F78C6C"> 2</span></span>
+<span class="line"><span style="color:#89DDFF">  ]</span></span>
+<span class="line"><span style="color:#F78C6C">  where</span><span style="color:#89DDFF"> (</span><span style="color:#BABED8">Str input</span><span style="color:#89DDFF">)</span><span style="color:#89DDFF"> =</span><span style="color:#BABED8"> responses </span><span style="color:#89DDFF">!!</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#BABED8">        firstLine </span><span style="color:#89DDFF">=</span><span style="color:#BABED8"> head </span><span style="color:#89DDFF">.</span><span style="color:#BABED8"> lines </span><span style="color:#89DDFF">$</span><span style="color:#BABED8"> input</span></span>
+<span class="line"><span style="color:#BABED8">        enteredNumber </span><span style="color:#89DDFF">=</span><span style="color:#BABED8"> read firstLine</span></span></code></pre>
 <p>In a nutshell, you had to <strong>write all of the impure stuff</strong> that your whole program will do <strong>as a return value</strong>.<br />
 That is represented as a <em>list of requests</em>: <code>[Request]</code>.<br />
 Return values from those IO actions are delivered in the <code>[Response]</code> list, that you use inside the program logic.</p>
@@ -81,16 +78,14 @@ We can already see that this way of writing a program is very <strong>cumbersome
 </section><section><h2 id="monads">Monads</h2><p>Back to <code>IO t</code>. The <code>IO t</code> is an action that will do some <em>side effects</em> before returning a value of type <code>t</code>.<br />
 This can be <em>anything</em>: writing to disk, sending HTTP requests etc.<br />
 Examples of impure functions in Haskell:</p>
-<pre><code class="language-haskell">getChar :: IO Char
-putChar :: Char -&gt; IO ()
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#82AAFF">getChar</span><span style="color:#89DDFF"> ::</span><span style="color:#C792EA"> IO</span><span style="color:#C792EA"> Char</span></span>
+<span class="line"><span style="color:#82AAFF">putChar</span><span style="color:#89DDFF"> ::</span><span style="color:#C792EA"> Char</span><span style="color:#89DDFF"> -></span><span style="color:#C792EA"> IO</span><span style="color:#89DDFF"> ()</span></span></code></pre>
 <p>You are probably familiar with some <em>functions</em> that operate <em>on the value inside</em> the <code>IO</code>!<br />
 For example, we have <code>fmap :: Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b</code> which transforms the value inside any Functor <code>f</code> (monad is a functor).</p>
 <p>But what about chaining, sequencing actions one after another?<br />
 How can we ensure that <code>getChar</code> executes <em>strictly before</em> <code>putChar</code>?<br />
 Monads to the rescue! Its core function is called <code>flatMap</code> (or <code>bind</code>, or <code>&gt;&gt;=</code> ..):</p>
-<pre><code class="language-haskell">(&gt;&gt;=) :: IO a -&gt; (a -&gt; IO b) -&gt; IO b
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#89DDFF">(</span><span style="color:#82AAFF">>>=</span><span style="color:#89DDFF">)</span><span style="color:#89DDFF"> ::</span><span style="color:#C792EA"> IO</span><span style="color:#BABED8"> a </span><span style="color:#89DDFF">-></span><span style="color:#89DDFF"> (</span><span style="color:#BABED8">a </span><span style="color:#89DDFF">-></span><span style="color:#C792EA"> IO</span><span style="color:#BABED8"> b</span><span style="color:#89DDFF">)</span><span style="color:#89DDFF"> -></span><span style="color:#C792EA"> IO</span><span style="color:#BABED8"> b</span></span></code></pre>
 <p>The <code>flatMap</code> function:</p>
 <ul>
 <li>takes an <code>IO a</code> action</li>
@@ -100,14 +95,13 @@ Monads to the rescue! Its core function is called <code>flatMap</code> (or <code
 <p>So there we have it, Monad in all its glory! :)<br />
 It's &quot;just&quot; a semicolon (<code>;</code>), duhh, sequencing operations.</p>
 <p>Let's see our solution now:</p>
-<pre><code class="language-haskell">echo = getChar &gt;&gt;= putChar
-
--- or more verbosely
-echo = getChar &gt;&gt;= (\c -&gt; putChar c)
-
--- or verbosiest
-echo = (&gt;&gt;=) getChar (\c -&gt; putChar c)
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#BABED8">echo </span><span style="color:#89DDFF">=</span><span style="color:#BABED8"> getChar </span><span style="color:#89DDFF">>>=</span><span style="color:#BABED8"> putChar</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#464B5D;font-style:italic">-- or more verbosely</span></span>
+<span class="line"><span style="color:#BABED8">echo </span><span style="color:#89DDFF">=</span><span style="color:#BABED8"> getChar </span><span style="color:#89DDFF">>>=</span><span style="color:#89DDFF"> (\</span><span style="color:#BABED8">c </span><span style="color:#89DDFF">-></span><span style="color:#BABED8"> putChar c</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#464B5D;font-style:italic">-- or verbosiest</span></span>
+<span class="line"><span style="color:#BABED8">echo </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> (</span><span style="color:#82AAFF">>>=</span><span style="color:#89DDFF">)</span><span style="color:#BABED8"> getChar </span><span style="color:#89DDFF">(\</span><span style="color:#BABED8">c </span><span style="color:#89DDFF">-></span><span style="color:#BABED8"> putChar c</span><span style="color:#89DDFF">)</span></span></code></pre>
 <p>In Scala you'd write <code>val echo = getChar.flatMap(putChar)</code>.</p>
 <p>This is the <strong>reason why Monads were introduced in Haskell</strong>.</p>
 <blockquote>
@@ -118,16 +112,14 @@ echo = (&gt;&gt;=) getChar (\c -&gt; putChar c)
 <p>Haskell and some other languages have built-in syntax for Monads.<br />
 Haskell has &quot;do notation&quot; and Scala has &quot;for comprehensions&quot;.<br />
 It makes them more readable by flipping sides:</p>
-<pre><code class="language-haskell">echo = do
-    c &lt;- getChar
-    putChar c
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#BABED8">echo </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#BABED8">    c </span><span style="color:#89DDFF">&#x3C;-</span><span style="color:#BABED8"> getChar</span></span>
+<span class="line"><span style="color:#BABED8">    putChar c</span></span></code></pre>
 <p>Scala:</p>
-<pre><code class="language-scala">val echo = for {
-    c &lt;- getChar
-    _ &lt;- putChar(c)
-} yield ()
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#89DDFF">val</span><span style="color:#BABED8"> echo </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF;font-style:italic"> for</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#BABED8">    c </span><span style="color:#89DDFF">&#x3C;-</span><span style="color:#BABED8"> getChar</span></span>
+<span class="line"><span style="color:#BABED8">    _ </span><span style="color:#89DDFF">&#x3C;-</span><span style="color:#BABED8"> putChar(c)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span><span style="color:#89DDFF;font-style:italic"> yield</span><span style="color:#BABED8"> ()</span></span></code></pre>
 <p>The <code>&lt;-</code> symbol gets translated into <code>&gt;&gt;=</code> by Haskell's compiler.<br />
 In case of Scala, it gets turned into a <code>flatMap</code>.</p>
 <hr />
@@ -138,23 +130,21 @@ If you have <code>Option[Option[String]]</code>, same thing.</p>
 <p>You can imagine doing the same example above with a <code>List[T]</code>, where <code>c</code> would be <em>one element of the list</em>.</p>
 </section><section><h2 id="async-await">Async / Await</h2><p>After some time it came to my mind that we are doing a similar thing in JS/C#/Kotlin with <code>await</code>.
 It is almost the same thing, we are &quot;pulling a value from a Promise/Task&quot; (~Monads):</p>
-<pre><code class="language-js">async function fetchUserMovies() {
-  const user = await fetch('/user');
-  const movies = await fetch(`/user/${user.id}/movies`);
-  console.log(movies);
-  return movies;
-}
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#C792EA">async</span><span style="color:#C792EA"> function</span><span style="color:#82AAFF"> fetchUserMovies</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#C792EA">  const</span><span style="color:#BABED8"> user</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF;font-style:italic"> await</span><span style="color:#82AAFF"> fetch</span><span style="color:#F07178">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/user</span><span style="color:#89DDFF">'</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#C792EA">  const</span><span style="color:#BABED8"> movies</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF;font-style:italic"> await</span><span style="color:#82AAFF"> fetch</span><span style="color:#F07178">(\</span><span style="color:#89DDFF">`</span><span style="color:#C3E88D">/user/</span><span style="color:#BABED8">\$</span><span style="color:#C3E88D">{user.id}/movies</span><span style="color:#BABED8">\`</span><span style="color:#C3E88D">);</span></span>
+<span class="line"><span style="color:#C3E88D">  console.log(movies);</span></span>
+<span class="line"><span style="color:#C3E88D">  return movies;</span></span>
+<span class="line"><span style="color:#C3E88D">}</span></span></code></pre>
 <p>Before this we used to write &quot;normal callback functions&quot;:</p>
-<pre><code class="language-js">function fetchUserMovies() {
-    fetch('/user').then(user =&gt; {
-        fetch(`/user/${user.id}/movies`).then(movies =&gt; {
-            console.log(movies);
-            return movies;
-        });
-    });
-}
-</code></pre>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#C792EA">function</span><span style="color:#82AAFF"> fetchUserMovies</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">    fetch</span><span style="color:#F07178">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/user</span><span style="color:#89DDFF">'</span><span style="color:#F07178">)</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">then</span><span style="color:#F07178">(</span><span style="color:#BABED8;font-style:italic">user</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">        fetch</span><span style="color:#F07178">(\</span><span style="color:#89DDFF">`</span><span style="color:#C3E88D">/user/</span><span style="color:#BABED8">\$</span><span style="color:#C3E88D">{user.id}/movies</span><span style="color:#BABED8">\`</span><span style="color:#C3E88D">).then(movies => {</span></span>
+<span class="line"><span style="color:#C3E88D">            console.log(movies);</span></span>
+<span class="line"><span style="color:#C3E88D">            return movies;</span></span>
+<span class="line"><span style="color:#C3E88D">        });</span></span>
+<span class="line"><span style="color:#C3E88D">    });</span></span>
+<span class="line"><span style="color:#C3E88D">}</span></span></code></pre>
 <p>Seems like <code>then</code> corresponds to <code>flatMap</code>, and <code>await</code> corresponds to <code>&lt;-</code> syntax sugar.<br />
 Some noticable differences:</p>
 <ul>
@@ -184,4 +174,4 @@ That's because JS doesn't have &quot;normal threads&quot;, is has only one threa
 <li><a href="https://medium.com/@luijar/the-observable-disguised-as-an-io-monad-c89042aa8f31">The Observable disguised as an IO Monad</a> by Luis Atencio</li>
 <li><a href="https://www.reddit.com/r/scala/comments/8ygjcq/can_someone_explain_to_me_the_benefits_of_io/">Benefits of IO discussion on Reddit</a></li>
 </ul>
-</section></article></div></main><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/diff-highlight/prism-diff-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/match-braces/prism-match-braces.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/treeview/prism-treeview.min.js"></script><script src="../../../scripts/main.js"></script></body></html>
+</section></article></div></main><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="../../../scripts/main.js"></script></body></html>

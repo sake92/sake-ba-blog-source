@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Osnove Jave." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>Osnove - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-twilight.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autolinker/prism-autolinker.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/command-line/prism-command-line.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/diff-highlight/prism-diff-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-highlight/prism-line-highlight.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-numbers/prism-line-numbers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/previewers/prism-previewers.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/toolbar/prism-toolbar.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/unescaped-markup/prism-unescaped-markup.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/match-braces/prism-match-braces.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/treeview/prism-treeview.css" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../manifest.json" /></head><body class="match-braces"><main class="pico container"><nav><ul><li><a href="../../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="../flowcharts/index.html" class="secondary">Vizuelno programiranje</a></li><li><a href="index.html" class="">Uvod u programiranje</a></li><li><a href="oop/index.html" class="secondary">Uvod u OOP</a></li><li><a href="../scala/index.html" class="secondary">Scala</a></li><li><a href="../../matematika/index.html" class="secondary">Matematika</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="index.html" class="secondary">Početna</a></li><li><a href="instalacija.html" class="secondary">Instalacija</a></li><li><a href="basics.html" class="">Osnove</a></li><li><a href="types.html" class="secondary">Tipovi</a></li><li><a href="statements.html" class="secondary">Naredbe</a></li><li><a href="hello-world.html" class="secondary">Poyy sviete!</a></li><li><a href="if-statement.html" class="secondary">If naredba</a></li><li><a href="switch-statement.html" class="secondary">Switch naredba</a></li><li><a href="while-loop.html" class="secondary">While petlja</a></li><li><a href="for-loop.html" class="secondary">For petlja</a></li><li><a href="functions.html" class="secondary">Funkcije</a></li><li><a href="arrays.html" class="secondary">Nizovi</a></li><li><a href="types2.html" class="secondary">Tipovi, opet</a></li><li><a href="classes.html" class="secondary">Klase</a></li><li><a href="scope.html" class="secondary">Scope, opseg</a></li></ul></nav></aside><article><section><h2 id="j-shell">JShell</h2><p>Da bi se igrali sa JShellom morate imati instaliranu Javu verzije 9 ili više.<br />
+<!DOCTYPE html><html lang="bs"><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="ie=edge" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="hepek" /><meta name="theme-color" content="#000" /><meta name="mobile-web-app-capable" content="yes" /><meta name="description" content="Osnove Jave." /><meta property="og:title" content="blog.sake.ba" /><meta name="twitter:card" content="summary_large_image" /><title>Osnove - blog.sake.ba</title><link rel="shortcut icon" href="../../../images/favicon.svg" type="image/svg+xml" /><link rel="stylesheet" href="../../../styles/vendor/pico.conditional.min.css" /><link rel="stylesheet" href="../../../styles/main.css" /><link rel="manifest" href="../../../manifest.json" /></head><body class="match-braces"><main class="pico container"><nav><ul><li><a href="../../../index.html"><span><img src="/images/logo.png" alt="logo" style="height: 32px;" /></span><strong>blog.sake.ba</strong></a></li></ul><ul><li><a href="../flowcharts/index.html" class="secondary">Vizuelno programiranje</a></li><li><a href="index.html" class="">Uvod u programiranje</a></li><li><a href="oop/index.html" class="secondary">Uvod u OOP</a></li><li><a href="../scala/index.html" class="secondary">Scala</a></li><li><a href="../../matematika/index.html" class="secondary">Matematika</a></li></ul></nav><div class="blog-post"><aside><nav><ul><li><a href="index.html" class="secondary">Početna</a></li><li><a href="instalacija.html" class="secondary">Instalacija</a></li><li><a href="basics.html" class="">Osnove</a></li><li><a href="types.html" class="secondary">Tipovi</a></li><li><a href="statements.html" class="secondary">Naredbe</a></li><li><a href="hello-world.html" class="secondary">Poyy sviete!</a></li><li><a href="if-statement.html" class="secondary">If naredba</a></li><li><a href="switch-statement.html" class="secondary">Switch naredba</a></li><li><a href="while-loop.html" class="secondary">While petlja</a></li><li><a href="for-loop.html" class="secondary">For petlja</a></li><li><a href="functions.html" class="secondary">Funkcije</a></li><li><a href="arrays.html" class="secondary">Nizovi</a></li><li><a href="types2.html" class="secondary">Tipovi, opet</a></li><li><a href="classes.html" class="secondary">Klase</a></li><li><a href="scope.html" class="secondary">Scope, opseg</a></li></ul></nav></aside><article><section><h2 id="j-shell">JShell</h2><p>Da bi se igrali sa JShellom morate imati instaliranu Javu verzije 9 ili više.<br />
 Ispratite <a href="instalacija.html">sekciju za instalaciju</a>.</p>
 <p>Koristićemo JShell program za upoznavanje i igranje s Java jezikom.<br />
 Otvorite konzolu (bez ikakvog straha! :D), ukucajte <code>jshell</code> i udarite Enter.<br />
@@ -9,10 +9,9 @@ evaluira ga, isprinta neki odgovor, i ponavlja ukrug.</p>
 Tako ćemo steći osjećaj kako se ponašaju brojevi u Javi,
 i usput objasniti neke osnovne koncepte i pojmove.<br />
 Ako ukucamo u REPL broj 5 i pritisnemo Enter, vidjećemo sljedeće:</p>
-<pre class="command-line" data-output="2" data-prompt="jshell&gt;"><code class="language-batch">
-        5
-        $1 ==&gt; 5
-      </code></pre><p>REPL je razumio i odgovorio nam da je to vrijednost <code>5</code>.<br />
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">5</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$1</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 5</span></span></code></pre>
+<p>REPL je razumio i odgovorio nam da je to vrijednost <code>5</code>.<br />
 U programiranju se kaže da je broj <strong>izraz</strong>.
 <em>Izraz</em> u programiranju ima isto značenje kao i u matematici.<br />
 Dakle, misli se na nešto što ima <strong>vrijednost</strong>.
@@ -21,16 +20,15 @@ Nešto što možemo prikazati, s čim možemo baratati.</p>
 <p>Ako se opet prisjetimo (dosadne) matematike, sjetićemo se da se simboli
 <code>+</code>, <code>-</code>, <code>*</code>, itd. nazivaju <strong>operatori</strong>.<br />
 Pošto smo rekli da je REPL kao kalkulator, da vidimo šta sve možemo uraditi:</p>
-<pre class="command-line" data-output="2,4,6,8,10,12,14" data-prompt="jshell&gt;"><code class="language-batch">
-        2 + 2
-        $2 ==&gt; 4
-        2 - 5
-        $3 ==&gt; -3
-        7 * 3
-        $4 ==&gt; 21
-        9 / 4
-        $5 ==&gt; 2
-      </code></pre><p>Izgleda da dijeljenje ne radi kako treba... Našli smo grešku! :D<br />
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">2</span><span style="color:#C3E88D"> +</span><span style="color:#F78C6C"> 2</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$2</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 4</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">2</span><span style="color:#C3E88D"> -</span><span style="color:#F78C6C"> 5</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$3</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> -3</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">7</span><span style="color:#BABED8"> *</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$4</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 21</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">9</span><span style="color:#C3E88D"> /</span><span style="color:#F78C6C"> 4</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$5</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 2</span></span></code></pre>
+<p>Izgleda da dijeljenje ne radi kako treba... Našli smo grešku! :D<br />
 Ali, nije tako. Java <em>podrazumijeva</em> da želimo podijeliti dva <strong>cijela</strong> broja!<br />
 Ako se sjetimo osnovne škole, <code>5 / 2</code> je ustvari <code>2</code> <strong>cijelih</strong> i <strong>ostatak</strong> <code>1</code>. :)<br />
 Dakle, kada dijelimo dva cijela broja, ustvari radimo &quot;cjelobrojno dijeljenje&quot;.</p>
@@ -40,31 +38,28 @@ Npr. <code>5 % 2</code> je <code>1</code>.</p>
 <p>Kada želimo koristiti <strong>realne</strong> brojeve (sa zarezom), pišemo tačku nakon broja.<br />
 Tačka se koristi umjesto zareza, jer se zarez koristi za neke druge stvari.<br />
 Uglavnom, da vidimo kako rade realni brojevi (en. <strong>float</strong>ing point):</p>
-<pre class="command-line" data-output="2,4,6,8,10,12,14" data-prompt="jshell&gt;"><code class="language-batch">
-        3.0 + 5.1
-        $6 ==&gt; 8.1
-        7.3 - 2.9
-        $7 ==&gt; 4.4
-        5.5 * -2.0
-        $8 ==&gt; -11.0
-        9.0 / 4.0
-        $9 ==&gt; 2.25
-      </code></pre><p>Sada se sve čini onako kako treba. :)</p>
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">3.0</span><span style="color:#C3E88D"> +</span><span style="color:#F78C6C"> 5.1</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$6</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 8.1</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">7.3</span><span style="color:#C3E88D"> -</span><span style="color:#F78C6C"> 2.9</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$7</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 4.4</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">5.5</span><span style="color:#BABED8"> *</span><span style="color:#C3E88D"> -2.0</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$8</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> -11.0</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">9.0</span><span style="color:#C3E88D"> /</span><span style="color:#F78C6C"> 4.0</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$9</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 2.25</span></span></code></pre>
+<p>Sada se sve čini onako kako treba. :)</p>
 <hr />
 <p>Redoslijed operacija (en. precedence) radi očekivano.<br />
 Npr. množenje se radi prije sabiranja.<br />
 Ako želimo baš, baš, biti sigurni da će program raditi kako treba, možemo koristiti zagrade.</p>
-<pre class="command-line" data-output="2,4,6,8,10,12,14" data-prompt="jshell&gt;"><code class="language-batch">
-        2 + 2 * 2
-        $10 ==&gt; 6
-        (2 + 2) * 2
-        $11 ==&gt; 8
-      </code></pre></div></section><section><h2 id="varijable">Varijable</h2><div><p>Primijetite šta REPL ispisuje kao odgovor, poslije svake unesene linije: <code>$1 ==&gt; 5</code>.<br />
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#F78C6C">2</span><span style="color:#C3E88D"> +</span><span style="color:#F78C6C"> 2</span><span style="color:#BABED8"> *</span><span style="color:#F78C6C"> 2</span></span>
+<span class="line"><span style="color:#BABED8">$10 ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 6</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> (2 </span><span style="color:#C3E88D">+</span><span style="color:#F78C6C"> 2</span><span style="color:#BABED8">) </span><span style="color:#89DDFF">*</span><span style="color:#BABED8"> 2</span></span>
+<span class="line"><span style="color:#BABED8">$11 ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 8</span></span></code></pre>
+</div></section><section><h2 id="varijable">Varijable</h2><div><p>Primijetite šta REPL ispisuje kao odgovor, poslije svake unesene linije: <code>$1 ==&gt; 5</code>.<br />
 Ako ukucamo <code>$1</code> u REPL vidjećemo sljedeće:</p>
-<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
-        $1
-        $1 ==&gt; 5
-      </code></pre><p>Dakle, REPL nam kaže da je <strong>vrijednost</strong> varijable <code>$1</code> jednaka <code>5</code>.<br />
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#BABED8;font-style:italic">$1</span></span>
+<span class="line"><span style="color:#BABED8;font-style:italic">$1</span><span style="color:#BABED8"> ==</span><span style="color:#89DDFF">></span><span style="color:#BABED8"> 5</span></span></code></pre>
+<p>Dakle, REPL nam kaže da je <strong>vrijednost</strong> varijable <code>$1</code> jednaka <code>5</code>.<br />
 Izraz <code>5</code> je spremljen u <strong>varijablu</strong> <code>$1</code>, koju možemo koristiti umjesto broja <code>5</code>.</p>
 <blockquote>
 <p>Šta je to varijabla?<br />
@@ -76,38 +71,34 @@ Npr. kutija u kojoj čuvamo neki broj.</p>
 za čuvanje <code>int</code>egera (en. &quot;integer&quot; je cijeli broj).<br />
 Ovo <code>int</code> je tip varijable (veličina i oblik kutije)!
 Kasnije ćemo govoriti malo detaljnije o tipovima.</p>
-<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
-        int brojJabuka;
-        brojJabuka ==&gt; 0
-        |  created variable brojJabuka : int
-      </code></pre><p>Pošto nismo dali vrijednost našoj varijabli,
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#C3E88D">int</span><span style="color:#C3E88D"> brojJabuka</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#FFCB6B">brojJabuka</span><span style="color:#C3E88D"> =</span><span style="color:#BABED8">=</span><span style="color:#89DDFF">></span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#FFCB6B">created</span><span style="color:#C3E88D"> variable</span><span style="color:#C3E88D"> brojJabuka</span><span style="color:#C3E88D"> :</span><span style="color:#C3E88D"> int</span></span></code></pre>
+<p>Pošto nismo dali vrijednost našoj varijabli,
 Java nam pomaže tako što postavlja <code>brojJabuka</code> na vrijednost <code>0</code>.<br />
 Obično je to ono što želimo, ali je najbolje postaviti početnu vrijednost <strong>eksplicitno</strong>,
 čim uvodimo novu varijablu.
 Tako odmah znamo koja joj je početna vrijednost i ne moramo razmišljati o tome... :)<br />
 To radimo ovako:</p>
-<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
-        int brojJabuka = 0;
-        brojJabuka ==&gt; 0
-        |  created variable brojJabuka : int
-      </code></pre><p>Vrlo jednostavno, nakon naziva varijable slijedi znak jednako i vrijednost, ovdje je to <code>0</code>.<br />
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#C3E88D">int</span><span style="color:#C3E88D"> brojJabuka</span><span style="color:#C3E88D"> =</span><span style="color:#F78C6C"> 0</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#FFCB6B">brojJabuka</span><span style="color:#C3E88D"> =</span><span style="color:#BABED8">=</span><span style="color:#89DDFF">></span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#FFCB6B">created</span><span style="color:#C3E88D"> variable</span><span style="color:#C3E88D"> brojJabuka</span><span style="color:#C3E88D"> :</span><span style="color:#C3E88D"> int</span></span></code></pre>
+<p>Vrlo jednostavno, nakon naziva varijable slijedi znak jednako i vrijednost, ovdje je to <code>0</code>.<br />
 Primijetite da ovaj znak jednakosti <strong>nije matematička jednakost</strong> već operacija dodjele!<br />
 Tj. kao da kažemo &quot;postavi varijablu <code>brojJabuka</code> na nulu!&quot;.</p>
 <p>Varijablu možemo izmijeniti, tj. postaviti na novu vrijednost:</p>
-<pre class="command-line" data-output="2-3" data-prompt="jshell&gt;"><code class="language-batch">
-        brojJabuka = 5;
-        brojJabuka ==&gt; 5
-        |  assigned to brojJabuka : int
-      </code></pre><p>Sada je vrijednost promijenjena na <code>5</code>.
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#C3E88D">brojJabuka</span><span style="color:#C3E88D"> =</span><span style="color:#F78C6C"> 5</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#FFCB6B">brojJabuka</span><span style="color:#C3E88D"> =</span><span style="color:#BABED8">=</span><span style="color:#89DDFF">></span><span style="color:#F78C6C"> 5</span></span>
+<span class="line"><span style="color:#FFCB6B">assigned</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> brojJabuka</span><span style="color:#C3E88D"> :</span><span style="color:#C3E88D"> int</span></span></code></pre>
+<p>Sada je vrijednost promijenjena na <code>5</code>.
 Nakon ove linije, gdje god koristimo <code>brojJabuka</code> to je kao da napišemo <code>5</code>.</p>
 <hr />
 <p>Također, možemo iskoristiti <strong>prethodnu vrijednost varijable</strong> da bismo dobili novu:</p>
-<pre class="command-line" data-output="2,4" data-prompt="jshell&gt;"><code class="language-batch">
-        brojJabuka = brojJabuka + 1;
-        brojJabuka ==&gt; 6
-        brojJabuka += 1;
-        $23 ==&gt; 7
-      </code></pre><p>U izrazu <code>brojJabuka + 1</code>, vrijednost <code>brojJabuka</code> odnosi se na <strong>zadnju vrijednost varijable</strong>,
+<pre class="shiki material-theme-ocean" style="background-color:#0F111A;color:#babed8" tabindex="0"><code><span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#C3E88D">brojJabuka</span><span style="color:#C3E88D"> =</span><span style="color:#C3E88D"> brojJabuka</span><span style="color:#C3E88D"> +</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#FFCB6B">brojJabuka</span><span style="color:#C3E88D"> =</span><span style="color:#BABED8">=</span><span style="color:#89DDFF">></span><span style="color:#F78C6C"> 6</span></span>
+<span class="line"><span style="color:#FFCB6B">jshell</span><span style="color:#BABED8">> </span><span style="color:#C3E88D">brojJabuka</span><span style="color:#C3E88D"> +=</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#BABED8">$23 </span><span style="color:#C3E88D">=</span><span style="color:#BABED8">=</span><span style="color:#89DDFF">></span><span style="color:#F78C6C"> 7</span></span></code></pre>
+<p>U izrazu <code>brojJabuka + 1</code>, vrijednost <code>brojJabuka</code> odnosi se na <strong>zadnju vrijednost varijable</strong>,
 dakle vrijednost prije ove linije, tj. <code>5</code>.</p>
 <p>Postoji i skraćena verzija za ovo, prikazana na liniji 3, s operatorom <code>+=</code>.<br />
 Također imaju skraćene verzije i za oduzimanje, množenje, dijeljenje i modulo:
@@ -137,4 +128,4 @@ pogotovo kao prvo slovo u nazivu varijable!</p>
 da su <em>camelCase</em> (svaka iduća riječ počinje velikim slovom), npr. <code>myVariable</code>.<br />
 Konstante (varijable koje se neće mijenjati) se pišu velikim slovima
 i riječi su razdvojene donjom crticom, npr. <code>MY_CONST</code>.</p>
-</section></section></article></div></main><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/autolinker/prism-autolinker.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/command-line/prism-command-line.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/diff-highlight/prism-diff-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/data-uri-highlight/prism-data-uri-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/file-highlight/prism-file-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/jsonp-highlight/prism-jsonp-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-highlight/prism-line-highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/line-numbers/prism-line-numbers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/previewers/prism-previewers.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/toolbar/prism-toolbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/keep-markup/prism-keep-markup.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/match-braces/prism-match-braces.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/show-language/prism-show-language.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/plugins/treeview/prism-treeview.min.js"></script><script src="../../../scripts/main.js"></script></body></html>
+</section></section></article></div></main><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script><script src="../../../scripts/main.js"></script></body></html>
