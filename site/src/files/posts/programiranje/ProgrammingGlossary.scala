@@ -13,7 +13,7 @@ object ProgrammingGlossary extends templates.SakeBaBlogStaticPage {
     super.pageSettings.withTitle("Programerska Terminologija")
 
   override def pageContent =
-    tag("main")(cls:="pico container")(
+    tag("main")(cls := "pico container")(
       nav(navLogo),
       terms.sortBy(_.name).map { t =>
         frag(h4(t.name), t.explanation, hr)

@@ -13,7 +13,7 @@ object Classes extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2019, 7, 14))
+      // .withCreatedDate(LocalDate.of(2019, 7, 14))
       .withSections(klaseSection)
 
   def klaseSection = Section(
@@ -28,24 +28,21 @@ object Classes extends JavaTemplate {
       Imena možemo staviti npr. u niz `String[] imena`.  
       Prezimena možemo staviti npr. u niz `String[] prezimena`.  
       Ocjene ćemo staviti npr. u niz `double[] prosjeci`. 
-      """.md,
-      chl.java(
-        """
-        String[] imena;
-        String[] prezimena;
-        double[] prosjeci;
-        
-        double zbirProsjeka = 0;
-        for(int i = 0; i < imena.length; i ++) {
-            System.out.print("Učenik: " + prezimena[i] + " " + imena[i]);
-            System.out.println(", prosjek: " + prosjeci[i]);
-            zbirProsjeka += prosjeci[i];
-        }
-        double prosjekRazreda = zbirProsjeka / imena.length;
-        System.out.println("Ukupan prosjek razreda: " + prosjekRazreda);
-        """
-      ),
-      """
+      ```java
+      String[] imena;
+      String[] prezimena;
+      double[] prosjeci;
+      
+      double zbirProsjeka = 0;
+      for(int i = 0; i < imena.length; i ++) {
+          System.out.print("Učenik: " + prezimena[i] + " " + imena[i]);
+          System.out.println(", prosjek: " + prosjeci[i]);
+          zbirProsjeka += prosjeci[i];
+      }
+      double prosjekRazreda = zbirProsjeka / imena.length;
+      System.out.println("Ukupan prosjek razreda: " + prosjekRazreda);
+      ```
+      
       Iako ovaj kod radi kako treba, nekako se ne osjećamo dobro zbog njega...   
       Indeksi pršte na sve strane, šta ako je jedan od nizova kraći itd?  
       Također, ovi nizovi nam uopće ne govore da su **dio jedne cjeline**.  
@@ -57,16 +54,15 @@ object Classes extends JavaTemplate {
       Objekat je obično skup primitivnih varijabli i drugih objekata.  
       Dakle, koristi se za **logičko grupisanje vrijednosti**.  
       U prethodnom primjeru trebali bismo grupisati ime, prezime i prosjek. Ova nova apstrakcija tj. klasa bi se zvala `Ucenik`. To bi izgledalo ovako:
-      """.md,
-      chl.java(
-        """
-        class Ucenik {
-            String ime;
-            String prezime;
-            double prosjek;
-        }
-        """
-      )
+      ```java
+      class Ucenik {
+          String ime;
+          String prezime;
+          double prosjek;
+      }
+      ```
+      
+      """.md
     ),
     List(kreiranjeObjektaSection, poljaKlaseSection)
   )
@@ -106,21 +102,18 @@ object Classes extends JavaTemplate {
 
       ---
       Dok nismo zaboravili, prethodni primjer sada izgleda puno bolje i razumljivije:
-      """.md,
-      chl.java(
-        """
-        Ucenik[] ucenici;
-
-        double zbirProsjeka = 0;
-        for(Ucenik u : ucenici) {
-            System.out.print("Učenik: " + u.prezime + " " + u.ime);
-            System.out.println(", prosjek: " + u.prosjek);
-            zbirProsjeka += u.prosjek;
-        }
-        double prosjekRazreda = zbirProsjeka / ucenici.length;
-        System.out.println("Ukupan prosjek razreda: " + prosjekRazreda);
-        """
-      )
+      ```java
+      Ucenik[] ucenici;
+      double zbirProsjeka = 0;
+      for(Ucenik u : ucenici) {
+          System.out.print("Učenik: " + u.prezime + " " + u.ime);
+          System.out.println(", prosjek: " + u.prosjek);
+          zbirProsjeka += u.prosjek;
+      }
+      double prosjekRazreda = zbirProsjeka / ucenici.length;
+      System.out.println("Ukupan prosjek razreda: " + prosjekRazreda);
+      ```
+      """.md
     )
   )
 

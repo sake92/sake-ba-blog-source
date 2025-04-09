@@ -15,11 +15,11 @@ object Instalacija extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2017, 7, 2))
+      // .withCreatedDate(LocalDate.of(2017, 7, 2))
       .withSections(uvodSection, dodavanjePATHSection, provjeraSection)
 
   val linkToAddPath =
-    a(href:=dodavanjePATHSection.ref)(dodavanjePATHSection.name)
+    a(href := dodavanjePATHSection.ref)(dodavanjePATHSection.name)
 
   val installJava8 =
     "http://www.oracle.com/technetwork/java/javase/downloads/index.html"
@@ -45,10 +45,11 @@ object Instalacija extends JavaTemplate {
         Naravno, možete instalirati više verzija Jave, ali samo jednu možete dodati u `PATH`!
       """.md,
       img(
-        src:=files.images.java.`download-jdk-1.jpg`.ref,
-        width:=            1030,height:=            768,alt:="JDK download step 1"
+        src    := files.images.java.`download-jdk-1.jpg`.ref,
+        width  := 1030,
+        height := 768,
+        alt    := "JDK download step 1"
       ),
-        
       """
         Kada se otvori stranica sa prethodne slike kliknite na dugme **download JDK**.
 
@@ -60,8 +61,10 @@ object Instalacija extends JavaTemplate {
         Ako znate da imate 32-bitni Windows onda skinite tu verziju... 
        """.md,
       img(
-        src:=files.images.java.`download-jdk-2.jpg`.ref,
-        width:=            1030,height:=            768,alt:="JDK download step 2"
+        src    := files.images.java.`download-jdk-2.jpg`.ref,
+        width  := 1030,
+        height := 768,
+        alt    := "JDK download step 2"
       ),
       """
           Preporučujem da Javu instalirate u folder pod nazivom `C:\Java`.  
@@ -77,16 +80,20 @@ object Instalacija extends JavaTemplate {
         "Dakle, kada se završi download, otvorite instalaciju i kliknite Next.",
         br,
         img(
-          src:=files.images.java.`install-jdk-folder.jpg`.ref,
-          width:=            500,height:=            380,alt:="JDK folder"
+          src    := files.images.java.`install-jdk-folder.jpg`.ref,
+          width  := 500,
+          height := 380,
+          alt    := "JDK folder"
         ),
         """
             Zatim kliknite dugme "Change..." i prepravite putanju foldera na `C:\Java\jdk1.8.0_131`.  
             JRE će već biti instaliran zajedno sa JDK! Tako da nam ne treba još jedna instalacija...
         """.md,
         img(
-          src:=files.images.java.`install-jre-no.jpg`.ref,
-          width:=            500,height:=            380,alt:="JRE, nope!"
+          src    := files.images.java.`install-jre-no.jpg`.ref,
+          width  := 500,
+          height := 380,
+          alt    := "JRE, nope!"
         )
       )
     )
@@ -102,13 +109,17 @@ object Instalacija extends JavaTemplate {
              Otvorite `Computer Properties` na Windowsu (desni klik na My Computer -> Properties). Otvoriće vam se sljedeći prozor:
           """.md,
           img(
-            src:=files.images.os.windows.`computer-properties.jpg`.ref,
-            width:=            780,height:=            570,alt:="Computer Properties"
+            src    := files.images.os.windows.`computer-properties.jpg`.ref,
+            width  := 780,
+            height := 570,
+            alt    := "Computer Properties"
           ),
           "Kliknite na Advanced System Settings. Dobićete sljedeći prozor: ",
           img(
-            src:=files.images.os.windows.`system-properties.jpg`.ref,
-            width:=            780,height:=            570,alt:="System Properties"
+            src    := files.images.os.windows.`system-properties.jpg`.ref,
+            width  := 780,
+            height := 570,
+            alt    := "System Properties"
           )
         ),
         p(
@@ -131,8 +142,10 @@ object Instalacija extends JavaTemplate {
             Stanje bi trebalo biti otprilike ovako:
           """.md,
           img(
-            src:=files.images.os.windows.`system-variables.jpg`.ref,
-            width:=            780,height:=            570,alt:="System Variables"
+            src    := files.images.os.windows.`system-variables.jpg`.ref,
+            width  := 780,
+            height := 570,
+            alt    := "System Variables"
           )
         )
       )
@@ -151,8 +164,10 @@ object Instalacija extends JavaTemplate {
       """.md,
       "Ako dobijete nešto slično sljedećoj slici, sve je OK:",
       img(
-        src:=files.images.os.windows.`cmd-java-version.jpg`.ref,
-        width:=            604,height:=            388,alt:="Java verzija"
+        src    := files.images.os.windows.`cmd-java-version.jpg`.ref,
+        width  := 604,
+        height := 388,
+        alt    := "Java verzija"
       )
     )
   )

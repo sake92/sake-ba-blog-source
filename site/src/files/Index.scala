@@ -1,7 +1,7 @@
 package files
 
 import scalatags.Text.all.*
-import scalatags.Text.tags2.{nav, main}
+import scalatags.Text.tags2.{main, nav}
 import utils.*
 import utils.Imports.*
 

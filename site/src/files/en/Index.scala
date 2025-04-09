@@ -16,7 +16,7 @@ object Index extends EnStaticPage {
           "Tutorials in programming, math etc."
       )
 
-  override def pageContent = tag("main")(cls:="pico container")(
+  override def pageContent = tag("main")(cls := "pico container")(
     nav(navLogo),
     div(
       s"""

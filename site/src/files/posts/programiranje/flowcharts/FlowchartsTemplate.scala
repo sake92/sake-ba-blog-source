@@ -3,11 +3,14 @@ package files.posts.programiranje
 package flowcharts
 
 import scalatags.Text.all.*
-import utils.Imports.*
-import ba.sake.hepek.prismjs.PrismConsts
 import scalatags.Text.tags2.{article, aside, main, nav}
+import ba.sake.hepek.prismjs.PrismDependencies
 
-trait FlowchartsTemplate extends CodeTemplate with templates.BsBlogPage {
+// FlowRun NEEEDS PrismJS
+trait FlowchartsTemplate
+    extends CodeTemplate
+    with templates.BsBlogPage
+    with PrismDependencies {
 
   override def pageCategory = Some("Vizuelno programiranje")
 
@@ -81,13 +84,6 @@ trait FlowchartsTemplate extends CodeTemplate with templates.BsBlogPage {
       files.scripts.`flowrun-init.js`.ref
     )
   )
-
-  override def prismSettings =
-    super.prismSettings.withPlugins(
-      PrismConsts.plugins.filter(p =>
-        p._1 == "line-highlight" || p._1 == "line-numbers"
-      )
-    )
 
   private val flowrunTemplateHtml = raw("""
       |<div id="flowrun-template">

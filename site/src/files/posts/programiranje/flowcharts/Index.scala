@@ -17,7 +17,7 @@ object Index extends FlowchartsTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2022, 04, 24))
+      // .withCreatedDate(LocalDate.of(2022, 04, 24))
       .withSections(uvodSection)
 
   def uvodSection = Section(
@@ -49,8 +49,7 @@ object Index extends FlowchartsTemplate {
         Ako kliknemo na dugme `Run` (▶),
         program će se **pokrenuti i odmah završiti**!  
         Nije se ništa značajno desilo, samo vidimo u output panelu da je program završio.
-        """.md
-        ),
+        """.md),
         div(
           div(cls := "flowrun-instance flowrun--editable flowrun-layout-d-o")()
         ),

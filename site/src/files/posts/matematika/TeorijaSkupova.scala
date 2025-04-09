@@ -1,10 +1,9 @@
 package files.posts.matematika
 
-import java.time.LocalDate
 import scalatags.Text.all._
-import utils.Imports.*
 import ba.sake.hepek.html.statik.Section
 
+// TODO kad mogne Hepek SSG da inline snippete katexa renderuje biće super
 object TeorijaSkupova extends MatematikaTemplate {
 
   override def pageSettings =
@@ -16,7 +15,7 @@ object TeorijaSkupova extends MatematikaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2017, 6, 11))
+      // .withCreatedDate(LocalDate.of(2017, 6, 11))
       .withSections(
         uvodSection,
         operacijeSection,
@@ -104,8 +103,7 @@ object TeorijaSkupova extends MatematikaTemplate {
   def operacijeSection = Section(
     "Operacije nad skupovima",
     div(
-      
-        """
+      """
           Pošto element skupa može biti bilo šta, obično se ograničavamo samo na određeni tip stvari tj. na neki skup.  
           Npr. kada govorimo o cijelim brojevima ne zanimaju nas imaginarni brojevi, jabuke i auta...  
           Skup stvari o kojima se *trenutno govori* naziva se **univerzalni skup**, ili kraće **univerzum**.  
@@ -115,12 +113,13 @@ object TeorijaSkupova extends MatematikaTemplate {
           Na slici desno vidimo primjer s dva skupa: ´A = \\{1,2,4\\}´ i ´B = \\{2,3\\}´.  
           Univerzum (´U´) je pravougaonik koji obuhvata ova dva skupa. Recimo da je to skup ´\mathbb{N}´.
           To je igralište iz kojeg ne smijemo izlaziti. 
-        """.md
-      ,
-      
-        img(src:= files.images.math.`skupovi.svg`.ref,width:=640, height:=480, alt:="Vennov dijagram")
-        
-      
+        """.md,
+      img(
+        src    := files.images.math.`skupovi.svg`.ref,
+        width  := 640,
+        height := 480,
+        alt    := "Vennov dijagram"
+      )
     ),
     List(
       unijaSection,
@@ -132,9 +131,8 @@ object TeorijaSkupova extends MatematikaTemplate {
 
   def unijaSection = Section(
     "Unija",
-   div (
-      
-        """
+    div(
+      """
           Unija dva skupa ´A´ i ´B´ označava se sa ´A \cup B´.  
           Primijetite da ovo nije obično slovo U već specijalni simbol, mada izgleda kao ´\cup´nija.  
           Unija predstavlja novi skup koji sadrži sve elemente skupa ´A´ i sve elemente skupa ´B´.  
@@ -146,20 +144,20 @@ object TeorijaSkupova extends MatematikaTemplate {
           > Znak ´\lor´ se čita kao "ili".  
           > Znak ´\land´ se čita kao "i".  
           > O logičkim operatorima ćemo reći nešto više u idućem poglavlju.
-        """.md
-      ,
-      
-        img(src:= files.images.math.`unija.svg`.ref,width := 640, height := 480, alt:= "Unija skupova")
-      
+        """.md,
+      img(
+        src    := files.images.math.`unija.svg`.ref,
+        width  := 640,
+        height := 480,
+        alt    := "Unija skupova"
+      )
     )
   )
 
   def presjekSection = Section(
     "Presjek",
     div(
-      
-        
-          """
+      """
             Često se postavlja pitanje šta dva skupa imaju zajedničko.  
             Presjek dva skupa ´A´ i ´B´ označava se sa ´A \cap B´.  
             Presjek predstavlja novi skup koji sadrži one elemente koji se nalaze i u ´A´ skupu i u ´B´ skupu.  
@@ -171,12 +169,13 @@ object TeorijaSkupova extends MatematikaTemplate {
             Prazan skup ipak ima neku svrhu... :D  
             Za ovakve skupove, koji nemaju zajedničke elemente, kaže se da su
             **disjunktni**.
-          """.md
-        ,
-          img(src:= files.images.math.`presjek.svg`.ref,width := 640, height := 480, alt:= "Presjek skupova")
-          
-        
-      ,
+          """.md,
+      img(
+        src    := files.images.math.`presjek.svg`.ref,
+        width  := 640,
+        height := 480,
+        alt    := "Presjek skupova"
+      ),
       """
         >  Matematika se često bavi pitanjem jednakosti, kako možemo jednu te istu stvar izraziti na više načina.  
         >  Ti rezultati nam mogu koristiti za skraćivanje algebarskih izraza, optimizacije i sl.  
@@ -196,9 +195,7 @@ object TeorijaSkupova extends MatematikaTemplate {
   def razlikaSection = Section(
     "Razlika",
     div(
-      
-        
-          """
+      """
             Možemo postaviti i pitanje u čemu se skup ´A´ razlikuje od skupa ´B´.  
             Ova operacija se naziva *razlika*.
             
@@ -208,12 +205,13 @@ object TeorijaSkupova extends MatematikaTemplate {
             U našem primjeru to bi bilo ´A \\ B = \\{1,4\\}´.
             
             Razliku možemo formalno zapisati kao ´A \setminus B = \\{x | x \\in A \land x \\notin B\\}´. 
-          """.md
-        ,
-        
-          img(src:= files.images.math.`razlika.svg`.ref, width:=640,height:= 480, alt:="Razlika skupova")
-        
-      ,
+          """.md,
+      img(
+        src    := files.images.math.`razlika.svg`.ref,
+        width  := 640,
+        height := 480,
+        alt    := "Razlika skupova"
+      ),
       """
         Postoje još dvije zanimljive operacije, prva je *simetrična razlika*  (´\Delta´).  
         Simetrična razlika predstavlja uniju razlika skupova ´A´ i ´B´, tj. ´A \Delta B = (A \\ B) \cup (B \\ A)´.  

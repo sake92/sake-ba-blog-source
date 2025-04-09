@@ -216,7 +216,7 @@ object Monads extends ProgrammingTemplate {
     ```js
     async function fetchUserMovies() {
       const user = await fetch('/user');
-      const movies = await fetch(`/user/$${user.id}/movies`);
+      const movies = await fetch(\\`/user/\\$${user.id}/movies\\`);
       console.log(movies);
       return movies;
     }
@@ -225,7 +225,7 @@ object Monads extends ProgrammingTemplate {
     ```js
     function fetchUserMovies() {
         fetch('/user').then(user => {
-            fetch(`/user/$${user.id}/movies`).then(movies => {
+            fetch(\\`/user/\\$${user.id}/movies\\`).then(movies => {
                 console.log(movies);
                 return movies;
             });
@@ -238,7 +238,6 @@ object Monads extends ProgrammingTemplate {
     - do/for in statically typed languages is checked for proper types, while in JS you're on your own
     """.md
   )
-
 
   def opinionsSection = Section(
     "My opinions",

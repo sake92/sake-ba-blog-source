@@ -20,7 +20,7 @@ object NotFound extends SakeBaBlogStaticPage {
     Site.url + "/" + super.relTo(other)
 
   override def pageContent =
-    tag("main")(cls:="pico container")(
+    tag("main")(cls := "pico container")(
       nav(navLogo),
       """
           This content is not available in your country.  

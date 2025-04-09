@@ -15,7 +15,7 @@ object Index extends OopTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2019, 12, 14))
+      // .withCreatedDate(LocalDate.of(2019, 12, 14))
       .withSections(
         paradigmeSection,
         oopSection

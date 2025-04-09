@@ -14,7 +14,7 @@ object WhileLoop extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2018, 2, 4))
+      // .withCreatedDate(LocalDate.of(2018, 2, 4))
       .withSections(loopsSection)
 
   def loopsSection = Section(
@@ -40,18 +40,14 @@ object WhileLoop extends JavaTemplate {
     div(
       """         
         U sljedećem primjeru želimo izvršavati kod sve dok je neki **uslov** ispunjen (en. while je "dok").  
-       """.md,
-      chl.java.withLineHighlight("2")(
-        """
-          int i = 0;
-          while(i < 10) {
-              System.out.println("Cifra i je: " + i);
-              i = i + 1;
-          }
-          
-        """
-      ),
-      """
+        ```java
+        int i = 0;
+        while(i < 10) {
+            System.out.println("Cifra i je: " + i);
+            i = i + 1;
+        }
+        ```
+        
         Naravno, unutar tog bloka **uslov se mora mijenjati**, inače se program *neće nikad zaustaviti*.  
         To se naziva **beskonačna petlja** i obično nije poželjna... :)
 

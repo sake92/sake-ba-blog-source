@@ -13,7 +13,7 @@ object Types extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2018, 4, 5))
+      // .withCreatedDate(LocalDate.of(2018, 4, 5))
       .withSections(tipoviSection, stringsSection)
 
   def tipoviSection =
@@ -31,30 +31,24 @@ object Types extends JavaTemplate {
             da ne moramo nagađati.
           
           Da vidimo JShell u akciji:
-       """.md,
-        jshell.withOutputLines("2,4-10")(
-          """
-            int broj = 6;
-            broj ==> 6
-            broj = 4.5;
-            |  Error:
-            |  incompatible types: possible lossy conversion from double to int
-            |  broj = 4.5;
-            |         ^-^
-          """
-        ),
-        """
+          ```sh
+          jshell> int broj = 6;
+          broj ==> 6
+          jshell> broj = 4.5;
+          Error:
+          incompatible types: possible lossy conversion from double to int
+          broj = 4.5;
+          ^-^
+          ```
+
           Dakle, Java nam **ne da** da dodijelimo broj `4.5` varijabli koja je tipa `int` (cijeli broj).  
           To ima smisla itekako, jer bismo izgubili ovo "zarez pet"... :)  
           Ako želimo da budemo pametniji od Jave, i da na silu "utrpamo" `4.5` u `int` to ide ovako:
-        """.md,
-        jshell.withOutputLines("2,4-10")(
-          """
-            broj = (int) 4.5;
-            broj ==> 4
-          """
-        ),
-        """
+          ```sh
+          jshell> broj = (int) 4.5;
+          broj ==> 4
+          ```
+
           I šta smo dobili? Samo cijeli dio... Ali, nekad nam ovo baš i treba!  
           Uglavnom, pouka je da trebamo slušati šta nam Java poručuje!  
           To radi za naše dobro, nju nije briga ako je rezultat netačan, ako je to ono što želimo... :D
@@ -78,32 +72,26 @@ object Types extends JavaTemplate {
             bio to broj, slovo ili neki simbol, emoji...
           
           Stringovi se pišu s **dvostrukim navodnicima**:
-       """.md,
-        jshell.withOutputLines("2")(
-          """
-            "Poyy sviete!"
-            $1 ==> "Poyy sviete!"
-          """
-        ),
-        """
+          ```sh
+          jshell> "Poyy sviete!"
+          $1 ==> "Poyy sviete!"
+          ```
+      
           Stringovi se tretiraju specijalno u Javi, pa imamo i operator "sabiranja" nad njima.  
           Npr. možemo "sabrati" 2 stringa, string s brojem i sl:
-       """.md,
-        jshell.withOutputLines("2,4,6,8,10")(
-          """
-            "Ime" + "Prezime"
-            $2 ==> "ImePrezime"
-            "x je " + 5
-            $3 ==> "x je 5"
-            "x je " + 5 + ", i kad se pomnoži s " + 3 + " daje " + (5*3)
-            $4 ==> "x je 5, i kad se pomnoži s 3 daje 15"
-            "strin" + 'g'
-            $5 ==> "string"
-            String s = "ABC"
-            s ==> "ABC"
-          """
-        ),
-        """
+          ```sh
+          jshell> "Ime" + "Prezime"
+          $2 ==> "ImePrezime"
+          jshell> "x je " + 5
+          $3 ==> "x je 5"
+          jshell> "x je " + 5 + ", i kad se pomnoži s " + 3 + " daje " + (5*3)
+          $4 ==> "x je 5, i kad se pomnoži s 3 daje 15"
+          jshell> "strin" + 'g'
+          $5 ==> "string"
+          jshell> String s = "ABC"
+          s ==> "ABC"
+          ```
+
           Ovo sabiranje se naziva *konkatenacija* (en. *concatenate* je nadovezati/spojiti/naštiklati).  
           Radi dvosmjerno, možemo sabrati i broj sa stringom, npr. `5 + "hepek.abc"`.  
           `String` se piše **s velikim početnim slovom**!
@@ -112,26 +100,25 @@ object Types extends JavaTemplate {
           `String` u pozadini koristi `char`actere.  
           Kao što smo već rekli, `char` je samo jedan karakter.  
           Piše se s **jednostrukim navodnicima**:
-       """.md,
-        jshell.withOutputLines("2,4-7,9-12,14-20")(
-          """
-            'a'
-            $9 ==> 'a'
-            ''
-            |  Error:
-            |  empty character literal
-            |  ''
-            |  ^
-            'ab'
-            |  Error:
-            |  unclosed character literal
-            |  'ab'
-            |  ^
-            char slovoA = 'A'
-            slovoA ==> 'A'
-          """
-        ),
-        """
+          ```sh
+          jshell> 'a'
+          $9 ==> 'a'
+            
+          jshell> ''
+          Error:
+          empty character literal
+          ''
+          ^
+                    'ab'
+          Error:
+          unclosed character literal
+          'ab'
+          ^
+          
+          jshell> char slovoA = 'A'
+          slovoA ==> 'A'
+          ```
+
           Dakle, karakter ne može biti prazan, niti može sadržati više karaktera.  
           Za ove namjene koristi se `String`! :)
 

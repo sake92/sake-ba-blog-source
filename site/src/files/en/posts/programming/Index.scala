@@ -19,7 +19,7 @@ object Index extends ProgrammingTemplate {
         introSection
       )
 
-  def introSection = Section (
+  def introSection = Section(
     "Intro",
     s"""
       These are my ramblings about programming.

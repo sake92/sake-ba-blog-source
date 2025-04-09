@@ -18,7 +18,5 @@ object Site {
     val matematikaPdf    = Resource("pdfs/Matematika.pdf")
   }
 
-  object en {
-    
-  }
+  object en {}
 }

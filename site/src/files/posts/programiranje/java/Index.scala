@@ -14,7 +14,7 @@ object Index extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2017, 7, 1))
+      // .withCreatedDate(LocalDate.of(2017, 7, 1))
       .withSections(
         uvodSection,
         komunikacijaSection,
@@ -104,22 +104,19 @@ object Index extends JavaTemplate {
         Laički rečeno, to je **recept za implementaciju** neke funkcije.
         
        """.md,
-        
-          """
+      """
             ---
             U toku pisanja koda nekog programa često će nam se pojavljivati **greške**.  
             Tj. program se izvršava ali ne radi kako bismo željeli. Te greške se nazivaju bagovi (en. bug - buba, insekt).  
             Za program koji ima takve greške kaže se da je  *bagovit*.  
             Proces u kojem tražimo greške i ispravljamo ih naziva se debagovanje.
-          """.md
-        ,
+          """.md,
       img(
-        src:=files.images.programming.`error.jpg`.ref,
-        width:=            400,
-        height:=            286,
-        alt:=            "To je to."
+        src    := files.images.programming.`error.jpg`.ref,
+        width  := 400,
+        height := 286,
+        alt    := "To je to."
       )
-     
     )
   )
 

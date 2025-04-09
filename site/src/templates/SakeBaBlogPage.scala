@@ -6,7 +6,12 @@ import scalatags.Text.tags2.{article, aside, main, nav}
 import ba.sake.hepek.anchorjs.AnchorjsDependencies
 import utils.*
 import Imports.*
-import ba.sake.hepek.html.statik.{BlogPostPage, Section, StaticPage}
+import ba.sake.hepek.html.statik.{
+  BlogPostPage,
+  Section,
+  ShikiSettings,
+  StaticPage
+}
 import scalatags.Text
 
 //////// engleski
@@ -95,6 +100,9 @@ trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
       .withFaviconNormal(files.images.`favicon.svg`.ref)
       .withFaviconInverted(files.images.`logo.png`.ref)
 
+  override def shikiSettings: ShikiSettings =
+    super.shikiSettings.withTheme("material-theme-ocean")
+
   val navLogo = ul(
     li(
       a(href := staticSiteSettings.indexPage.map(_.ref).getOrElse("/"))(
@@ -117,7 +125,7 @@ trait SakeBaBlogStaticPage extends StaticPage with AnchorjsDependencies {
     super.styleURLs ++ List(
       files.styles.vendor.`pico.conditional.min.css`.ref,
       files.styles.`main.css`.ref
-      //files.styles.`print.css`.ref
+      // files.styles.`print.css`.ref
     )
   override def scriptURLs = super.scriptURLs.appended(
     files.scripts.`main.js`.ref

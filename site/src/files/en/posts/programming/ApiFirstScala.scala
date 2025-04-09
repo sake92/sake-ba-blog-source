@@ -120,7 +120,7 @@ object ApiFirstScala extends ProgrammingTemplate {
       OpenApi4s will compare the newly generated `case class User` (in-memory), with the existing `case class User` in your source code.
       Then it will figure out that `age: Int` parameter is missing, and it will add it.
       
-      ```diff-scala
+      ```diff
       --- a/api/src/com/example/petstore/api/models/User.scala
       +++ b/api/src/com/example/petstore/api/models/User.scala
       @@ -14,5 +14,5 @@ case class User(
@@ -136,7 +136,7 @@ object ApiFirstScala extends ProgrammingTemplate {
       Let's say you change the `userStatus`'s format from `int32` to `int64`.
       OpenApi4s will figure out that `userStatus: Option[Int]` needs to be changed to `userStatus: Option[Long]`.
       
-      ```diff-scala
+      ```diff
       --- a/api/src/com/example/petstore/api/models/User.scala
       +++ b/api/src/com/example/petstore/api/models/User.scala
       @@ -14,5 +14,6 @@ case class User(

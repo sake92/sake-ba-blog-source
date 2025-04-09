@@ -13,7 +13,7 @@ object Arrays extends JavaTemplate {
 
   override def blogSettings =
     super.blogSettings
-      //.withCreatedDate(LocalDate.of(2019, 1, 19))
+      // .withCreatedDate(LocalDate.of(2019, 1, 19))
       .withSections(nizoviSection)
 
   def nizoviSection = Section(
@@ -38,20 +38,18 @@ object Arrays extends JavaTemplate {
 
         Ako želimo npr. spremiti ocjene studenta, za to možemo koristiti niz.  
         Recimo da student ima 12 predmeta.
-      """.md,
-      chl.java(
-        """
-          int[] ocjene; // nije još inicijaliziran, ne bi ga trebali koristiti!
-          ocjene = new int[12]; // niz od 12 nula (po defaultu se popuni nulama)
+        
+        ```java
+        int[] ocjene; // nije još inicijaliziran, ne bi ga trebali koristiti!
+        ocjene = new int[12]; // niz od 12 nula (po defaultu se popuni nulama)
 
-          ocjene[0] = 9;
+        ocjene[0] = 9;
 
-          for(int i = 0; i < 12; i++) {
+        for(int i = 0; i < 12; i++) {
             System.out.println(ocjene[i]);
-          }
-        """
-      ),
-      """
+        }
+        ```
+
         Vidimo da se `12` ponavlja na 2 mjesta, i označava istu stvar, dužinu niza.  
         Naravno, to nije dobra praksa, jer ako trebamo promijeniti dužinu niza, 
           to moramo odraditi na više mjesta.  
@@ -75,18 +73,18 @@ object Arrays extends JavaTemplate {
         Zove se još i "for-each" petlja.  
         Ona se koristi kada želimo da prođemo kroz sve elemente niza.  
         Ako nam treba i indeks onda moramo koristiti običnu for petlju...
-      """.md,
-      chl.java(
-        """
-          // array literal
-          String[] gradovi = { "Sarajevo", "Tuzla", "Mostar" };
+        
+        ```java
+        // array literal
+        String[] gradovi = { "Sarajevo", "Tuzla", "Mostar" };
 
-          // enhanced for loop
-          for(String grad: gradovi) {
+        // enhanced for loop
+        for(String grad: gradovi) {
             System.out.println(grad);
-          }
-        """
-      )
+        }
+        ```
+        
+      """.md
     ),
     List(visedimenzionalniNizoviSection)
   )
@@ -107,30 +105,28 @@ object Arrays extends JavaTemplate {
         Recimo da imamo zgradu sa različitim brojem stanova po spratu. 
         Svaki red predstavlja jedan sprat, i u svakom spratu imamo br. stanara za svaki stan.
         Trebamo ispisati koliko koji sprat ima ukupno stanara:
-      """.md,
-      chl.java(
-        """
+      
+        ```java
         int[][] brStanaraPoStanovima = { 
-          {1, 2, 3, 4}, // prvi sprat
-          {5, 6, 2}     // drugi sprat
+            {1, 2, 3, 4}, // prvi sprat
+            {5, 6, 2}     // drugi sprat
         };
         
         for (int i = 0; i < brStanaraPoStanovima.length; ++i) {
-          int brStanaraSprata = 0;
-          for(int j = 0; j < brStanaraPoStanovima[i].length; ++j) {
-            brStanaraSprata += brStanaraPoStanovima[i][j];
-          }
-          System.out.println("Br. stanara sprata " + i + " je: " + brStanaraSprata);
+            int brStanaraSprata = 0;
+            for(int j = 0; j < brStanaraPoStanovima[i].length; ++j) {
+              brStanaraSprata += brStanaraPoStanovima[i][j];
+            }
+            System.out.println("Br. stanara sprata " + i + " je: " + brStanaraSprata);
         }
-        """
-      ),
-      "Rezultat:",
-      chl.batch
-        .withPrompt(" ")
-        .withOutputLines("3")("""
-          Br. stanara sprata 0 je: 10
-          Br. stanara sprata 1 je: 13
-        """)
+        ```
+        
+        Rezultat:
+        ```sh
+        Br. stanara sprata 0 je: 10
+        Br. stanara sprata 1 je: 13
+        ```
+        """.md
     )
   )
 
