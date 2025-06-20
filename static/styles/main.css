@@ -1,0 +1,11 @@
+
+@media only screen and (min-width: 960px) {
+     .blog-post {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+    }
+}
+
+.flowrun-instance {
+    height: calc(100vh - 10rem);
+}

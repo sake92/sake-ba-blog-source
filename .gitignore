@@ -1,17 +1,3 @@
-*.class
-*.log
 
-.vscode/
-
-pdfs/
-
-.bloop/
-.bsp/
-.idea/
-.metals/
-
-# Mill
-out/
-
-# Hepek
-hepek_output/
+.flatmark-cache
+_site/

@@ -1,0 +1,20 @@
+
+name: blog.sake.ba
+lang: bs
+
+categories:
+  flowrun:
+    label: FlowRun
+  java:
+    label: Java
+  scala:
+    label: Scala
+  programming:
+    label: Programming
+  maths:
+    label: Maths
+
+
+
+
+

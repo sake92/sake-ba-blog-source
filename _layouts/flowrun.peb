@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>{{page.title}} | {{site.name}}</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/fonts/fonts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+    <link rel="stylesheet" href="/styles/vendor/prism.css">
+    <link rel="stylesheet" href="/styles/vendor/flowrun.css">
+    <link rel="stylesheet" href="/styles/default.css">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+
+{% include "header" %}
+
+
+<main class="container">
+
+    {% block content %}
+    {{page.content}}
+    {% endblock %}
+</main>
+
+{% include "footer" %}
+
+{% include "flowrun_template" %}
+
+
+<script src="/scripts/vendor/graphviz.umd.js"></script>
+<script src="/scripts/vendor/d3.min.js"></script>
+<script src="/scripts/vendor/d3-graphviz.min.js"></script>
+<script src="/scripts/vendor/prism.js"></script>
+<script src="/scripts/vendor/flowrun.js"></script>
+<script src="/scripts/flowrun-init.js"></script>
+
+</body>
+</html>
