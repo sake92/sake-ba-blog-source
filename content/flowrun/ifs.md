@@ -31,8 +31,8 @@ Izraz `x > 0` ima tip `Boolean`. Boolean može imati vrijednost `true` ili `fals
 
 
 ## Komplikovaniji uslovi
-<div class="pico">
 
+### I operator
 U gornjem primjeru koristili smo izraz `x>0` koji je Boolean.  
 Šta ako nam treba neki komplikovaniji izraz?  
 Npr. ako želimo povjeriti je li broj pozitivan i manji od 50.  
@@ -41,37 +41,107 @@ Dakle, napisali bi `x>0 && x<50`.
 
 Da se podsjetimo "tablice istinitosti" za I operaciju:
 
-| A     | B     | A && B |
-|---    |---    |--------|
-| true  | true  | true      |
-| true  | false | false      |
-| false | true  | false      |
-| false | false | false      |
+<div class="pico">
+<table class="striped">
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>A &amp;&amp; B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody></table>
+</div>
 
 Vidimo da je uslov ispunjen samo kada su *oba uslova ispunjena*.
 
----
+### ILI operator
 Kada imamo 2 moguća uslova, od kojih nam bilo koji odgovara, 
 tada koristimo operator "ILI" (engl. "or"), koji pišemo kao `||`.  
 Npr. `x=="abc" || x=="ABC"` izraz kaže da `x` mora biti jednak "abc" ili "ABC".  
 Ako je bilo koje od ovo dvoje ispunjeno, i cijeli izraz biće ispunjen/istinit.
 
-| A     | B     | A \\|\\| B |
-|---    |---    |--------|
-| true  | true  | true      |
-| true  | false | true      |
-| false | true  | true      |
-| false | false  | false     |
+<div class="pico">
+<table class="striped">
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>A || B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
 
----
+### NE operator
+
 Na kraju, imamo i operaciju negacije, koja samo "obrne" vrijednost Booleana.  
 Na bosanskom se čita "NE" (engl. "not"), a pišemo je kao `!`.  
 Ovaj operator piše se *prije vrijednosti koju negiramo*, npr. `!uslov`.
 
-| A     | !A |
-|---    |--------|
-| true  | false      |
-| false  | true      |
+<div class="pico">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>!A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
 
 </div>
+
+
 
