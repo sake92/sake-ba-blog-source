@@ -1,6 +1,6 @@
 ---
 title: Tipovi
-publish_date: 2018-4-5 00:00
+publish_date: 2018-04-05 00:00
 ---
 
 # Tipovi

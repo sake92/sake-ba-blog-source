@@ -1,6 +1,6 @@
 ---
 title: Instalacija Jave
-publish_date: 2017-7-2 00:00
+publish_date: 2017-07-02 00:00
 ---
 
 # Instalacija Jave

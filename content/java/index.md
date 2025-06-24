@@ -1,6 +1,6 @@
 ---
 title: Java
-publish_date: 2017-7-1 00:00
+publish_date: 2017-07-01 00:00
 ---
 
 # Java

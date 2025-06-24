@@ -3,7 +3,7 @@
 ---
 title: Teorija skupova
 description: Kratak uvod u teoriju skupova. Unija, presjek, razlika, De Morgan.
-publish_date: 2017-6-11 10:15
+publish_date: 2017-06-11 10:15
 ---
 
 # Teorija skupova

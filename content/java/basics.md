@@ -1,6 +1,6 @@
 ---
 title: Osnove Jave
-publish_date: 2018-3-25 00:00
+publish_date: 2018-03-25 00:00
 ---
 
 # Osnove Jave

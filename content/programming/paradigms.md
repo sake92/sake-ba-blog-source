@@ -1,6 +1,6 @@
 ---
 title: Paradigme programiranja
-publish_date: 2019-7-14 00:00
+publish_date: 2019-07-14 00:00
 ---
 
 #  Paradigme programiranja

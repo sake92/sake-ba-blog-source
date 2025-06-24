@@ -1,6 +1,6 @@
 ---
 title: Naredbe
-publish_date: 2018-4-27 00:00
+publish_date: 2018-04-27 00:00
 ---
 
 # Naredbe

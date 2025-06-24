@@ -1,7 +1,7 @@
 ---
 title: Uvod u Scalu
 description: Uvod u Scala programski jezik
-publish_date: 2018-4-23 00:00
+publish_date: 2018-04-23 00:00
 ---
 
 # Uvod u Scalu

@@ -1,6 +1,6 @@
 ---
 title: While petlja
-publish_date: 2018-2-4 00:00
+publish_date: 2018-02-04 00:00
 ---
 
 # While petlja
