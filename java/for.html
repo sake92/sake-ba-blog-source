@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="blog.sake.ba je blog fizičke osobe pod imenom Sakib Hadžiavdić. Tutorijali iz programiranja, java, scala, matematika i slično.\n">
-    <title>    Početna stranica | blog.sake.ba</title>
+    <meta name="description" content="">
+    <title>    For petlja | blog.sake.ba</title>
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
@@ -43,21 +43,21 @@
 </header>
     
 <main class="pico container">
-        <h1 id="saketov-blog">Saketov blog</h1>
-<p>Moje ime je Sakib, bujrum! :)<br />
-Ovdje ćete pronaći tutorijale za programiranje i još ponešto.</p>
-<hr />
-<p>Ako ste <em>totalni početnik</em>, i želite naučiti programirati,
-preporučujem da počnete sa <a href="/flowrun">dijagramima toka</a>.<br />
-Dosta je lakše početi s <em>vizuelnim programiranjem</em>, jer praćenjem linija lakše je shvatiti kako program radi.<br />
-Ovi tutorijali vode vas kroz osnovne gradivne dijelove programa.</p>
-<hr />
-<p>Nakon toga možete nastaviti s <a href="/java">Java</a> programskim jezikom.<br />
-Tu ćete se upoznati sa jednim vrlo popularnim, traženim i plaćenim programskim jezikom.<br />
-Vrlo je sličan drugim popularnim jezicima kao što su C#, JavaScript i ostali.<br />
-Tako da ako se odlučite i za neki drugi jezik kasnije, neće vam biti teško da ga savladate.</p>
-
-        
+    <h1 id="for-petlja">For petlja</h1>
+<p>Java ima i tzv. <code>for</code> petlje. To su haman-ha <code>while</code> petlje s finijom sintaksom.<br />
+Sljedeći primjer radi isto kao i prethodni sa <code>while</code> petljom.</p>
+<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i = i + <span class="hljs-number">1</span>) {
+    System.out.println(<span class="hljs-string">"Cifra i je: "</span> + i);
+}
+</code></pre>
+<p>Uopćena sintaksa for petlje je sljedeća: <code>for(inicijalizacije; uslov; koraci)</code>.<br />
+Dijelovi <code>for</code> petlje su razdvojeni tačkazarezom.</p>
+<p>Umjesto da deklarišemo varijable prije petlje, zgodno je deklarisati ih u sklopu petlje,
+jer nam poslije petlje one ne trebaju.<br />
+Za to nam služi dio <strong>inicijalizacije</strong>.</p>
+<p>Dio <strong>uslov</strong> je isti kao i kod while petlje.</p>
+<p>Dio <strong>koraci</strong> dolazi <strong>na kraju petlje</strong>, isto kao linija 4 u našoj <code>while</code> petlji.<br />
+Koraci obično <em>utiču na uslov za izlaz</em> iz petlje.</p>
 </main>
 
 

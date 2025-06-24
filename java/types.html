@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="">
+    <title>    Tipovi | blog.sake.ba</title>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+    <link rel="stylesheet" href="/styles/default.css">
+</head>
+<body>
+
+
+<header class="pico container">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+        <ul>
+                                            <li><a href="/flowrun">FlowRun</a></li>
+                                                            <li><a href="/java">Java</a></li>
+                                                            <li><a href="/scala">Scala</a></li>
+                                                            <li><a href="/programming">Programming</a></li>
+                                                            <li><a href="/maths">Maths</a></li>
+                                    
+                            <li>
+                    <details class="dropdown">
+                    <summary>
+                        Bosanski                    </summary>
+                    <ul dir="rtl">
+                                                                                                                                        <li><a href="/en">English</a></li>
+                                                                        </ul>
+                  </details>
+                </li>
+                    </ul>
+    </nav>
+</header>
+    
+<main class="pico container">
+    <h1 id="tipovi">Tipovi</h1>
+<p>Većina ozbiljnih jezika ima <strong>tipove</strong>. One koji nemaju slobodno izbjegavajte! 😉<br />
+Tip je apstrakcija koju dati p.j. razumije. Npr. kada napišemo <code>int broj</code>,
+ovo &quot;int&quot; je tip varijable &quot;broj&quot;.<br />
+Tako će kompjuter znati, između ostalog, <em>koliko memorije da rezerviše</em> za tu varijablu.<br />
+Pošto smo mu dali tu informaciju, onda nam može i ukazati na greške u programu koji pišemo.
+Npr. da ne možemo sabirati broj i slovo, kruške i jabuke...<br />
+Također nas može i usmjeriti, npr. reći nam koje su operacije dostupne nad datim tipom,
+da ne moramo nagađati.</p>
+<p>Da vidimo JShell u akciji:</p>
+<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">int broj = 6;</span>
+broj ==&gt; 6
+<span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">broj = 4.5;</span>
+Error:
+incompatible types: possible lossy conversion from double to int
+broj = 4.5;
+^-^
+</code></pre>
+<p>Dakle, Java nam <strong>ne da</strong> da dodijelimo broj <code>4.5</code> varijabli koja je tipa <code>int</code> (cijeli broj).<br />
+To ima smisla itekako, jer bismo izgubili ovo &quot;zarez pet&quot;... :)<br />
+Ako želimo da budemo pametniji od Jave, i da na silu &quot;utrpamo&quot; <code>4.5</code> u <code>int</code> to ide ovako:</p>
+<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">broj = (int) 4.5;</span>
+broj ==&gt; 4
+</code></pre>
+<p>I šta smo dobili? Samo cijeli dio... Ali, nekad nam ovo baš i treba!<br />
+Uglavnom, pouka je da trebamo slušati šta nam Java poručuje!<br />
+To radi za naše dobro, nju nije briga ako je rezultat netačan, ako je to ono što želimo... :D</p>
+<hr />
+<p>Naravno, imamo još puno toga reći o tipovima, tek smo &quot;zagrebali površinu&quot;!<br />
+Npr. kako da grupišemo podatke? Kompleksni brojevi, podaci o ljudima, proizvodima itd?<br />
+O tom ćemo pričati u poglavlju o klasama. :)</p>
+<h2 id="stringovi-i-karakteri">Stringovi i karakteri</h2>
+<p>Prije nego nastavimo dalje, moramo objasniti i stringove, jer se vrlo često koriste.<br />
+String (iz en. nit, kanafa) koristi se za predstavljanje teksta, tj. niza karaktera.<br />
+Karakter (en. <em>character</em> je simbol) označava jedan simbol,
+bio to broj, slovo ili neki simbol, emoji...</p>
+<p>Stringovi se pišu s <strong>dvostrukim navodnicima</strong>:</p>
+<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash"><span class="hljs-string">"Poyy sviete!"</span></span>
+<span class="hljs-meta prompt_">$</span><span class="language-bash">1 ==&gt; <span class="hljs-string">"Poyy sviete!"</span></span>
+</code></pre>
+<p>Stringovi se tretiraju specijalno u Javi, pa imamo i operator &quot;sabiranja&quot; nad njima.<br />
+Npr. možemo &quot;sabrati&quot; 2 stringa, string s brojem i sl:</p>
+<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash"><span class="hljs-string">"Ime"</span> + <span class="hljs-string">"Prezime"</span></span>
+<span class="hljs-meta prompt_">$</span><span class="language-bash">2 ==&gt; <span class="hljs-string">"ImePrezime"</span></span>
+<span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash"><span class="hljs-string">"x je "</span> + 5</span>
+<span class="hljs-meta prompt_">$</span><span class="language-bash">3 ==&gt; <span class="hljs-string">"x je 5"</span></span>
+<span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash"><span class="hljs-string">"x je "</span> + 5 + <span class="hljs-string">", i kad se pomnoži s "</span> + 3 + <span class="hljs-string">" daje "</span> + (5*3)</span>
+<span class="hljs-meta prompt_">$</span><span class="language-bash">4 ==&gt; <span class="hljs-string">"x je 5, i kad se pomnoži s 3 daje 15"</span></span>
+<span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash"><span class="hljs-string">"strin"</span> + <span class="hljs-string">'g'</span></span>
+<span class="hljs-meta prompt_">$</span><span class="language-bash">5 ==&gt; <span class="hljs-string">"string"</span></span>
+<span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">String s = <span class="hljs-string">"ABC"</span></span>
+s ==&gt; "ABC"
+</code></pre>
+<p>Ovo sabiranje se naziva <em>konkatenacija</em> (en. <em>concatenate</em> je nadovezati/spojiti/naštiklati).<br />
+Radi dvosmjerno, možemo sabrati i broj sa stringom, npr. <code>5 + &quot;hepek.abc&quot;</code>.<br />
+<code>String</code> se piše <strong>s velikim početnim slovom</strong>!</p>
+<hr />
+<p><code>String</code> u pozadini koristi <code>char</code>actere.<br />
+Kao što smo već rekli, <code>char</code> je samo jedan karakter.<br />
+Piše se s <strong>jednostrukim navodnicima</strong>:</p>
+<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash"><span class="hljs-string">'a'</span></span>
+<span class="hljs-meta prompt_">$</span><span class="language-bash">9 ==&gt; <span class="hljs-string">'a'</span></span>
+<span class="hljs-meta prompt_">
+jshell&gt; </span><span class="language-bash"><span class="hljs-string">''</span></span>
+Error:
+empty character literal
+''
+^
+        'ab'
+Error:
+unclosed character literal
+'ab'
+^
+<span class="hljs-meta prompt_">
+jshell&gt; </span><span class="language-bash">char slovoA = <span class="hljs-string">'A'</span></span>
+slovoA ==&gt; 'A'
+</code></pre>
+<p>Dakle, karakter ne može biti prazan, niti može sadržati više karaktera.<br />
+Za ove namjene koristi se <code>String</code>! :)</p>
+<blockquote>
+<p>Važne napomene:</p>
+<ul>
+<li>string <code>&quot;1&quot;</code> nije isto kao broj <code>1</code></li>
+<li>karakter <code>'1'</code> nije isto kao broj <code>1</code></li>
+<li>string <code>&quot;1&quot;</code> nije isto kao karakter <code>'1'</code></li>
+<li>postoje posebne funkcije za pretvaranje iz jednog tipa u drugi</li>
+</ul>
+</blockquote>
+</main>
+
+
+<footer class="pico container">
+    blog.sake.ba    </footer>
+
+</body>
+</html>

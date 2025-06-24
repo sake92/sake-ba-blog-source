@@ -1,0 +1,138 @@
+
+
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="">
+    <title>    Uslovno grananje | blog.sake.ba</title>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+    <link rel="stylesheet" href="/styles/default.css">
+</head>
+<body>
+
+
+<header class="pico container">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+        <ul>
+                                            <li><a href="/flowrun">FlowRun</a></li>
+                                                            <li><a href="/java">Java</a></li>
+                                                            <li><a href="/scala">Scala</a></li>
+                                                            <li><a href="/programming">Programming</a></li>
+                                                            <li><a href="/maths">Maths</a></li>
+                                    
+                            <li>
+                    <details class="dropdown">
+                    <summary>
+                        Bosanski                    </summary>
+                    <ul dir="rtl">
+                                                                                                                                        <li><a href="/en">English</a></li>
+                                                                        </ul>
+                  </details>
+                </li>
+                    </ul>
+    </nav>
+</header>
+    
+<main class="pico container">
+    <h1 id="uslovno-grananje">Uslovno grananje</h1>
+<p>Kompjuteri obično izvršavaju naredbe jednu nakon druge tj. sekvencijalno.<br />
+Međutim, potrebne su nam i naredbe za <strong>uslovno grananje</strong>.<br />
+To jest, kada želimo izvršiti nešto samo pod datim <strong>uslovima</strong>.<br />
+U Javi za ovu svrhu imamo 2 naredbe: <code>if</code> i <code>switch</code>.</p>
+<h2 id="if-naredba">If naredba</h2>
+<p>Grananje pomoću <code>if</code> naredbe je vrlo jednostavno.
+Ako je <strong>uslov</strong> ispunjen onda će se taj dio koda izvršiti.
+U suprotnom program nastavlja dalje.</p>
+<p>Ovo &quot;uslov ispunjen&quot; može biti DA ili NE, tj. ISTINA (en. true) ili NEISTINA (en. false).
+Ovaj <strong>tip podatka</strong> se naziva <strong>Boolean</strong> po matematičaru George Boole-u.</p>
+<p>Ako se sjećate logike iz matematike, tablica istine, &quot;I&quot;, &quot;ILI&quot;, &quot;NE&quot; i ostalih, TO JE TO! :D</p>
+<ul>
+<li>Logička operacija &quot;I&quot; (en. and) se u Javi piše sa <code>&amp;&amp;</code></li>
+<li>Logička operacija &quot;ILI&quot; (en. or) se u Javi piše sa <code>||</code></li>
+<li>Logička operacija &quot;NE&quot; (en. negate, not) se u Javi piše sa <code>!</code>,
+i piše se prije uslova koji negira, npr. <code>!small</code>.</li>
+</ul>
+<hr />
+<p>Primjer:</p>
+<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">double</span> <span class="hljs-variable">temperatura</span> <span class="hljs-operator">=</span> -<span class="hljs-number">3</span>;
+<span class="hljs-type">boolean</span> <span class="hljs-variable">uslovHladno</span> <span class="hljs-operator">=</span> temperatura &lt; <span class="hljs-number">5</span>;
+<span class="hljs-keyword">if</span> (uslovHladno) {  <span class="hljs-comment">// može i "if(temperatura &lt; 5)"</span>
+    System.out.println(<span class="hljs-string">"Obuci se, studeno je pravo!"</span>);
+}
+System.out.println(<span class="hljs-string">"Temperatura je: "</span> + temperatura);
+</code></pre>
+<p>Navedeni primjer ispisaće sljedeće:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">Obuci se, studeno je pravo!
+Temperatura je: -3
+</code></pre>
+<p>Ako izmijenimo temperaturu na <code>20</code>, vidjećemo da se prvi <code>println</code> neće izvršiti,
+jer uslov nije ispunjen:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">Temperatura je: 20
+</code></pre>
+<hr />
+<p>Da vidimo još jedan primjer:</p>
+<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">double</span> <span class="hljs-variable">temperatura</span> <span class="hljs-operator">=</span> <span class="hljs-number">21.33</span>;
+<span class="hljs-type">boolean</span> <span class="hljs-variable">uslovToplo</span> <span class="hljs-operator">=</span> temperatura &gt; <span class="hljs-number">25</span>;
+<span class="hljs-keyword">if</span> (uslovToplo) <span class="hljs-comment">// može i "if(temperatura &gt; 25)"</span>
+    System.out.println(<span class="hljs-string">"Toplo je"</span>);
+<span class="hljs-keyword">else</span>
+    System.out.println(<span class="hljs-string">"Nije toplo"</span>);
+</code></pre>
+<p>Prethodni kod će ispisati &quot;Nije toplo&quot;, jer uslov <code>uslovToplo</code> <strong>nije ispunjen</strong>,
+tj. izraz <code>21.33 &gt; 25</code> je <code>false</code>.<br />
+Ovo <code>if else</code> se tretira kao <strong>jedna naredba</strong>!<br />
+Ako želimo da izvršimo više od jedne naredbe u <code>if</code> ili <code>else</code> bloku,
+samo ih okružimo zagradama: <code>if (uslov) { naredbe1... } else { naredbe2... }</code>.</p>
+<p>Nakon linije 6 program nastavlja normalno sa svojim izvršenjem.</p>
+<hr />
+<p>Možemo imati i više uslova u jednoj naredbi, tj. niz <code>if-elseif-elseif-...-else</code>.<br />
+Ovi uslovi bi trebali biti <strong>međusobno isključivi</strong> tj. smisleni.
+Ako napišete<br />
+<code>if (broj&gt;5) { } else if (broj&gt;7) { }</code> to nema puno smisla jer
+ako broj nije veći od 5, ne može biti veći od 7, nema šansone. :D<br />
+Ako jeste veći od 5, biće izvršen prvi blok, ali drugi blok koda NIKAD NEĆE BITI IZVRŠEN!</p>
+<p>Ako postoji grana <code>else</code>, ona će biti izvršena <strong>ako nijedan uslov nije ispunjen</strong>.
+Ako ne postoji <code>else</code> i nijedan uslov nije ispunjen, ništa neće biti izvršeno od te cijele if naredbe.</p>
+<h2 id="switch-naredba">Switch naredba</h2>
+<p>Grananje pomoću <code>switch</code> naredbe može učiniti kod dosta preglednijim.<br />
+Ova naredba se koristi umjesto mnoštva if-else grana,
+od koje svaka grana provjerava <strong>je li varijabla jednaka</strong> nekoj vrijednosti.<br />
+U Javi možete &quot;switchati&quot; cijele brojeve, karaktere, stringove i enumeracije.</p>
+<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;
+<span class="hljs-keyword">switch</span> (i) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+        System.out.println(<span class="hljs-string">"Tri"</span>);
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+        System.out.println(<span class="hljs-string">"Pet"</span>);
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">default</span>:
+        System.out.println(<span class="hljs-string">"Ne znam..."</span>);
+        <span class="hljs-keyword">break</span>;
+}
+</code></pre>
+<p>Na liniji 2 ispituje se čemu je <strong>jednaka vrijednost varijable <code>i</code></strong>,
+<strong>redom odozgo</strong> naravno.<br />
+Prvi slučaj (en. case) koji bude ispunjen će biti izvršen.<br />
+Ako je vrijednost varijable <code>i</code> broj 5, ispisaće se na ekran &quot;Pet&quot;.</p>
+<p>Često ne znamo koliko ima mogućih slučajeva,
+pa onda trebamo odlučiti šta da uradimo po tom pitanju.<br />
+Za to nam služi ključna riječ <code>default</code>. To je ustvari ona <code>else</code> grana u <code>if</code> naredbi! ;)</p>
+<!-- TODO switch -> expression -->
+</main>
+
+
+<footer class="pico container">
+    blog.sake.ba    </footer>
+
+</body>
+</html>

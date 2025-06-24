@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="blog.sake.ba je blog fizičke osobe pod imenom Sakib Hadžiavdić. Tutorijali iz programiranja, java, scala, matematika i slično.\n">
-    <title>    Početna stranica | blog.sake.ba</title>
+    <meta name="description" content="">
+    <title>    Naredbe | blog.sake.ba</title>
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
@@ -43,21 +43,33 @@
 </header>
     
 <main class="pico container">
-        <h1 id="saketov-blog">Saketov blog</h1>
-<p>Moje ime je Sakib, bujrum! :)<br />
-Ovdje ćete pronaći tutorijale za programiranje i još ponešto.</p>
-<hr />
-<p>Ako ste <em>totalni početnik</em>, i želite naučiti programirati,
-preporučujem da počnete sa <a href="/flowrun">dijagramima toka</a>.<br />
-Dosta je lakše početi s <em>vizuelnim programiranjem</em>, jer praćenjem linija lakše je shvatiti kako program radi.<br />
-Ovi tutorijali vode vas kroz osnovne gradivne dijelove programa.</p>
-<hr />
-<p>Nakon toga možete nastaviti s <a href="/java">Java</a> programskim jezikom.<br />
-Tu ćete se upoznati sa jednim vrlo popularnim, traženim i plaćenim programskim jezikom.<br />
-Vrlo je sličan drugim popularnim jezicima kao što su C#, JavaScript i ostali.<br />
-Tako da ako se odlučite i za neki drugi jezik kasnije, neće vam biti teško da ga savladate.</p>
-
-        
+    <h1 id="naredbe">Naredbe</h1>
+<p>Naredbe (en. statements) su kao rečenice u govornom jeziku,
+i obično su u imperativnom obliku, kao da se obraćamo kompjuteru:
+uradi ovo, izbriši ono, upiši u fajl itd.<br />
+Deklaracije varijabli su naredbe, npr. <code>int i = 5;</code>, može se čitati kao<br />
+&quot;napravi varijablu s imenom 'i' i dodijeli joj vrijednost 5! ODMAH!&quot;.<br />
+Iako još nismo objasnili funkcije, neke od njih su također naredbe, npr:</p>
+<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(<span class="hljs-string">"Hello!"</span>)</span>
+Hello!
+</code></pre>
+<p>Vrlo duga naredba <code>System.out.println</code> je funkcija za printanje u konzolu.<br />
+Do sada je JShell to automatski radio za nas, ispisivao vrijednost zadnjeg izraza,
+u svom nekom predefinisanom formatu...
+Ovako mi možemo ispisati šta god želimo. Primijetite da ispisani <code>String</code> nema navodnika!<br />
+Navodnici se samo <strong>koriste za pisanje stringova</strong>!!! Nisu uključeni u samu vrijednost stringa.
+Isto je i sa karakterima.</p>
+<p>Da vidimo još par primjera:</p>
+<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(<span class="hljs-string">"x je "</span> + 5);</span>
+x je 5
+<span class="hljs-meta prompt_">
+jshell&gt; </span><span class="language-bash">String rezultat = <span class="hljs-string">"x je "</span> + 5;</span>
+rezultat ==&gt; "x je 5"
+<span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(rezultat);</span>
+x je 5
+</code></pre>
+<p>Dakle, možemo proslijediti string direktno, ili varijablu koja je string, svejedno. 🙂<br />
+Kraj naredbe se označava s <code>;</code> (tačkazarez, en. semicolon).</p>
 </main>
 
 

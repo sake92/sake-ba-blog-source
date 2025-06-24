@@ -1,0 +1,122 @@
+
+
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="">
+    <title>    Klase | blog.sake.ba</title>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+    <link rel="stylesheet" href="/styles/default.css">
+</head>
+<body>
+
+
+<header class="pico container">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+        <ul>
+                                            <li><a href="/flowrun">FlowRun</a></li>
+                                                            <li><a href="/java">Java</a></li>
+                                                            <li><a href="/scala">Scala</a></li>
+                                                            <li><a href="/programming">Programming</a></li>
+                                                            <li><a href="/maths">Maths</a></li>
+                                    
+                            <li>
+                    <details class="dropdown">
+                    <summary>
+                        Bosanski                    </summary>
+                    <ul dir="rtl">
+                                                                                                                                        <li><a href="/en">English</a></li>
+                                                                        </ul>
+                  </details>
+                </li>
+                    </ul>
+    </nav>
+</header>
+    
+<main class="pico container">
+    <h1 id="klase">Klase</h1>
+<p>Recimo da imamo zadatak da napravimo program za praćenje učenika u razredu.<br />
+Za svakog učenika moramo unijeti ime, prezime i prosječnu ocjenu.<br />
+Trebamo ispisati sve ove podatke i na kraju naći prosjek ocjena u razredu.</p>
+<p>Kako bismo ovo uradili sa do sada naučenim konceptima?<br />
+Imena možemo staviti npr. u niz <code>String[] imena</code>.<br />
+Prezimena možemo staviti npr. u niz <code>String[] prezimena</code>.<br />
+Ocjene ćemo staviti npr. u niz <code>double[] prosjeci</code>.</p>
+<pre><code class="language-java hljs" data-highlighted="yes">String[] imena;
+String[] prezimena;
+<span class="hljs-type">double</span>[] prosjeci;
+
+<span class="hljs-type">double</span> <span class="hljs-variable">zbirProsjeka</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; imena.length; i ++) {
+    System.out.print(<span class="hljs-string">"Učenik: "</span> + prezimena[i] + <span class="hljs-string">" "</span> + imena[i]);
+    System.out.println(<span class="hljs-string">", prosjek: "</span> + prosjeci[i]);
+    zbirProsjeka += prosjeci[i];
+}
+<span class="hljs-type">double</span> <span class="hljs-variable">prosjekRazreda</span> <span class="hljs-operator">=</span> zbirProsjeka / imena.length;
+System.out.println(<span class="hljs-string">"Ukupan prosjek razreda: "</span> + prosjekRazreda);
+</code></pre>
+<p>Iako ovaj kod radi kako treba, nekako se ne osjećamo dobro zbog njega...<br />
+Indeksi pršte na sve strane, šta ako je jedan od nizova kraći itd?<br />
+Također, ovi nizovi nam uopće ne govore da su <strong>dio jedne cjeline</strong>.<br />
+Neko ko čita ovaj kod mora se dobro zapitati šta oni predstavljaju.<br />
+To je možda lahko na ovom (namjerno) malom primjeru, ali u projektima s milionima linija koda, niko nema vremena da &quot;razbija glavu&quot;... :)</p>
+<p>Ovo je jedan od razloga zašto se uvodi apstrakcija klase.<br />
+Klasa je recept za pravljenje <strong>objekta</strong>. Kaže se još i da je objekat <strong>instanca klase</strong>.<br />
+Objekat je obično skup primitivnih varijabli i drugih objekata.<br />
+Dakle, koristi se za <strong>logičko grupisanje vrijednosti</strong>.<br />
+U prethodnom primjeru trebali bismo grupisati ime, prezime i prosjek. Ova nova apstrakcija tj. klasa bi se zvala <code>Ucenik</code>. To bi izgledalo ovako:</p>
+<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Ucenik</span> {
+    String ime;
+    String prezime;
+    <span class="hljs-type">double</span> prosjek;
+}
+</code></pre>
+<h2 id="kreiranje-objekta">Kreiranje objekta</h2>
+<p>Da bismo kreirali novi objekat klase <code>Ucenik</code>, koristimo operator <code>new</code>:</p>
+<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">Ucenik</span> <span class="hljs-variable">ucenik</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Ucenik</span>();
+</code></pre>
+<p>Ovaj operator naziva se <strong>konstruktor</strong>.<br />
+Konstruktor je specijalna funkcija koja kreira novi objekat i vrati nam referencu na njega.<br />
+Kompajler nam <strong>automatski kreira konstruktor</strong> za nas, kasnije ćemo vidjeti kako sami možemo definisati konstruktor(e).</p>
+<h2 id="polja-klase">Polja klase</h2>
+<p>Vrijednosti unutar klase nazivaju se <strong>polja klase</strong>/<strong>atributi</strong> (en. fields, properties), u ovom slučaju to su ime, prezime i prosjek.<br />
+Pošto im nismo dodijelili nikakve početne vrijednosti, Java će ih postaviti na <strong>defaultne vrijednosti</strong>:</p>
+<ul>
+<li>referentne na <code>null</code></li>
+<li>brojevne primitivne na <code>0</code></li>
+<li><code>boolean</code> primitivne  na <code>false</code></li>
+</ul>
+<p>Dakle, u ovom trenutku, ime ima vrijednost <code>null</code>, prezime ima vrijednost <code>null</code>, prosjek vrijednost <code>0</code>. Idemo im dati neke smislene vrijednosti:</p>
+<pre><code class="language-java hljs" data-highlighted="yes">ucenik.ime = <span class="hljs-string">"Mujo"</span>;
+ucenik.prezime = <span class="hljs-string">"Mujanović"</span>;
+ucenik.prosjek = <span class="hljs-number">4.3D</span>;
+</code></pre>
+<p>Odabir polja se piše navođenjem reference, pa tačka, a zatim naziv polja.</p>
+<hr />
+<p>Dok nismo zaboravili, prethodni primjer sada izgleda puno bolje i razumljivije:</p>
+<pre><code class="language-java hljs" data-highlighted="yes">Ucenik[] ucenici;
+<span class="hljs-type">double</span> <span class="hljs-variable">zbirProsjeka</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span>(Ucenik u : ucenici) {
+    System.out.print(<span class="hljs-string">"Učenik: "</span> + u.prezime + <span class="hljs-string">" "</span> + u.ime);
+    System.out.println(<span class="hljs-string">", prosjek: "</span> + u.prosjek);
+    zbirProsjeka += u.prosjek;
+}
+<span class="hljs-type">double</span> <span class="hljs-variable">prosjekRazreda</span> <span class="hljs-operator">=</span> zbirProsjeka / ucenici.length;
+System.out.println(<span class="hljs-string">"Ukupan prosjek razreda: "</span> + prosjekRazreda);
+</code></pre></main>
+
+
+<footer class="pico container">
+    blog.sake.ba    </footer>
+
+</body>
+</html>

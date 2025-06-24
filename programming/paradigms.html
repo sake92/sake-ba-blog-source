@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
-    <meta name="description" content="blog.sake.ba je blog fizičke osobe pod imenom Sakib Hadžiavdić. Tutorijali iz programiranja, java, scala, matematika i slično.\n">
-    <title>    Početna stranica | blog.sake.ba</title>
+    <meta name="description" content="">
+    <title>    Paradigme programiranja | blog.sake.ba</title>
     <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
@@ -43,21 +43,31 @@
 </header>
     
 <main class="pico container">
-        <h1 id="saketov-blog">Saketov blog</h1>
-<p>Moje ime je Sakib, bujrum! :)<br />
-Ovdje ćete pronaći tutorijale za programiranje i još ponešto.</p>
-<hr />
-<p>Ako ste <em>totalni početnik</em>, i želite naučiti programirati,
-preporučujem da počnete sa <a href="/flowrun">dijagramima toka</a>.<br />
-Dosta je lakše početi s <em>vizuelnim programiranjem</em>, jer praćenjem linija lakše je shvatiti kako program radi.<br />
-Ovi tutorijali vode vas kroz osnovne gradivne dijelove programa.</p>
-<hr />
-<p>Nakon toga možete nastaviti s <a href="/java">Java</a> programskim jezikom.<br />
-Tu ćete se upoznati sa jednim vrlo popularnim, traženim i plaćenim programskim jezikom.<br />
-Vrlo je sličan drugim popularnim jezicima kao što su C#, JavaScript i ostali.<br />
-Tako da ako se odlučite i za neki drugi jezik kasnije, neće vam biti teško da ga savladate.</p>
-
-        
+    <h1 id="paradigme-programiranja">Paradigme programiranja</h1>
+<p>Jedan od značajnijih problema koje p.j. pokušavaju riješiti je <strong>kompleksnost</strong>.<br />
+Kako programi postaju veći, to su komplikovaniji za razumjeti.<br />
+Zato danas imamo nekoliko paradigmi (pristupa, načina) za razvijanje programa, od kojih su najpoznatije:</p>
+<ul>
+<li><strong>proceduralno</strong></li>
+<li><strong>funkcionalno</strong> - FP</li>
+<li><strong>objektno orijentisano</strong> - OOP</li>
+</ul>
+<p>Dosta jezika danas je miks dvije ili više ovih paradigmi.<br />
+Ove paradigme <em>usmjeravaju naš način razmišljanja</em> o problemima po svom nekom šablonu/fazonu.</p>
+<p>Npr. kod proceduralnog/imperativnog načina razmišljanja <strong>mijenjamo varijable</strong> &quot;u mjestu&quot;.<br />
+Ovdje moramo pamtiti/zamisliti koja je vrijednost neke varijable <em>u datom trenutku</em>, što je većini ljudi izazovan zadatak.</p>
+<p>Kod FP/matematičkog načina razmišljanja pravimo <strong>nove varijable</strong> a stare ne diramo!
+To nam pomaže kod razumijevanja određenog dijela koda, ne moramo pamtiti u glavi stanje &quot;cijelog svijeta&quot;
+i na šta utiče promjena date varijable.</p>
+<p>OOP objedinjuje podatke sa funkcijama(metodama) koje rade sa tim podacima.<br />
+Taj objedinjeni koncept naziva se objekat.<br />
+OOP nam pomaže i da <em>sakrijemo neke podatke i funkcije</em> za koje korisnici(drugi dijelovi koda) ne moraju znati.<br />
+Ovdje veliku ulogu ima kompajler koji nas ograničava i usmjerava nas u tim slučajevima.</p>
+<h2 id="oop">OOP</h2>
+<p>Ovo što smo do sada radili u <a href="/java">Javi</a> je proceduralno programiranje.<br />
+Koristili smo procedure/funkcije i mijenjali varijable u mjestu.<br />
+Klase smo koristili da kreiramo objekte koji sadrže <em>samo podatke</em>.</p>
+<p>U OOP klase ćemo koristiti na malo fleksibilniji način.</p>
 </main>
 
 

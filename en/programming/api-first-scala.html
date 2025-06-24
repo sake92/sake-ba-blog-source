@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="API First Scala">
+    <title>    API First Scala | blog.sake.ba</title>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+    <link rel="stylesheet" href="/styles/default.css">
+</head>
+<body>
+
+
+<header class="pico container">
+    <nav>
+        <ul>
+            <li><a href="/en">Home</a></li>
+        </ul>
+        <ul>
+                                            <li><a href="/en/flowrun">FlowRun</a></li>
+                                                            <li><a href="/en/java">Java</a></li>
+                                                            <li><a href="/en/scala">Scala</a></li>
+                                                            <li><a href="/en/programming">Programming</a></li>
+                                                            <li><a href="/en/maths">Maths</a></li>
+                                    
+                            <li>
+                    <details class="dropdown">
+                    <summary>
+                        English                    </summary>
+                    <ul dir="rtl">
+                                                                                    <li><a href="/">Bosanski</a></li>
+                                                                                                                            </ul>
+                  </details>
+                </li>
+                    </ul>
+    </nav>
+</header>
+    
+<main class="pico container">
+    <h1 id="api-first-scala">API First Scala</h1>
+<p>There are many ways to build APIs:</p>
+<ul>
+<li>YOLO approach</li>
+<li>code-first approach</li>
+<li>API-first approach</li>
+</ul>
+<h3 id="yolo-approach">YOLO approach</h3>
+<p>In the &quot;YOLO mode&quot; you don't care much about the users of your API.<br />
+Maybe you have a few examples or docs you made, but nothing too serious.</p>
+<h3 id="code-first-approach">Code-first approach</h3>
+<p>In the &quot;code-first&quot; approach you start with the coding right away.
+Schedules are tight, deadlines are near, pressure is real.</p>
+<p>The specification (if any) is mostly an afterthought.
+Consider Spring annotations, you can always sprinkle some <code>@ApiParam</code> here and there in your controllers.</p>
+<p>There are also approaches like <a href="https://tapir.softwaremill.com/en/latest/">Tapir</a>,
+where you use a Scala DSL to define your API.
+Then you implement the server logic, and generate the spec from that Scala code.
+Potentially the client(s) too.</p>
+<p>This approach is popular, since you start with coding right away.
+But it has some downsides:</p>
+<ul>
+<li>you kinda play russian roulette with the spec, since it is generated from the code, so you can't really call it stable</li>
+<li>it is more code to maintain, increasing your cognitive load and compile times</li>
+<li>bundle size is increased, since you have to include the dependencies</li>
+<li>sometimes you have to fight the DSL to get what you want (e.g polymorphic payloads and such)</li>
+<li>you are limited by what DSL provides, if you need some framework-specific feature, it's challenging to get to it (or impossible)</li>
+</ul>
+<h3 id="api-first-approach">API-first approach</h3>
+<p>In the &quot;API-first&quot; approach you start with the API specification.
+You define the API usually with OpenAPI (Swagger) in a YAML or JSON file.
+Then you generate the server from that spec (and client code if need be).</p>
+<p>This approach has some advantages:</p>
+<ul>
+<li>you are in full control of the spec, it is <em>the source of truth</em></li>
+<li>spec is <em>stable</em> and <em>versioned</em></li>
+<li>less code to maintain, there is no DSLs or annotations that obfuscate your code</li>
+<li>you can leverage your framework's features to the max</li>
+</ul>
+<p>An example in Scala is the <a href="https://guardrail.dev">Guardrail</a> tool.
+It generates some server boilerplate code to the <code>target/.../src_managed/main</code> folder (you don't commit this to git).
+Then you implement the server logic by <em>overriding those abstract definitions</em>, fill in the blanks essentially.
+Note that when you change the <code>openapi.yaml</code>, the <code>src_managed</code> code is overwritten.
+Guardrail is a nice approach, sadly it doesn't support Scala 3 yet.</p>
+<p>A new kid on the block is the <a href="https://github.com/sake92/openapi4s">OpenApi4s</a> tool that I made.
+It takes a bit different approach, it doesn't hide the server code from you, it generates it <em>directly in your <code>src</code> folder</em>.
+Exactly like you would have written it by hand.<br />
+So how does it handle changes in the spec??? Overwrite the code every time? No, that would be silly, so let's see...</p>
+<h2 id="openapi4s">OpenApi4s</h2>
+<p>TLDR: <a href="https://github.com/sake92/openapi4s">OpenApi4s</a> refactors your code automatically, by using <a href="https://github.com/sake92/regenesca">regenesca</a> diff+merge library.</p>
+<p>Generating the models and controllers is the easy part:</p>
+<ul>
+<li>parse the OpenAPI spec</li>
+<li>generate models</li>
+<li>generate controllers</li>
+</ul>
+<p>and that's it.</p>
+<hr />
+<p>The hard part is <em>how to handle changes in the spec</em>.</p>
+<p>Consider the classical <a href="https://petstore3.swagger.io">PetStore spec</a>.
+OpenApi4s will generate something like this for the <code>User</code> model:</p>
+<pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span>(<span class="hljs-params">
+    id: <span class="hljs-type">Option</span>[<span class="hljs-type">Long</span>],
+    username: <span class="hljs-type">Option</span>[<span class="hljs-type">String</span>],
+    firstName: <span class="hljs-type">Option</span>[<span class="hljs-type">String</span>],
+    lastName: <span class="hljs-type">Option</span>[<span class="hljs-type">String</span>],
+    email: <span class="hljs-type">Option</span>[<span class="hljs-type">String</span>],
+    password: <span class="hljs-type">Option</span>[<span class="hljs-type">String</span>],
+    phone: <span class="hljs-type">Option</span>[<span class="hljs-type">String</span>],
+    userStatus: <span class="hljs-type">Option</span>[<span class="hljs-type">Int</span>]
+</span>) <span class="hljs-title">derives</span> <span class="hljs-title">JsonRW</span></span>
+</code></pre>
+<h3 id="adding-a-new-property">Adding a new property</h3>
+<p>When you add a new <code>age</code> field of type <code>integer</code> to the <code>User</code> model.
+OpenApi4s will compare the newly generated <code>case class User</code> (in-memory), with the existing <code>case class User</code> in your source code.
+Then it will figure out that <code>age: Int</code> parameter is missing, and it will add it.</p>
+<pre><code class="language-diff hljs" data-highlighted="yes"><span class="hljs-comment">--- a/api/src/com/example/petstore/api/models/User.scala</span>
+<span class="hljs-comment">+++ b/api/src/com/example/petstore/api/models/User.scala</span>
+<span class="hljs-meta">@@ -14,5 +14,5 @@</span> case class User(
+    email: Option[String],
+    password: Option[String],
+    phone: Option[String],
+<span class="hljs-deletion">-  userStatus: Option[Int]</span>
+<span class="hljs-addition">+  userStatus: Option[Int], age: Long</span>
+    ) derives JsonRW
+</code></pre>
+<h3 id="changing-a-property">Changing a property</h3>
+<p>Let's say you change the <code>userStatus</code>'s format from <code>int32</code> to <code>int64</code>.
+OpenApi4s will figure out that <code>userStatus: Option[Int]</code> needs to be changed to <code>userStatus: Option[Long]</code>.</p>
+<pre><code class="language-diff hljs" data-highlighted="yes"><span class="hljs-comment">--- a/api/src/com/example/petstore/api/models/User.scala</span>
+<span class="hljs-comment">+++ b/api/src/com/example/petstore/api/models/User.scala</span>
+<span class="hljs-meta">@@ -14,5 +14,6 @@</span> case class User(
+    email: Option[String],
+    password: Option[String],
+    phone: Option[String],
+<span class="hljs-deletion">-  userStatus: Option[Int]</span>
+<span class="hljs-addition">+  userStatus: Option[Long]</span>
+</code></pre>
+<h3 id="adding-a-new-endpoint">Adding a new endpoint</h3>
+<p>Adding a new endpoint to existing controller is easy too.
+It will just add another <code>case</code> to your existing routes.
+For example in sharaf framework it will add something like this:</p>
+<pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-type">GET</span> -&gt; <span class="hljs-type">Path</span>(<span class="hljs-string">"user"</span>, <span class="hljs-string">"new-endpoint"</span>) =&gt;
+    <span class="hljs-type">Response</span>.withStatus(<span class="hljs-type">StatusCodes</span>.<span class="hljs-type">NOT_IMPLEMENTED</span>)
+</code></pre>
+<p>It will even generate a boilerplate implementation for you.
+You can then fill in the blanks.</p>
+<h3 id="changing-an-endpoint">Changing an endpoint</h3>
+<p>Now this is a bit more tricky.
+OpenApi4s must not touch your existing code, since you might have already implemented some logic.
+So it will not touch your existing expressions, for example <code>Response.withStatus(..)</code> in the previous example.</p>
+<p>But it will update the query parameters if needed.</p>
+<h2 id="ci">CI</h2>
+<h3 id="preventing-accidental-overwrites">Preventing accidental overwrites</h3>
+<p>You might be cautious about the changes that OpenApi4s makes.
+Thinking, will it overwrite my code? How can I make sure it doesn't?
+A simple check you can do in your CI pipeline is to:</p>
+<ul>
+<li>touch the <code>openapi.yaml</code> file, just so that <code>mill</code> detects a change and triggers openapi4s</li>
+<li>compile the code, to regenerate the files</li>
+<li>see if there are any changes in the git diff</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes"><span class="hljs-built_in">echo</span> <span class="hljs-string">" "</span> &gt;&gt; api/resources/openapi.yaml
+./mill api.compile
+<span class="hljs-built_in">truncate</span> -s -1 api/resources/openapi.yaml
+git diff --exit-code
+[ $$? -eq 0 ]  || <span class="hljs-built_in">exit</span> 1
+</code></pre>
+<h3 id="preventing-breaking-changes">Preventing breaking changes</h3>
+<p>Since the <code>openapi.yaml</code> is now in <code>git</code>, you can do some cool stuff with it.
+One very useful check is preventing breaking changes.
+You can do it with <a href="https://github.com/OpenAPITools/openapi-diff">openapi-diff</a> for example:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">git show origin/main:api/resources/public/openapi.json &gt; main_openapi.json
+
+cs launch org.openapitools.openapidiff:openapi-diff-cli:2.1.0-beta.12 -M org.openapitools.openapidiff.cli.Main -- --fail-on-incompatible main_openapi.json ./api/resources/public/openapi.json
+[ $$? -eq 0 ]  || <span class="hljs-built_in">exit</span> 1
+
+<span class="hljs-built_in">rm</span> main_openapi.json
+</code></pre>
+<p>See the <a href="https://github.com/sake92/openapi4s-demo/blob/main/.github/workflows/ci.yml">CI script</a> in the openapi4s demo repo.</p>
+<p>Here is an example of <a href="https://github.com/sake92/openapi4s-demo/pull/2">compatible change PR</a>.<br />
+And an example of <a href="https://github.com/sake92/openapi4s-demo/pull/3">breaking change PR</a>, CI fails of course.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Hope you find this post (and OpenApi4s tool) useful.<br />
+You can find more tools to combine with api-first approach at <a href="https://openapi.tools/">https://openapi.tools/</a></p>
+<p>Check out the video demo on <a href="https://www.youtube.com/watch?v=kf0vGrlKNb8">YouTube</a>!</p>
+<h3 id="additional-resources">Additional resources</h3>
+<ul>
+<li><a href="https://swagger.io/resources/articles/adopting-an-api-first-approach/">Understanding the API-First Approach</a></li>
+<li><a href="https://guardrail.dev">Guardrail</a></li>
+<li><a href="https://tapir.softwaremill.com/en/latest/">Tapir</a></li>
+<li><a href="https://www.baeldung.com/spring-rest-openapi-documentation">Documenting a Spring REST API Using OpenAPI 3.0</a></li>
+</ul>
+</main>
+
+
+<footer class="pico container">
+    blog.sake.ba    </footer>
+
+</body>
+</html>

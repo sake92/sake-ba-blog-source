@@ -6,3 +6,6 @@
     }
 }
 
+.flowrun-instance {
+    height: calc(100vh - 10rem);
+}

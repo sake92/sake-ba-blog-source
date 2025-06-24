@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="">
+    <title>    Osnove Jave | blog.sake.ba</title>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+    <link rel="stylesheet" href="/styles/default.css">
+</head>
+<body>
+
+
+<header class="pico container">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+        <ul>
+                                            <li><a href="/flowrun">FlowRun</a></li>
+                                                            <li><a href="/java">Java</a></li>
+                                                            <li><a href="/scala">Scala</a></li>
+                                                            <li><a href="/programming">Programming</a></li>
+                                                            <li><a href="/maths">Maths</a></li>
+                                    
+                            <li>
+                    <details class="dropdown">
+                    <summary>
+                        Bosanski                    </summary>
+                    <ul dir="rtl">
+                                                                                                                                        <li><a href="/en">English</a></li>
+                                                                        </ul>
+                  </details>
+                </li>
+                    </ul>
+    </nav>
+</header>
+    
+<main class="pico container">
+    <h1 id="osnove-jave">Osnove Jave</h1>
+<h2 id="jshell">JShell</h2>
+<p>Da bi se igrali sa JShellom morate imati instaliranu Javu verzije 9 ili više.<br />
+Ispratite <a href="/java/installation.html">sekciju za instalaciju</a>.</p>
+<p>Koristićemo JShell program za upoznavanje i igranje s Java jezikom.<br />
+Otvorite konzolu (bez ikakvog straha! :D), ukucajte <code>jshell</code> i udarite Enter.<br />
+Dobićete tzv. interaktivni shell u kojem možete kucati Javu.<br />
+Zovu ga još i REPL (Read Evaluate Print Loop), jer dobija unos od nas,
+evaluira ga, isprinta neki odgovor, i ponavlja ukrug.</p>
+<h2 id="izrazi-i-operatori">Izrazi i operatori</h2>
+<p>Za početak, JShell možemo koristiti kao primitivni kalkulator.<br />
+Tako ćemo steći osjećaj kako se ponašaju brojevi u Javi,
+i usput objasniti neke osnovne koncepte i pojmove.<br />
+Ako ukucamo u REPL broj 5 i pritisnemo Enter, vidjećemo sljedeće:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; 5
+<span class="hljs-variable">$1</span> ==&gt; 5
+</code></pre>
+<p>REPL je razumio i odgovorio nam da je to vrijednost <code>5</code>.<br />
+U programiranju se kaže da je broj <strong>izraz</strong>.
+<em>Izraz</em> u programiranju ima isto značenje kao i u matematici.<br />
+Dakle, misli se na nešto što ima <strong>vrijednost</strong>.
+Nešto što možemo prikazati, s čim možemo baratati.</p>
+<hr />
+<p>Ako se opet prisjetimo (dosadne) matematike, sjetićemo se da se simboli
+<code>+</code>, <code>-</code>, <code>*</code>, itd. nazivaju <strong>operatori</strong>.<br />
+Pošto smo rekli da je REPL kao kalkulator, da vidimo šta sve možemo uraditi:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; 2 + 2
+<span class="hljs-variable">$2</span> ==&gt; 4
+jshell&gt; 2 - 5
+<span class="hljs-variable">$3</span> ==&gt; -3
+jshell&gt; 7 * 3
+<span class="hljs-variable">$4</span> ==&gt; 21
+jshell&gt; 9 / 4
+<span class="hljs-variable">$5</span> ==&gt; 2
+</code></pre>
+<p>Izgleda da dijeljenje ne radi kako treba... Našli smo grešku! :D<br />
+Ali, nije tako. Java <em>podrazumijeva</em> da želimo podijeliti dva <strong>cijela</strong> broja!<br />
+Ako se sjetimo osnovne škole, <code>5 / 2</code> je ustvari <code>2</code> <strong>cijelih</strong> i <strong>ostatak</strong> <code>1</code>. :)<br />
+Dakle, kada dijelimo dva cijela broja, ustvari radimo &quot;cjelobrojno dijeljenje&quot;.</p>
+<p>Također, možemo dobiti i ostatak od dijeljenja, pomoću operatora <code>%</code>.<br />
+Npr. <code>5 % 2</code> je <code>1</code>.</p>
+<hr />
+<p>Kada želimo koristiti <strong>realne</strong> brojeve (sa zarezom), pišemo tačku nakon broja.<br />
+Tačka se koristi umjesto zareza, jer se zarez koristi za neke druge stvari.<br />
+Uglavnom, da vidimo kako rade realni brojevi (en. <strong>float</strong>ing point):</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; 3.0 + 5.1
+<span class="hljs-variable">$6</span> ==&gt; 8.1
+jshell&gt; 7.3 - 2.9
+<span class="hljs-variable">$7</span> ==&gt; 4.4
+jshell&gt; 5.5 * -2.0
+<span class="hljs-variable">$8</span> ==&gt; -11.0
+jshell&gt; 9.0 / 4.0
+<span class="hljs-variable">$9</span> ==&gt; 2.25
+</code></pre>
+<p>Sada se sve čini onako kako treba. :)</p>
+<hr />
+<p>Redoslijed operacija (en. precedence) radi očekivano.<br />
+Npr. množenje se radi prije sabiranja.<br />
+Ako želimo baš, baš, biti sigurni da će program raditi kako treba, možemo koristiti zagrade.</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; 2 + 2 * 2
+<span class="hljs-variable">$10</span> ==&gt; 6
+jshell&gt; (2 + 2) * 2
+<span class="hljs-variable">$11</span> ==&gt; 8
+</code></pre>
+<h2 id="varijable">Varijable</h2>
+<p>Primijetite šta REPL ispisuje kao odgovor, poslije svake unesene linije: <code>$1 ==&gt; 5</code>.<br />
+Ako ukucamo <code>$1</code> u REPL vidjećemo sljedeće:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; <span class="hljs-variable">$1</span>
+<span class="hljs-variable">$1</span> ==&gt; 5
+</code></pre>
+<p>Dakle, REPL nam kaže da je <strong>vrijednost</strong> varijable <code>$1</code> jednaka <code>5</code>.<br />
+Izraz <code>5</code> je spremljen u <strong>varijablu</strong> <code>$1</code>, koju možemo koristiti umjesto broja <code>5</code>.</p>
+<blockquote>
+<p>Šta je to varijabla?<br />
+Zamislite da imate kutije raznih oblika i dimenzija.<br />
+Varijabla je baš kao <strong>kutija sa natpisom</strong> koji vi želite.
+Npr. kutija u kojoj čuvamo neki broj.</p>
+</blockquote>
+<p>Kreiraćemo novu varijablu pod nazivom <code>brojJabuka</code>,
+za čuvanje <code>int</code>egera (en. &quot;integer&quot; je cijeli broj).<br />
+Ovo <code>int</code> je tip varijable (veličina i oblik kutije)!
+Kasnije ćemo govoriti malo detaljnije o tipovima.</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; int brojJabuka;
+brojJabuka ==&gt; 0
+created variable brojJabuka : int
+</code></pre>
+<p>Pošto nismo dali vrijednost našoj varijabli,
+Java nam pomaže tako što postavlja <code>brojJabuka</code> na vrijednost <code>0</code>.<br />
+Obično je to ono što želimo, ali je najbolje postaviti početnu vrijednost <strong>eksplicitno</strong>,
+čim uvodimo novu varijablu.
+Tako odmah znamo koja joj je početna vrijednost i ne moramo razmišljati o tome... :)<br />
+To radimo ovako:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; int brojJabuka = 0;
+brojJabuka ==&gt; 0
+created variable brojJabuka : int
+</code></pre>
+<p>Vrlo jednostavno, nakon naziva varijable slijedi znak jednako i vrijednost, ovdje je to <code>0</code>.<br />
+Primijetite da ovaj znak jednakosti <strong>nije matematička jednakost</strong> već operacija dodjele!<br />
+Tj. kao da kažemo &quot;postavi varijablu <code>brojJabuka</code> na nulu!&quot;.</p>
+<p>Varijablu možemo izmijeniti, tj. postaviti na novu vrijednost:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; brojJabuka = 5;
+brojJabuka ==&gt; 5
+assigned to brojJabuka : int
+</code></pre>
+<p>Sada je vrijednost promijenjena na <code>5</code>.
+Nakon ove linije, gdje god koristimo <code>brojJabuka</code> to je kao da napišemo <code>5</code>.</p>
+<hr />
+<p>Također, možemo iskoristiti <strong>prethodnu vrijednost varijable</strong> da bismo dobili novu:</p>
+<pre><code class="language-sh hljs language-bash" data-highlighted="yes">jshell&gt; brojJabuka = brojJabuka + 1;
+brojJabuka ==&gt; 6
+jshell&gt; brojJabuka += 1;
+<span class="hljs-variable">$23</span> ==&gt; 7
+</code></pre>
+<p>U izrazu <code>brojJabuka + 1</code>, vrijednost <code>brojJabuka</code> odnosi se na <strong>zadnju vrijednost varijable</strong>,
+dakle vrijednost prije ove linije, tj. <code>5</code>.</p>
+<p>Postoji i skraćena verzija za ovo, prikazana na liniji 3, s operatorom <code>+=</code>.<br />
+Također imaju skraćene verzije i za oduzimanje, množenje, dijeljenje i modulo:
+<code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code> respektivno.<br />
+Ovo &quot;respektivno&quot; je fancy izraz za &quot;u navedenom redoslijedu&quot;. :D</p>
+<h3 id="nazivi-varijabli">Nazivi varijabli</h3>
+<p>Nazivi varijabli i tipova (en. identifiers) ne mogu imati razmake u sebi,
+ne mogu biti nijedna od rezervisanih riječi kao što je <code>class</code>, <code>int</code>.<br />
+Ne mogu biti neki rezervisani znakovi, kao npr. <code>,</code>, <code>&amp;</code> itd.<br />
+Ne mogu počinjati brojem.
+Primjeri nevalidnih naziva varijabli (isprobajte u JShellu):</p>
+<ul>
+<li><code>int my variable = 5</code></li>
+<li><code>int int = 5</code></li>
+<li><code>int , = 5</code></li>
+<li><code>int 5something = 5</code></li>
+</ul>
+<p>Primjeri validnih naziva varijabli:</p>
+<ul>
+<li><code>int _abc = 5</code></li>
+<li><code>int $xyz = 5</code></li>
+<li><code>int Z = 5</code></li>
+<li><code>int t$df_x = 5</code></li>
+</ul>
+<p>Mogu se koristiti simboli <code>_</code> i <code>$</code> ali ih treba izbjegavati,
+pogotovo kao prvo slovo u nazivu varijable!</p>
+<p>Preporučeno je da varijable počinju malim slovom,
+da su <em>camelCase</em> (svaka iduća riječ počinje velikim slovom), npr. <code>myVariable</code>.</p>
+<p>Konstante (varijable koje se ne mogu mijenjati) se pišu velikim slovima
+i riječi su razdvojene donjom crticom, npr. <code>MY_CONST</code>.</p>
+</main>
+
+
+<footer class="pico container">
+    blog.sake.ba    </footer>
+
+</body>
+</html>
