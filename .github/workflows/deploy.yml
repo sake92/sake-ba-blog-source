@@ -17,17 +17,21 @@ jobs:
           distribution: 'temurin'
           java-version: 17
       - name: Build
-        run: ./mill -i site.hepek
+        run: |
+            FLATMARK_VERSION=0.0.15
+            curl -L https://github.com/sake92/flatmark/releases/download/v${FLATMARK_VERSION}/flatmark_${FLATMARK_VERSION}_amd64.deb -o flatmark.deb
+            sudo apt install -y ./flatmark.deb
+            flatmark build
       - name: Deploy to GH Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: site/hepek_output
+          folder: _site
       - name: Deploy to blog.sake.ba
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./site/hepek_output/
+          local-dir: _site/
