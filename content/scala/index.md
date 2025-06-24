@@ -1,6 +1,8 @@
 ---
 title: Scala
 publish_date: 2018-04-23 00:00
+theme_props:
+  pagination_disabled: true
 ---
 
 # Scala
@@ -25,4 +27,5 @@ Ima vrlo **fleksibilnu i lijepu sintaksu**, pa je pogodna i za pisanje **DSL**-o
 Postoje brojni library i frameworci za **konkurentno i distribuirano programiranje**.  
 Neki od tih su `Future` (u standardnoj library), Akka `Actor`s, Apache Spark, Kafka i dr.
 
-
+Lista tutorijala:
+- [Osnove](/scala/basics.html)

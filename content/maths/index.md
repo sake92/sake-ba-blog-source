@@ -1,5 +1,7 @@
 ---
 title: Matematika
+theme_props:
+  pagination_disabled: true
 ---
 
 # Matematika

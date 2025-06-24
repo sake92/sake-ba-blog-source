@@ -1,6 +1,7 @@
 ---
 title: API First Scala
 description: API First Scala
+publish_date: 2025-04-05 00:00
 ---
 
 # API First Scala

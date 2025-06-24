@@ -1,6 +1,7 @@
 ---
 title: You already know Monad(ic) stuff
 description: Monads introduction. Do notation, for comprehensions. Comparing monads with async and await syntax. Future, Observable, IO monad, Reactive programming.
+publish_date: 2022-05-18 00:00
 ---
 
 # Monads

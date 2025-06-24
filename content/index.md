@@ -3,6 +3,8 @@ title: Početna stranica
 description: >
     blog.sake.ba je blog fizičke osobe pod imenom Sakib Hadžiavdić.
     Tutorijali iz programiranja, java, scala, matematika i slično.
+theme_props:
+  pagination_disabled: true
 ---
 
 
@@ -23,11 +25,6 @@ Nakon toga možete nastaviti s [Java](/java) programskim jezikom.
 Tu ćete se upoznati sa jednim vrlo popularnim, traženim i plaćenim programskim jezikom.  
 Vrlo je sličan drugim popularnim jezicima kao što su C#, JavaScript i ostali.  
 Tako da ako se odlučite i za neki drugi jezik kasnije, neće vam biti teško da ga savladate.
-
-
-
----
----
 
 
 
