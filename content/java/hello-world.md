@@ -1,9 +1,9 @@
 ---
-title: Hello World
+title: Hello World!
 publish_date: 2018-02-04 00:00
 ---
 
-# Hello World
+# Hello World!
 
 Vjerovatno vam je do sada dodijao JShell i kucanje u konzoli... :D  
 Sada ćemo vidjeti kako se ustvari pokreću Java programi.  

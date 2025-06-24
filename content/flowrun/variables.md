@@ -4,6 +4,8 @@ publish_date: 2022-04-24 00:00
 layout: flowrun
 ---
 
+# Varijable
+
 Varijable nam služe za **spremanje informacija/podataka**.  
 Recimo ako računamo prosjeke ocjena učenika (npr. ima 29 učenika trenutno), morali bi napisati broj `29` više puta u programu. 
 Ako dođe novi učenik, morali bi na svim mjestima u programu izmijeniti `29` na `30`... 

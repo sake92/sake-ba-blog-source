@@ -5,7 +5,7 @@ layout: flowrun
 ---
 
 
-# Hello World!
+# Osnove
 
 Svaki program ima svoj **početak** i **kraj**.  
 Početak je označen sa `Begin`, kraj je označen sa `End`.  

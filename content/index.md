@@ -8,14 +8,14 @@ theme_props:
 ---
 
 
-# Saketovi tutorijali
+# Saketov blog
 
 Moje ime je Sakib, bujrum! :)  
 Ovdje ćete pronaći tutorijale za programiranje i još ponešto.  
 
 ---
 
-Ako ste totalni početnik, i želite naučiti programirati,
+Ako ste *totalni početnik*, i želite naučiti programirati,
 preporučujem da počnete sa [dijagramima toka](/flowrun).  
 Dosta je lakše početi s *vizuelnim programiranjem*, jer praćenjem linija lakše je shvatiti kako program radi.  
 Ovi tutorijali vode vas kroz osnovne gradivne dijelove programa.
