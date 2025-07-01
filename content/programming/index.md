@@ -5,6 +5,7 @@ theme_props:
   pagination_disabled: true
 ---
 
+# Programiranje
 
 Sadržaj:
 - [Filozofija programiranja](/programming/philosophy.html)
