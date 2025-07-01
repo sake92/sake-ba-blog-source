@@ -1,76 +1,119 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    FlowRun | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> FlowRun | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li><a href="/flowrun">FlowRun</a></li>
+     <li><a href="/java">Java</a></li>
+     <li><a href="/scala">Scala</a></li>
+     <li><a href="/programming">Programming</a></li>
+     <li><a href="/maths">Maths</a></li>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#flowrun">FlowRun</a></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="flowrun">FlowRun<a href="#flowrun" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Kompjuteri izvršavaju <strong>naredbe</strong> jednu po jednu, redom.
+    <br>
+    Naredbe su logički grupisane u <strong>programe</strong>.
+    <br>
+    Program sadrži naredbe koje kompjuter treba izvršiti.</p>
+   <p>Program se može predstaviti <strong>vizuelno</strong> pomoću <strong>dijagrama toka</strong> (engl. flowchart).
+    <br>
+    Koristićemo ugrađeni editor, koji može i pokrenuti program koji napravimo.</p>
+   <p>Ako želite da sačuvate svoje programe koje napravite, možete se registrovati na <a href="https://flowrun.io/">flowrun.io</a>.
+    <br>
+    Tu možete vidjeti i neke programe koje su napravili drugi korisnici, kliknite <a href="https://flowrun.io/explore">ovdje</a>.</p>
+   <p>Tutorijali:</p>
+   <ul>
+    <li>
+     <p><a href="/flowrun/basics.html">Osnove</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/variables.html">Varijable</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/ifs.html">If naredba</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/while.html">While petlja</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/do-while.html">Do While petlja</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/for.html">For petlja</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/predefined-functions.html">Ugrađene funkcije</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/custom-functions.html">Definisanje funkcije</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/return-of-functions.html">Povratna vrijednost funkcije</a></p>
+    </li>
+    <li>
+     <p><a href="/flowrun/recursive-functions.html">Rekurzivne funkcije</a></p>
+    </li>
+   </ul>
+   <aside>
     <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
+     <ul>
+      <li><a href="/flowrun/user-input.html">Unos podataka</a></li>
+     </ul>
     </nav>
-</header>
-    
-<main class="pico container">
-        <h1 id="flowrun">FlowRun</h1>
-<p>Kompjuteri izvršavaju <strong>naredbe</strong> jednu po jednu, redom.<br />
-Naredbe su logički grupisane u <strong>programe</strong>.<br />
-Program sadrži naredbe koje kompjuter treba izvršiti.</p>
-<p>Program se može predstaviti <strong>vizuelno</strong> pomoću <strong>dijagrama toka</strong> (engl. flowchart).<br />
-Koristićemo ugrađeni editor, koji može i pokrenuti program koji napravimo.</p>
-<p>Ako želite da sačuvate svoje programe koje napravite, možete se registrovati na <a href="https://flowrun.io/">flowrun.io</a>.<br />
-Tu možete vidjeti i neke programe koje su napravili drugi korisnici, kliknite <a href="https://flowrun.io/explore">ovdje</a>.</p>
-<p>Tutorijali:</p>
-<ul>
-<li><a href="/flowrun/basics.html">Osnove</a></li>
-<li><a href="/flowrun/variables.html">Varijable</a></li>
-<li><a href="/flowrun/ifs.html">If naredba</a></li>
-<li><a href="/flowrun/while.html">While petlja</a></li>
-<li><a href="/flowrun/do-while.html">Do While petlja</a></li>
-<li><a href="/flowrun/for.html">For petlja</a></li>
-<li><a href="/flowrun/predefined-functions.html">Ugrađene funkcije</a></li>
-<li><a href="/flowrun/custom-functions.html">Definisanje funkcije</a></li>
-<li><a href="/flowrun/return-of-functions.html">Povratna vrijednost funkcije</a></li>
-<li><a href="/flowrun/recursive-functions.html">Rekurzivne funkcije</a></li>
-</ul>
-
-        
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+    <div>
+     <a href="/flowrun/index.html" role="button">Prev</a> <span role="button" class="outline" disabled>2</span> <a href="#" disabled role="button">Next</a>
+    </div>
+   </aside>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

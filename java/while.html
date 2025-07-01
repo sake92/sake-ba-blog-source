@@ -1,72 +1,78 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    While petlja | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="while-petlja">While petlja</h1>
-<p>Kada želimo ponavljati izvršiti neki dio koda više puta,
-najjednostavniji način je copy-paste.
-Kopiramo ga n-puta i završeno! :D</p>
-<p>Međutim, ovo nije fleksibilno kada kasnije želimo da izmijenimo taj djelić koda.<br />
-Tada moramo izmijeniti sve linije... :/</p>
-<p>Zato postoje specijalne naredbe za <strong>ponavljanje</strong>: <code>while</code>, <code>do-while</code> i <code>for</code>.<br />
-Zovu se još i &quot;petlje&quot;, jer se vrlo lahko zapetljati u njima.</p>
-<p>U sljedećem primjeru želimo izvršavati kod sve dok je neki <strong>uslov</strong> ispunjen (en. while je &quot;dok&quot;).</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> While petlja | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#while-petlja">While petlja</a></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="while-petlja">While petlja<a href="#while-petlja" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Kada želimo ponavljati izvršiti neki dio koda više puta, najjednostavniji način je copy-paste. Kopiramo ga n-puta i završeno! :D</p>
+   <p>Međutim, ovo nije fleksibilno kada kasnije želimo da izmijenimo taj djelić koda.
+    <br>
+    Tada moramo izmijeniti sve linije... :/</p>
+   <p>Zato postoje specijalne naredbe za <strong>ponavljanje</strong>: <code>while</code>, <code>do-while</code> i <code>for</code>.
+    <br>
+    Zovu se još i "petlje", jer se vrlo lahko zapetljati u njima.</p>
+   <p>U sljedećem primjeru želimo izvršavati kod sve dok je neki <strong>uslov</strong> ispunjen (en. while je "dok").</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
 <span class="hljs-keyword">while</span>(i &lt; <span class="hljs-number">10</span>) {
     System.out.println(<span class="hljs-string">"Cifra i je: "</span> + i);
     i = i + <span class="hljs-number">1</span>;
 }
 </code></pre>
-<p>Naravno, unutar tog bloka <strong>uslov se mora mijenjati</strong>, inače se program <em>neće nikad zaustaviti</em>.<br />
-To se naziva <strong>beskonačna petlja</strong> i obično nije poželjna... :)</p>
-<p>Uslov se ispituje u svakoj <strong>iteraciji</strong> petlje. Dakle, svaki put kada se dođe do linije 5 uslov će se ponovo ispitati.
-Ako uslov nije zadovoljen, petlja se zaustavlja i program se nastavlja izvršavati na liniji 6.</p>
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+   <p>Naravno, unutar tog bloka <strong>uslov se mora mijenjati</strong>, inače se program <em>neće nikad zaustaviti</em>.
+    <br>
+    To se naziva <strong>beskonačna petlja</strong> i obično nije poželjna... :)</p>
+   <p>Uslov se ispituje u svakoj <strong>iteraciji</strong> petlje. Dakle, svaki put kada se dođe do linije 5 uslov će se ponovo ispitati. Ako uslov nije zadovoljen, petlja se zaustavlja i program se nastavlja izvršavati na liniji 6.</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

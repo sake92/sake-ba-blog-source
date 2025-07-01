@@ -1,101 +1,125 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Hello World! | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="hello-world">Hello World!</h1>
-<p>Vjerovatno vam je do sada dodijao JShell i kucanje u konzoli... :D<br />
-Sada ćemo vidjeti kako se ustvari pokreću Java programi.<br />
-Sastoji se iz 2 dijela: kompajliranje i pokretanje (en. run).</p>
-<blockquote>
-<p>Napomena: ovaj dio nije obavezan, ali pomaže za razumijevanje procesa.<br />
-Možete preskočiti na sekciju Implementacija ako želite.</p>
-</blockquote>
-<hr />
-<p>Kompajler (en. compiler) je program koji provjerava sintaksu našeg programa,
-da li se poklapaju tipovi itd. te nam <strong>prijavljuje greške</strong> ako ih pronađe.<br />
-I to sve prije nego smo i pokrenuli naš program! Predobro! :D<br />
-Tako smo sigurni da se bar <strong>neke greške neće pojaviti</strong> u programu.<br />
-Javin kompajler se zove <code>javac</code> (skraćeno od Java compiler).</p>
-<p>Ulaz u kompajler je izvorni tekst programa (en. source code)
-koji smo napisali (obični tekstualni fajlovi s nastavkom <code>.java</code> ),
-a izlaz  su fajlovi koji sadrže izvršni kod, koji se može pokrenuti nekako, izvršiti (to su <code>.class</code> fajlovi).</p>
-<p>Idući korak je pokretanje programa.<br />
-Java programi se sastoje od <code>bytecode</code> naredbi (kod nezavisan od procesora i operativnog sistema),
-koje su vrlo slične mašinskom kodu (specifičnom za svaki procesor).<br />
-Izlaz iz kompajlera, <code>.class</code> fajlovi sadrže te <code>bytecode</code> naredbe,
-i njih izvršava tzv. JVM (Java Virtuelna Mašina).<br />
-JVM je ustvari <code>java</code> program.</p>
-<p><img src="/images/java/compiler.gif" alt="Kompajliranje i pokretanje Java programa" width="600" /></p>
-<h2 id="implementacija">Implementacija</h2>
-<p>Da vidimo napokon kako izgleda obavezni &quot;Hello World&quot; primjer:</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloWorldApp</span> {
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Hello World! | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#hello-world">Hello World!</a>
+         <ul>
+          <li><a href="#implementacija">Implementacija</a></li>
+          <li><a href="#kompajliranje-i-pokretanje-programa">Kompajliranje i pokretanje programa</a></li>
+          <li><a href="#komentari">Komentari</a></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="hello-world">Hello World!<a href="#hello-world" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Vjerovatno vam je do sada dodijao JShell i kucanje u konzoli... :D
+    <br>
+    Sada ćemo vidjeti kako se ustvari pokreću Java programi.
+    <br>
+    Sastoji se iz 2 dijela: kompajliranje i pokretanje (en. run).</p>
+   <blockquote>
+    <p>Napomena: ovaj dio nije obavezan, ali pomaže za razumijevanje procesa.
+     <br>
+     Možete preskočiti na sekciju Implementacija ako želite.</p>
+   </blockquote>
+   <hr>
+   <p>Kompajler (en. compiler) je program koji provjerava sintaksu našeg programa, da li se poklapaju tipovi itd. te nam <strong>prijavljuje greške</strong> ako ih pronađe.
+    <br>
+    I to sve prije nego smo i pokrenuli naš program! Predobro! :D
+    <br>
+    Tako smo sigurni da se bar <strong>neke greške neće pojaviti</strong> u programu.
+    <br>
+    Javin kompajler se zove <code>javac</code> (skraćeno od Java compiler).</p>
+   <p>Ulaz u kompajler je izvorni tekst programa (en. source code) koji smo napisali (obični tekstualni fajlovi s nastavkom <code>.java</code> ), a izlaz su fajlovi koji sadrže izvršni kod, koji se može pokrenuti nekako, izvršiti (to su <code>.class</code> fajlovi).</p>
+   <p>Idući korak je pokretanje programa.
+    <br>
+    Java programi se sastoje od <code>bytecode</code> naredbi (kod nezavisan od procesora i operativnog sistema), koje su vrlo slične mašinskom kodu (specifičnom za svaki procesor).
+    <br>
+    Izlaz iz kompajlera, <code>.class</code> fajlovi sadrže te <code>bytecode</code> naredbe, i njih izvršava tzv. JVM (Java Virtuelna Mašina).
+    <br>
+    JVM je ustvari <code>java</code> program.</p>
+   <p><img src="/images/java/compiler.gif" alt="Kompajliranje i pokretanje Java programa" width="600"></p>
+   <h2 id="implementacija">Implementacija<a href="#implementacija" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Da vidimo napokon kako izgleda obavezni "Hello World" primjer:</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloWorldApp</span> {
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
         System.out.println(<span class="hljs-string">"Hello World!"</span>);
     }
 }
 </code></pre>
-<p>Kada se pokrene prethodno prikazani program dobićemo sljedeći rezultat u konzoli:</p>
-<pre><code class="language-shell hljs" data-highlighted="yes">Hello World!
+   <p>Kada se pokrene prethodno prikazani program dobićemo sljedeći rezultat u konzoli:</p>
+   <pre><code class="language-shell hljs" data-highlighted="yes">Hello World!
 </code></pre>
-<h2 id="kompajliranje-i-pokretanje-programa">Kompajliranje i pokretanje programa</h2>
-<p>Sadržaj programa sačuvajte u fajl <code>HelloWorldApp.java</code>.
-Primijetite da se <strong>mora zvati isto kao i klasa</strong>, s nastavkom <code>.java</code>!<br />
-Kod mene se ovo sve nalazi u folderu <code>C:\programiranje</code>.<br />
-Kucamo sljedeće:</p>
-<pre><code class="language-shell hljs" data-highlighted="yes">C:\programiranje&gt; javac HelloWorldApp.java
+   <h2 id="kompajliranje-i-pokretanje-programa">Kompajliranje i pokretanje programa<a href="#kompajliranje-i-pokretanje-programa" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Sadržaj programa sačuvajte u fajl <code>HelloWorldApp.java</code>. Primijetite da se <strong>mora zvati isto kao i klasa</strong>, s nastavkom <code>.java</code>!
+    <br>
+    Kod mene se ovo sve nalazi u folderu <code>C:\programiranje</code>.
+    <br>
+    Kucamo sljedeće:</p>
+   <pre><code class="language-shell hljs" data-highlighted="yes">C:\programiranje&gt; javac HelloWorldApp.java
 C:\programiranje&gt; java HelloWorldApp
 Hello World!
 </code></pre>
-<p>To je to, sada možemo nastaviti dalje.<br />
-Svaki primjer koji budemo radili možete isprobati, nemojte mi slijepo vjerovati na riječ da fercera. :)</p>
-<h2 id="komentari">Komentari</h2>
-<p>Komentari su tekst koji ne utiče na rezultat programa.<br />
-Koriste se samo radi objašnjavanja koda, nekom drugom ili nama kad budemo čitali kasnije.<br />
-Prva vrsta komentara se piše sa 2 kose crte <code>//</code> (en. slash) i vrijedi <strong>do kraja linije</strong>.<br />
-Druga vrsta je višelinijska (en. multiline) i počinje s <code>/*</code> a završava s <code>*/</code>.</p>
-<p>Npr:</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-comment">// komentar1</span>
+   <p>To je to, sada možemo nastaviti dalje.
+    <br>
+    Svaki primjer koji budemo radili možete isprobati, nemojte mi slijepo vjerovati na riječ da fercera. :)</p>
+   <h2 id="komentari">Komentari<a href="#komentari" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Komentari su tekst koji ne utiče na rezultat programa.
+    <br>
+    Koriste se samo radi objašnjavanja koda, nekom drugom ili nama kad budemo čitali kasnije.
+    <br>
+    Prva vrsta komentara se piše sa 2 kose crte <code>//</code> (en. slash) i vrijedi <strong>do kraja linije</strong>.
+    <br>
+    Druga vrsta je višelinijska (en. multiline) i počinje s <code>/*</code> a završava s <code>*/</code>.</p>
+   <p>Npr:</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-comment">// komentar1</span>
     
 <span class="hljs-comment">/*
     * komentar2
@@ -103,11 +127,8 @@ Druga vrsta je višelinijska (en. multiline) i počinje s <code>/*</code> a zavr
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloWorldApp</span> {
     ...
-</code></pre></main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+</code></pre>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

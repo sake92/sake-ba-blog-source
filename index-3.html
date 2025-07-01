@@ -1,68 +1,100 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="blog.sake.ba je blog fizičke osobe pod imenom Sakib Hadžiavdić. Tutorijali iz programiranja, java, scala, matematika i slično.\n">
-    <title>    Početna stranica | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="blog.sake.ba je blog fizičke osobe pod imenom Sakib Hadžiavdić. Tutorijali iz programiranja, java, scala, matematika i slično.\n">
+  <title> Početna stranica | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li><a href="/flowrun">FlowRun</a></li>
+     <li><a href="/java">Java</a></li>
+     <li><a href="/scala">Scala</a></li>
+     <li><a href="/programming">Programming</a></li>
+     <li><a href="/maths">Maths</a></li>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#saketov-blog">Saketov blog</a></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="saketov-blog">Saketov blog<a href="#saketov-blog" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Moje ime je Sakib, bujrum! :)
+    <br>
+    Ovdje ćete pronaći tutorijale za programiranje i još ponešto.</p>
+   <hr>
+   <p>Ako ste <em>totalni početnik</em>, i želite naučiti programirati, preporučujem da počnete sa <a href="/flowrun">dijagramima toka</a>.
+    <br>
+    Dosta je lakše početi s <em>vizuelnim programiranjem</em>, jer praćenjem linija lakše je shvatiti kako program radi.
+    <br>
+    Ovi tutorijali vode vas kroz osnovne gradivne dijelove programa.</p>
+   <hr>
+   <p>Nakon toga možete nastaviti s <a href="/java">Java</a> programskim jezikom.
+    <br>
+    Tu ćete se upoznati sa jednim vrlo popularnim, traženim i plaćenim programskim jezikom.
+    <br>
+    Vrlo je sličan drugim popularnim jezicima kao što su C#, JavaScript i ostali.
+    <br>
+    Tako da ako se odlučite i za neki drugi jezik kasnije, neće vam biti teško da ga savladate.</p>
+   <aside>
     <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
+     <ul>
+      <li><a href="/java/while.html">While petlja</a></li>
+      <li><a href="/java/hello-world.html">Hello World!</a></li>
+      <li><a href="/java/for.html">For petlja</a></li>
+      <li><a href="/java/arrays.html">Nizovi</a></li>
+      <li><a href="/java/branching.html">Uslovno grananje</a></li>
+      <li><a href="/java/installation.html">Instalacija Jave</a></li>
+      <li><a href="/maths/set_theory.html">Teorija skupova</a></li>
+      <li><a href="/programming/philosophy.html">Untitled</a></li>
+      <li><a href="/programming/terminology.html">Untitled</a></li>
+     </ul>
     </nav>
-</header>
-    
-<main class="pico container">
-        <h1 id="saketov-blog">Saketov blog</h1>
-<p>Moje ime je Sakib, bujrum! :)<br />
-Ovdje ćete pronaći tutorijale za programiranje i još ponešto.</p>
-<hr />
-<p>Ako ste <em>totalni početnik</em>, i želite naučiti programirati,
-preporučujem da počnete sa <a href="/flowrun">dijagramima toka</a>.<br />
-Dosta je lakše početi s <em>vizuelnim programiranjem</em>, jer praćenjem linija lakše je shvatiti kako program radi.<br />
-Ovi tutorijali vode vas kroz osnovne gradivne dijelove programa.</p>
-<hr />
-<p>Nakon toga možete nastaviti s <a href="/java">Java</a> programskim jezikom.<br />
-Tu ćete se upoznati sa jednim vrlo popularnim, traženim i plaćenim programskim jezikom.<br />
-Vrlo je sličan drugim popularnim jezicima kao što su C#, JavaScript i ostali.<br />
-Tako da ako se odlučite i za neki drugi jezik kasnije, neće vam biti teško da ga savladate.</p>
-
-        
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+    <div>
+     <a href="/index-2.html" role="button">Prev</a> <span role="button" class="outline" disabled>3</span> <a href="#" disabled role="button">Next</a>
+    </div>
+   </aside>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

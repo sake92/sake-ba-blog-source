@@ -1,94 +1,109 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="Uvod u Scala programski jezik">
-    <title>    Uvod u Scalu | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="uvod-u-scalu">Uvod u Scalu</h1>
-<p>Scala je prije svega <strong>potpuno objektno orijentisan</strong> jezik.<br />
-To znači da su <strong>sve vrijednosti u programu objekti</strong>, čak i brojevi i karakteri!<br />
-Ovo nije slučaj u Javi, gdje imamo 7 &quot;primitivnih tipova&quot; kao što su <code>int</code>, <code>char</code>, <code>boolean</code>...<br />
-U Scali su oni predstavljeni <strong>klasama</strong> <code>Int</code>, <code>Char</code>, <code>Boolean</code>...<br />
-U C# je sličan slučaj kao i u Scali, gdje je <code>int</code> samo alijas za <code>Int32</code>, ali je i dalje klasa.<br />
-Ovaj koncept se naziva i &quot;unified types&quot;.</p>
-<p>Da pogledamo deklaraciju konstante:</p>
-<pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">val</span> x: <span class="hljs-type">Int</span> = <span class="hljs-number">5</span>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Uvod u Scala programski jezik">
+  <title> Uvod u Scalu | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#uvod-u-scalu">Uvod u Scalu</a></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="uvod-u-scalu">Uvod u Scalu<a href="#uvod-u-scalu" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Scala je prije svega <strong>potpuno objektno orijentisan</strong> jezik.
+    <br>
+    To znači da su <strong>sve vrijednosti u programu objekti</strong>, čak i brojevi i karakteri!
+    <br>
+    Ovo nije slučaj u Javi, gdje imamo 7 "primitivnih tipova" kao što su <code>int</code>, <code>char</code>, <code>boolean</code>...
+    <br>
+    U Scali su oni predstavljeni <strong>klasama</strong> <code>Int</code>, <code>Char</code>, <code>Boolean</code>...
+    <br>
+    U C# je sličan slučaj kao i u Scali, gdje je <code>int</code> samo alijas za <code>Int32</code>, ali je i dalje klasa.
+    <br>
+    Ovaj koncept se naziva i "unified types".</p>
+   <p>Da pogledamo deklaraciju konstante:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">val</span> x: <span class="hljs-type">Int</span> = <span class="hljs-number">5</span>
 </code></pre>
-<p>Tip se piše <strong>nakon naziva varijable</strong>, kao u Pascalu.<br />
-U većini slučajeva kompajler nam može pomoći s &quot;zaključivanjem tipa&quot; (type inference).<br />
-Kompajler će skontat za nas da je to broj!
-Tako da je prethodni primjer ekvivalentan sljedećem:</p>
-<pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">val</span> x = <span class="hljs-number">5</span>
+   <p>Tip se piše <strong>nakon naziva varijable</strong>, kao u Pascalu.
+    <br>
+    U većini slučajeva kompajler nam može pomoći s "zaključivanjem tipa" (type inference).
+    <br>
+    Kompajler će skontat za nas da je to broj! Tako da je prethodni primjer ekvivalentan sljedećem:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">val</span> x = <span class="hljs-number">5</span>
 </code></pre>
-<p>Primijetite i to da tačkazarez nije potrebna! Napokon!!!<br />
-Izgleda da su pisci kompajlera vrlo lijeni ljudi... :D  S razlogom, naravno.</p>
-<p>Ključna riječ <code>val</code> (skraćeno od value) označava <strong>konstantu</strong>, isto kao <code>final</code> u Javi:</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;
+   <p>Primijetite i to da tačkazarez nije potrebna! Napokon!!!
+    <br>
+    Izgleda da su pisci kompajlera vrlo lijeni ljudi... :D S razlogom, naravno.</p>
+   <p>Ključna riječ <code>val</code> (skraćeno od value) označava <strong>konstantu</strong>, isto kao <code>final</code> u Javi:</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;
 </code></pre>
-<p>Naravno, sljedeći kod se neće iskompajlirati.<br />
-Dobićemo grešku &quot;reassignment to val&quot;.</p>
-<pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">val</span> x = <span class="hljs-number">5</span>
+   <p>Naravno, sljedeći kod se neće iskompajlirati.
+    <br>
+    Dobićemo grešku "reassignment to val".</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">val</span> x = <span class="hljs-number">5</span>
 x = <span class="hljs-number">6</span>
 </code></pre>
-<hr />
-<p>Da vidimo sada dobru staru varijablu, koja se deklariše s <code>var</code>, logično:</p>
-<pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">var</span> y = <span class="hljs-number">5</span>
+   <hr>
+   <p>Da vidimo sada dobru staru varijablu, koja se deklariše s <code>var</code>, logično:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">var</span> y = <span class="hljs-number">5</span>
 y = <span class="hljs-number">6</span>
 y += <span class="hljs-number">3</span>
 </code></pre>
-<p>Varijabla <code>y</code> na kraju ima vrijednost <code>9</code>.</p>
-<hr />
-<p>U Scali imamo još jednu vrstu varijable, tzv. &quot;lijena konstanta&quot; (lazy value):</p>
-<pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">lazy</span> <span class="hljs-keyword">val</span> z = <span class="hljs-number">5</span>
+   <p>Varijabla <code>y</code> na kraju ima vrijednost <code>9</code>.</p>
+   <hr>
+   <p>U Scali imamo još jednu vrstu varijable, tzv. "lijena konstanta" (lazy value):</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">lazy</span> <span class="hljs-keyword">val</span> z = <span class="hljs-number">5</span>
 </code></pre>
-<p>Vrijednost <code>lazy val</code> će se izračunati samo jednom, i to tek kada se pozove u programu!<br />
-Npr. ako <code>z</code> poziva neku funkciju koja sadrži <code>println</code>,
-ispisaće se na ekran tek kada pozovemo <code>z</code> (tj. evaluiraće se funkcija).<br />
-Ovaj koncept je poznat iz FP, vrlo je koristan za keširanje vrijednosti.</p>
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+   <p>Vrijednost <code>lazy val</code> će se izračunati samo jednom, i to tek kada se pozove u programu!
+    <br>
+    Npr. ako <code>z</code> poziva neku funkciju koja sadrži <code>println</code>, ispisaće se na ekran tek kada pozovemo <code>z</code> (tj. evaluiraće se funkcija).
+    <br>
+    Ovaj koncept je poznat iz FP, vrlo je koristan za keširanje vrijednosti.</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

@@ -1,136 +1,158 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Instalacija Jave | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="instalacija-jave">Instalacija Jave</h1>
-<p>Ako vam je baš mrsko instalirati Javu, postoje i online alternative:</p>
-<ul>
-<li><a href="https://www.jdoodle.com/online-java-compiler">JDoodle</a></li>
-<li><a href="https://tryjshell.org/">JShell</a></li>
-</ul>
-<p>Zgodne su za probavanje i igranje sa Javom.</p>
-<hr />
-<p>Preporučujem da instalirate <a href="https://www.azul.com/downloads/?package=jdk#zulu">Javu 21</a> (ili noviju verziju).<br />
-Samo downloadujte i raspakujte zip npr. u <code>C:\Java</code>.<br />
-Idući korak je dodavanje PATH varijable.</p>
-<hr />
-<p>Instalacija <a href="https://www.java.com/en/download/">Jave 8</a> je malo komplikovanija, ali je dostupna i za 32-bitne i 64-bitne računare.<br />
-Naravno, možete instalirati više verzija Jave, ali samo jednu možete dodati u <code>PATH</code>!</p>
-<p><img src="/images/java/download-jdk-1.jpg" alt="JDK download step 1" width="1030" /></p>
-<p>Kada se otvori stranica sa prethodne slike kliknite na dugme <strong>download JDK</strong>.</p>
-<blockquote>
-<p>JDK (Java Development Kit) su alati za razvijanje Java programa: kompajler, debager itd.
-JDK sadrži JRE (Java Runtime Environment) koji služi za pokretanje Java programa (JVM, Java API klase itd).</p>
-</blockquote>
-<p>Na sljedećoj slici kliknite na &quot;jdk-8u131-windows-x64.exe&quot;.<br />
-To je instalacija za 64-bitni Windows.<br />
-Ako slučajno imate 32-bitni Windows (vrlo malo vjerovatno) onda skinite tu verziju...</p>
-<p><img src="/images/java/download-jdk-2.jpg" alt="JDK download step 2" width="1030" /></p>
-<p>Preporučujem da Javu instalirate u folder pod nazivom <code>C:\Java</code>.<br />
-Ovo ne morate raditi ali je korisno kada vam treba više verzija Jave.<br />
-Također, neki programi na Windowsu imaju problema kada putanja sadrži razmak,
-zato nećemo instalirati u <code>Program Files</code>...</p>
-<blockquote>
-<p><strong>Napomena</strong>: Ne trebate instalirati i JRE!<br />
-Kada vam dođe prozor za JRE kliknite Cancel! (iksić).<br />
-Upravo sam vam uštedio 100-tinjak megabajta, nema na čemu... :D</p>
-</blockquote>
-<p>Dakle, kada se završi download, otvorite instalaciju i kliknite Next.</p>
-<p><img src="/images/java/install-jdk-folder.jpg" alt="JDK folder" width="500" /></p>
-<p>Zatim kliknite dugme &quot;Change...&quot; i prepravite putanju foldera na <code>C:\Java\jdk1.8.0_131</code>.<br />
-JRE će već biti instaliran zajedno sa JDK! Tako da nam ne treba još jedna instalacija...</p>
-<p><img src="/images/java/install-jre-no.jpg" alt="JRE, nope!" width="500" /></p>
-<h2 id="dodavanje-path-varijabli">Dodavanje PATH varijabli</h2>
-<p>Dio koji slijedi vezan je više za sam rad operativnog sistema (Windows u našem slučaju) nego za Javu.<br />
-Otvorite <code>Computer Properties</code> na Windowsu (desni klik na My Computer -&gt; Properties). Otvoriće vam se sljedeći prozor:</p>
-<p><img src="/images/os/windows/computer-properties.jpg" alt="Computer Properties" width="780" /></p>
-<p>Kliknite na Advanced System Settings. Dobićete sljedeći prozor:</p>
-<p><img src="/images/os/windows/system-properties.jpg" alt="System Properties" width="780" /></p>
-<p>Otvorite <code>Advanced</code> tab i kliknite <code>Environment Variables...</code>.<br />
-Dodajte 3 sistemske varijable u donji prozor (u System Variables):</p>
-<table>
-<thead>
-<tr>
-<th>Naziv varijable</th>
-<th>Vrijednost</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>JAVA_HOME</td>
-<td>C:\Java\jdk1.8.0_131</td>
-</tr>
-<tr>
-<td>JDK_HOME</td>
-<td>%JAVA_HOME%</td>
-</tr>
-<tr>
-<td>JRE_HOME</td>
-<td>%JAVA_HOME%\jre</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Glavno</strong>, otvorite <code>PATH</code> varijablu i dodajte <code>;%JAVA_HOME%\bin</code> na kraj.<br />
-Nemojte zaboravit tačkazarez kopirati! :D<br />
-Bez navodnika, naravno! Kliknite Ok, Ok...</p>
-<p>To je to! Uspješno ste instalirali Javu! :)<br />
-Stanje bi trebalo biti otprilike ovako:</p>
-<p><img src="/images/os/windows/system-variables.jpg" alt="System Variables" width="780" /></p>
-<h2 id="provjera-instalacije">Provjera instalacije</h2>
-<p>Da bi provjerili jesmo li uspješno obavili zadatak,
-otvorićemo Command Prompt (kod Linuxaša se rekne Shell).<br />
-Otvorite Start, ukucajte <code>cmd</code> i kliknite <kbd>Enter</kbd>. Ukucajte <code>java -version</code>.<br />
-Ako dobijete poruku
-<code>'java' is not recognized as an internal or external command, operable program or batch file.</code>
-nešto nije uredu, provjerite sve korake sekcije &quot;Dodavanje PATH varijabli&quot; ponovo!</p>
-<p>Ako dobijete nešto slično sljedećoj slici, sve je OK:</p>
-<p><img src="/images/os/windows/cmd-java-version.jpg" alt="Java verzija" width="604" /></p>
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Instalacija Jave | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#instalacija-jave">Instalacija Jave</a>
+         <ul>
+          <li><a href="#dodavanje-path-varijabli">Dodavanje PATH varijabli</a></li>
+          <li><a href="#provjera-instalacije">Provjera instalacije</a></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="instalacija-jave">Instalacija Jave<a href="#instalacija-jave" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Ako vam je baš mrsko instalirati Javu, postoje i online alternative:</p>
+   <ul>
+    <li><a href="https://www.jdoodle.com/online-java-compiler">JDoodle</a></li>
+    <li><a href="https://tryjshell.org/">JShell</a></li>
+   </ul>
+   <p>Zgodne su za probavanje i igranje sa Javom.</p>
+   <hr>
+   <p>Preporučujem da instalirate <a href="https://www.azul.com/downloads/?package=jdk#zulu">Javu 21</a> (ili noviju verziju).
+    <br>
+    Samo downloadujte i raspakujte zip npr. u <code>C:\Java</code>.
+    <br>
+    Idući korak je dodavanje PATH varijable.</p>
+   <hr>
+   <p>Instalacija <a href="https://www.java.com/en/download/">Jave 8</a> je malo komplikovanija, ali je dostupna i za 32-bitne i 64-bitne računare.
+    <br>
+    Naravno, možete instalirati više verzija Jave, ali samo jednu možete dodati u <code>PATH</code>!</p>
+   <p><img src="/images/java/download-jdk-1.jpg" alt="JDK download step 1" width="1030"></p>
+   <p>Kada se otvori stranica sa prethodne slike kliknite na dugme <strong>download JDK</strong>.</p>
+   <blockquote>
+    <p>JDK (Java Development Kit) su alati za razvijanje Java programa: kompajler, debager itd. JDK sadrži JRE (Java Runtime Environment) koji služi za pokretanje Java programa (JVM, Java API klase itd).</p>
+   </blockquote>
+   <p>Na sljedećoj slici kliknite na "jdk-8u131-windows-x64.exe".
+    <br>
+    To je instalacija za 64-bitni Windows.
+    <br>
+    Ako slučajno imate 32-bitni Windows (vrlo malo vjerovatno) onda skinite tu verziju...</p>
+   <p><img src="/images/java/download-jdk-2.jpg" alt="JDK download step 2" width="1030"></p>
+   <p>Preporučujem da Javu instalirate u folder pod nazivom <code>C:\Java</code>.
+    <br>
+    Ovo ne morate raditi ali je korisno kada vam treba više verzija Jave.
+    <br>
+    Također, neki programi na Windowsu imaju problema kada putanja sadrži razmak, zato nećemo instalirati u <code>Program Files</code>...</p>
+   <blockquote>
+    <p><strong>Napomena</strong>: Ne trebate instalirati i JRE!
+     <br>
+     Kada vam dođe prozor za JRE kliknite Cancel! (iksić).
+     <br>
+     Upravo sam vam uštedio 100-tinjak megabajta, nema na čemu... :D</p>
+   </blockquote>
+   <p>Dakle, kada se završi download, otvorite instalaciju i kliknite Next.</p>
+   <p><img src="/images/java/install-jdk-folder.jpg" alt="JDK folder" width="500"></p>
+   <p>Zatim kliknite dugme "Change..." i prepravite putanju foldera na <code>C:\Java\jdk1.8.0_131</code>.
+    <br>
+    JRE će već biti instaliran zajedno sa JDK! Tako da nam ne treba još jedna instalacija...</p>
+   <p><img src="/images/java/install-jre-no.jpg" alt="JRE, nope!" width="500"></p>
+   <h2 id="dodavanje-path-varijabli">Dodavanje PATH varijabli<a href="#dodavanje-path-varijabli" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Dio koji slijedi vezan je više za sam rad operativnog sistema (Windows u našem slučaju) nego za Javu.
+    <br>
+    Otvorite <code>Computer Properties</code> na Windowsu (desni klik na My Computer -&gt; Properties). Otvoriće vam se sljedeći prozor:</p>
+   <p><img src="/images/os/windows/computer-properties.jpg" alt="Computer Properties" width="780"></p>
+   <p>Kliknite na Advanced System Settings. Dobićete sljedeći prozor:</p>
+   <p><img src="/images/os/windows/system-properties.jpg" alt="System Properties" width="780"></p>
+   <p>Otvorite <code>Advanced</code> tab i kliknite <code>Environment Variables...</code>.
+    <br>
+    Dodajte 3 sistemske varijable u donji prozor (u System Variables):</p>
+   <table>
+    <thead>
+     <tr>
+      <th>Naziv varijable</th>
+      <th>Vrijednost</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>JAVA_HOME</td>
+      <td>C:\Java\jdk1.8.0_131</td>
+     </tr>
+     <tr>
+      <td>JDK_HOME</td>
+      <td>%JAVA_HOME%</td>
+     </tr>
+     <tr>
+      <td>JRE_HOME</td>
+      <td>%JAVA_HOME%\jre</td>
+     </tr>
+    </tbody>
+   </table>
+   <p><strong>Glavno</strong>, otvorite <code>PATH</code> varijablu i dodajte <code>;%JAVA_HOME%\bin</code> na kraj.
+    <br>
+    Nemojte zaboravit tačkazarez kopirati! :D
+    <br>
+    Bez navodnika, naravno! Kliknite Ok, Ok...</p>
+   <p>To je to! Uspješno ste instalirali Javu! :)
+    <br>
+    Stanje bi trebalo biti otprilike ovako:</p>
+   <p><img src="/images/os/windows/system-variables.jpg" alt="System Variables" width="780"></p>
+   <h2 id="provjera-instalacije">Provjera instalacije<a href="#provjera-instalacije" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Da bi provjerili jesmo li uspješno obavili zadatak, otvorićemo Command Prompt (kod Linuxaša se rekne Shell).
+    <br>
+    Otvorite Start, ukucajte <code>cmd</code> i kliknite <kbd>Enter</kbd>. Ukucajte <code>java -version</code>.
+    <br>
+    Ako dobijete poruku <code>'java' is not recognized as an internal or external command, operable program or batch file.</code> nešto nije uredu, provjerite sve korake sekcije "Dodavanje PATH varijabli" ponovo!</p>
+   <p>Ako dobijete nešto slično sljedećoj slici, sve je OK:</p>
+   <p><img src="/images/os/windows/cmd-java-version.jpg" alt="Java verzija" width="604"></p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

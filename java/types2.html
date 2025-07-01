@@ -1,76 +1,96 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Tipovi, opet | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="tipovi-opet">Tipovi, opet</h1>
-<p>Rekli smo da ćemo nastaviti malo detaljnije o tipovima.<br />
-Java ima 2 vrste tipova: primitivne i referentne.</p>
-<h2 id="primitivni-tipovi">Primitivni tipovi</h2>
-<p>Primitivnih tipova ima 8 i to su  <code>boolean</code>, <code>char</code>, <code>int</code>, <code>long</code>, <code>short</code>, <code>byte</code>, <code>double</code> i <code>float</code>.<br />
-Pišu se <strong>malim slovima</strong>. Ne možemo definisati nove primitivne tipove u Javi!</p>
-<p>Primitivni tipovi predstavljaju &quot;sirove podatke&quot;, većina referentnih tipova ih koristi u pozadini.</p>
-<h2 id="referentni-tipovi">Referentni tipovi</h2>
-<p>U referentne tipove ubrajaju se svi <strong>tipovi koji nisu primitivni</strong>.<br />
-Ove tipove <strong>možemo definisati i mi sami</strong>.<br />
-Konvencija je da se pišu velikim početnim slovom.</p>
-<p>Već smo vidjeli par primjera ovog tipa: <code>String</code> i nizovi.<br />
-U nastavku ćemo vidjeti kako da definišemo klase, koje spadaju u referentne tipove.</p>
-<h5 id="reference">Reference</h5>
-<p><strong>Varijable</strong> koje imaju referentni tip nazivaju se <strong>reference</strong>.</p>
-<blockquote>
-<p>VRLO VAŽNO: Svaka referenca može imati vrijednost <code>null</code>!!!<br />
-Primitivne varijable nikada ne mogu biti <code>null</code>.</p>
-</blockquote>
-<blockquote>
-<p>Vrijednost <code>null</code> je specijalna vrijednost.<br />
-Ona označava da je varijabla &quot;prazna&quot;, neupotrebljiva.</p>
-</blockquote>
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Tipovi, opet | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#tipovi-opet">Tipovi, opet</a>
+         <ul>
+          <li><a href="#primitivni-tipovi">Primitivni tipovi</a></li>
+          <li><a href="#referentni-tipovi">Referentni tipovi</a>
+           <ul>
+            <li><a href="#reference">Reference</a></li>
+           </ul></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="tipovi-opet">Tipovi, opet<a href="#tipovi-opet" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Rekli smo da ćemo nastaviti malo detaljnije o tipovima.
+    <br>
+    Java ima 2 vrste tipova: primitivne i referentne.</p>
+   <h2 id="primitivni-tipovi">Primitivni tipovi<a href="#primitivni-tipovi" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Primitivnih tipova ima 8 i to su <code>boolean</code>, <code>char</code>, <code>int</code>, <code>long</code>, <code>short</code>, <code>byte</code>, <code>double</code> i <code>float</code>.
+    <br>
+    Pišu se <strong>malim slovima</strong>. Ne možemo definisati nove primitivne tipove u Javi!</p>
+   <p>Primitivni tipovi predstavljaju "sirove podatke", većina referentnih tipova ih koristi u pozadini.</p>
+   <h2 id="referentni-tipovi">Referentni tipovi<a href="#referentni-tipovi" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>U referentne tipove ubrajaju se svi <strong>tipovi koji nisu primitivni</strong>.
+    <br>
+    Ove tipove <strong>možemo definisati i mi sami</strong>.
+    <br>
+    Konvencija je da se pišu velikim početnim slovom.</p>
+   <p>Već smo vidjeli par primjera ovog tipa: <code>String</code> i nizovi.
+    <br>
+    U nastavku ćemo vidjeti kako da definišemo klase, koje spadaju u referentne tipove.</p>
+   <h5 id="reference">Reference<a href="#reference" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h5>
+   <p><strong>Varijable</strong> koje imaju referentni tip nazivaju se <strong>reference</strong>.</p>
+   <blockquote>
+    <p>VRLO VAŽNO: Svaka referenca može imati vrijednost <code>null</code>!!!
+     <br>
+     Primitivne varijable nikada ne mogu biti <code>null</code>.</p>
+   </blockquote>
+   <blockquote>
+    <p>Vrijednost <code>null</code> je specijalna vrijednost.
+     <br>
+     Ona označava da je varijabla "prazna", neupotrebljiva.</p>
+   </blockquote>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

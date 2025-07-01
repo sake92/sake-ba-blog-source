@@ -1,58 +1,74 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Opseg | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="opseg">Opseg</h1>
-<p>Svaka varijabla/funkcija/klasa u Javi ima svoj opseg (en. scope).<br />
-Scope je <strong>dio programa</strong> u kom je ta varijabla <strong>vidljiva</strong> tj. može se tu koristiti.<br />
-Scope-ovi mogu biti ugniježdeni.<br />
-Unutrašnji scope može vidjeti tj. koristiti varijable iz vanjskog scope.<br />
-Unutrašnji scope može definisati <strong>novu varijablu</strong> koja se zove <strong>isto</strong> kao varijabla u vanjskom scope!</p>
-<p>Postoje dva najvažnija scope-a a to su: scope klase i scope metode.<br />
-Scope metode je ugniježden u scope klase.<br />
-Npr. polja klase se mogu koristiti u metodama, ali varijable definisane u metodi se ne mogu koristiti u klasi:</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Abc</span> {
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Opseg | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#opseg">Opseg</a></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="opseg">Opseg<a href="#opseg" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Svaka varijabla/funkcija/klasa u Javi ima svoj opseg (en. scope).
+    <br>
+    Scope je <strong>dio programa</strong> u kom je ta varijabla <strong>vidljiva</strong> tj. može se tu koristiti.
+    <br>
+    Scope-ovi mogu biti ugniježdeni.
+    <br>
+    Unutrašnji scope može vidjeti tj. koristiti varijable iz vanjskog scope.
+    <br>
+    Unutrašnji scope može definisati <strong>novu varijablu</strong> koja se zove <strong>isto</strong> kao varijabla u vanjskom scope!</p>
+   <p>Postoje dva najvažnija scope-a a to su: scope klase i scope metode.
+    <br>
+    Scope metode je ugniježden u scope klase.
+    <br>
+    Npr. polja klase se mogu koristiti u metodama, ali varijable definisane u metodi se ne mogu koristiti u klasi:</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Abc</span> {
     <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;
     <span class="hljs-comment">// int z = y + 2; // ovo nije dozvoljeno</span>
 
@@ -65,21 +81,26 @@ Npr. polja klase se mogu koristiti u metodama, ali varijable definisane u metodi
     }
 }
 </code></pre>
-<p>Na liniji 3. vidimo primjer nedozvoljene operacije. Ako se pitate zašto:</p>
-<blockquote>
-<p>Polja objekta se inicijalizuju čim se pozove konstruktor te klase.<br />
-Metode se pozivaju <strong>na zahtjev</strong> tj. ručno, on-demand.<br />
-Zato nam Java ne dozvoljava tu operaciju.<br />
-Također, kompajler ne zna na koje <code>y</code> mislimo, da li ono iz <code>bla()</code> ili iz <code>meh()</code>... :)</p>
-</blockquote>
-<p>Primijetite i to da varijabla <code>y</code> iz <code>bla()</code> <strong>nema nikakve veze</strong>
-s varijablom <code>y</code> iz <code>meh()</code>!!!<br />
-To su dva skroz nezavisna bloka, svaki ima svoj scope.</p>
-<hr />
-<p>Neki primjeri nedozvoljenog definisanja varijabli su dati u metodi <code>ne()</code>.<br />
-Otkomentarišite liniju po liniju da vidite šta će vam kompajler reći.<br />
-U metodi <code>da()</code> dati su neki primjeri dozvoljenog korištenja istoimenih varijabli.</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">ne</span><span class="hljs-params">()</span> {
+   <p>Na liniji 3. vidimo primjer nedozvoljene operacije. Ako se pitate zašto:</p>
+   <blockquote>
+    <p>Polja objekta se inicijalizuju čim se pozove konstruktor te klase.
+     <br>
+     Metode se pozivaju <strong>na zahtjev</strong> tj. ručno, on-demand.
+     <br>
+     Zato nam Java ne dozvoljava tu operaciju.
+     <br>
+     Također, kompajler ne zna na koje <code>y</code> mislimo, da li ono iz <code>bla()</code> ili iz <code>meh()</code>... :)</p>
+   </blockquote>
+   <p>Primijetite i to da varijabla <code>y</code> iz <code>bla()</code> <strong>nema nikakve veze</strong> s varijablom <code>y</code> iz <code>meh()</code>!!!
+    <br>
+    To su dva skroz nezavisna bloka, svaki ima svoj scope.</p>
+   <hr>
+   <p>Neki primjeri nedozvoljenog definisanja varijabli su dati u metodi <code>ne()</code>.
+    <br>
+    Otkomentarišite liniju po liniju da vidite šta će vam kompajler reći.
+    <br>
+    U metodi <code>da()</code> dati su neki primjeri dozvoljenog korištenja istoimenih varijabli.</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">ne</span><span class="hljs-params">()</span> {
     <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;
     {
         <span class="hljs-comment">// int x = 1; // nope</span>
@@ -120,11 +141,8 @@ U metodi <code>da()</code> dati su neki primjeri dozvoljenog korištenja istoime
     <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; x &lt; <span class="hljs-number">5</span>; x++) { } <span class="hljs-comment">// fercera</span>
     
 }
-</code></pre></main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+</code></pre>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

@@ -1,74 +1,91 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Scala | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Scala | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li><a href="/flowrun">FlowRun</a></li>
+     <li><a href="/java">Java</a></li>
+     <li><a href="/scala">Scala</a></li>
+     <li><a href="/programming">Programming</a></li>
+     <li><a href="/maths">Maths</a></li>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#scala">Scala</a></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="scala">Scala<a href="#scala" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Scala je programski jezik visokog nivoa.
+    <br>
+    Ime je dobila iz opisnog izraza "SCAlable LAnguage". Ubrzo ćemo vidjeti i zašto! :D</p>
+   <p>Objedinjuje koncepte iz <strong>objektno orijentisanog programiranja</strong> (OOP) i <strong>funkcionalnog programiranja</strong> (FP).
+    <br>
+    Pošto na raspolaganju imamo cijelu lepezu mogućnosti, treba znati pametno odabrati pravi skup "alata" za dati problem koji rješavamo.</p>
+   <p>Primarna platforma na kojoj se izvršava je <strong>Java Virtuelna Mašina</strong> (JVM), pa se mogu koristiti svi library iz Jave.</p>
+   <p>Scala ima <strong>statičke tipove</strong>, kao npr. C# ili Java, ali ima podršku čak i za dinamičke (Javascript, Ruby) i strukturalne tipove (kao Typescript)! Ovako je npr. podržana interoperabilnost sa Javascriptom, pogledajte ScalaJS projekat.</p>
+   <p>Ima vrlo <strong>fleksibilnu i lijepu sintaksu</strong>, pa je pogodna i za pisanje <strong>DSL</strong>-ova (Domain-Specific Language).</p>
+   <p>Postoje brojni library i frameworci za <strong>konkurentno i distribuirano programiranje</strong>.
+    <br>
+    Neki od tih su <code>Future</code> (u standardnoj library), Akka <code>Actor</code>s, Apache Spark, Kafka i dr.</p>
+   <p>Lista tutorijala:</p>
+   <ul>
+    <li><a href="/scala/basics.html">Osnove</a></li>
+   </ul>
+   <aside>
     <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
+     <ul>
+      <li><a href="/scala/basics.html">Uvod u Scalu</a></li>
+     </ul>
     </nav>
-</header>
-    
-<main class="pico container">
-        <h1 id="scala">Scala</h1>
-<p>Scala je programski jezik visokog nivoa.<br />
-Ime je dobila iz opisnog izraza &quot;SCAlable LAnguage&quot;. Ubrzo ćemo vidjeti i zašto! :D</p>
-<p>Objedinjuje koncepte iz <strong>objektno orijentisanog programiranja</strong> (OOP) i
-<strong>funkcionalnog programiranja</strong> (FP).<br />
-Pošto na raspolaganju imamo cijelu lepezu mogućnosti,
-treba znati pametno odabrati pravi skup &quot;alata&quot; za dati problem koji rješavamo.</p>
-<p>Primarna platforma na kojoj se izvršava je <strong>Java Virtuelna Mašina</strong> (JVM),
-pa se mogu koristiti svi library iz Jave.</p>
-<p>Scala ima <strong>statičke tipove</strong>, kao npr. C# ili Java,
-ali ima podršku čak i za dinamičke (Javascript, Ruby) i strukturalne tipove (kao Typescript)!
-Ovako je npr. podržana interoperabilnost sa Javascriptom, pogledajte ScalaJS projekat.</p>
-<p>Ima vrlo <strong>fleksibilnu i lijepu sintaksu</strong>, pa je pogodna i za pisanje <strong>DSL</strong>-ova (Domain-Specific Language).</p>
-<p>Postoje brojni library i frameworci za <strong>konkurentno i distribuirano programiranje</strong>.<br />
-Neki od tih su <code>Future</code> (u standardnoj library), Akka <code>Actor</code>s, Apache Spark, Kafka i dr.</p>
-<p>Lista tutorijala:</p>
-<ul>
-<li><a href="/scala/basics.html">Osnove</a></li>
-</ul>
-
-        
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+    <div>
+     <a href="#" disabled role="button">Prev</a> <span role="button" class="outline" disabled>1</span> <a href="#" disabled role="button">Next</a>
+    </div>
+   </aside>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

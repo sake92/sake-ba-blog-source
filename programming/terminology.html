@@ -1,72 +1,94 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Untitled | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="programerska-terminologija">Programerska Terminologija</h1>
-<h2 id="deklaracija">deklaracija</h2>
-<p>Za liniju <code>int i;</code> kažemo da je <strong>deklaracija</strong> varijable <code>i</code>.<br />
-Njome uvodimo novo ime u našem programu, u ovom slučaju <em>varijablu</em>.<br />
-U suštini, samo kažemo da <strong>postoji</strong> ta varijabla.<br />
-Može se deklarisati i metoda, klasa, interfejs i sl.</p>
-<h2 id="definicija">definicija</h2>
-<p>Linija <code>i = 5;</code> je <strong>definicija</strong> varijable <code>i</code>.<br />
-Ovdje navodimo <strong>šta ustvari jeste</strong> ta varijabla (ili metoda, klasa, štagod).</p>
-<h2 id="izraz-expression">izraz (expression)</h2>
-<p>Izraz je nešto što ima <strong>vrijednost</strong>. Bio to broj, string ili neki objekat.<br />
-Npr. <code>2 + 2</code> je izraz. Poziv metode koja vraća vrijednost je izraz, npr. <code>obj.getString()</code>.<br />
-Naravno, svaki izraz možemo dodijeliti nekoj varijabli i sl.</p>
-<h2 id="izjava-statement">izjava (statement)</h2>
-<p>Za razliku od izraza, izjave <strong>nemaju vrijednost</strong> (ili imaju beskorisnu vrijednost, npr. <code>Unit</code> u Scali).<br />
-Npr. za <code>i = 5;</code> i <code>System.out.println(i);</code> kažemo da su <strong>izjave</strong>.<br />
-Neke izjave koriste sintaksu <em>ugrađenu u sami jezik</em>, npr. dodjela vrijednosti (znak jednako: <code>=</code>).<br />
-Ostale naredbe obično imaju naziv u <em>imperativnom</em> obliku: &quot;print&quot;, &quot;calculate&quot;, &quot;uradiOvo&quot;...<br />
-Zato se za Javu i slične jezike kaže da su <strong>imperativni</strong> jezici (jer preferiraju ovaj stil programiranja).</p>
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Untitled | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#programerska-terminologija">Programerska Terminologija</a>
+         <ul>
+          <li><a href="#deklaracija">deklaracija</a></li>
+          <li><a href="#definicija">definicija</a></li>
+          <li><a href="#izraz-expression">izraz (expression)</a></li>
+          <li><a href="#izjava-statement">izjava (statement)</a></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="programerska-terminologija">Programerska Terminologija<a href="#programerska-terminologija" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <h2 id="deklaracija">deklaracija<a href="#deklaracija" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Za liniju <code>int i;</code> kažemo da je <strong>deklaracija</strong> varijable <code>i</code>.
+    <br>
+    Njome uvodimo novo ime u našem programu, u ovom slučaju <em>varijablu</em>.
+    <br>
+    U suštini, samo kažemo da <strong>postoji</strong> ta varijabla.
+    <br>
+    Može se deklarisati i metoda, klasa, interfejs i sl.</p>
+   <h2 id="definicija">definicija<a href="#definicija" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Linija <code>i = 5;</code> je <strong>definicija</strong> varijable <code>i</code>.
+    <br>
+    Ovdje navodimo <strong>šta ustvari jeste</strong> ta varijabla (ili metoda, klasa, štagod).</p>
+   <h2 id="izraz-expression">izraz (expression)<a href="#izraz-expression" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Izraz je nešto što ima <strong>vrijednost</strong>. Bio to broj, string ili neki objekat.
+    <br>
+    Npr. <code>2 + 2</code> je izraz. Poziv metode koja vraća vrijednost je izraz, npr. <code>obj.getString()</code>.
+    <br>
+    Naravno, svaki izraz možemo dodijeliti nekoj varijabli i sl.</p>
+   <h2 id="izjava-statement">izjava (statement)<a href="#izjava-statement" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Za razliku od izraza, izjave <strong>nemaju vrijednost</strong> (ili imaju beskorisnu vrijednost, npr. <code>Unit</code> u Scali).
+    <br>
+    Npr. za <code>i = 5;</code> i <code>System.out.println(i);</code> kažemo da su <strong>izjave</strong>.
+    <br>
+    Neke izjave koriste sintaksu <em>ugrađenu u sami jezik</em>, npr. dodjela vrijednosti (znak jednako: <code>=</code>).
+    <br>
+    Ostale naredbe obično imaju naziv u <em>imperativnom</em> obliku: "print", "calculate", "uradiOvo"...
+    <br>
+    Zato se za Javu i slične jezike kaže da su <strong>imperativni</strong> jezici (jer preferiraju ovaj stil programiranja).</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

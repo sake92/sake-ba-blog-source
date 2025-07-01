@@ -1,65 +1,77 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Nizovi | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="nizovi">Nizovi</h1>
-<p>Kada trebamo zapamtiti više vrijednosti <em>istog tipa</em>,
-to radimo pomoću <strong>niza</strong> (en. array).<br />
-Tip niza se piše kao <code>tip[]</code>.
-Ovo &quot;tip&quot; može biti <code>int</code>, <code>String</code> ili bilo šta drugo.
-Uglate zagrade kažu da se radi o nizu, a ne &quot;običnom&quot; tipu.</p>
-<p>Kada kreiramo niz, kažemo <code>new tip[velicina]</code>,
-gdje je <code>velicina</code> neki broj, mora biti <code>int</code>.
-Dužina niza je fiksna, ne može se promijeniti!</p>
-<p>Kada pristupamo elementu niza, to radimo preko indeksa, tj. rednog broja u nizu.<br />
-Prvi element ima indeks <code>0</code>, drugi ima indeks <code>1</code> itd.<br />
-Npr. da bi izmijenili prvi element pišemo <code>niz[0] = 9;</code>.<br />
-Ovdje nam odmah naumpadaju petlje koje smo naučili,
-<code>while</code> i <code>for</code> koje su vrlo korisne pri radu s nizovima.</p>
-<p>Ako želimo npr. spremiti ocjene studenta, za to možemo koristiti niz.<br />
-Recimo da student ima 12 predmeta.</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">int</span>[] ocjene; <span class="hljs-comment">// nije još inicijaliziran, ne bi ga trebali koristiti!</span>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Nizovi | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#nizovi">Nizovi</a>
+         <ul>
+          <li><a href="#višedimenzionalni-nizovi">Višedimenzionalni nizovi</a></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="nizovi">Nizovi<a href="#nizovi" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Kada trebamo zapamtiti više vrijednosti <em>istog tipa</em>, to radimo pomoću <strong>niza</strong> (en. array).
+    <br>
+    Tip niza se piše kao <code>tip[]</code>. Ovo "tip" može biti <code>int</code>, <code>String</code> ili bilo šta drugo. Uglate zagrade kažu da se radi o nizu, a ne "običnom" tipu.</p>
+   <p>Kada kreiramo niz, kažemo <code>new tip[velicina]</code>, gdje je <code>velicina</code> neki broj, mora biti <code>int</code>. Dužina niza je fiksna, ne može se promijeniti!</p>
+   <p>Kada pristupamo elementu niza, to radimo preko indeksa, tj. rednog broja u nizu.
+    <br>
+    Prvi element ima indeks <code>0</code>, drugi ima indeks <code>1</code> itd.
+    <br>
+    Npr. da bi izmijenili prvi element pišemo <code>niz[0] = 9;</code>.
+    <br>
+    Ovdje nam odmah naumpadaju petlje koje smo naučili, <code>while</code> i <code>for</code> koje su vrlo korisne pri radu s nizovima.</p>
+   <p>Ako želimo npr. spremiti ocjene studenta, za to možemo koristiti niz.
+    <br>
+    Recimo da student ima 12 predmeta.</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">int</span>[] ocjene; <span class="hljs-comment">// nije još inicijaliziran, ne bi ga trebali koristiti!</span>
 ocjene = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">12</span>]; <span class="hljs-comment">// niz od 12 nula (po defaultu se popuni nulama)</span>
 
 ocjene[<span class="hljs-number">0</span>] = <span class="hljs-number">9</span>;
@@ -68,27 +80,36 @@ ocjene[<span class="hljs-number">0</span>] = <span class="hljs-number">9</span>;
     System.out.println(ocjene[i]);
 }
 </code></pre>
-<p>Vidimo da se <code>12</code> ponavlja na 2 mjesta, i označava istu stvar, dužinu niza.<br />
-Naravno, to nije dobra praksa, jer ako trebamo promijeniti dužinu niza,
-to moramo odraditi na više mjesta.<br />
-Možemo napraviti novu varijablu u koju ćemo spremiti dužinu niza.<br />
-Npr. <code>int BR_OCJENA = 12;</code> i onda koristiti nju umjesto literala <code>12</code>.<br />
-Ovako je kod puno fleksibilniji.</p>
-<p>Međutim, ne znamo uvijek dužinu niza unaprijed.
-Šta ako pravimo funkciju koja prima niz?<br />
-Da proslijedimo uvijek i dužinu niza? To bi bilo vrlo nečitljivo i dosadno.<br />
-Srećom, nizovi u Javi imaju polje (en. property) koje sadrži dužinu niza i zove se <code>length</code>.<br />
-Kada kažemo <code>ocjene.length</code> dobićemo dužinu niza. :)<br />
-Tako da smo u primjeru mogli/trebali napisati <code>for(int i = 0; i &lt; ocjene.length; i++)</code>.</p>
-<hr />
-<p>Postoji još jedan zgodan način za inicijalizaciju niza.<br />
-Ako znamo unaprijed šta niz sadrži, možemo odmah dodijeliti te vrijednosti nizu.<br />
-Pritome ne moramo ni navoditi dužinu niza, jer će nam kompajler pomoći.</p>
-<p>Kad smo već kod &quot;zgoda&quot;, imamo i tzv. &quot;poboljšanu for petlju&quot; (en. enhanced for loop).
-Zove se još i &quot;for-each&quot; petlja.<br />
-Ona se koristi kada želimo da prođemo kroz sve elemente niza.<br />
-Ako nam treba i indeks onda moramo koristiti običnu for petlju...</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-comment">// array literal</span>
+   <p>Vidimo da se <code>12</code> ponavlja na 2 mjesta, i označava istu stvar, dužinu niza.
+    <br>
+    Naravno, to nije dobra praksa, jer ako trebamo promijeniti dužinu niza, to moramo odraditi na više mjesta.
+    <br>
+    Možemo napraviti novu varijablu u koju ćemo spremiti dužinu niza.
+    <br>
+    Npr. <code>int BR_OCJENA = 12;</code> i onda koristiti nju umjesto literala <code>12</code>.
+    <br>
+    Ovako je kod puno fleksibilniji.</p>
+   <p>Međutim, ne znamo uvijek dužinu niza unaprijed. Šta ako pravimo funkciju koja prima niz?
+    <br>
+    Da proslijedimo uvijek i dužinu niza? To bi bilo vrlo nečitljivo i dosadno.
+    <br>
+    Srećom, nizovi u Javi imaju polje (en. property) koje sadrži dužinu niza i zove se <code>length</code>.
+    <br>
+    Kada kažemo <code>ocjene.length</code> dobićemo dužinu niza. :)
+    <br>
+    Tako da smo u primjeru mogli/trebali napisati <code>for(int i = 0; i &lt; ocjene.length; i++)</code>.</p>
+   <hr>
+   <p>Postoji još jedan zgodan način za inicijalizaciju niza.
+    <br>
+    Ako znamo unaprijed šta niz sadrži, možemo odmah dodijeliti te vrijednosti nizu.
+    <br>
+    Pritome ne moramo ni navoditi dužinu niza, jer će nam kompajler pomoći.</p>
+   <p>Kad smo već kod "zgoda", imamo i tzv. "poboljšanu for petlju" (en. enhanced for loop). Zove se još i "for-each" petlja.
+    <br>
+    Ona se koristi kada želimo da prođemo kroz sve elemente niza.
+    <br>
+    Ako nam treba i indeks onda moramo koristiti običnu for petlju...</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-comment">// array literal</span>
 String[] gradovi = { <span class="hljs-string">"Sarajevo"</span>, <span class="hljs-string">"Tuzla"</span>, <span class="hljs-string">"Mostar"</span> };
 
 <span class="hljs-comment">// enhanced for loop</span>
@@ -96,18 +117,17 @@ String[] gradovi = { <span class="hljs-string">"Sarajevo"</span>, <span class="h
     System.out.println(grad);
 }
 </code></pre>
-<h2 id="višedimenzionalni-nizovi">Višedimenzionalni nizovi</h2>
-<p>Možemo imati i <em>niz nizova</em>, <em>niz nizova nizova</em> itd.
-Ne postoji ograničenje na dubinu u koju idemo.
-Nizovi sa 2 ili više dimenzija nazivaju se &quot;višedimenzionalni&quot; (en. multidimensional).</p>
-<p>Dvodimenzionalni nizovi se zovu još i &quot;matrice&quot; (en. matrix).<br />
-Matrice se često koriste u igricama i matematičkim programima.<br />
-Npr. kad trebamo predstaviti stanje šahovske ploče i sl. to možemo uraditi sa matricom.<br />
-Ugniježdeni nizovi ne moraju imati istu dužinu.</p>
-<p>Recimo da imamo zgradu sa različitim brojem stanova po spratu.
-Svaki red predstavlja jedan sprat, i u svakom spratu imamo br. stanara za svaki stan.
-Trebamo ispisati koliko koji sprat ima ukupno stanara:</p>
-<pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">int</span>[][] brStanaraPoStanovima = { 
+   <h2 id="višedimenzionalni-nizovi">Višedimenzionalni nizovi<a href="#višedimenzionalni-nizovi" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Možemo imati i <em>niz nizova</em>, <em>niz nizova nizova</em> itd. Ne postoji ograničenje na dubinu u koju idemo. Nizovi sa 2 ili više dimenzija nazivaju se "višedimenzionalni" (en. multidimensional).</p>
+   <p>Dvodimenzionalni nizovi se zovu još i "matrice" (en. matrix).
+    <br>
+    Matrice se često koriste u igricama i matematičkim programima.
+    <br>
+    Npr. kad trebamo predstaviti stanje šahovske ploče i sl. to možemo uraditi sa matricom.
+    <br>
+    Ugniježdeni nizovi ne moraju imati istu dužinu.</p>
+   <p>Recimo da imamo zgradu sa različitim brojem stanova po spratu. Svaki red predstavlja jedan sprat, i u svakom spratu imamo br. stanara za svaki stan. Trebamo ispisati koliko koji sprat ima ukupno stanara:</p>
+   <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-type">int</span>[][] brStanaraPoStanovima = { 
     { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> }, <span class="hljs-comment">// prvi sprat</span>
     { <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span> }     <span class="hljs-comment">// drugi sprat</span>
 };
@@ -120,14 +140,11 @@ Trebamo ispisati koliko koji sprat ima ukupno stanara:</p>
     System.out.println(<span class="hljs-string">"Br. stanara sprata "</span> + i + <span class="hljs-string">" je: "</span> + brStanaraSprata);
 }
 </code></pre>
-<p>Rezultat:</p>
-<pre><code class="language-sh hljs language-bash" data-highlighted="yes">Br. stanara sprata 0 je: 10
+   <p>Rezultat:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes">Br. stanara sprata 0 je: 10
 Br. stanara sprata 1 je: 13
-</code></pre></main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+</code></pre>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

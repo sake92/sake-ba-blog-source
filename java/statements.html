@@ -1,66 +1,76 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Naredbe | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="naredbe">Naredbe</h1>
-<p>Naredbe (en. statements) su kao rečenice u govornom jeziku,
-i obično su u imperativnom obliku, kao da se obraćamo kompjuteru:
-uradi ovo, izbriši ono, upiši u fajl itd.<br />
-Deklaracije varijabli su naredbe, npr. <code>int i = 5;</code>, može se čitati kao<br />
-&quot;napravi varijablu s imenom 'i' i dodijeli joj vrijednost 5! ODMAH!&quot;.<br />
-Iako još nismo objasnili funkcije, neke od njih su također naredbe, npr:</p>
-<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(<span class="hljs-string">"Hello!"</span>)</span>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Naredbe | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#naredbe">Naredbe</a></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="naredbe">Naredbe<a href="#naredbe" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Naredbe (en. statements) su kao rečenice u govornom jeziku, i obično su u imperativnom obliku, kao da se obraćamo kompjuteru: uradi ovo, izbriši ono, upiši u fajl itd.
+    <br>
+    Deklaracije varijabli su naredbe, npr. <code>int i = 5;</code>, može se čitati kao
+    <br>
+    "napravi varijablu s imenom 'i' i dodijeli joj vrijednost 5! ODMAH!".
+    <br>
+    Iako još nismo objasnili funkcije, neke od njih su također naredbe, npr:</p>
+   <pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(<span class="hljs-string">"Hello!"</span>)</span>
 Hello!
 </code></pre>
-<p>Vrlo duga naredba <code>System.out.println</code> je funkcija za printanje u konzolu.<br />
-Do sada je JShell to automatski radio za nas, ispisivao vrijednost zadnjeg izraza,
-u svom nekom predefinisanom formatu...
-Ovako mi možemo ispisati šta god želimo. Primijetite da ispisani <code>String</code> nema navodnika!<br />
-Navodnici se samo <strong>koriste za pisanje stringova</strong>!!! Nisu uključeni u samu vrijednost stringa.
-Isto je i sa karakterima.</p>
-<p>Da vidimo još par primjera:</p>
-<pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(<span class="hljs-string">"x je "</span> + 5);</span>
+   <p>Vrlo duga naredba <code>System.out.println</code> je funkcija za printanje u konzolu.
+    <br>
+    Do sada je JShell to automatski radio za nas, ispisivao vrijednost zadnjeg izraza, u svom nekom predefinisanom formatu... Ovako mi možemo ispisati šta god želimo. Primijetite da ispisani <code>String</code> nema navodnika!
+    <br>
+    Navodnici se samo <strong>koriste za pisanje stringova</strong>!!! Nisu uključeni u samu vrijednost stringa. Isto je i sa karakterima.</p>
+   <p>Da vidimo još par primjera:</p>
+   <pre><code class="language-shell hljs" data-highlighted="yes"><span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(<span class="hljs-string">"x je "</span> + 5);</span>
 x je 5
 <span class="hljs-meta prompt_">
 jshell&gt; </span><span class="language-bash">String rezultat = <span class="hljs-string">"x je "</span> + 5;</span>
@@ -68,13 +78,10 @@ rezultat ==&gt; "x je 5"
 <span class="hljs-meta prompt_">jshell&gt; </span><span class="language-bash">System.out.println(rezultat);</span>
 x je 5
 </code></pre>
-<p>Dakle, možemo proslijediti string direktno, ili varijablu koja je string, svejedno. 🙂<br />
-Kraj naredbe se označava s <code>;</code> (tačkazarez, en. semicolon).</p>
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+   <p>Dakle, možemo proslijediti string direktno, ili varijablu koja je string, svejedno. 🙂
+    <br>
+    Kraj naredbe se označava s <code>;</code> (tačkazarez, en. semicolon).</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>

@@ -1,78 +1,94 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="">
-    <title>    Paradigme programiranja | blog.sake.ba</title>
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-    <link rel="stylesheet" href="/styles/default.css">
-</head>
-<body>
-
-
-<header class="pico container">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-                                            <li><a href="/flowrun">FlowRun</a></li>
-                                                            <li><a href="/java">Java</a></li>
-                                                            <li><a href="/scala">Scala</a></li>
-                                                            <li><a href="/programming">Programming</a></li>
-                                                            <li><a href="/maths">Maths</a></li>
-                                    
-                            <li>
-                    <details class="dropdown">
-                    <summary>
-                        Bosanski                    </summary>
-                    <ul dir="rtl">
-                                                                                                                                        <li><a href="/en">English</a></li>
-                                                                        </ul>
-                  </details>
-                </li>
-                    </ul>
-    </nav>
-</header>
-    
-<main class="pico container">
-    <h1 id="paradigme-programiranja">Paradigme programiranja</h1>
-<p>Jedan od značajnijih problema koje p.j. pokušavaju riješiti je <strong>kompleksnost</strong>.<br />
-Kako programi postaju veći, to su komplikovaniji za razumjeti.<br />
-Zato danas imamo nekoliko paradigmi (pristupa, načina) za razvijanje programa, od kojih su najpoznatije:</p>
-<ul>
-<li><strong>proceduralno</strong></li>
-<li><strong>funkcionalno</strong> - FP</li>
-<li><strong>objektno orijentisano</strong> - OOP</li>
-</ul>
-<p>Dosta jezika danas je miks dvije ili više ovih paradigmi.<br />
-Ove paradigme <em>usmjeravaju naš način razmišljanja</em> o problemima po svom nekom šablonu/fazonu.</p>
-<p>Npr. kod proceduralnog/imperativnog načina razmišljanja <strong>mijenjamo varijable</strong> &quot;u mjestu&quot;.<br />
-Ovdje moramo pamtiti/zamisliti koja je vrijednost neke varijable <em>u datom trenutku</em>, što je većini ljudi izazovan zadatak.</p>
-<p>Kod FP/matematičkog načina razmišljanja pravimo <strong>nove varijable</strong> a stare ne diramo!
-To nam pomaže kod razumijevanja određenog dijela koda, ne moramo pamtiti u glavi stanje &quot;cijelog svijeta&quot;
-i na šta utiče promjena date varijable.</p>
-<p>OOP objedinjuje podatke sa funkcijama(metodama) koje rade sa tim podacima.<br />
-Taj objedinjeni koncept naziva se objekat.<br />
-OOP nam pomaže i da <em>sakrijemo neke podatke i funkcije</em> za koje korisnici(drugi dijelovi koda) ne moraju znati.<br />
-Ovdje veliku ulogu ima kompajler koji nas ograničava i usmjerava nas u tim slučajevima.</p>
-<h2 id="oop">OOP</h2>
-<p>Ovo što smo do sada radili u <a href="/java">Javi</a> je proceduralno programiranje.<br />
-Koristili smo procedure/funkcije i mijenjali varijable u mjestu.<br />
-Klase smo koristili da kreiramo objekte koji sadrže <em>samo podatke</em>.</p>
-<p>U OOP klase ćemo koristiti na malo fleksibilniji način.</p>
-</main>
-
-
-<footer class="pico container">
-    blog.sake.ba    </footer>
-
-</body>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="">
+  <title> Paradigme programiranja | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li>
+      <details class="dropdown">
+       <summary> Bosanski </summary>
+       <ul dir="rtl">
+        <li><a href="/en">English</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#paradigme-programiranja">Paradigme programiranja</a>
+         <ul>
+          <li><a href="#oop">OOP</a></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="paradigme-programiranja">Paradigme programiranja<a href="#paradigme-programiranja" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>Jedan od značajnijih problema koje p.j. pokušavaju riješiti je <strong>kompleksnost</strong>.
+    <br>
+    Kako programi postaju veći, to su komplikovaniji za razumjeti.
+    <br>
+    Zato danas imamo nekoliko paradigmi (pristupa, načina) za razvijanje programa, od kojih su najpoznatije:</p>
+   <ul>
+    <li><strong>proceduralno</strong></li>
+    <li><strong>funkcionalno</strong> - FP</li>
+    <li><strong>objektno orijentisano</strong> - OOP</li>
+   </ul>
+   <p>Dosta jezika danas je miks dvije ili više ovih paradigmi.
+    <br>
+    Ove paradigme <em>usmjeravaju naš način razmišljanja</em> o problemima po svom nekom šablonu/fazonu.</p>
+   <p>Npr. kod proceduralnog/imperativnog načina razmišljanja <strong>mijenjamo varijable</strong> "u mjestu".
+    <br>
+    Ovdje moramo pamtiti/zamisliti koja je vrijednost neke varijable <em>u datom trenutku</em>, što je većini ljudi izazovan zadatak.</p>
+   <p>Kod FP/matematičkog načina razmišljanja pravimo <strong>nove varijable</strong> a stare ne diramo! To nam pomaže kod razumijevanja određenog dijela koda, ne moramo pamtiti u glavi stanje "cijelog svijeta" i na šta utiče promjena date varijable.</p>
+   <p>OOP objedinjuje podatke sa funkcijama(metodama) koje rade sa tim podacima.
+    <br>
+    Taj objedinjeni koncept naziva se objekat.
+    <br>
+    OOP nam pomaže i da <em>sakrijemo neke podatke i funkcije</em> za koje korisnici(drugi dijelovi koda) ne moraju znati.
+    <br>
+    Ovdje veliku ulogu ima kompajler koji nas ograničava i usmjerava nas u tim slučajevima.</p>
+   <h2 id="oop">OOP<a href="#oop" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Ovo što smo do sada radili u <a href="/java">Javi</a> je proceduralno programiranje.
+    <br>
+    Koristili smo procedure/funkcije i mijenjali varijable u mjestu.
+    <br>
+    Klase smo koristili da kreiramo objekte koji sadrže <em>samo podatke</em>.</p>
+   <p>U OOP klase ćemo koristiti na malo fleksibilniji način.</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
 </html>
