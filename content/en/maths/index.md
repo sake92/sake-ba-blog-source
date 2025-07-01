@@ -1,7 +1,7 @@
 ---
 title: Maths
-theme_props:
-  pagination_disabled: true
+pagination:
+  enabled: false
 ---
 
 # Maths

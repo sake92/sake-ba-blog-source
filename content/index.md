@@ -3,8 +3,8 @@ title: Početna stranica
 description: >
     blog.sake.ba je blog fizičke osobe pod imenom Sakib Hadžiavdić.
     Tutorijali iz programiranja, java, scala, matematika i slično.
-theme_props:
-  pagination_disabled: true
+pagination:
+  enabled: false
 ---
 
 

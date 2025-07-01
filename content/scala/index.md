@@ -1,8 +1,8 @@
 ---
 title: Scala
 publish_date: 2018-04-23 00:00
-theme_props:
-  pagination_disabled: true
+pagination:
+  enabled: false
 ---
 
 # Scala

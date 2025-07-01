@@ -1,8 +1,8 @@
 ---
 title: Java
 publish_date: 2017-07-01 00:00
-theme_props:
-  pagination_disabled: true
+pagination:
+  enabled: false
 ---
 
 # Java

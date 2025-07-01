@@ -1,8 +1,8 @@
 ---
 title: Programiranje
 description: Programiranje
-theme_props:
-  pagination_disabled: true
+pagination:
+  enabled: false
 ---
 
 # Programiranje
