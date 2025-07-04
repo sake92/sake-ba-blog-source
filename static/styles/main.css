@@ -7,5 +7,7 @@
 }
 
 .flowrun-instance {
-    height: calc(100vh - 10rem);
+    /*height: calc(100vh - 10rem);*/
+    height: 90vh;
+    margin-bottom: 2rem;
 }
