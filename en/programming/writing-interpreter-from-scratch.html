@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Writing an Interpreter From Scratch in Scala 3">
+  <title> Writing an Interpreter From Scratch | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+  <link rel="canonical" href="https://www.toptal.com/scala/writing-an-interpreter">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/en">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li><a href="/en/flowrun">FlowRun</a></li>
+     <li><a href="/en/java">Java</a></li>
+     <li><a href="/en/scala">Scala</a></li>
+     <li><a href="/en/programming">Programming</a></li>
+     <li><a href="/en/maths">Maths</a></li>
+     <li>
+      <details class="dropdown">
+       <summary> English </summary>
+       <ul dir="rtl">
+        <li><a href="/">Bosanski</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#writing-an-interpreter-from-scratch">Writing an Interpreter From Scratch</a>
+         <ul>
+          <li><a href="#part--1-writing-a-lexer">Part 1: Writing a Lexer</a></li>
+          <li><a href="#part-2-writing-a-parser">Part 2: Writing a Parser</a>
+           <ul>
+            <li><a href="#grammar-ambiguity">Grammar Ambiguity</a></li>
+            <li><a href="#left-recursive-rules">Left-recursive Rules</a></li>
+            <li><a href="#generating-an-ast">Generating an AST</a></li>
+            <li><a href="#simplifying-rules">Simplifying Rules</a></li>
+           </ul></li>
+          <li><a href="#part-3-interpreter">Part 3: Interpreter</a>
+           <ul>
+            <li><a href="#precedence">Precedence</a></li>
+            <li><a href="#final-grammar-version">Final Grammar Version</a></li>
+           </ul></li>
+          <li><a href="#regexes">Regexes</a></li>
+          <li><a href="#conclusion">Conclusion</a></li>
+          <li><a href="#next-steps">Next Steps</a></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <blockquote>
+    <p>This article was originally <a href="https://www.toptal.com/scala/writing-an-interpreter">published on Toptal</a>. I am sincerely grateful for the opportunity!</p>
+   </blockquote>
+   <h1 id="writing-an-interpreter-from-scratch">Writing an Interpreter From Scratch<a href="#writing-an-interpreter-from-scratch" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>How source code becomes a running program is a mistery for lots of people.
+    <br>
+    "The compiler does it", yes, but how exactly? Where do we even start?</p>
+   <p>"Everything boils down to ones and zeros".. yes, but how does the source text of a program get become those bits?</p>
+   <p>Compilers and interpreters both take raw text, parse it, and make sense of it.
+    <br>
+    A compiler usually takes raw text and makes an output file (an executable usually).
+    <br>
+    An interpreter doesn't generate any file, it just "interprets" the source code text, evaluates it immediatelly.</p>
+   <p>Interpreters are a bit simpler, so we will write a very basic interpreter.
+    <br>
+    It will only do addition and multiplication, but you will learn a lot, don't worry!</p>
+   <hr>
+   <p>An interpreter is a complex program, so it is usually split into multiple stages:</p>
+   <ol>
+    <li>A <em>lexer</em> is the part that turns a sequence of characters (plain text) into a sequence of <strong>tokens</strong>.</li>
+    <li>A <em>parser</em> takes that sequence of tokens and produces an <strong>abstract syntax tree (AST)</strong> of a language.
+     <br>
+     The rules by which a parser operates are usually specified by a <strong>formal grammar</strong>.</li>
+    <li>An <em>interpreter</em> is then <strong>interprets the AST</strong> of the program.</li>
+   </ol>
+   <p>The user code will look something like this:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">val</span> input = <span class="hljs-string">"2 * 7 + 5"</span>
+<span class="hljs-keyword">val</span> tokens = <span class="hljs-type">Lexer</span>(input).lex()
+<span class="hljs-keyword">val</span> ast = <span class="hljs-type">Parser</span>(tokens).parse()
+<span class="hljs-keyword">val</span> res = <span class="hljs-type">Interpreter</span>(ast).interpret()
+println(<span class="hljs-string">s"Result is: <span class="hljs-subst">$res</span>"</span>)
+</code></pre>
+   <p>We expect it to calculate a final value and print <code>Result is: 19</code>.</p>
+   <p>The full source code is available at <a href="https://github.com/sake92/writing-an-interpreter/tree/master/scala3">GitHub repo</a>.</p>
+   <h2 id="part--1-writing-a-lexer">Part 1: Writing a Lexer<a href="#part--1-writing-a-lexer" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Let's say we want to lex this <strong>nonsense string</strong>: <code>"123 + 45 true * false1"</code>.
+    <br>
+    We are only interested into collecting all tokens in it, nothing else.
+    <br>
+    It contains different <em>types of tokens</em>:</p>
+   <ul>
+    <li>Integer literals</li>
+    <li>A <code>+</code> operator</li>
+    <li>A <code>*</code> operator</li>
+    <li>A <code>true</code> literal</li>
+    <li>An identifier, <code>false1</code></li>
+   </ul>
+   <p>Whitespace between tokens will be skipped in this example.</p>
+   <p>At <a href="https://github.com/sake92/writing-an-interpreter/tree/master/scala3/src/main/scala/ba/sake/parsing/ex1">this stage</a>, expressions don't have to make sense; the lexer simply converts the input string into a list of tokens.
+    <br>
+    The job of "making sense of tokens" is left for the parser.</p>
+   <p>We'll use this code to represent a token:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Token</span>(<span class="hljs-params">
+  tpe: <span class="hljs-type">Token</span>.<span class="hljs-type">Type</span>,
+  text: <span class="hljs-type">String</span>,
+  startPos: <span class="hljs-type">Int</span>
+</span>)</span>
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Token</span></span>:
+  <span class="hljs-keyword">enum</span> <span class="hljs-type">Type</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Num</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Plus</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Times</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-type">Identifier</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-type">True</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-type">False</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-type">EOF</span>
+</code></pre>
+   <p>Every token has a type, textual representation, and position in the original input.
+    <br>
+    The position helps with debugging. Here it is only index, but usually it contains file name and line number too.</p>
+   <p>The <code>EOF</code> token is a special token that marks the end of input. It doesn't exist in the source text; we only use it to simplify the parser implementation.</p>
+   <p>This will be the output of our lexer:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-type">Lexing</span> input:
+<span class="hljs-number">123</span> + <span class="hljs-number">45</span> <span class="hljs-literal">true</span> * false1
+
+<span class="hljs-type">Tokens</span>:
+<span class="hljs-type">List</span>(
+  <span class="hljs-type">Token</span>(tpe = <span class="hljs-type">Num</span>, text = <span class="hljs-string">"123"</span>, startPos = <span class="hljs-number">0</span>),
+  <span class="hljs-type">Token</span>(tpe = <span class="hljs-type">Plus</span>, text = <span class="hljs-string">"+"</span>, startPos = <span class="hljs-number">4</span>),
+  <span class="hljs-type">Token</span>(tpe = <span class="hljs-type">Num</span>, text = <span class="hljs-string">"45"</span>, startPos = <span class="hljs-number">6</span>),
+  <span class="hljs-type">Token</span>(tpe = <span class="hljs-type">True</span>, text = <span class="hljs-string">"true"</span>, startPos = <span class="hljs-number">9</span>),
+  <span class="hljs-type">Token</span>(tpe = <span class="hljs-type">Times</span>, text = <span class="hljs-string">"*"</span>, startPos = <span class="hljs-number">14</span>),
+  <span class="hljs-type">Token</span>(tpe = <span class="hljs-type">Identifier</span>, text = <span class="hljs-string">"false1"</span>, startPos = <span class="hljs-number">16</span>),
+  <span class="hljs-type">Token</span>(tpe = <span class="hljs-type">EOF</span>, text = <span class="hljs-string">"&lt;EOF&gt;"</span>, startPos = <span class="hljs-number">22</span>)
+)
+</code></pre>
+   <p>Let's examine the implementation:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Lexer</span>(<span class="hljs-params">input: <span class="hljs-type">String</span></span>)</span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lex</span></span>(): <span class="hljs-type">List</span>[<span class="hljs-type">Token</span>] =
+    <span class="hljs-keyword">val</span> tokens = mutable.<span class="hljs-type">ArrayBuffer</span>.empty[<span class="hljs-type">Token</span>]
+    <span class="hljs-keyword">var</span> currentPos = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> currentPos &lt; input.length <span class="hljs-keyword">do</span>
+      <span class="hljs-keyword">val</span> tokenStartPos = currentPos
+      <span class="hljs-keyword">val</span> lookahead = input(currentPos)
+      <span class="hljs-keyword">if</span> lookahead.isWhitespace <span class="hljs-keyword">then</span>
+        currentPos += <span class="hljs-number">1</span> <span class="hljs-comment">// ignore whitespace</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> lookahead == '+' <span class="hljs-keyword">then</span>
+        currentPos += <span class="hljs-number">1</span>
+        tokens += <span class="hljs-type">Token</span>(<span class="hljs-type">Type</span>.<span class="hljs-type">Plus</span>, lookahead.toString, tokenStartPos)
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> lookahead == '*' <span class="hljs-keyword">then</span>
+        currentPos += <span class="hljs-number">1</span>
+        tokens += <span class="hljs-type">Token</span>(<span class="hljs-type">Type</span>.<span class="hljs-type">Times</span>, lookahead.toString, tokenStartPos)
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> lookahead.isDigit <span class="hljs-keyword">then</span>
+        <span class="hljs-keyword">var</span> text = <span class="hljs-string">""</span>
+        <span class="hljs-keyword">while</span> currentPos &lt; input.length &amp;&amp; input(currentPos).isDigit <span class="hljs-keyword">do</span>
+          text += input(currentPos)
+          currentPos += <span class="hljs-number">1</span>
+        tokens += <span class="hljs-type">Token</span>(<span class="hljs-type">Type</span>.<span class="hljs-type">Num</span>, text, tokenStartPos)
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> lookahead.isLetter <span class="hljs-keyword">then</span> <span class="hljs-comment">// first must be letter</span>
+        <span class="hljs-keyword">var</span> text = <span class="hljs-string">""</span>
+        <span class="hljs-keyword">while</span> currentPos &lt; input.length &amp;&amp; input(currentPos).isLetterOrDigit <span class="hljs-keyword">do</span>
+          text += input(currentPos)
+          currentPos += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">val</span> tpe = text <span class="hljs-keyword">match</span>
+          <span class="hljs-keyword">case</span> <span class="hljs-string">"true"</span>  =&gt; <span class="hljs-type">Type</span>.<span class="hljs-type">True</span> <span class="hljs-comment">// special casing literals</span>
+          <span class="hljs-keyword">case</span> <span class="hljs-string">"false"</span> =&gt; <span class="hljs-type">Type</span>.<span class="hljs-type">False</span>
+          <span class="hljs-keyword">case</span> _       =&gt; <span class="hljs-type">Type</span>.<span class="hljs-type">Identifier</span>
+        tokens += <span class="hljs-type">Token</span>(tpe, text, tokenStartPos)
+      <span class="hljs-keyword">else</span>
+        error(<span class="hljs-string">s"Unknown character '<span class="hljs-subst">$lookahead</span>' at position <span class="hljs-subst">$currentPos</span>"</span>)
+
+    tokens += <span class="hljs-type">Token</span>(<span class="hljs-type">Type</span>.<span class="hljs-type">EOF</span>, <span class="hljs-string">"&lt;EOF&gt;"</span>, currentPos) <span class="hljs-comment">// special end marker</span>
+    tokens.toList
+</code></pre>
+   <p>We start with an empty list of tokens, then we go through the string and add tokens as they come.</p>
+   <p>We use the <strong>lookahead character</strong> to <strong>decide the type of the next token</strong>. Note that the lookahead character is not always the furthest character ahead being examined. Based on the lookahead, we know what the token looks like and use <code>currentPos</code> to scan all of the expected characters in the current token, then add the token to the list:</p>
+   <ul>
+    <li>if the lookahead is whitespace, we just skip it</li>
+    <li>single symbol tokens (<code>+</code> and <code>*</code>) are trivial; we add them and increment the index</li>
+    <li>for integers, we only need to take care of the index</li>
+   </ul>
+   <p>Now we get to something a bit complicated: identifiers versus literals.
+    <br>
+    The rule we take here is <strong>the longest possible match</strong>.
+    <br>
+    Then we check if it matches a literal. If it does we accept it and continue.
+    <br>
+    Else it is an identifier.</p>
+   <blockquote>
+    <p>You could choose a different rule instead of greedy "longest match", this is on you to decide.</p>
+   </blockquote>
+   <p>Take care when handling operators like <code>&lt;</code> and <code>&lt;=</code>. There you have to look ahead <em>one more character</em>, and see if it's an equals sign (<code>=</code>) before concluding that it is a <code>&lt;=</code> operator. Otherwise, it's just a <code>&lt;</code>.</p>
+   <p>OK, so our lexer is ready. It has produced a list of tokens.</p>
+   <h2 id="part-2-writing-a-parser">Part 2: Writing a Parser<a href="#part-2-writing-a-parser" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>We have to give some <strong>structure</strong> to our tokens—we can't do much with a list alone.
+    <br>
+    For example, we need to know:</p>
+   <ul>
+    <li>how expressions are nested?</li>
+    <li>how operators are applied, and in which order?</li>
+    <li>which scoping rules apply, if any?</li>
+   </ul>
+   <p>A <strong>tree structure</strong> supports nesting and ordering. But first, we have to define some rules for constructing these trees.
+    <br>
+    We need our parser to be <strong>unambiguous</strong> — to always <em>return the same structure for a given input</em>.
+    <br>
+    For this we need a <strong>formal grammar</strong>, which specifies the rules of our parser.</p>
+   <p>Please note that the following grammar <strong>does not follow the previous lexer example</strong>!
+    <br>
+    This grammar is for adding numbers, it has only two tokens, <code>'+'</code> and <code>NUM</code>:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span> = expr <span class="hljs-string">'+'</span> expr
+expr = NUM
+</code></pre>
+   <p><code>NUM</code> token here means a nonnegative integer, we take it for granted.</p>
+   <blockquote>
+    <p>Tokens are sometimes called "terminals" in literature.
+     <br>
+     The intermediate rules are called "nonterminals" (like "expr" in this example).</p>
+   </blockquote>
+   <p>An equivalent grammar can be written more concise with the pipe symbol (<code>|</code>).
+    <br>
+    You can read it as "OR" (like in regular expressions):</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span> = expr <span class="hljs-string">'+'</span> expr | NUM
+</code></pre>
+   <p>Either way, we have two rules:</p>
+   <ul>
+    <li>we can sum two <code>expr</code>s</li>
+    <li><code>expr</code> can be a <code>NUM</code> token</li>
+   </ul>
+   <p>There are many ways we could implement this parser.
+    <br>
+    We will use a "recursive descent" parsing technique.
+    <br>
+    It's the most common technique because it is simple to understand and implement.</p>
+   <p>A recursive descent parser uses <strong>one function for each nonterminal</strong> in the grammar. It starts from the root rule and goes down from there (hence "descent"), figuring out which rule to apply in each function. The "recursive" part is vital because we can nest nonterminals recursively!</p>
+   <p>A parser for the first rule would look something like this:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">expr</span></span>() = 
+  expr()
+  eat('+')
+  expr()
+</code></pre>
+   <p>The <code>eat()</code> function checks if the lookahead matches the expected token and then moves the lookahead index.</p>
+   <p>Unfortunately, we have a few issues with this grammar.
+    <br>
+    Let's see how to fix them.</p>
+   <h3 id="grammar-ambiguity">Grammar Ambiguity<a href="#grammar-ambiguity" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>The first issue is the ambiguity of our grammar, which may not be apparent at first glance:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span> = expr <span class="hljs-string">'+'</span> expr | NUM
+</code></pre>
+   <p>Given the input <code>1 + 2 + 3</code>, our parser could choose to first make the left <code>expr</code> - or the right <code>expr</code> in the resulting AST:</p>
+   <p><a href="https://bs-uploads.toptal.io/blackfish-uploads/uploaded_file/file/644118/image-1624449957658-a4b3577e3acca3029a982c960f03f27e.png"><img src="https://assets.toptal.io/images?url=https%3A%2F%2Fbs-uploads.toptal.io%2Fblackfish-uploads%2Fuploaded_file%2Ffile%2F644118%2Fimage-1624449957658-a4b3577e3acca3029a982c960f03f27e.png" alt="Two abstract syntax trees. Both start with expr and branch left and right each to another expr, one of which branches straight down to a NUM, and the other of which branches left and right each to another expr that branches down to a NUM. The AST on the left has the larger subtree on its left expr, whereas the AST on the right has the larger subtree on its right expr."></a></p>
+   <p>This is why we need to introduce some <strong>asymmetry</strong>:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span> = expr <span class="hljs-string">'+'</span> NUM | NUM
+</code></pre>
+   <p>Now this grammar is <strong>unambiguous</strong>! The parser always goes left, just what we needed! This makes our <code>+</code> operation <strong>left associative</strong>, but this will become apparent later.</p>
+   <p>Not the <em>set of expressions we can represent</em> with this grammar has not changed!</p>
+   <h3 id="left-recursive-rules">Left-recursive Rules<a href="#left-recursive-rules" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>Unfortunately, the above fix doesn't solve our other problem, <a href="https://en.wikipedia.org/wiki/Left_recursion">left recursion</a>:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">expr</span></span>() =
+  expr()
+  eat('+')
+  eat(<span class="hljs-type">NUM</span>)
+</code></pre>
+   <p>We have <strong>infinite recursion</strong> here. If we were to step into this function, we'd eventually get a stack-overflow error.
+    <br>
+    Parsing theory to the rescue!</p>
+   <p>Suppose we have a grammar like this, where <code>alpha</code> could be any sequence of terminals and nonterminals:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">A</span> = A alpha | B
+</code></pre>
+   <p>We can rewrite this grammar as:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">A</span>   = B A<span class="hljs-string">'
+A'</span>  = alpha A<span class="hljs-string">' | epsilon
+</span></code></pre>
+   <p>There, <code>epsilon</code> is an empty string—nothing, no token.</p>
+   <p>Let's see again our grammar:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span> = expr <span class="hljs-string">'+'</span> NUM | NUM
+</code></pre>
+   <p>Following the method above, with <code>alpha</code> being the <code>'+' NUM</code> tokens, our grammar becomes:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span>    = NUM exprOpt
+exprOpt = <span class="hljs-string">'+'</span> NUM exprOpt | epsilon
+</code></pre>
+   <p>Finally the grammar is OK, and we can parse it with a recursive descent parser!
+    <br>
+    Let's see how it looks like:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parser</span>(<span class="hljs-params">allTokens: <span class="hljs-type">List</span>[<span class="hljs-type">Token</span>]</span>)</span>:
+  <span class="hljs-keyword">import</span> <span class="hljs-type">Token</span>.<span class="hljs-type">Type</span>
+  
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> tokens = allTokens
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> lookahead = tokens.head
+  
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parse</span></span>(): <span class="hljs-type">Unit</span> = 
+    expr()
+    <span class="hljs-keyword">if</span> lookahead.tpe != <span class="hljs-type">Type</span>.<span class="hljs-type">EOF</span> <span class="hljs-keyword">then</span>
+      error(<span class="hljs-string">s"Unknown token '<span class="hljs-subst">${lookahead.text}</span>' at position <span class="hljs-subst">${lookahead.startPos}</span>"</span>)
+
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">expr</span></span>(): <span class="hljs-type">Unit</span> =
+    eat(<span class="hljs-type">Type</span>.<span class="hljs-type">Num</span>)
+    exprOpt()
+  
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exprOpt</span></span>(): <span class="hljs-type">Unit</span> =
+    <span class="hljs-keyword">if</span> lookahead.tpe == <span class="hljs-type">Type</span>.<span class="hljs-type">Plus</span> <span class="hljs-keyword">then</span>
+      eat(<span class="hljs-type">Type</span>.<span class="hljs-type">Plus</span>)
+      eat(<span class="hljs-type">Type</span>.<span class="hljs-type">Num</span>)
+      exprOpt()
+    <span class="hljs-comment">// else: end recursion, epsilon</span>
+  
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eat</span></span>(tpe: <span class="hljs-type">Type</span>): <span class="hljs-type">Unit</span> =
+    <span class="hljs-keyword">if</span> lookahead.tpe != tpe <span class="hljs-keyword">then</span>
+      error(<span class="hljs-string">s"Expected: <span class="hljs-subst">$tpe</span>, got: <span class="hljs-subst">${lookahead.tpe}</span> at position <span class="hljs-subst">${lookahead.startPos}</span>"</span>)
+    tokens = tokens.tail
+    lookahead = tokens.head
+</code></pre>
+   <blockquote>
+    <p>Full code is available (<a href="https://github.com/sake92/writing-an-interpreter/tree/master/scala3/src/main/scala/ba/sake/parsing/ex2">at GitHub repo</a>)</p>
+   </blockquote>
+   <p>The <code>EOF</code> token helps to simplify our parser. We are always sure that there is <strong>at least one token in our list</strong> (even if file/source is empty), so we don't need to handle the special case of an empty list.</p>
+   <p>Also, if we switch to a streaming lexer, we wouldn't have an in-memory list but an iterator, so we need a marker to know when we come to the end of the input. When we consume all the tokens, the <code>EOF</code> token should be the last token remaining.</p>
+   <p>Walking through the code, we can see that an expression can be just a number. If there's nothing left, the next token wouldn't be a <code>Plus</code>, so we would stop parsing. The last token would be <code>EOF</code>, and we would be done.</p>
+   <p>If the input string has more tokens, then these would have to look like <code>+ 123</code>. That's where recursion on <code>exprOpt()</code> kicks in!</p>
+   <h3 id="generating-an-ast">Generating an AST<a href="#generating-an-ast" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>Now that we successfully parsed our expression, it's hard to do anything with it as is. We could put some callbacks in our parser, but that would be very cumbersome and unreadable. Instead, we will return an AST, a tree representing the input expression:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expr</span>(<span class="hljs-params">num: <span class="hljs-type">Int</span>, exprOpt: <span class="hljs-type">ExprOpt</span></span>)</span>
+
+<span class="hljs-keyword">enum</span> <span class="hljs-type">ExprOpt</span>:
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Opt</span>(num: <span class="hljs-type">Int</span>, exprOpt: <span class="hljs-type">ExprOpt</span>)
+  <span class="hljs-keyword">case</span> <span class="hljs-type">Epsilon</span>
+</code></pre>
+   <p>This resembles our rules, using simple data classes.</p>
+   <p>Our parser now returns a useful data structure:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parser</span>(<span class="hljs-params">allTokens: <span class="hljs-type">List</span>[<span class="hljs-type">Token</span>]</span>)</span>:
+  <span class="hljs-keyword">import</span> <span class="hljs-type">Token</span>.<span class="hljs-type">Type</span>
+  
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> tokens = allTokens
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> lookahead = tokens.head
+  
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parse</span></span>(): <span class="hljs-type">Expr</span> = 
+    <span class="hljs-keyword">val</span> res = expr()
+    <span class="hljs-keyword">if</span> lookahead.tpe != <span class="hljs-type">Type</span>.<span class="hljs-type">EOF</span> <span class="hljs-keyword">then</span>
+      error(<span class="hljs-string">s"Unknown token '<span class="hljs-subst">${lookahead.text}</span>' at position <span class="hljs-subst">${lookahead.startPos}</span>"</span>)
+    <span class="hljs-keyword">else</span>
+      res
+
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">expr</span></span>(): <span class="hljs-type">Expr</span> =
+    <span class="hljs-keyword">val</span> num = eat(<span class="hljs-type">Type</span>.<span class="hljs-type">Num</span>)
+    <span class="hljs-type">Expr</span>(num.text.toInt, exprOpt())
+  
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exprOpt</span></span>(): <span class="hljs-type">ExprOpt</span> =
+    <span class="hljs-keyword">if</span> lookahead.tpe == <span class="hljs-type">Type</span>.<span class="hljs-type">Plus</span> <span class="hljs-keyword">then</span>
+      eat(<span class="hljs-type">Type</span>.<span class="hljs-type">Plus</span>)
+      <span class="hljs-keyword">val</span> num = eat(<span class="hljs-type">Type</span>.<span class="hljs-type">Num</span>)
+      <span class="hljs-type">ExprOpt</span>.<span class="hljs-type">Opt</span>(num.text.toInt, exprOpt())
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-type">ExprOpt</span>.<span class="hljs-type">Epsilon</span>
+</code></pre>
+   <p>For <code>eat()</code>, <code>error()</code>, and other implementation details, please see <a href="https://github.com/sake92/writing-an-interpreter/tree/master/scala3/src/main/scala/ba/sake/parsing/ex3">the accompanying GitHub</a> <a href="https://github.com/sake92/writing-an-interpreter/tree/master/scala3/src/main/scala/ba/sake/parsing/ex3">repo</a>.</p>
+   <h3 id="simplifying-rules">Simplifying Rules<a href="#simplifying-rules" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>Our <code>ExprOpt</code> nonterminal can still be improved:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes">'+' NUM exprOpt | epsilon
+</code></pre>
+   <p>It's hard to recognize the pattern it represents in our grammar just by looking at it. It turns out that we can replace this recursion with a simpler construct:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes">('+' NUM)*
+</code></pre>
+   <p>This construct simply means <code>'+' NUM</code> occurs zero or more times.</p>
+   <p>Now our full grammar looks like this:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span>  = NUM exprOpt*
+exprOpt = <span class="hljs-string">'+'</span> NUM
+</code></pre>
+   <p>And our AST looks nicer:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expr</span>(<span class="hljs-params">num: <span class="hljs-type">Int</span>, exprOpts: <span class="hljs-type">Seq</span>[<span class="hljs-type">ExprOpt</span>]</span>)</span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExprOpt</span>(<span class="hljs-params">num: <span class="hljs-type">Int</span></span>)</span>
+</code></pre>
+   <p><a href="https://github.com/sake92/writing-an-interpreter/blob/master/scala3/src/main/scala/ba/sake/parsing/ex3_2/parser.scala">The resulting parser</a> is the same length but simpler to understand and use. We've eliminated <code>Epsilon</code>, which is now implied by starting with an empty list.</p>
+   <p>We didn't even need the <code>ExprOpt</code> class here. We could have just put <code>case class Expr(num: Int, exprOpts: Seq[Int])</code>, or in grammar format, <code>NUM ('+' NUM)*</code>. So why didn't we?</p>
+   <p>Consider a case with multiple operators, like <code>-</code> or <code>*</code>, then we'd have a grammar like this:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span>  = NUM exprOpt*
+exprOpt = [+-*] NUM
+</code></pre>
+   <p>In this case, the AST then needs <code>ExprOpt</code> to specify the operator type:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expr</span>(<span class="hljs-params">num: <span class="hljs-type">Int</span>, exprOpts: <span class="hljs-type">Seq</span>[<span class="hljs-type">ExprOpt</span>]</span>)</span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExprOpt</span>(<span class="hljs-params">op: <span class="hljs-type">String</span>, num: <span class="hljs-type">Int</span></span>)</span>
+</code></pre>
+   <p>Note that the <code>[+-*]</code> syntax in the grammar means the same thing as in regular expressions: "one of those three characters." We'll see this in action soon.</p>
+   <h2 id="part-3-interpreter">Part 3: Interpreter<a href="#part-3-interpreter" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Our interpreter will make use of our lexer and parser to get the AST of our input expression.
+    <br>
+    Then it will evaluate that AST however we want. In this case, we're dealing with numbers, and we want to evaluate their sum.</p>
+   <p>In <a href="https://github.com/sake92/writing-an-interpreter/tree/master/scala3/src/main/scala/ba/sake/parsing/ex4">the implementation</a> of our interpreter example, we will use this simple grammar:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span>  = NUM exprOpt*
+exprOpt = [+-] NUM
+</code></pre>
+   <p>And this AST:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expr</span>(<span class="hljs-params">num: <span class="hljs-type">Int</span>, exprOpts: <span class="hljs-type">Seq</span>[<span class="hljs-type">ExprOpt</span>]</span>)</span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExprOpt</span>(<span class="hljs-params">op: <span class="hljs-type">Token</span>.<span class="hljs-type">Type</span>, num: <span class="hljs-type">Int</span></span>)</span>
+</code></pre>
+   <p>Let's see how to write an interpreter for the above grammar:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Interpreter</span>(<span class="hljs-params">ast: <span class="hljs-type">Expr</span></span>)</span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">interpret</span></span>(): <span class="hljs-type">Int</span> = eval(ast)
+
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eval</span></span>(expr: <span class="hljs-type">Expr</span>): <span class="hljs-type">Int</span> =
+    <span class="hljs-keyword">var</span> tmp = expr.num
+    expr.exprOpts.foreach { exprOpt =&gt;
+      <span class="hljs-keyword">if</span> exprOpt.op == <span class="hljs-type">Token</span>.<span class="hljs-type">Type</span>.<span class="hljs-type">Plus</span>
+      <span class="hljs-keyword">then</span> tmp += exprOpt.num
+      <span class="hljs-keyword">else</span> tmp -= exprOpt.num
+    }
+    tmp
+</code></pre>
+   <p>If we parsed our input into an AST successfully, we'll always have at least one <code>NUM</code>. Then we take the optional numbers and add them to (or subtract them from) our result.</p>
+   <p>The note from the beginning about the left associativity of <code>+</code> is now clear: We start from the leftmost number and add others, from left to right. This may seem unimportant for addition, but consider subtraction: The expression <code>5 - 2 - 1</code> is evaluated as <code>(5 - 2) - 1 = 3 - 1 = 2</code> and not as <code>5 - (2 - 1) = 5 - 1 = 4</code>!</p>
+   <p>But if we want to go beyond interpreting plus and minus operators, there's another rule to define.</p>
+   <h3 id="precedence">Precedence<a href="#precedence" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>We know how to parse a simple expression like <code>1 + 2 + 3</code>, but when it comes to <code>2 + 3 * 4 + 5</code>, we have a bit of a problem.</p>
+   <p>Most people agree on the convention that multiplication has higher precedence than addition. But the parser doesn't know that. We can't just evaluate it as <code>((2 + 3) * 4) + 5</code>. Instead we want <code>(2 + (3 * 4)) + 5</code>.</p>
+   <p>This means that we need to <strong>evaluate multiplication first</strong>. Multiplication needs to be <strong>further from the root of the AST</strong> to force it to be evaluated before addition. For this, we need to introduce yet another layer of indirection.</p>
+   <h3 id="final-grammar-version">Final Grammar Version<a href="#final-grammar-version" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>We start from a naive, left-recursive grammar, which has no precedence rules:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span> = expr <span class="hljs-string">'+'</span> expr | expr <span class="hljs-string">'*'</span> expr | NUM
+</code></pre>
+   <p>First, we give it <strong>rules of precedence</strong> and remove its <strong>ambiguity</strong>:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span>    = expr <span class="hljs-string">'+'</span> term | term
+term    = term <span class="hljs-string">'*'</span> NUM | NUM
+</code></pre>
+   <p>As you can see, we just <em>invented a new nonterminal</em> called "term" here.
+    <br>
+    This is just so we push the multiplication deeper into the tree.</p>
+   <p>Then we remove the <strong>left-recursive rules</strong>:</p>
+   <pre><code class="language-ebnf hljs" data-highlighted="yes"><span class="hljs-attribute">expr</span>      = term exprOpt*
+exprOpt   = <span class="hljs-string">'+'</span> term
+term      = NUM termOpt*
+termOpt   = <span class="hljs-string">'*'</span> NUM
+</code></pre>
+   <p>The result is a beautifully expressive AST:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expr</span>(<span class="hljs-params">term: <span class="hljs-type">Term</span>, exprOpts: <span class="hljs-type">Seq</span>[<span class="hljs-type">ExprOpt</span>]</span>)</span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExprOpt</span>(<span class="hljs-params">term: <span class="hljs-type">Term</span></span>)</span>
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Term</span>(<span class="hljs-params">num: <span class="hljs-type">Int</span>, termOpts: <span class="hljs-type">Seq</span>[<span class="hljs-type">TermOpt</span>]</span>)</span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TermOpt</span>(<span class="hljs-params">num: <span class="hljs-type">Int</span></span>)</span>
+</code></pre>
+   <p>This leaves us with a concise interpreter implementation:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Interpreter</span>(<span class="hljs-params">ast: <span class="hljs-type">Expr</span></span>)</span>:
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">interpret</span></span>(): <span class="hljs-type">Int</span> = eval(ast)
+
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eval</span></span>(expr: <span class="hljs-type">Expr</span>): <span class="hljs-type">Int</span> =
+    <span class="hljs-keyword">var</span> tmp = eval(expr.term)
+    expr.exprOpts.foreach { exprOpt =&gt;
+      tmp += eval(exprOpt.term)
+    }
+    tmp
+
+  <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">eval</span></span>(term: <span class="hljs-type">Term</span>): <span class="hljs-type">Int</span> =
+    <span class="hljs-keyword">var</span> tmp = term.num
+    term.termOpts.foreach { termOpt =&gt;
+      tmp *= termOpt.num
+    }
+    tmp
+</code></pre>
+   <h2 id="regexes">Regexes<a href="#regexes" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>You might ask "What about regexes?", how do they fit in all of this?
+    <br>
+    Turns out they are <strong>not powerful enough to handle <em>recursion</em></strong>, but they can be used for implementing parts of lexer for example. They can't even handle <a href="https://stackoverflow.com/questions/133601/can-regular-expressions-be-used-to-match-nested-patterns">balanced parentheses</a>.</p>
+   <h2 id="conclusion">Conclusion<a href="#conclusion" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Writing a parser correctly by hand can be challenging. That's why there are tools like <a href="https://www.antlr.org/">ANTLR</a>, that can generate parsers for many popular programming languages. These are called <strong>parser generators</strong>.</p>
+   <p>There are also libraries called <strong>parser combinators</strong>, that enable you to write parsers directly in your preferred programming language. Examples include <a href="https://com-lihaoyi.github.io/fastparse/">FastParse</a> for Scala and <a href="https://pythonhosted.org/parsec/">Parsec</a> for Python.</p>
+   <p>In "production code" you should probably start with battle tested generators/combinator.
+    <br>
+    And later maybe reimplement parts of it if performance degrades.</p>
+   <h2 id="next-steps">Next Steps<a href="#next-steps" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>We didn't cover this, but <strong>error handling and reporting</strong> are crucial features of any parser. As developers, we know how frustrating it can be when a compiler produces confusing or misleading errors. It's an area that has many interesting problems to solve, like giving correct and precise error messages, not deterring the user with more messages than necessary, and recovering gracefully from errors. It's up to the developers writing an interpreter or compiler to ensure their future users have a better experience.</p>
+   <p>In our example lexers, parsers, and interpreters, we only scratched the surface of the theories behind compilers and interpreters. Other important topics are:</p>
+   <ul>
+    <li>Scopes and symbol tables</li>
+    <li>Static types</li>
+    <li>Compile-time optimizations</li>
+    <li>Static program analyzers and linters</li>
+    <li>Code formatting and pretty-printing</li>
+    <li>Domain-specific languages</li>
+   </ul>
+   <p>For further reading, I recommend these resources:</p>
+   <ul>
+    <li><a href="https://pragprog.com/titles/tpdsl/language-implementation-patterns/"><em>Language Implementation Patterns</em></a> by Terence Parr</li>
+    <li>A free online book, <a href="https://craftinginterpreters.com/"><em>Crafting Interpreters</em></a><em>,</em> by Bob Nystrom</li>
+    <li><a href="https://homepages.cwi.nl/~storm/teaching/sc1112/intro-parsing.pdf"><em>Intro to Grammars and Parsing</em></a> by Paul Klint</li>
+    <li><a href="https://calebmer.com/2019/07/01/writing-good-compiler-error-messages.html"><em>Writing Good Compiler Error Messages</em></a> by Caleb Meredith</li>
+    <li>The <a href="http://www.cs.ecu.edu/karl/5220/spr16/Notes/index.html">notes</a> from the East Carolina University course "Program Translation and Compiling"</li>
+   </ul>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
+</html>
