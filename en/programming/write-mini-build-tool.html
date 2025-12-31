@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Build tools, make, maven, gradle, sbt, mill, java, scala, groovy, kotlin">
+  <title> How to Write a Mini Build Tool? | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/en">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li><a href="/en/flowrun">FlowRun</a></li>
+     <li><a href="/en/java">Java</a></li>
+     <li><a href="/en/scala">Scala</a></li>
+     <li><a href="/en/programming">Programming</a></li>
+     <li><a href="/en/maths">Maths</a></li>
+     <li>
+      <details class="dropdown">
+       <summary> English </summary>
+       <ul dir="rtl">
+        <li><a href="/">Bosanski</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#how-to-write-a-mini-build-tool">How to Write a Mini Build Tool?</a>
+         <ul>
+          <li><a href="#project">Project</a></li>
+          <li><a href="#modules-graph">Modules Graph</a></li>
+          <li><a href="#tasks-graph">Tasks Graph</a></li>
+          <li><a href="#mini-build-tool">Mini Build Tool</a></li>
+          <li><a href="#conclusion">Conclusion</a>
+           <ul>
+            <li><a href="#references">References</a></li>
+           </ul></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="how-to-write-a-mini-build-tool">How to Write a Mini Build Tool?<a href="#how-to-write-a-mini-build-tool" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>You might have worked with <code>npm</code> and similar tools, those are <em>not build tools</em>.
+    <br>
+    At least not by a common understanding. Those fall into a category of "task runners". The biggest difference being they don't have a notion of a <em>task dependencies graph</em>.
+    <br>
+    For example, if you run <code>npm run start</code>, that won't automatically "know" to run "npm install" before that. This is what build tools <em>do know</em>, and some more!</p>
+   <p>And that's why build tools are used and loved! (ok maybe not loved that much..)</p>
+   <p>Some build tools call "task" a "target", or some other name..
+    <br>
+    Just keep in mind that terminology can differ.
+    <br>
+    Here by task we just mean "something we can run"..</p>
+   <h2 id="project">Project<a href="#project" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>By a project I mean "the root", root of your git repo, where it all starts.</p>
+   <h2 id="modules-graph">Modules Graph<a href="#modules-graph" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Projects usually have multiple modules, which can depend on each other.
+    <br>
+    Thus they form a graph.</p>
+   <p>For example you could have a <code>common</code> module, and <code>backend</code> module depends on it. If you run <code>compile</code> on <code>backend</code>, you expect the <code>common</code> module to be compiled first! This is what we call "transitivity", the <code>common</code> module's <code>compile</code> task is invoked "transitively".</p>
+   <p>Sometimes the modules can even point to the <em>same source files</em>!
+    <br>
+    For example you could have a cross compiled scala 2/3 project.
+    <br>
+    Or you could have a multi-release java JAR.</p>
+   <p>In Scala you could represent modules with something like this:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Module</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tpe</span></span>: <span class="hljs-type">String</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">id</span></span>: <span class="hljs-type">String</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">moduleDeps</span></span>: <span class="hljs-type">Seq</span>[<span class="hljs-type">String</span>] <span class="hljs-comment">// module ids</span>
+}
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaModule</span>(<span class="hljs-params">
+    id: <span class="hljs-type">String</span>,
+    moduleDeps: <span class="hljs-type">Seq</span>[<span class="hljs-type">String</span>]
+</span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">Module</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tpe</span></span>: <span class="hljs-type">String</span> = <span class="hljs-string">"java"</span>
+}
+</code></pre>
+   <h2 id="tasks-graph">Tasks Graph<a href="#tasks-graph" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The "tasks dependencies graph" can be represented in many ways:</p>
+   <ul>
+    <li><a href="https://maven.apache.org/">maven</a> uses XML in a <em>declarative way</em>, you can't easily define a custom task! (unless you write a plugin of course)</li>
+    <li><a href="https://www.gnu.org/software/make/">make</a> uses specialized <code>Makefile</code> syntax, where you can put dependencies in brackets, e.g. <code>mytarget: [prerequisites...]</code></li>
+    <li><a href="https://ant.apache.org/">ant</a> uses XML instead of <code>Makefile</code>, but essentially it's the same philosophy</li>
+    <li><a href="https://gradle.org/">gradle</a>, <a href="https://www.scala-sbt.org/">sbt</a>, <a href="https://mill-build.org/">mill</a> use DSLs written in real programming languages (or custom flavors of those..): Groovy/Kotlin/Scala</li>
+   </ul>
+   <hr>
+   <p>I often wondered if there is a middle ground? Something more powerful than plain XML/YAML/JSON/TOML, but less than a full blown DSL..</p>
+   <p>The XML/YAML/JSON/TOML approach isn't flexible/readable and you almost always end up inventing a new DSL inside of it, like GH Actions and others do.
+    <br>
+    By flexibility I mean defining multiple modules, cross compiling, cross platform modules etc. This gets hairy pretty quickly in Scala land where I come from.</p>
+   <p>With DSLs there is additional complexity of learning a new language and it's quirks, especially when it's untyped/mutable like Groovy, or arcane like sbt's task macros wonderland..
+    <br>
+    Mill kinda hits the sweetspot, but still there is an extra compile step. You need to "compile the build" before you "compile/run/etc your own code". This might seem like slight annoyance but it gets slower and more annoying as your project gets bigger.</p>
+   <p>--</p>
+   <p>An alternative way could be to use one of the "configuration languages".
+    <br>
+    You might have worked with HCL to write some Terraform, or Cue/Jsonnet/Pkl.
+    <br>
+    These days I really like the look &amp; feel of <a href="https://pkl-lang.org/">Pkl</a>.
+    <br>
+    It has a nice IDE support, docs support, codegen etc.</p>
+   <p>The tasks graph still has to be constructed, but it will be done in the build tool itself, not exposed to the end user (this is what Maven does). We gain more power to express multi module/platform/flavor of our code. E.g. to make a cross jvm/js/native - scala 2/3 project, that would be 6 different modules, and it would be really ugly in XML/JSON/YAML. We avoid having to maintain a custom flavor of Groovy/Kotlin/Scala, compiling it, maintaining backwards compatibility etc.
+    <br>
+    This puts us somewhere around 4-5 hour on the "Configuration Complexity Clock", see the linked post!</p>
+   <p>With the tasks graph in place, not only we can execute dependent tasks as needed, but we also gain power to:</p>
+   <ul>
+    <li>execute only tasks whose sources have changed</li>
+    <li>cache execution results to avoid unnecessary work</li>
+    <li>implement the "watch mode" effectively</li>
+   </ul>
+   <h2 id="mini-build-tool">Mini Build Tool<a href="#mini-build-tool" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>To start, let's define a <code>Task[T]</code>, a task that when runs returns a <code>T</code>.</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Task</span>[<span class="hljs-type">T</span>](<span class="hljs-params">
+   val id: <span class="hljs-type">String</span>,            <span class="hljs-comment">// unique globally, e.g. mymodule.mytask</span>
+   val name: <span class="hljs-type">String</span>,          <span class="hljs-comment">// nice display name for CLI etc</span>
+   val taskDeps: <span class="hljs-type">Seq</span>[<span class="hljs-type">String</span>], <span class="hljs-comment">// dependent task ids</span>
+   val execute: <span class="hljs-type">Seq</span>[<span class="hljs-type">Any</span>] =&gt; <span class="hljs-type">T</span>,<span class="hljs-comment">// the run logic</span>
+   val transitive: <span class="hljs-type">Boolean</span>    <span class="hljs-comment">// triggers downstream module(s) task with same id</span>
+</span>) </span>{
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">moduleId</span></span>: <span class="hljs-type">String</span> = id.split(<span class="hljs-string">"\\."</span>)(<span class="hljs-number">0</span>)
+}
+</code></pre>
+   <p>The next step would be to make some task <em>implementations</em>:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaModuleTasks</span>(<span class="hljs-params">module: <span class="hljs-type">JavaModule</span></span>) </span>{
+
+  <span class="hljs-keyword">val</span> compile: <span class="hljs-type">Task</span>[<span class="hljs-type">Seq</span>[<span class="hljs-type">String</span>]] = <span class="hljs-type">Task</span>(
+    id = <span class="hljs-string">s"<span class="hljs-subst">${module.id}</span>.compile"</span>,
+    name = <span class="hljs-string">"compile"</span>,
+    taskDeps = <span class="hljs-type">Seq</span>.empty,
+    depResults =&gt; {
+      println(<span class="hljs-string">s"[module <span class="hljs-subst">${module.id}</span>] Compiling java... "</span> + <span class="hljs-type">Instant</span>.now())
+      <span class="hljs-type">Thread</span>.sleep(<span class="hljs-number">1000</span>)
+      <span class="hljs-type">Seq</span>(<span class="hljs-string">"file1.class"</span>, <span class="hljs-string">"file2.class"</span>)
+    },
+    transitive = <span class="hljs-literal">true</span> <span class="hljs-comment">// we want to compile all depending modules!</span>
+  )
+
+  <span class="hljs-keyword">val</span> run: <span class="hljs-type">Task</span>[<span class="hljs-type">Unit</span>] = <span class="hljs-type">Task</span>(
+    id = <span class="hljs-string">s"<span class="hljs-subst">${module.id}</span>.run"</span>,
+    name = <span class="hljs-string">"run"</span>,
+    taskDeps = <span class="hljs-type">Seq</span>(<span class="hljs-string">s"<span class="hljs-subst">${module.id}</span>.compile"</span>),
+    depResults =&gt; {
+      <span class="hljs-keyword">val</span> classfiles = depResults.head.asInstanceOf[<span class="hljs-type">Seq</span>[<span class="hljs-type">String</span>]]
+      println(<span class="hljs-string">s"[module <span class="hljs-subst">${module.id}</span>] Running java -cp <span class="hljs-subst">${classfiles.mkString(" ")}</span>"</span>)
+    }
+  )
+
+  <span class="hljs-keyword">val</span> all: <span class="hljs-type">Seq</span>[<span class="hljs-type">Task</span>[?]] = <span class="hljs-type">Seq</span>(
+    compile,
+    run
+  )
+}
+</code></pre>
+   <p>and a "registry" that knows which modules have which tasks:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">ModuleTasksRegistry</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getByModule</span></span>(module: <span class="hljs-type">Module</span>): <span class="hljs-type">Seq</span>[<span class="hljs-type">Task</span>[?]] = module <span class="hljs-keyword">match</span> {
+    <span class="hljs-keyword">case</span> m: <span class="hljs-type">JavaModule</span> =&gt; <span class="hljs-type">JavaModuleTasks</span>(m).all
+    <span class="hljs-keyword">case</span> _             =&gt; <span class="hljs-type">Seq</span>.empty
+  }
+}
+</code></pre>
+   <hr>
+   <p>Now we can start wiring it all together. But we need a graph utility, so we will use <a href="https://jgrapht.org/">JGraphT</a> for this.</p>
+   <p>First the modules graph:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-keyword">import</span> java.io.*
+<span class="hljs-keyword">import</span> java.net.*
+<span class="hljs-keyword">import</span> scala.jdk.<span class="hljs-type">CollectionConverters</span>.*
+<span class="hljs-keyword">import</span> scala.jdk.<span class="hljs-type">FunctionConverters</span>.*
+<span class="hljs-keyword">import</span> org.jgrapht.*
+<span class="hljs-keyword">import</span> org.jgrapht.graph.*
+<span class="hljs-keyword">import</span> org.jgrapht.traverse.*
+<span class="hljs-keyword">import</span> org.jgrapht.nio.*
+<span class="hljs-keyword">import</span> org.jgrapht.nio.dot.*
+<span class="hljs-keyword">import</span> org.jgrapht.alg.cycle.<span class="hljs-type">CycleDetector</span>
+<span class="hljs-keyword">import</span> java.time.<span class="hljs-type">Instant</span>
+
+<span class="hljs-meta">@main</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">serverMain</span></span>() = {
+
+  <span class="hljs-comment">// parsed from build.yaml/json/whatever</span>
+  <span class="hljs-keyword">val</span> a = <span class="hljs-type">JavaModule</span>(<span class="hljs-string">"a"</span>, <span class="hljs-type">Seq</span>(<span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>))
+  <span class="hljs-keyword">val</span> b = <span class="hljs-type">JavaModule</span>(<span class="hljs-string">"b"</span>, <span class="hljs-type">Seq</span>(<span class="hljs-string">"d"</span>))
+  <span class="hljs-keyword">val</span> c = <span class="hljs-type">JavaModule</span>(<span class="hljs-string">"c"</span>, <span class="hljs-type">Seq</span>(<span class="hljs-string">"d"</span>))
+  <span class="hljs-keyword">val</span> d = <span class="hljs-type">JavaModule</span>(<span class="hljs-string">"d"</span>, <span class="hljs-type">Seq</span>.empty)
+  <span class="hljs-keyword">val</span> allModules = <span class="hljs-type">Seq</span>(a, b, c, d)
+
+  <span class="hljs-comment">// these come from CLI/BSP</span>
+  <span class="hljs-keyword">val</span> moduleId = <span class="hljs-string">"a"</span>
+  <span class="hljs-keyword">val</span> taskName = <span class="hljs-string">"run"</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildModulesGraph</span></span>(modules: <span class="hljs-type">Seq</span>[<span class="hljs-type">Module</span>]): <span class="hljs-type">SimpleDirectedGraph</span>[<span class="hljs-type">Module</span>, <span class="hljs-type">DefaultEdge</span>] = {
+    <span class="hljs-keyword">val</span> graph = <span class="hljs-keyword">new</span> <span class="hljs-type">SimpleDirectedGraph</span>[<span class="hljs-type">Module</span>, <span class="hljs-type">DefaultEdge</span>](classOf[<span class="hljs-type">DefaultEdge</span>])
+    <span class="hljs-keyword">val</span> modulesMap = modules.map(m =&gt; m.id -&gt; m).toMap
+    modules.foreach(graph.addVertex)
+    modules.foreach { m =&gt;
+      m.moduleDeps.foreach { moduleDepId =&gt;
+        <span class="hljs-keyword">val</span> moduleDep = modulesMap.getOrElse(
+          moduleDepId,
+          abort(<span class="hljs-string">s"Module referenced by '<span class="hljs-subst">${m.id}</span>' not found: '<span class="hljs-subst">${moduleDepId}</span>'"</span>)
+        )
+        graph.addEdge(m, moduleDep)
+      }
+    }
+    graph
+  }
+
+  <span class="hljs-keyword">val</span> modulesGraph = buildModulesGraph(allModules)
+  checkNoCycles(modulesGraph, _.id)
+  println(<span class="hljs-string">"Modules graph:"</span>)
+  println(generateDOT(modulesGraph, v =&gt; v.id, v =&gt; <span class="hljs-type">Map</span>(<span class="hljs-string">"label"</span> -&gt; v.id)))
+</code></pre>
+   <p>You will see a nice image when you run it through Graphviz:</p>
+   <p><img src="/images/mini_build_tool/modules.svg" alt=""></p>
+   <hr>
+   <p>Then the tasks graph:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes">  <span class="hljs-keyword">val</span> tasksPerModule = allModules.map { module =&gt; module.id -&gt; <span class="hljs-type">ModuleTasksRegistry</span>.getByModule(module) }.toMap
+  
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildTasksGraph</span></span>(modules: <span class="hljs-type">Seq</span>[<span class="hljs-type">Module</span>]): <span class="hljs-type">SimpleDirectedGraph</span>[<span class="hljs-type">Task</span>[?], <span class="hljs-type">DefaultEdge</span>] = {
+    <span class="hljs-keyword">val</span> graph = <span class="hljs-keyword">new</span> <span class="hljs-type">SimpleDirectedGraph</span>[<span class="hljs-type">Task</span>[?], <span class="hljs-type">DefaultEdge</span>](classOf[<span class="hljs-type">DefaultEdge</span>])
+    <span class="hljs-keyword">for</span> module &lt;- modules <span class="hljs-keyword">do</span> {
+      <span class="hljs-keyword">val</span> tasks = tasksPerModule(module.id)
+      <span class="hljs-keyword">val</span> tasksMap = tasks.map(t =&gt; t.id -&gt; t).toMap
+      tasks.foreach { task =&gt;
+        graph.addVertex(task)
+        task.taskDeps.foreach { taskDepId =&gt;
+          <span class="hljs-keyword">val</span> taskDep = tasksMap.getOrElse(
+            taskDepId,
+            abort(<span class="hljs-string">s"Task referenced by '<span class="hljs-subst">${task.id}</span>' not found: '<span class="hljs-subst">${taskDepId}</span>'"</span>)
+          )
+          graph.addEdge(task, taskDep)
+        }
+        <span class="hljs-comment">// if this task triggers a task in depending module, e.g. compile-&gt;compile</span>
+        <span class="hljs-keyword">if</span> task.transitive <span class="hljs-keyword">then</span>
+          module.moduleDeps.foreach { moduleDepId =&gt;
+            tasksPerModule(moduleDepId).find(_.name == task.name).foreach { moduleDepTask =&gt;
+              graph.addVertex(moduleDepTask) <span class="hljs-comment">// add if not already</span>
+              graph.addEdge(task, moduleDepTask)
+            }
+          }
+      }
+    }
+    graph
+  }
+
+  <span class="hljs-keyword">val</span> tasksGraph = buildTasksGraph(allModules)
+  checkNoCycles(tasksGraph, _.id)
+  println(<span class="hljs-string">"Tasks graph:"</span>)
+  println(generateDOT(tasksGraph, v =&gt; v.id, v =&gt; <span class="hljs-type">Map</span>(<span class="hljs-string">"label"</span> -&gt; v.id)))
+</code></pre>
+   <p>You will see a nice image when you run it through Graphviz:</p>
+   <p><img src="/images/mini_build_tool/tasks.svg" alt=""></p>
+   <hr>
+   <p>Now the execution subgraph (the exec plan). We get the task that we want to run, plus the tasks that it depends on:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildExecSubgraph</span></span>(moduleId: <span class="hljs-type">String</span>, taskName: <span class="hljs-type">String</span>): <span class="hljs-type">AsSubgraph</span>[<span class="hljs-type">Task</span>[?], <span class="hljs-type">DefaultEdge</span>] = {
+    <span class="hljs-keyword">val</span> execTasksSet = <span class="hljs-type">Set</span>.newBuilder[<span class="hljs-type">Task</span>[?]]
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">go</span></span>(moduleId: <span class="hljs-type">String</span>, taskName: <span class="hljs-type">String</span>): <span class="hljs-type">Unit</span> = {
+      <span class="hljs-keyword">val</span> taskToExecute = tasksPerModule(moduleId).find(_.name == taskName).getOrElse {
+        abort(<span class="hljs-string">s"Task not found <span class="hljs-subst">${moduleId}</span>.<span class="hljs-subst">${taskName}</span>"</span>)
+      }
+      <span class="hljs-keyword">val</span> deps = tasksGraph.outgoingEdgesOf(taskToExecute).asScala.toSeq
+      deps.foreach { depEdge =&gt;
+        <span class="hljs-keyword">val</span> d = tasksGraph.getEdgeTarget(depEdge)
+        go(d.moduleId, d.name)
+      }
+      execTasksSet.addOne(taskToExecute)
+    }
+    go(moduleId, taskName)
+    <span class="hljs-keyword">new</span> <span class="hljs-type">AsSubgraph</span>(tasksGraph, execTasksSet.result().asJava)
+  }
+
+  <span class="hljs-keyword">val</span> execSubgraph = buildExecSubgraph(moduleId, taskName)
+  checkNoCycles(execSubgraph, _.id)
+  println(<span class="hljs-string">"Exec subgraph:"</span>)
+  println(generateDOT(execSubgraph, v =&gt; v.id, v =&gt; <span class="hljs-type">Map</span>(<span class="hljs-string">"label"</span> -&gt; v.id)))
+</code></pre>
+   <p>You will see a nice image when you run it through Graphviz:</p>
+   <p><img src="/images/mini_build_tool/plan.svg" alt=""></p>
+   <hr>
+   <p>OMG there is more.. now we need the "execution stages".
+    <br>
+    These are "independently runnable task stages", we can run each stage in parallel (the tasks in it that is..).
+    <br>
+    This is just a dumb implementation, doesnt handle duplicates etc:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildTaskExecStages</span></span>(moduleId: <span class="hljs-type">String</span>, taskName: <span class="hljs-type">String</span>): <span class="hljs-type">Seq</span>[<span class="hljs-type">Seq</span>[<span class="hljs-type">Task</span>[?]]] = {
+    <span class="hljs-keyword">val</span> taskToExecute = tasksPerModule(moduleId).find(_.name == taskName).getOrElse {
+      abort(<span class="hljs-string">s"Task not found <span class="hljs-subst">${moduleId}</span>.<span class="hljs-subst">${taskName}</span>"</span>)
+    }
+    <span class="hljs-keyword">var</span> stages = <span class="hljs-type">Map</span>.empty[<span class="hljs-type">Int</span>, <span class="hljs-type">Seq</span>[<span class="hljs-type">Task</span>[?]]]
+    <span class="hljs-keyword">var</span> maxDepth = <span class="hljs-number">0</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">go</span></span>(task: <span class="hljs-type">Task</span>[?], depth: <span class="hljs-type">Int</span>): <span class="hljs-type">Unit</span> = {
+      <span class="hljs-keyword">if</span> depth &gt; maxDepth <span class="hljs-keyword">then</span> maxDepth = depth
+      stages = stages.updatedWith(depth) {
+        <span class="hljs-keyword">case</span> <span class="hljs-type">Some</span>(values) =&gt; <span class="hljs-type">Some</span>(<span class="hljs-keyword">if</span> values.exists(_.id == task.id) <span class="hljs-keyword">then</span> values <span class="hljs-keyword">else</span> values.appended(task))
+        <span class="hljs-keyword">case</span> <span class="hljs-type">None</span>         =&gt; <span class="hljs-type">Some</span>(<span class="hljs-type">Seq</span>(task))
+      }
+      <span class="hljs-keyword">val</span> deps = tasksGraph.outgoingEdgesOf(task).asScala.toSeq
+      deps.foreach { depEdge =&gt;
+        <span class="hljs-keyword">val</span> d = tasksGraph.getEdgeTarget(depEdge)
+        go(d, depth + <span class="hljs-number">1</span>)
+      }
+    }
+    go(taskToExecute, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">val</span> res = <span class="hljs-keyword">for</span> i &lt;- <span class="hljs-number">0</span> to maxDepth <span class="hljs-keyword">yield</span> stages(i)
+    res.toSeq
+  }
+  <span class="hljs-keyword">val</span> taskExecStages = buildTaskExecStages(moduleId, taskName).reverse
+  println(<span class="hljs-string">"Exec stages:"</span>)
+  println(taskExecStages.map(_.map(_.id)))
+</code></pre>
+   <p>And now finally, finally we can run the tasks, in stages:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">executeTasks</span></span>(stages: <span class="hljs-type">Seq</span>[<span class="hljs-type">Seq</span>[<span class="hljs-type">Task</span>[?]]]): <span class="hljs-type">Unit</span> = {
+    println(<span class="hljs-string">"Starting execution... "</span> + <span class="hljs-type">Instant</span>.now())
+    <span class="hljs-keyword">var</span> taskResults = <span class="hljs-type">Map</span>.empty[<span class="hljs-type">String</span>, <span class="hljs-type">Any</span>]
+    <span class="hljs-keyword">for</span> tasks &lt;- stages <span class="hljs-keyword">do</span> {
+      <span class="hljs-keyword">val</span> taskExecutions = <span class="hljs-keyword">for</span> task &lt;- tasks <span class="hljs-keyword">yield</span> { () =&gt;
+        <span class="hljs-keyword">val</span> args = task.taskDeps.map(taskResults)
+        <span class="hljs-keyword">val</span> taskRes = task.execute(args)
+        task.id -&gt; taskRes
+      }
+      <span class="hljs-keyword">val</span> results = ox.par(taskExecutions)
+      taskResults ++= results
+    }
+    println(<span class="hljs-string">"Execution finished successfully. "</span> + <span class="hljs-type">Instant</span>.now())
+  }
+
+  executeTasks(taskExecStages)
+
+}
+</code></pre>
+   <p>These are utilities I used, just for completeness:</p>
+   <pre><code class="language-scala hljs" data-highlighted="yes"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">checkNoCycles</span></span>[<span class="hljs-type">V</span>, <span class="hljs-type">E</span>](g: <span class="hljs-type">Graph</span>[<span class="hljs-type">V</span>, <span class="hljs-type">E</span>], getName: <span class="hljs-type">V</span> =&gt; <span class="hljs-type">String</span>): <span class="hljs-type">Unit</span> = {
+  <span class="hljs-keyword">val</span> cycleDetector = <span class="hljs-keyword">new</span> <span class="hljs-type">CycleDetector</span>[<span class="hljs-type">V</span>, <span class="hljs-type">E</span>](g)
+  <span class="hljs-keyword">val</span> cycles = cycleDetector.findCycles().asScala
+  <span class="hljs-keyword">if</span> cycles.nonEmpty <span class="hljs-keyword">then</span> abort(<span class="hljs-string">s"Cycle detected: <span class="hljs-subst">${cycles.map(getName).mkString("-&gt;")}</span>"</span>)
+}
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generateDOT</span></span>[<span class="hljs-type">V</span>, <span class="hljs-type">E</span>](
+    g: <span class="hljs-type">Graph</span>[<span class="hljs-type">V</span>, <span class="hljs-type">E</span>],
+    vertexIdProvider: <span class="hljs-type">V</span> =&gt; <span class="hljs-type">String</span>,
+    vertexAttributeProvider: <span class="hljs-type">V</span> =&gt; <span class="hljs-type">Map</span>[<span class="hljs-type">String</span>, <span class="hljs-type">String</span>]
+): <span class="hljs-type">String</span> = {
+  <span class="hljs-keyword">val</span> vertexIdProvider0 = (v: <span class="hljs-type">V</span>) =&gt; vertexIdProvider(v).replaceAll(<span class="hljs-string">"[-.]"</span>, <span class="hljs-string">"_"</span>)
+  <span class="hljs-keyword">val</span> exporter = <span class="hljs-keyword">new</span> <span class="hljs-type">DOTExporter</span>[<span class="hljs-type">V</span>, <span class="hljs-type">E</span>](vertexIdProvider0.asJava)
+  exporter.setVertexAttributeProvider { v =&gt;
+    vertexAttributeProvider(v)
+      .mapValues(<span class="hljs-type">DefaultAttribute</span>.createAttribute)
+      .toMap
+      .asJava
+  }
+  <span class="hljs-keyword">val</span> writer = <span class="hljs-keyword">new</span> <span class="hljs-type">StringWriter</span>()
+  exporter.exportGraph(g, writer)
+  writer.toString()
+}
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">abort</span></span>(message: <span class="hljs-type">String</span>) =
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-type">RuntimeException</span>(message)
+</code></pre>
+   <hr>
+   <p>When you run it, you should see something like this:</p>
+   <pre><code class="language-shell hljs" data-highlighted="yes">Starting execution... 2025-12-31T16:07:58.469767047Z
+Executing d.compile with args: List()
+[module d] Compiling java... 2025-12-31T16:07:58.499953484Z
+Executing b.compile with args: List()
+[module b] Compiling java... 2025-12-31T16:07:59.509806784Z
+Executing c.compile with args: List()
+[module c] Compiling java... 2025-12-31T16:07:59.510141441Z
+Executing a.compile with args: List()
+[module a] Compiling java... 2025-12-31T16:08:00.511292372Z
+Executing a.run with args: List(List(file1.class, file2.class))
+[module a] Running java -cp file1.class file2.class
+Execution finished successfully. 2025-12-31T16:08:01.520049179Z
+</code></pre>
+   <h2 id="conclusion">Conclusion<a href="#conclusion" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>This just sets up a barebone build tool tasks deps logic.
+    <br>
+    There is <strong>a lot more</strong> that could/should? be done:</p>
+   <ul>
+    <li>build definition</li>
+    <li>caching, usually using hash functions</li>
+    <li>nice CLI</li>
+    <li>error handling, very important!</li>
+    <li>locking to prevent corrupt state, probably <em>the hardest part</em></li>
+    <li>BSP integration for IDEs</li>
+    <li>plugins..</li>
+   </ul>
+   <p>Some of that you can find in my ongoing project called <a href="https://github.com/sake92/deder">Deder</a>.
+    <br>
+    I am trying to keep it as simple as possible. Currently at ~5K lines of code with following features:</p>
+   <ul>
+    <li>Pkl for build definition</li>
+    <li>multimodule</li>
+    <li>client-server mode without blocking</li>
+    <li>singleton server process for whole project, saving resources and simplifying locking logic</li>
+    <li>watch mode, in multiple terminals at once!</li>
+    <li>basic BSP support for IDEs like VSCode+Metals and IntelliJ</li>
+   </ul>
+   <p>Contributions and feedback welcome!</p>
+   <h3 id="references">References<a href="#references" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <ul>
+    <li>Haoyi's <a href="https://mill-build.org/blog/8-what-is-a-build-tool.html">What does a Build Tool do?</a> blog post</li>
+    <li>Mike Hadlow's <a href="https://mikehadlow.blogspot.com/2012/05/configuration-complexity-clock.html">Configuration Complexity Clock</a> blog post</li>
+   </ul>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
+</html>
