@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Deder build tool, Pkl, Scala, Java, Sbt, Mill, Maven, Gradle, BSP, build server protocol, OTEL, web dashboard, TUI, Zinc, client-server, native-image">
+  <title> Introducing Deder Build Tool | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav>
+    <ul>
+     <li><a href="/en">Home</a></li>
+    </ul>
+    <ul>
+     <li>
+      <form action="/search/results.html" method="GET">
+       <input name="q" type="search" placeholder="Search">
+      </form>
+     </li>
+    </ul>
+    <ul>
+     <li><a href="/en/flowrun">FlowRun</a></li>
+     <li><a href="/en/java">Java</a></li>
+     <li><a href="/en/scala">Scala</a></li>
+     <li><a href="/en/programming">Programming</a></li>
+     <li><a href="/en/maths">Maths</a></li>
+     <li>
+      <details class="dropdown">
+       <summary> English </summary>
+       <ul dir="rtl">
+        <li><a href="/">Bosanski</a></li>
+       </ul>
+      </details>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details>
+      <summary>Table of Contents</summary>
+      <div>
+       <ul>
+        <li><a href="#introducing-deder-build-tool">Introducing Deder Build Tool</a>
+         <ul>
+          <li><a href="#goal-as-few-knobs-as-possible">Goal: As few knobs as possible</a></li>
+          <li><a href="#build-config-with-pkl">Build config with Pkl</a></li>
+          <li><a href="#look-dont-guess">Look, don't guess</a></li>
+          <li><a href="#one-server-many-clients">One server, many clients</a></li>
+          <li><a href="#batteries-included">Batteries included</a></li>
+          <li><a href="#ide-support">IDE Support</a></li>
+          <li><a href="#extending-deder-with-plugins">Extending Deder with Plugins</a></li>
+          <li><a href="#where-it-stands-today">Where it stands today</a></li>
+         </ul></li>
+       </ul>
+      </div>
+     </details>
+     <hr>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="introducing-deder-build-tool">Introducing Deder Build Tool<a href="#introducing-deder-build-tool" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>For the past few months I've been building <a href="https://github.com/sake92/deder">Deder</a>, a build tool for JVM projects (Java and Scala).
+    <br>
+    It started as an experiment to <a href="https://blog.sake.ba/en/programming/write-mini-build-tool.html">prove myself I can build one</a>, and potentially improve on some quirks in the existing build tools.
+    <br>
+    Deder is in its early days, but it is <strong>already building and publishing several of my own projects, including itself</strong>.</p>
+   <p>Existing build tools like Maven/Gradle/sbt are mature, battle-tested, and power huge parts of the JVM ecosystem for good reasons.
+    <br>
+    This isn't a "tool X is bad, use mine instead" post. Use whichever you prefer.</p>
+   <h2 id="goal-as-few-knobs-as-possible">Goal: As few knobs as possible<a href="#goal-as-few-knobs-as-possible" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>TLDR: <strong>provide minimum number of config options (with good defaults) that get the job done</strong>.</p>
+   <p>The simplest possible build tool would have zero configuration. You'd point it at your code, it would do <em>what you mean</em> (read your mind?), and you'd never open a build file, ever. That's obviously not achievable, you do need to tweak some things: name, Scala version, dependencies etc. But it's a <em>useful principle in general</em>, one we should strive for! In real life this usually means having minimal config options, and having good defaults.</p>
+   <p><strong>Maven</strong> does a pretty good job here with <code>pom.xml</code> which is ~typesafe, you get IDE autocomplete and other goodies. But it lacks some abstraction capabilites, say for cross-scala/cross-platform builds.
+    <br>
+    See <a href="https://github.com/kelnos/scala-cross-maven-plugin">scala-cross-maven-plugin</a> for a glimpse of it. There is also <a href="https://github.com/takari/polyglot-maven/">polyglot-maven</a> that allows you to write build in yaml/java/scala etc.. which in itself points at the issue I mentioned above, XML is not a good abstraction level for writing builds (at least for the Scala builds..).</p>
+   <p><strong>Scala CLI</strong> sits in an interesting middle ground: the <code>//&gt; using</code> directives right in your source files give you a genuinely minimal, almost zero-config experience for a script or a single module. It's fantastic for those use cases. It's just solving a narrower problem - once you have several modules with real dependencies between them, cross-builds, you tend to gravitate towards a full build tool like sbt or Mill, directives alone don't really scale to that.</p>
+   <p>On the other side of spectrum are <strong>sbt/Gradle/Mill</strong>, which give you a full-blown programming language (and more!), because why not? 🤷‍♂️
+    <br>
+    Most of these have custom DSLs for tasks graph, so you are essentially "inside the build", reconfiguring it however you like, reordering tasks etc. This means you <strong>really have to know what you are doing</strong>, otherwise you can mess up the ordering, caches and what not.. Sbt is notorious for its mutable builds, scopes/axis, macros and other high-level complexity levers. See this amazing post from Haoyi: <a href="https://www.lihaoyi.com/post/SowhatswrongwithSBT.html">So, what's wrong with SBT? </a> which will give you much more insight into its complexity.</p>
+   <p>None of these are wrong per se.
+    <br>
+    They are just different answers to "where should the complexity live, and when should the user have to see it."
+    <br>
+    One good resource I recommend is the <a href="https://mikehadlow.blogspot.com/2012/05/configuration-complexity-clock.html">Configuration Complexity Clock</a>.</p>
+   <p>Deder strives for a middle ground, somewhere in between: not a simple file format like XML/YAML, but not a full-blown programming language either. I picked Apple's <a href="https://pkl-lang.org/">Pkl language</a> for it.</p>
+   <h2 id="build-config-with-pkl">Build config with Pkl<a href="#build-config-with-pkl" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>A Deder build file is written in <a href="https://pkl-lang.org/">Pkl</a>, a statically typed configuration language. You can use classes, default values, validation, functions, loops etc. There is no macros, higher-kinded-types, user-defined-generics, scopes and other miracles. Just simple, plain config that you can serialize into JSON/YAML for inspection. Makes it easy to see what's being applied to your project/modules. It has a pretty good IDE support, and it is really fast.</p>
+   <p>A minimal, one-module build file called <code>deder.pkl</code> looks like this:</p>
+   <pre><code class="language-pkl">amends "https://sake92.github.io/deder/config/early-access/DederProject.pkl"
+
+local const app: ScalaModule = new {
+  id = "app"
+  scalaVersion = "3.7.4"
+}
+
+modules {
+  app
+}
+</code></pre>
+   <p>Don't worry about the exact Pkl syntax for now, you will get used to it pretty quickly.
+    <br>
+    You can use autocomplete in IDE to guide you through. Every property is right there at your fingerprints, with good docs and go-to-definition.</p>
+   <p>As you can see above, we amend (think <code>.copy</code> in scala terms, immutable) a config called <code>DederProject.pkl</code>. It expects a list of <code>modules</code>. Here we only define one. As you might expect, the <code>app</code> module sources are in <code>app/src</code> (based on its <code>id</code>). Module <code>id</code> is used through CLI, BSP etc.</p>
+   <hr>
+   <p>The project above defines only one module, without tests. But usually we want to define test module too in one go, so we need helpers. Pkl has a <a href="https://pkl-lang.org/blog/class-as-a-function.html">Class-as-a-Function Pattern</a>. This is how it looks like:</p>
+   <pre><code class="language-pkl">amends "https://sake92.github.io/deder/config/early-access/DederProject.pkl"
+
+local const appModules = new CreateScalaModules {
+  root = "app"
+  template = new {
+    scalaVersion = "3.7.4"
+    mainClass = "app.Main"
+  }
+  testTemplate = (template.asTest()) {
+    deps {
+      "org.scalameta::munit:1.2.1"
+    }
+  }
+}.get
+
+modules {
+  ...appModules
+}
+</code></pre>
+   <p>This defines 2 modules with ids <code>app</code> and <code>app-test</code>.
+    <br>
+    We pass "templates" for main and test module.
+    <br>
+    There is also a helper method to "cast" main module to a test module, see <code>template.asTest()</code>.</p>
+   <p>There is another set of helpers for Scala.js, ScalaNative cross-platform builds. You can find them all in <a href="https://sake92.github.io/deder/tutorials/">Deder tutorials</a> docs section.</p>
+   <hr>
+   <p>Being "minimal" doesn't mean "no reuse". There are a few things that usually mean reaching for a plugin or a build-script helper function, that are just plain config in Deder (or Pkl rather):</p>
+   <ul>
+    <li><strong>a curated set of compiler flags</strong> - the kind of thing <a href="https://github.com/typelevel/sbt-tpolecat">sbt-tpolecat</a> exists for sbt users - can just be a named list of scalac options defined once in your <code>deder.pkl</code> and applied to every module's template. It's still data; you're defining a value and reusing it, not writing a plugin. See <a href="https://github.com/sake92/deder/blob/main/config/DederTpolecat.pkl">DederTpolecat.pkl</a></li>
+    <li><strong>a curated set of project templates</strong> - e.g. <a href="https://github.com/typelevel/sbt-typelevel">sbt-typelevel</a> can be a set of <code>ScalaModule</code>s which you amend as you like. See <a href="https://github.com/sake92/deder/blob/main/config/DederTypelevel.pkl">DederTypelevel.pkl</a></li>
+    <li><strong>source folders layout</strong> is a parameter, not a convention you fight. Deder uses flat layout by default, but you can set one parameter to switch to Maven-style, sbt-style and other layouts out of the box. E.g. sbt's version-specific source directories (<code>scala-3/</code>, <code>scala-3.7/</code>, etc.) for sharing code across Scala versions - selected with a single <code>layout</code> field</li>
+    <li><strong>cross-scala-version and cross-platform modules</strong> (JVM/JS/Native) are likewise declarative: <code>CreateCrossModules</code> generates the whole shared/jvm/js/native module set from one template, in any of the standard sbt-style cross-build layouts, without you hand-wiring the source sets yourself</li>
+   </ul>
+   <p>The common thread: these are all things you configure, not things you script or make a plugin for.</p>
+   <h2 id="look-dont-guess">Look, don't guess<a href="#look-dont-guess" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Most of the complexity in a build tool doesn't come from configuration, it comes from not knowing what your build is actually doing. "Why did this also rebuild module B?" "What will running this command actually execute?". Usually you answer that by reading logs, or by reading the build tool's source.</p>
+   <p>You can ask Deder directly, before anything runs:</p>
+   <pre><code class="language-bash hljs" data-highlighted="yes"><span class="hljs-comment"># what modules are defined in this project?</span>
+deder modules
+<span class="hljs-comment"># how are they depending on each other, as an SVG diagram.. :)</span>
+deder modules -f mermaid | mmdc -i - -o modules.svg
+
+<span class="hljs-comment"># what tasks exist on app module?</span>
+deder tasks -m app
+<span class="hljs-comment"># how they depend on each other, again as a diagram!</span>
+deder tasks -m app -f mermaid | mmdc -i - -o app_tasks.svg
+
+<span class="hljs-comment"># what exactly will run, and in what order (parallel?)</span>
+deder plan -m app -t compile
+</code></pre>
+   <p>Most of the commands can render the answer as text, JSON, or a graph (DOT/Mermaid), so "what does my build do" can literally be a picture instead of a debugging session (log/println if supported..). If you never ask (or just don't care), you never see it - but it's there the moment you want to look under the hood.</p>
+   <hr>
+   <p>If you want to go one layer deeper still, there is the <a href="https://github.com/sake92/deder-plugins/tree/main/deder-web-dashboard">web dashboard plugin</a> which gives you the same information in a browser.</p>
+   <p><img src="/images/introducing-deder/web-dashboard-graph.png" alt=""></p>
+   <hr>
+   <p>There is also a nice TUI for it:</p>
+   <p><img src="/images/introducing-deder/tui-dashboard.png" alt=""></p>
+   <hr>
+   <blockquote>
+    <p>Deder also supports OpenTelemetry tracing, logs, and metrics for the cases where you're debugging build performance, not just build structure.</p>
+   </blockquote>
+   <h2 id="one-server-many-clients">One server, many clients<a href="#one-server-many-clients" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The <code>deder</code> command you type is a thin CLI client; it talks JSON-RPC over a Unix socket to a <strong>single long-lived server process per project</strong>. That sounds like an implementation detail, but it changes a few things in practice that are easy to undervalue until you've lived without them:</p>
+   <ul>
+    <li><strong>no cold start</strong> - the JVM, the JIT, Zinc's incremental compiler state, and dependency-resolution caches all stay warm across invocations - not just within one watch session. Of course, it does shut down after certain period of inactivity, to save resources.</li>
+    <li><strong>the file watcher is simplified</strong> - server is <strong>always watching files</strong> when you start it, so <code>--watch</code> mode tends to feel closer to "compiled by the time I look" than "started compiling when I looked."</li>
+    <li><strong>multiple clients, one source of truth</strong> - because the server is the single thing actually doing the work, you can have a <code>--watch</code> running in one terminal and run an ad-hoc <code>deder exec -t test -m mymodule</code> in another, against the same warm state, without them fighting each other or duplicating work. Same thing for BSP too, it runs as a thin client which talks to server.</li>
+   </ul>
+   <p>There is one more subtler benefit for CLI: getting a client-server build tool to behave well for <em>interactive</em> processes - anything that reads from stdin, or needs Ctrl+C to actually land - is harder than it looks. I wrote up a <a href="https://github.com/sake92/java-build-tool-daemon-interactive">small test repo</a> comparing how Maven's, Gradle's, Mill's, and sbt's daemons handle a trivial program that just asks for terminal input. Maven's daemon blocks at the read with no way to type anything; Gradle's and Mill's daemons hand the process a <code>null</code> input instead of your keystrokes (both, by default, run the process <em>inside</em> the daemon, which doesn't have your terminal). Of the bunch, only sbt's client-server mode gets this right - and it does it by handing the actual process execution back to the client, where your real terminal is, with the server just orchestrating. Deder follows that same approach: the server does the compiling and dependency work, but the program you <code>run</code> executes attached to your terminal via the client, so stdin, signals, and TTY behavior all work the way you'd expect from running it directly with <code>java</code>.</p>
+   <h2 id="batteries-included">Batteries included<a href="#batteries-included" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Most projects need to:</p>
+   <ul>
+    <li>format the sources</li>
+    <li>compile the code</li>
+    <li>test it</li>
+    <li>package and publish artifacts</li>
+   </ul>
+   <p>A decent chunk of a typical sbt or Maven build's plugin list exists to do things that, in most ecosystems, every non-trivial project eventually needs: build an uber-JAR, generate a POM, publish to a Maven repo, format code, run a linter. Each of those is usually its own plugin, with its own settings keys, its own version to track, and its own way of plugging into the build.</p>
+   <p>In Deder, these are just built-in tasks, no plugins required:</p>
+   <ul>
+    <li><code>jar</code> builds a plain JAR, <code>assembly</code> builds an uber-JAR (optionally with shading rules)</li>
+    <li><code>publishLocal</code> bundles a JAR with <code>pom.xml</code> and copies it to your local <code>~/.m2</code> repository; <code>version</code> is resolved automatically from git tags via SemVer (if you don't set one explicitly)</li>
+    <li><code>publish</code> signs the module artifacts and then publishes them to a remote repository like Maven Central</li>
+    <li><code>runMvnApp fmt</code> / <code>runMvnApp fmtCheck</code> do formatting and check formatting with Scalafmt. The <code>fix</code> / <code>fixCheck</code> run Scalafix rewrites and checks</li>
+    <li>if you target native binaries, <code>nativeLink</code> (Scala Native) and <code>graalvmNativeImage</code> are built into Deder</li>
+   </ul>
+   <p>None of this is meant to say sbt's or Maven's plugin ecosystems are bad - they're exactly why those tools can do almost anything. It's just a different default: in Deder, the common 80% of "package and ship this" is already there on day one, and you only reach for the plugin layer for the genuinely custom 20%.</p>
+   <h2 id="ide-support">IDE Support<a href="#ide-support" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Deder speaks the <a href="https://build-server-protocol.github.io/">Build Server Protocol</a> (BSP), so VS Code and IntelliJ talk to the same long-lived server as the CLI does. There is no separate compilation or extra server/worker that does this, literally same class files and compiler flags. Metals picks up a <code>deder.pkl</code> file the same way it already recognizes <code>build.sbt</code> or <code>build.mill</code>. Just open the folder and let Metals connect over BSP.</p>
+   <p>Build file itself is Pkl, so it gets its own editor support for free - <a href="https://pkl-lang.org/main/current/tools/index.html">Pkl has official VS Code and IntelliJ plugins</a> with autocomplete, inline docs, and type-checking. Editing <code>deder.pkl</code> feels like editing a typed config file, not hand-rolling XML or guessing at an internal DSL's API.</p>
+   <h2 id="extending-deder-with-plugins">Extending Deder with Plugins<a href="#extending-deder-with-plugins" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Sometimes "batteries included" genuinely isn't enough, and you need something custom - a new task, integration with some other tool, a code-gen step. In that case you probably need to write a Deder plugin. There are a few in <a href="https://github.com/sake92/deder-plugins">deder-plugins</a>, like build-info generation, source-gen-scala-scripts (think sbt <code>sourceGenerators</code>), protobuf support, web dashboard, and a TUI client.</p>
+   <p>Plugins are regular Scala code built against the Deder plugin API. The configuration for them is also written in Pkl, which provides users some config-time type safety.</p>
+   <h2 id="where-it-stands-today">Where it stands today<a href="#where-it-stands-today" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Deder currently supports compiling, testing, packaging (plain JAR, uber JAR, Scala.js bundles, Scala Native binaries, GraalVM binaries), watch mode, BSP for IDEs, OTEL tracing/logs/metrics, a web dashboard plugin, and experimental import from existing sbt projects.</p>
+   <p>It's used today in a few of my own open-source projects (<a href="https://github.com/sake92/deder">deder</a>, <a href="https://github.com/sake92/sharaf">sharaf</a>, <a href="https://github.com/sake92/regenesca">regenesca</a>, <a href="https://github.com/sake92/squery">squery</a>, <a href="https://github.com/sake92/tupson">tupson</a>).</p>
+   <p>There will be <em>some breaking changes</em> in future, and the plugin/community ecosystem is nowhere near what sbt or Maven have built up over the years. That's a real reason to pick those tools today for most projects. Deder is for people curious about a build tool that tries hard to keep the default path boring, while still letting you go deep when you actually need to.</p>
+   <p>If this sounds interesting:</p>
+   <ul>
+    <li>code &amp; docs: <a href="https://github.com/sake92/deder">github.com/sake92/deder</a></li>
+    <li>docs site: <a href="https://sake92.github.io/deder/">sake92.github.io/deder</a></li>
+    <li>plugins: <a href="https://github.com/sake92/deder-plugins">github.com/sake92/deder-plugins</a></li>
+    <li>install via Homebrew on Mac/Linux (<code>brew install sake92/tap/deder</code>) or Scoop on Windows</li>
+   </ul>
+   <p>The codebase is small - ~17.000 lines of Scala and Java (excluding tests and generated config bindings). You could read the entire codebase in an afternoon.</p>
+   <p>Feedback, issues, and contributions are very welcome!</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
+</html>
