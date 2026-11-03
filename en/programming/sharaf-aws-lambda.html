@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="An ordinary Scala HTTP app on AWS Lambda, using Scala Native, the Lambda Web Adapter and OpenTofu.">
+  <title> Running a Scala Web App on AWS Lambda | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav aria-label="Main navigation">
+    <a href="/en">blog.sake.ba</a>
+    <div>
+     <a href="/en/programming">Programming</a> <a href="/en/maths">Maths</a>
+    </div>
+    <form action="/search/results.html" method="get" role="search">
+     <input name="q" type="search" placeholder="Search" aria-label="Search this site">
+    </form>
+    <details class="dropdown">
+     <summary>English</summary>
+     <ul dir="rtl">
+      <li><a href="/">Bosnian</a></li>
+     </ul>
+    </details>
+   </nav>
+  </header>
+  <script>
+for (const link of document.querySelectorAll('body > header > nav > div > a')) {
+    const path = new URL(link.href).pathname.replace(/\/$/, '');
+    const current = window.location.pathname;
+    if (current === path || current.startsWith(path + '/')) link.setAttribute('aria-current', 'page');
+}
+</script>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Table of contents">
+       <ul>
+        <li><a href="#running-a-scala-web-app-on-aws-lambda">Running a Scala Web App on AWS Lambda</a>
+         <ul>
+          <li><a href="#an-http-server-inside-lambda">An HTTP server inside Lambda</a></li>
+          <li><a href="#scala-native">Scala Native</a></li>
+          <li><a href="#infrastructure-with-opentofu">Infrastructure with OpenTofu</a></li>
+          <li><a href="#testing-without-an-aws-account">Testing without an AWS account</a></li>
+          <li><a href="#what-about-dynamodb">What about DynamoDB?</a></li>
+          <li><a href="#give-it-a-try">Give it a try</a></li>
+         </ul></li>
+       </ul>
+      </nav>
+     </details>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="running-a-scala-web-app-on-aws-lambda">Running a Scala Web App on AWS Lambda<a href="#running-a-scala-web-app-on-aws-lambda" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>In the <a href="/en/programming/sharaf-deployment.html">previous post</a>, I wrote about deploying a small web app on a VPS with Caddy and VoidAuth.
+    <br>
+    But what if you don't want to maintain a server at all?</p>
+   <p>I've put together a <a href="https://github.com/sake92/sharaf-aws-lambda-starter">Sharaf AWS Lambda starter</a> for that too.
+    <br>
+    And I've tested the deployment on <strong>AWS</strong>, so this one has also seen the outside world :)</p>
+   <p>The setup is fairly small:</p>
+   <ul>
+    <li><strong>Sharaf</strong> handles HTTP and app logic</li>
+    <li><strong>Scala Native</strong> compiles the app into a native executable for fast startup</li>
+    <li><strong>Lambda Web Adapter</strong> connects the HTTP server to Lambda</li>
+    <li><strong>OpenTofu</strong> creates the AWS infrastructure</li>
+   </ul>
+   <p>The nice bit is that the app is still an ordinary HTTP server!</p>
+   <h2 id="an-http-server-inside-lambda">An HTTP server inside Lambda<a href="#an-http-server-inside-lambda" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Usually, writing a Lambda function means implementing a handler that receives an event and returns a response.
+    <br>
+    For an existing web app, that means adapting your routes to Lambda's event format.</p>
+   <p>The <a href="https://github.com/aws/aws-lambda-web-adapter">AWS Lambda Web Adapter</a> takes care of this part.
+    <br>
+    It receives Lambda invocations, turns them into HTTP requests to your server, and converts the HTTP responses back into Lambda responses.</p>
+   <p>The request path looks like this:</p>
+   <pre><code class="language-text hljs language-plaintext" data-highlighted="yes">HTTP client
+    → Lambda Function URL (HTTPS)
+    → Lambda Web Adapter
+    → HTTP server
+</code></pre>
+   <p>The adapter and the app are packaged in the same Docker image.
+    <br>
+    Sharaf listens on port 8080 inside the Lambda environment, and the adapter forwards requests to it.</p>
+   <p>There is no Lambda-specific handler in the app. It has a health endpoint and a small greeting endpoint, with the usual JSON body and query parameter parsing.</p>
+   <p>And, just like the Caddy setup, <strong>this doesn't require Sharaf</strong>.
+    <br>
+    The adapter works with other HTTP servers too.</p>
+   <h2 id="scala-native">Scala Native<a href="#scala-native" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The starter uses Sharaf with http4s/Ember, compiled with Scala Native.
+    <br>
+    The final Docker image runs the native executable directly, without a JVM.</p>
+   <p>Startup matters for Lambda because a request can arrive when there is no running instance ready to handle it. AWS then needs to start a new execution environment, including your app. That's the cold start people talk about.</p>
+   <p>Avoiding JVM startup is one reason I wanted to try Scala Native here.
+    <br>
+    In the <a href="https://sake92.github.io/sharaf/reference/native-footprint.html">local native footprint measurements</a>, a small http4s/Ember app compiled with Scala Native started and returned its first successful HTTP response in <strong>about 30 milliseconds</strong>. That's quick :)</p>
+   <p>Those are local measurements on a warm host/filesystem. I haven't measured the full AWS Lambda cold start for this starter yet.</p>
+   <p>You also need dependencies that work on Scala Native. A library that relies on JVM-only APIs won't suddenly work just because the app runs on AWS..</p>
+   <h2 id="infrastructure-with-opentofu">Infrastructure with OpenTofu<a href="#infrastructure-with-opentofu" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p><a href="https://github.com/sake92/sharaf-aws-lambda-starter/blob/main/terraform/main.tf">The infrastructure definition</a> creates an ECR repository for the Docker image, a Lambda function, an execution role, a CloudWatch log group, and a Function URL.</p>
+   <p>The Function URL gives you an HTTPS endpoint directly, so this starter doesn't need API Gateway or a separate reverse proxy.</p>
+   <p>The first deployment happens in two parts. OpenTofu creates the image repository and supporting resources, then the scripts build and push the image. A second apply creates the Lambda function using that image's digest.</p>
+   <p>Using the digest pins the deployment to a specific image. You know exactly which build the function runs.</p>
+   <p>The demo URL is <strong>public and unauthenticated</strong>. Anyone can call it, and those calls can incur charges.</p>
+   <h2 id="testing-without-an-aws-account">Testing without an AWS account<a href="#testing-without-an-aws-account" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The starter also has an integration test using <a href="https://github.com/floci-io/floci">Floci</a>, a local AWS emulator, through Testcontainers.</p>
+   <p>It builds the same Docker image used for deployment and calls it through an emulated Lambda Function URL.
+    <br>
+    That exercises the adapter too: JSON bodies, query parameters, validation errors and unknown routes all travel through the full request path.</p>
+   <p>You need Docker, but no AWS account or credentials for that test.
+    <br>
+    There are also Scala Native route tests for the app itself.</p>
+   <p>An emulator doesn't prove every detail of AWS behavior, but it's useful to check the app and adapter together before deploying.</p>
+   <h2 id="what-about-dynamodb">What about DynamoDB?<a href="#what-about-dynamodb" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The starter doesn't have a database yet. For a Lambda app, I'd look at storing persistent data outside the function, for example in DynamoDB.</p>
+   <p>One thing I'd like to try is <a href="https://disneystreaming.github.io/smithy4s/docs/protocols/aws/aws/">Smithy4s</a>. It can generate Scala clients from AWS service models, and its documentation includes a DynamoDB example.</p>
+   <p>That looks interesting for calling AWS services from Scala Native, where using the Java AWS SDK isn't an option.
+    <br>
+    <strong>I haven't tried this integration yet</strong>, so DynamoDB access, credentials and compatibility with this native build still need checking. It's an idea for the next experiment :)</p>
+   <h2 id="give-it-a-try">Give it a try<a href="#give-it-a-try" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The <a href="https://github.com/sake92/sharaf-aws-lambda-starter#readme">repository README</a> has the local run, test and AWS deployment instructions, including how to remove the resources afterwards.</p>
+   <p>If you want to keep writing a normal Scala web app and let AWS handle the servers, this is a small starting point.
+    <br>
+    Same HTTP routes, different place to run them :)</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
+</html>
