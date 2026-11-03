@@ -16,6 +16,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+      - name: Allow Chrome sandbox user namespaces
+        # FlatMark downloads Chrome for Testing, outside Ubuntu's Chrome AppArmor profile.
+        # https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Build
         run: |
             FLATMARK_VERSION=0.3.0
