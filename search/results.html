@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="">
-  <title>Search Results</title>
+  <title>Search | blog.sake.ba</title>
   <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
@@ -15,94 +15,110 @@
  </head>
  <body>
   <header class="pico container">
-   <nav>
-    <ul>
-     <li><a href="/">Home</a></li>
-    </ul>
-    <ul>
-     <li>
-      <form action="/search/results.html" method="GET">
-       <input name="q" type="search" placeholder="Search">
-      </form>
-     </li>
-    </ul>
-    <ul>
-     <li><a href="/flowrun">FlowRun</a></li>
-     <li><a href="/java">Java</a></li>
-     <li><a href="/scala">Scala</a></li>
-     <li><a href="/programming">Programming</a></li>
-     <li><a href="/maths">Maths</a></li>
-     <li>
-      <details class="dropdown">
-       <summary> Bosanski </summary>
-       <ul dir="rtl">
-        <li><a href="/en">English</a></li>
-       </ul>
-      </details>
-     </li>
-    </ul>
+   <nav aria-label="Main navigation">
+    <a href="/">blog.sake.ba</a>
+    <div>
+     <a href="/flowrun">FlowRun</a> <a href="/java">Java</a> <a href="/scala">Scala</a> <a href="/programming">Programming</a> <a href="/maths">Maths</a>
+    </div>
+    <form action="/search/results.html" method="get" role="search">
+     <input name="q" type="search" placeholder="Search" aria-label="Search this site">
+    </form>
+    <details class="dropdown">
+     <summary>Bosnian</summary>
+     <ul dir="rtl">
+      <li><a href="/en">English</a></li>
+     </ul>
+    </details>
    </nav>
   </header>
+  <script>
+for (const link of document.querySelectorAll('body > header > nav > div > a')) {
+    const path = new URL(link.href).pathname.replace(/\/$/, '');
+    const current = window.location.pathname;
+    if (current === path || current.startsWith(path + '/')) link.setAttribute('aria-current', 'page');
+}
+</script>
   <main class="pico container">
    <div class="grid">
-    <div></div>
+    <div>
+     <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Table of contents">
+       <ul></ul>
+      </nav>
+     </details>
+    </div>
     <div></div>
     <div></div>
    </div>
-   <div id="search-results-content"></div>
+   <h1>Search</h1>
+   <p id="search-status" role="status" aria-live="polite">Loading search results…</p>
+   <div id="search-results"></div>
   </main>
   <footer class="pico container">blog.sake.ba</footer>
-  <script type="module">
-import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.mjs'
+  <script>
+(async () => {
+    const query = new URLSearchParams(window.location.search).get('q')?.trim() || '';
+    const status = document.getElementById('search-status');
+    const results = document.getElementById('search-results');
+    const input = document.querySelector('form[role="search"] input[name="q"]');
+    if (input) input.value = query;
+    if (!query) {
+        status.textContent = 'Enter a search term above.';
+        return;
+    }
 
-const urlParams = new URLSearchParams(window.location.search);
-const qParam = urlParams.get('q');
+    const terms = query.toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    try {
+        const response = await fetch('/search/entries.json');
+        if (!response.ok) throw new Error('Search index unavailable');
+        const entries = await response.json();
+        const matches = entries.map(entry => {
+            const title = String(entry.title || 'Untitled');
+            const text = String(entry.text || '');
+            const titleLower = title.toLocaleLowerCase();
+            const textLower = text.toLocaleLowerCase();
+            if (!terms.every(term => titleLower.includes(term) || textLower.includes(term))) return null;
+            return { entry, title, text, score: terms.reduce((score, term) =>
+                score + (titleLower.includes(term) ? 3 : 0) + (textLower.includes(term) ? 1 : 0), 0) };
+        }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 50);
 
-    
-const entries = await fetch('/search/entries.json').then(r => r.json());
-console.log("All entries: ", entries);
+        status.textContent = matches.length ? `${matches.length} result${matches.length === 1 ? '' : 's'} for “${query}”` : `No results for “${query}”.`;
+        for (const match of matches) {
+            const article = document.createElement('article');
+            const heading = document.createElement('h2');
+            const link = document.createElement('a');
+            link.href = match.entry.url;
+            highlight(link, match.title, terms);
+            heading.append(link);
+            const excerpt = document.createElement('p');
+            const lower = match.text.toLocaleLowerCase();
+            const positions = terms.map(term => lower.indexOf(term)).filter(index => index >= 0);
+            const start = Math.max(0, (positions.length ? Math.min(...positions) : 0) - 65);
+            const snippet = match.text.slice(start, start + 210).trim();
+            if (start > 0) excerpt.append('…');
+            highlight(excerpt, snippet, terms);
+            if (start + 210 < match.text.length) excerpt.append('…');
+            article.append(heading, excerpt);
+            results.append(article);
+        }
+    } catch (error) {
+        status.textContent = 'Search is unavailable right now. Please try again later.';
+    }
 
-
-const fuse = new Fuse(entries, {
-    keys: [
-        { name: 'title', weight: 2  },
-        { name: 'text',  weight: 1 }
-    ],
-    includeMatches: true,
-    minMatchCharLength: 2,
-    threshold: 0.5,
-});
-
-const searchRes = fuse.search(qParam);
-console.log("Search results for:", qParam, searchRes);
-const searchResultsContentElem = document.getElementById("search-results-content");
-if (searchRes.length === 0) {
-    document.getElementById("search-results-content").innerHTML = `<p>No results found for <strong>${qParam}</strong>.</p>`;
-} else {
-    searchResultsContentElem.innerHTML = searchRes.map(r => {
-    const page = r.item;
-    const highlightedTitle = highlightMatches(page.title, r.matches.filter(m => m.key === "title"));
-    return `<div class="search-result-item">
-        <h2><a href="${page.url}">${highlightedTitle}</a></h2>
-        <p>${page.text.substring(0, 200)}</p>
-      </div>`;
-    }).join("");
-}
-
-
-
-function highlightMatches(text, matches) {
-   if (matches.length === 0) return text;
-   // only the first match is highlighted
-   const matchIndices = matches[0].indices[0];
-   const start = matchIndices[0];
-   const end = matchIndices[1] + 1;
-   const beforeMatchText = text.substring(0, start);
-   const matchText = text.substring(start, end);
-   const afterMatchText = text.substring(end, text.length);
-      console.log({text, matches, matchIndices, start, end, beforeMatchText, matchText, afterMatchText});
-   return beforeMatchText + `<mark>${matchText}</mark>` + afterMatchText;
-}
+    function highlight(container, value, words) {
+        const pattern = new RegExp(words.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'gi');
+        let position = 0;
+        for (const match of value.matchAll(pattern)) {
+            container.append(document.createTextNode(value.slice(position, match.index)));
+            const mark = document.createElement('mark');
+            mark.textContent = match[0];
+            container.append(mark);
+            position = match.index + match[0].length;
+        }
+        container.append(document.createTextNode(value.slice(position)));
+    }
+})();
 </script>
  </body>
 </html>

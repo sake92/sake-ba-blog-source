@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="A small web app deployment setup with automatic HTTPS, authentication, Scala Native and SQLite. Tested on Hetzner!">
+  <title> Easy Deployment with Sharaf, Caddy and VoidAuth | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav aria-label="Main navigation">
+    <a href="/en">blog.sake.ba</a>
+    <div>
+     <a href="/en/programming">Programming</a> <a href="/en/maths">Maths</a>
+    </div>
+    <form action="/search/results.html" method="get" role="search">
+     <input name="q" type="search" placeholder="Search" aria-label="Search this site">
+    </form>
+    <details class="dropdown">
+     <summary>English</summary>
+     <ul dir="rtl">
+      <li><a href="/">Bosnian</a></li>
+     </ul>
+    </details>
+   </nav>
+  </header>
+  <script>
+for (const link of document.querySelectorAll('body > header > nav > div > a')) {
+    const path = new URL(link.href).pathname.replace(/\/$/, '');
+    const current = window.location.pathname;
+    if (current === path || current.startsWith(path + '/')) link.setAttribute('aria-current', 'page');
+}
+</script>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Table of contents">
+       <ul>
+        <li><a href="#easy-deployment-with-sharaf-caddy-and-voidauth">Easy Deployment with Sharaf, Caddy and VoidAuth</a>
+         <ul>
+          <li><a href="#https-with-caddy">HTTPS with Caddy</a></li>
+          <li><a href="#authentication-without-the-oauth2-dance">Authentication without the OAuth2 dance</a></li>
+          <li><a href="#sharaf-does-the-app-stuff">Sharaf does the app stuff</a></li>
+          <li><a href="#sqlite-and-files">SQLite and files</a></li>
+          <li><a href="#give-it-a-try">Give it a try</a></li>
+         </ul></li>
+       </ul>
+      </nav>
+     </details>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="easy-deployment-with-sharaf-caddy-and-voidauth">Easy Deployment with Sharaf, Caddy and VoidAuth<a href="#easy-deployment-with-sharaf-caddy-and-voidauth" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>You build a nice web app, it works locally, and now you want to put it on a server.
+    <br>
+    Then comes HTTPS, user registration, login, sessions, forgot-password emails..
+    <br>
+    Quite a bit of work before you even get to the actual app!</p>
+   <p>I've put together a <a href="https://github.com/sake92/sharaf-deployment-starter">Sharaf deployment starter</a> that takes care of most of this.
+    <br>
+    And I've tested it on <strong>Hetzner</strong>, so it has seen an actual VPS too :)</p>
+   <p>The setup is fairly small:</p>
+   <ul>
+    <li><strong>Caddy</strong> handles HTTPS and reverse proxying</li>
+    <li><strong>VoidAuth</strong> handles authentication and user management</li>
+    <li><strong>Sharaf</strong> handles plain HTTP and app stuff :)</li>
+   </ul>
+   <p>Everything runs with Docker Compose, and the persistent state lives in SQLite and files on disk.</p>
+   <h2 id="https-with-caddy">HTTPS with Caddy<a href="#https-with-caddy" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Setting up SSL certificates can be annoying. Getting one, configuring the server, remembering renewals..</p>
+   <p><a href="https://caddyserver.com/docs/automatic-https">Caddy handles this automatically</a>.
+    <br>
+    Point your domain at the VPS, allow ports 80 and 443 through the firewall, and configure the hostname.
+    <br>
+    Caddy obtains a free TLS certificate, renews it, and redirects HTTP to HTTPS.</p>
+   <p>The Sharaf app just listens on plain HTTP inside the Docker network.
+    <br>
+    Only Caddy exposes the public HTTP/HTTPS ports.</p>
+   <h2 id="authentication-without-the-oauth2-dance">Authentication without the OAuth2 dance<a href="#authentication-without-the-oauth2-dance" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Auth is usually where things get more involved.</p>
+   <p>Even a simple username/password login means maintaining users, hashing passwords, sessions, registration, email verification, password resets etc.
+    <br>
+    And if you go with an external identity provider, there is the OAuth2/OIDC dance to wire into your app.</p>
+   <p><a href="https://github.com/voidauth/voidauth">VoidAuth</a> handles the login and account management part.
+    <br>
+    The nice bit is that the app can use <strong>just HTTP headers</strong> to find out who the user is!</p>
+   <p>For a protected request, Caddy asks VoidAuth whether the user is allowed through.
+    <br>
+    If they need to log in, they get redirected to the login page.
+    <br>
+    Once authenticated, Caddy forwards the request to Sharaf with identity headers such as:</p>
+   <pre><code class="language-text hljs language-plaintext" data-highlighted="yes">Remote-User: alice
+Remote-Name: Alice
+Remote-Email: alice@example.com
+Remote-Groups: users
+</code></pre>
+   <p>This is called <a href="https://github.com/voidauth/voidauth/blob/main/docs/ProxyAuth-and-Trusted-Header-SSO-Setup.md">ProxyAuth / trusted header SSO</a>.
+    <br>
+    VoidAuth owns the authentication session. Your app reads the headers and does its thing.
+    <br>
+    <strong>No need to implement OAuth2 callbacks, login sessions, registration or forgot-password flows in the app.</strong></p>
+   <p>Of course, those headers need to come from a trusted proxy!
+    <br>
+    The starter keeps the app private and strips incoming identity headers before setting the verified ones. Otherwise anyone could send <code>Remote-User: admin</code>, which would be.. unfortunate.</p>
+   <p>App-specific permissions still belong in your app. Knowing who Alice is doesn't automatically mean she can edit Bob's documents.</p>
+   <h2 id="sharaf-does-the-app-stuff">Sharaf does the app stuff<a href="#sharaf-does-the-app-stuff" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The starter uses <a href="https://github.com/sake92/sharaf">Sharaf</a> with http4s/Ember, compiled with Scala Native.
+    <br>
+    It has a public homepage and assets, and a protected <code>/me</code> route that returns the user's identity.</p>
+   <p>This setup is especially useful for Scala Native. I wanted to avoid getting stuck on Java security API support (<code>java.security.Signature</code> and friends) when wiring in auth libraries.
+    <br>
+    You could implement the missing pieces, but that requires work. And even on the JVM, integrating pac4j isn't my idea of fun either..</p>
+   <p>Here the app only needs to understand HTTP headers, which is a much smaller job.</p>
+   <p>Also, <strong>nothing about this requires Sharaf</strong>.
+    <br>
+    You could put another Scala HTTP server, a Go app, a Python app, or pretty much anything that speaks HTTP behind the same setup.</p>
+   <h2 id="sqlite-and-files">SQLite and files<a href="#sqlite-and-files" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>VoidAuth stores users and sessions in SQLite. Config, uploads and Caddy's certificate state live in mounted directories.
+    <br>
+    No separate database server needed for this setup.</p>
+   <p>For continuous SQLite backups, you can add <a href="https://litestream.io/">Litestream</a>, which streams database changes to backup storage.
+    <br>
+    It isn't configured in the starter yet. The other files, including the private <code>.env</code> with the storage key, need to be backed up too.</p>
+   <h2 id="give-it-a-try">Give it a try<a href="#give-it-a-try" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>The <a href="https://github.com/sake92/sharaf-deployment-starter#readme">repository README</a> has local and VPS setup instructions.
+    <br>
+    For a real deployment you'll need a domain, SMTP for verification/password-reset emails, and the initial VoidAuth admin and ProxyAuth domain setup.</p>
+   <p>I'd also like to have API keys and other auth methods covered by the same setup. For now, I'd handle those in the app, with separate proxy rules for those routes. Those are usually much smaller pieces than the whole browser login/account-management machinery.</p>
+   <p>For a small web app on a VPS, this gets quite a lot of annoying stuff out of the way.
+    <br>
+    Then you can get back to building the app :)</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
+</html>

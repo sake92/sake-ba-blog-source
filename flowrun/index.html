@@ -15,46 +15,40 @@
  </head>
  <body>
   <header class="pico container">
-   <nav>
-    <ul>
-     <li><a href="/">Home</a></li>
-    </ul>
-    <ul>
-     <li>
-      <form action="/search/results.html" method="GET">
-       <input name="q" type="search" placeholder="Search">
-      </form>
-     </li>
-    </ul>
-    <ul>
-     <li><a href="/flowrun">FlowRun</a></li>
-     <li><a href="/java">Java</a></li>
-     <li><a href="/scala">Scala</a></li>
-     <li><a href="/programming">Programming</a></li>
-     <li><a href="/maths">Maths</a></li>
-     <li>
-      <details class="dropdown">
-       <summary> Bosanski </summary>
-       <ul dir="rtl">
-        <li><a href="/en">English</a></li>
-       </ul>
-      </details>
-     </li>
-    </ul>
+   <nav aria-label="Main navigation">
+    <a href="/">blog.sake.ba</a>
+    <div>
+     <a href="/flowrun">FlowRun</a> <a href="/java">Java</a> <a href="/scala">Scala</a> <a href="/programming">Programming</a> <a href="/maths">Maths</a>
+    </div>
+    <form action="/search/results.html" method="get" role="search">
+     <input name="q" type="search" placeholder="Search" aria-label="Search this site">
+    </form>
+    <details class="dropdown">
+     <summary>Bosnian</summary>
+     <ul dir="rtl">
+      <li><a href="/en">English</a></li>
+     </ul>
+    </details>
    </nav>
   </header>
+  <script>
+for (const link of document.querySelectorAll('body > header > nav > div > a')) {
+    const path = new URL(link.href).pathname.replace(/\/$/, '');
+    const current = window.location.pathname;
+    if (current === path || current.startsWith(path + '/')) link.setAttribute('aria-current', 'page');
+}
+</script>
   <main class="pico container">
    <div class="grid">
     <div>
-     <details>
-      <summary>Table of Contents</summary>
-      <div>
+     <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Table of contents">
        <ul>
         <li><a href="#flowrun">FlowRun</a></li>
        </ul>
-      </div>
+      </nav>
      </details>
-     <hr>
     </div>
     <div></div>
     <div></div>

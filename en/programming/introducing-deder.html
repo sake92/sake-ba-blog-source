@@ -15,40 +15,35 @@
  </head>
  <body>
   <header class="pico container">
-   <nav>
-    <ul>
-     <li><a href="/en">Home</a></li>
-    </ul>
-    <ul>
-     <li>
-      <form action="/search/results.html" method="GET">
-       <input name="q" type="search" placeholder="Search">
-      </form>
-     </li>
-    </ul>
-    <ul>
-     <li><a href="/en/flowrun">FlowRun</a></li>
-     <li><a href="/en/java">Java</a></li>
-     <li><a href="/en/scala">Scala</a></li>
-     <li><a href="/en/programming">Programming</a></li>
-     <li><a href="/en/maths">Maths</a></li>
-     <li>
-      <details class="dropdown">
-       <summary> English </summary>
-       <ul dir="rtl">
-        <li><a href="/">Bosanski</a></li>
-       </ul>
-      </details>
-     </li>
-    </ul>
+   <nav aria-label="Main navigation">
+    <a href="/en">blog.sake.ba</a>
+    <div>
+     <a href="/en/programming">Programming</a> <a href="/en/maths">Maths</a>
+    </div>
+    <form action="/search/results.html" method="get" role="search">
+     <input name="q" type="search" placeholder="Search" aria-label="Search this site">
+    </form>
+    <details class="dropdown">
+     <summary>English</summary>
+     <ul dir="rtl">
+      <li><a href="/">Bosnian</a></li>
+     </ul>
+    </details>
    </nav>
   </header>
+  <script>
+for (const link of document.querySelectorAll('body > header > nav > div > a')) {
+    const path = new URL(link.href).pathname.replace(/\/$/, '');
+    const current = window.location.pathname;
+    if (current === path || current.startsWith(path + '/')) link.setAttribute('aria-current', 'page');
+}
+</script>
   <main class="pico container">
    <div class="grid">
     <div>
-     <details>
-      <summary>Table of Contents</summary>
-      <div>
+     <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Table of contents">
        <ul>
         <li><a href="#introducing-deder-build-tool">Introducing Deder Build Tool</a>
          <ul>
@@ -62,9 +57,8 @@
           <li><a href="#where-it-stands-today">Where it stands today</a></li>
          </ul></li>
        </ul>
-      </div>
+      </nav>
      </details>
-     <hr>
     </div>
     <div></div>
     <div></div>
@@ -97,14 +91,14 @@
    <h2 id="build-config-with-pkl">Build config with Pkl<a href="#build-config-with-pkl" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
    <p>A Deder build file is written in <a href="https://pkl-lang.org/">Pkl</a>, a statically typed configuration language. You can use classes, default values, validation, functions, loops etc. There is no macros, higher-kinded-types, user-defined-generics, scopes and other miracles. Just simple, plain config that you can serialize into JSON/YAML for inspection. Makes it easy to see what's being applied to your project/modules. It has a pretty good IDE support, and it is really fast.</p>
    <p>A minimal, one-module build file called <code>deder.pkl</code> looks like this:</p>
-   <pre><code class="language-pkl">amends "https://sake92.github.io/deder/config/early-access/DederProject.pkl"
+   <pre><code class="language-pkl hljs" data-highlighted="yes"><span class="hljs-meta">amends <span class="hljs-string">"https://sake92.github.io/deder/config/early-access/DederProject.pkl"</span></span>
 
-local const app: ScalaModule = new {
-  id = "app"
-  scalaVersion = "3.7.4"
+<span class="hljs-keyword">local</span> <span class="hljs-keyword">const</span> <span class="hljs-property">app</span>: <span class="hljs-type"><span class="hljs-type">ScalaModule</span> </span>= <span class="hljs-property">new</span> {
+  <span class="hljs-property">id</span> = <span class="hljs-string">"app"</span>
+  <span class="hljs-property">scalaVersion</span> = <span class="hljs-string">"3.7.4"</span>
 }
 
-modules {
+<span class="hljs-property">modules</span> {
   app
 }
 </code></pre>
@@ -114,23 +108,23 @@ modules {
    <p>As you can see above, we amend (think <code>.copy</code> in scala terms, immutable) a config called <code>DederProject.pkl</code>. It expects a list of <code>modules</code>. Here we only define one. As you might expect, the <code>app</code> module sources are in <code>app/src</code> (based on its <code>id</code>). Module <code>id</code> is used through CLI, BSP etc.</p>
    <hr>
    <p>The project above defines only one module, without tests. But usually we want to define test module too in one go, so we need helpers. Pkl has a <a href="https://pkl-lang.org/blog/class-as-a-function.html">Class-as-a-Function Pattern</a>. This is how it looks like:</p>
-   <pre><code class="language-pkl">amends "https://sake92.github.io/deder/config/early-access/DederProject.pkl"
+   <pre><code class="language-pkl hljs" data-highlighted="yes"><span class="hljs-meta">amends <span class="hljs-string">"https://sake92.github.io/deder/config/early-access/DederProject.pkl"</span></span>
 
-local const appModules = new CreateScalaModules {
-  root = "app"
-  template = new {
-    scalaVersion = "3.7.4"
-    mainClass = "app.Main"
+<span class="hljs-keyword">local</span> <span class="hljs-keyword">const</span> <span class="hljs-property">appModules</span> = <span class="hljs-keyword">new</span> <span class="hljs-property">CreateScalaModules</span> {
+  <span class="hljs-property">root</span> = <span class="hljs-string">"app"</span>
+  <span class="hljs-property">template</span> = <span class="hljs-property">new</span> {
+    <span class="hljs-property">scalaVersion</span> = <span class="hljs-string">"3.7.4"</span>
+    <span class="hljs-property">mainClass</span> = <span class="hljs-string">"app.Main"</span>
   }
-  testTemplate = (template.asTest()) {
-    deps {
-      "org.scalameta::munit:1.2.1"
+  <span class="hljs-property">testTemplate</span> = (template.<span class="hljs-property">asTest</span>()) {
+    <span class="hljs-property">deps</span> {
+      <span class="hljs-string">"org.scalameta::munit:1.2.1"</span>
     }
   }
-}.get
+}.<span class="hljs-property">get</span>
 
-modules {
-  ...appModules
+<span class="hljs-property">modules</span> {
+  ...<span class="hljs-property">appModules</span>
 }
 </code></pre>
    <p>This defines 2 modules with ids <code>app</code> and <code>app-test</code>.
