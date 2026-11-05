@@ -80,8 +80,12 @@ You could put another Scala HTTP server, a Go app, a Python app, or pretty much 
 VoidAuth stores users and sessions in SQLite. Config, uploads and Caddy's certificate state live in mounted directories.  
 No separate database server needed for this setup.
 
-For continuous SQLite backups, you can add [Litestream](https://litestream.io/), which streams database changes to backup storage.  
-It isn't configured in the starter yet. The other files, including the private `.env` with the storage key, need to be backed up too.
+For SQLite backups, I've written about [simple daily snapshots to S3-compatible storage](/en/programming/sqlite-backups-s3.html), using a small script and a systemd timer. You can lose changes since the last successful snapshot, so choose based on how much data you can afford to lose.
+
+For continuous backups, you can add [Litestream](https://litestream.io/), which streams database changes to backup storage.  
+With frequent writes, Litestream can upload many tiny files and consume a lot of storage operations. Check request costs as well as storage space; its [sync interval](https://litestream.io/reference/config/) affects that tradeoff.
+
+Neither backup option is configured in the starter yet. The other files, including the private `.env` with the storage key, need to be backed up too.
 
 ## Give it a try
 
