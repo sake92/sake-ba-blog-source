@@ -128,9 +128,11 @@ Remote-Groups: users
    <p>VoidAuth stores users and sessions in SQLite. Config, uploads and Caddy's certificate state live in mounted directories.
     <br>
     No separate database server needed for this setup.</p>
-   <p>For continuous SQLite backups, you can add <a href="https://litestream.io/">Litestream</a>, which streams database changes to backup storage.
+   <p>For SQLite backups, I've written about <a href="/en/programming/sqlite-backups-s3.html">simple daily snapshots to S3-compatible storage</a>, using a small script and a systemd timer. You can lose changes since the last successful snapshot, so choose based on how much data you can afford to lose.</p>
+   <p>For continuous backups, you can add <a href="https://litestream.io/">Litestream</a>, which streams database changes to backup storage.
     <br>
-    It isn't configured in the starter yet. The other files, including the private <code>.env</code> with the storage key, need to be backed up too.</p>
+    With frequent writes, Litestream can upload many tiny files and consume a lot of storage operations. Check request costs as well as storage space; its <a href="https://litestream.io/reference/config/">sync interval</a> affects that tradeoff.</p>
+   <p>Neither backup option is configured in the starter yet. The other files, including the private <code>.env</code> with the storage key, need to be backed up too.</p>
    <h2 id="give-it-a-try">Give it a try<a href="#give-it-a-try" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
    <p>The <a href="https://github.com/sake92/sharaf-deployment-starter#readme">repository README</a> has local and VPS setup instructions.
     <br>

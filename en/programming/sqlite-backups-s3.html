@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Daily SQLite snapshots to S3-compatible storage, with a small Bash script, systemd timer and seven-day retention.">
+  <title> Simple SQLite Backups to S3-Compatible Storage | blog.sake.ba </title>
+  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
+  <link rel="stylesheet" href="/styles/default.css">
+ </head>
+ <body>
+  <header class="pico container">
+   <nav aria-label="Main navigation">
+    <a href="/en">blog.sake.ba</a>
+    <div>
+     <a href="/en/programming">Programming</a> <a href="/en/maths">Maths</a>
+    </div>
+    <form action="/search/results.html" method="get" role="search">
+     <input name="q" type="search" placeholder="Search" aria-label="Search this site">
+    </form>
+    <details class="dropdown">
+     <summary>English</summary>
+     <ul dir="rtl">
+      <li><a href="/">Bosnian</a></li>
+     </ul>
+    </details>
+   </nav>
+  </header>
+  <script>
+for (const link of document.querySelectorAll('body > header > nav > div > a')) {
+    const path = new URL(link.href).pathname.replace(/\/$/, '');
+    const current = window.location.pathname;
+    if (current === path || current.startsWith(path + '/')) link.setAttribute('aria-current', 'page');
+}
+</script>
+  <main class="pico container">
+   <div class="grid">
+    <div>
+     <details open>
+      <summary>On this page</summary>
+      <nav aria-label="Table of contents">
+       <ul>
+        <li><a href="#simple-sqlite-backups-to-s3-compatible-storage">Simple SQLite Backups to S3-Compatible Storage</a>
+         <ul>
+          <li><a href="#what-about-litestream">What about Litestream?</a></li>
+          <li><a href="#prepare-the-vps-and-bucket">Prepare the VPS and bucket</a>
+           <ul>
+            <li><a href="#configure-the-retention-period">Configure the retention period</a></li>
+            <li><a href="#configure-bucket-access">Configure bucket access</a></li>
+           </ul></li>
+          <li><a href="#take-a-snapshot-and-upload-it">Take a snapshot and upload it</a></li>
+          <li><a href="#run-it-every-day">Run it every day</a></li>
+          <li><a href="#check-that-you-can-restore-it">Check that you can restore it</a></li>
+         </ul></li>
+       </ul>
+      </nav>
+     </details>
+    </div>
+    <div></div>
+    <div></div>
+   </div>
+   <h1 id="simple-sqlite-backups-to-s3-compatible-storage">Simple SQLite Backups to S3-Compatible Storage<a href="#simple-sqlite-backups-to-s3-compatible-storage" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
+   <p>SQLite makes running a small web app quite pleasant. One database file, no separate database server to maintain..
+    <br>
+    But that file still needs a backup somewhere outside your VPS!</p>
+   <p>Here's a small setup for that: take a snapshot, check it, compress it, and upload it to a private S3-compatible bucket once a day. A systemd timer runs the job, and a bucket lifecycle rule removes old backups.</p>
+   <p>You can use <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3-commands.html">Amazon S3</a>, <a href="https://developers.cloudflare.com/r2/examples/aws/aws-cli/">Cloudflare R2</a>, <a href="https://www.backblaze.com/docs/cloud-storage-use-the-aws-cli-with-backblaze-b2">Backblaze B2</a> or <a href="https://docs.digitalocean.com/products/spaces/reference/s3-compatibility/">DigitalOcean Spaces</a>. They all support uploads through the AWS CLI, with different endpoints, credentials and pricing.</p>
+   <p>It works with any app using SQLite. If your app runs in Docker, the script runs on the host and reads the database from its bind mount.</p>
+   <h2 id="what-about-litestream">What about Litestream?<a href="#what-about-litestream" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p><a href="https://litestream.io/">Litestream</a> continuously replicates SQLite changes to backup storage. It's useful when you need to recover changes made since the last daily backup.</p>
+   <p>One thing to watch, though: <strong>Litestream can consume a lot of storage operations because it uploads many tiny files</strong>. With frequent database writes and a short sync interval, those small uploads can add up to a lot of PUT requests, even when the total data is small. The <a href="https://litestream.io/reference/config/">Litestream configuration docs</a> explain this tradeoff. Increasing the sync interval reduces request frequency, but increases the window of changes you could lose.</p>
+   <p>Check your provider's operation allowances and pricing as well as storage space. <a href="https://developers.cloudflare.com/r2/pricing/">R2 charges for operations too</a>, so a small database doesn't automatically mean a small request bill.</p>
+   <p>If a daily snapshot is enough for your app, the setup below is fairly simple. <strong>You can lose roughly a day's changes if the server dies just before the next backup</strong>, and more if backups have been failing. Each run also uploads the whole compressed database. Pick the schedule based on how much data you can afford to lose.</p>
+   <h2 id="prepare-the-vps-and-bucket">Prepare the VPS and bucket<a href="#prepare-the-vps-and-bucket" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>You'll need Bash, SQLite's <code>sqlite3</code> CLI, gzip, GNU coreutils and AWS CLI v2 on a Linux VPS with systemd.</p>
+   <p>Install the AWS CLI using the <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">official instructions</a>. For a new system-wide installation:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes">curl -fsSL https://awscli.amazonaws.com/v2/install.sh -o /tmp/aws-cli-install.sh
+<span class="hljs-built_in">sudo</span> bash /tmp/aws-cli-install.sh --system
+<span class="hljs-built_in">command</span> -v aws
+aws --version
+</code></pre>
+   <p>The system-wide installation makes <code>aws</code> available in <code>/usr/local/bin</code>, so systemd can find it too.</p>
+   <p>Create a <strong>private bucket</strong> with your storage provider.</p>
+   <h3 id="configure-the-retention-period">Configure the retention period<a href="#configure-the-retention-period" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>Configure a lifecycle rule in your storage provider's bucket settings. Set the prefix to <code>my-app/db/</code> and expire backup objects <strong>7 days</strong> after upload. Use the same prefix for <code>S3_PREFIX</code> in the configuration below.</p>
+   <p>In R2, this is under <strong>Settings → Object Lifecycle Rules → Add rule</strong>. Other providers have their own lifecycle settings; check how expiration works there, especially if bucket versioning is enabled.</p>
+   <p>Without the rule, backups keep accumulating. Deletion can take time (<a href="https://developers.cloudflare.com/r2/buckets/object-lifecycles/">R2 handles it asynchronously</a>), so allow space for delays as well as database growth.</p>
+   <p>At 500 MB per compressed snapshot, seven daily backups need about 3.5 GB, plus that headroom.</p>
+   <h3 id="configure-bucket-access">Configure bucket access<a href="#configure-bucket-access" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
+   <p>Create credentials scoped to the bucket. Allow uploads and downloads, including multipart uploads for larger backups. Copy the S3 API endpoint and region from your provider's settings or docs.</p>
+   <table>
+    <thead>
+     <tr>
+      <th>Provider</th>
+      <th>S3 API endpoint</th>
+      <th>Region</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>Amazon S3, Frankfurt</td>
+      <td><code>https://s3.eu-central-1.amazonaws.com</code></td>
+      <td><code>eu-central-1</code></td>
+     </tr>
+     <tr>
+      <td>Cloudflare R2</td>
+      <td><code>https://ACCOUNT_ID.r2.cloudflarestorage.com</code></td>
+      <td><code>auto</code></td>
+     </tr>
+     <tr>
+      <td>Backblaze B2</td>
+      <td><code>https://s3.REGION.backblazeb2.com</code></td>
+      <td>Your bucket's region</td>
+     </tr>
+     <tr>
+      <td>DigitalOcean Spaces, New York</td>
+      <td><code>https://nyc3.digitaloceanspaces.com</code></td>
+      <td><code>nyc3</code></td>
+     </tr>
+    </tbody>
+   </table>
+   <p>The configuration below uses Amazon S3 in Frankfurt. Replace the endpoint and region with the values for your own bucket.</p>
+   <p>Create a private configuration file:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">touch</span> /etc/sqlite-backup.env
+<span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> 0600 /etc/sqlite-backup.env
+<span class="hljs-built_in">sudo</span> nano /etc/sqlite-backup.env
+</code></pre>
+   <p>Paste this and replace the paths and credentials:</p>
+   <pre><code class="language-ini hljs" data-highlighted="yes"><span class="hljs-attr">DB_PATH</span>=/opt/my-app/data/app.db
+<span class="hljs-attr">S3_ENDPOINT_URL</span>=https://s3.eu-central-<span class="hljs-number">1</span>.amazonaws.com
+<span class="hljs-attr">S3_REGION</span>=eu-central-<span class="hljs-number">1</span>
+<span class="hljs-attr">S3_BUCKET</span>=YOUR_PRIVATE_BACKUP_BUCKET
+<span class="hljs-attr">S3_PREFIX</span>=my-app/db
+<span class="hljs-attr">AWS_ACCESS_KEY_ID</span>=YOUR_STORAGE_ACCESS_KEY_ID
+<span class="hljs-attr">AWS_SECRET_ACCESS_KEY</span>=YOUR_STORAGE_SECRET_ACCESS_KEY
+</code></pre>
+   <p><code>DB_PATH</code> is the path on the <strong>host</strong>, which may differ from the path inside your container. Keep enough temporary disk space for both the snapshot and its compressed copy.</p>
+   <h2 id="take-a-snapshot-and-upload-it">Take a snapshot and upload it<a href="#take-a-snapshot-and-upload-it" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Use SQLite's <a href="https://www.sqlite.org/backup.html">online backup</a> through the CLI's <code>.backup</code> command. The app can keep running, and committed changes in the WAL are included. Simply copying a live <code>.db</code> file can miss those changes or produce an inconsistent backup.</p>
+   <p>Create <code>/usr/local/bin/backup-db.sh</code>:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes"><span class="hljs-built_in">sudo</span> nano /usr/local/bin/backup-db.sh
+</code></pre>
+   <p>Paste the following, including the first line:</p>
+   <pre><code class="language-bash hljs" data-highlighted="yes"><span class="hljs-meta">#!/usr/bin/env bash</span>
+<span class="hljs-built_in">set</span> -euo pipefail
+<span class="hljs-built_in">umask</span> 077
+
+: <span class="hljs-string">"<span class="hljs-variable">${DB_PATH:?Set DB_PATH to the host SQLite database file}</span>"</span>
+: <span class="hljs-string">"<span class="hljs-variable">${S3_ENDPOINT_URL:?Set S3_ENDPOINT_URL to the storage S3 API endpoint}</span>"</span>
+: <span class="hljs-string">"<span class="hljs-variable">${S3_REGION:?Set S3_REGION to the storage region}</span>"</span>
+: <span class="hljs-string">"<span class="hljs-variable">${S3_BUCKET:?Set S3_BUCKET}</span>"</span>
+: <span class="hljs-string">"<span class="hljs-variable">${AWS_ACCESS_KEY_ID:?Set AWS_ACCESS_KEY_ID}</span>"</span>
+: <span class="hljs-string">"<span class="hljs-variable">${AWS_SECRET_ACCESS_KEY:?Set AWS_SECRET_ACCESS_KEY}</span>"</span>
+
+<span class="hljs-keyword">for</span> dependency <span class="hljs-keyword">in</span> sqlite3 aws gzip <span class="hljs-built_in">timeout</span> <span class="hljs-built_in">mktemp</span> <span class="hljs-built_in">realpath</span> <span class="hljs-built_in">date</span>; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">command</span> -v <span class="hljs-string">"<span class="hljs-variable">$dependency</span>"</span> &gt;/dev/null || { <span class="hljs-built_in">echo</span> <span class="hljs-string">"Missing command: <span class="hljs-variable">$dependency</span>"</span> &gt;&amp;2; <span class="hljs-built_in">exit</span> 1; }
+<span class="hljs-keyword">done</span>
+<span class="hljs-keyword">if</span> [[ ! -f <span class="hljs-string">"<span class="hljs-variable">$DB_PATH</span>"</span> || ! -r <span class="hljs-string">"<span class="hljs-variable">$DB_PATH</span>"</span> ]]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">"Database is missing or unreadable: <span class="hljs-variable">$DB_PATH</span>"</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+db_path=$(<span class="hljs-built_in">realpath</span> -e -- <span class="hljs-string">"<span class="hljs-variable">$DB_PATH</span>"</span>)
+
+work_dir=$(<span class="hljs-built_in">mktemp</span> -d <span class="hljs-string">"<span class="hljs-variable">${TMPDIR:-/tmp}</span>/sqlite-backup.XXXXXXXXXX"</span>)
+<span class="hljs-built_in">trap</span> <span class="hljs-string">'rm -rf -- "$work_dir"'</span> EXIT
+<span class="hljs-built_in">trap</span> <span class="hljs-string">'exit 130'</span> INT
+<span class="hljs-built_in">trap</span> <span class="hljs-string">'exit 143'</span> TERM
+<span class="hljs-built_in">cd</span> <span class="hljs-string">"<span class="hljs-variable">$work_dir</span>"</span>
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Creating database snapshot"</span> &gt;&amp;2
+<span class="hljs-built_in">timeout</span> --kill-after=10s 5m sqlite3 -batch -bail -<span class="hljs-built_in">readonly</span> <span class="hljs-string">"<span class="hljs-variable">$db_path</span>"</span> \
+  <span class="hljs-string">'.timeout 10000'</span> <span class="hljs-string">'.backup snapshot.db'</span>
+check=$(<span class="hljs-built_in">timeout</span> --kill-after=10s 5m sqlite3 -batch -bail -<span class="hljs-built_in">readonly</span> snapshot.db <span class="hljs-string">'PRAGMA integrity_check;'</span>)
+<span class="hljs-keyword">if</span> [[ <span class="hljs-string">"<span class="hljs-variable">$check</span>"</span> != <span class="hljs-string">"ok"</span> ]]; <span class="hljs-keyword">then</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-string">"Snapshot failed SQLite integrity_check; upload cancelled"</span> &gt;&amp;2
+  <span class="hljs-built_in">exit</span> 1
+<span class="hljs-keyword">fi</span>
+<span class="hljs-built_in">timeout</span> --kill-after=10s 5m gzip -n snapshot.db
+
+prefix=<span class="hljs-variable">${S3_PREFIX:-my-app/db}</span>
+prefix=<span class="hljs-variable">${prefix#/}</span>
+prefix=<span class="hljs-variable">${prefix%/}</span>
+object_name=<span class="hljs-string">"sqlite-<span class="hljs-subst">$(date -u +%Y%m%dT%H%M%SZ)</span>-<span class="hljs-variable">${work_dir##*.}</span>.db.gz"</span>
+destination=<span class="hljs-string">"s3://<span class="hljs-variable">${S3_BUCKET}</span>/<span class="hljs-variable">${prefix:+<span class="hljs-variable">${prefix}</span>/}</span><span class="hljs-variable">${object_name}</span>"</span>
+
+<span class="hljs-built_in">export</span> AWS_EC2_METADATA_DISABLED=<span class="hljs-literal">true</span>
+<span class="hljs-built_in">export</span> AWS_RETRY_MODE=standard
+<span class="hljs-built_in">export</span> AWS_MAX_ATTEMPTS=5
+<span class="hljs-built_in">export</span> AWS_PAGER=<span class="hljs-string">""</span>
+<span class="hljs-built_in">timeout</span> --kill-after=10s 15m aws s3 <span class="hljs-built_in">cp</span> snapshot.db.gz <span class="hljs-string">"<span class="hljs-variable">$destination</span>"</span> \
+  --endpoint-url <span class="hljs-string">"<span class="hljs-variable">$S3_ENDPOINT_URL</span>"</span> --region <span class="hljs-string">"<span class="hljs-variable">$S3_REGION</span>"</span> \
+  --cli-connect-timeout 15 --cli-read-timeout 120 --only-show-errors
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"Uploaded database snapshot: <span class="hljs-variable">$destination</span>"</span> &gt;&amp;2
+</code></pre>
+   <p>Make it executable:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> 0755 /usr/local/bin/backup-db.sh
+</code></pre>
+   <p>The script checks the snapshot before uploading, gives each backup a UTC timestamp and a random suffix, and removes temporary files on exit. A failed snapshot, integrity check, compression or upload makes the job fail. Adjust the timeouts for a larger database or slower connection.</p>
+   <p>Each run creates one backup object. Large uploads can use multipart requests, so that doesn't necessarily mean one storage operation per backup.</p>
+   <h2 id="run-it-every-day">Run it every day<a href="#run-it-every-day" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>Create <code>/etc/systemd/system/sqlite-backup.service</code>:</p>
+   <pre><code class="language-ini hljs" data-highlighted="yes"><span class="hljs-section">[Unit]</span>
+<span class="hljs-attr">Description</span>=Snapshot SQLite database to S3-compatible storage
+<span class="hljs-attr">Wants</span>=network-<span class="hljs-literal">on</span>line.target
+<span class="hljs-attr">After</span>=network-<span class="hljs-literal">on</span>line.target
+
+<span class="hljs-section">[Service]</span>
+<span class="hljs-attr">Type</span>=<span class="hljs-literal">on</span>eshot
+<span class="hljs-attr">EnvironmentFile</span>=/etc/sqlite-backup.env
+<span class="hljs-attr">ExecStart</span>=/usr/local/bin/backup-db.sh
+<span class="hljs-attr">TimeoutStartSec</span>=<span class="hljs-number">30</span>min
+<span class="hljs-attr">TimeoutStopSec</span>=<span class="hljs-number">20</span>s
+<span class="hljs-attr">KillMode</span>=control-group
+<span class="hljs-attr">UMask</span>=<span class="hljs-number">0077</span>
+<span class="hljs-attr">PrivateTmp</span>=<span class="hljs-literal">true</span>
+<span class="hljs-attr">NoNewPrivileges</span>=<span class="hljs-literal">true</span>
+</code></pre>
+   <p>This service runs as root so it can read the host-mounted database. If you use a dedicated account, add <code>User=</code> and <code>Group=</code> and grant access to the database directory and its WAL/SHM files.</p>
+   <p>If <code>command -v aws</code> showed a custom installation path, add an <code>Environment="PATH=..."</code> line under <code>[Service]</code> containing that directory and the usual system directories. An interactive shell's PATH isn't necessarily systemd's PATH.</p>
+   <p>Create <code>/etc/systemd/system/sqlite-backup.timer</code>:</p>
+   <pre><code class="language-ini hljs" data-highlighted="yes"><span class="hljs-section">[Unit]</span>
+<span class="hljs-attr">Description</span>=Daily SQLite database backup
+
+<span class="hljs-section">[Timer]</span>
+<span class="hljs-attr">OnCalendar</span>=*-*-* <span class="hljs-number">03</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+<span class="hljs-attr">Persistent</span>=<span class="hljs-literal">true</span>
+
+<span class="hljs-section">[Install]</span>
+<span class="hljs-attr">WantedBy</span>=timers.target
+</code></pre>
+   <p>This runs daily at 03:00 in the server's timezone. <code>Persistent=true</code> triggers a catch-up run if a scheduled run was missed while the timer was inactive.</p>
+   <p>Reload systemd and run a backup manually first:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> 0644 /etc/systemd/system/sqlite-backup.service /etc/systemd/system/sqlite-backup.timer
+<span class="hljs-built_in">sudo</span> systemctl daemon-reload
+<span class="hljs-built_in">sudo</span> systemctl start sqlite-backup.service
+<span class="hljs-built_in">sudo</span> journalctl -u sqlite-backup.service -n 30 --no-pager
+</code></pre>
+   <p>The start command waits for the backup to finish, which can take a few minutes. Follow the progress from another terminal with <code>sudo journalctl -u sqlite-backup.service -f</code>.</p>
+   <p>Look for <code>Uploaded database snapshot: ...</code>, and check that the object exists in your bucket. Then enable the timer:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes"><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> --now sqlite-backup.timer
+systemctl list-timers sqlite-backup.timer
+</code></pre>
+   <p>Check failures with <code>systemctl status sqlite-backup.service</code> and the journal. Connect failed runs to your server monitoring so you hear about them before you need a backup..</p>
+   <h2 id="check-that-you-can-restore-it">Check that you can restore it<a href="#check-that-you-can-restore-it" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
+   <p>A successful upload is only part of the job. Download a backup and check it too!</p>
+   <p>In a root shell, load the configuration and use the object name from the journal:</p>
+   <pre><code class="language-sh hljs language-bash" data-highlighted="yes"><span class="hljs-built_in">sudo</span> -i
+<span class="hljs-built_in">set</span> -a
+. /etc/sqlite-backup.env
+<span class="hljs-built_in">set</span> +a
+<span class="hljs-built_in">umask</span> 077
+<span class="hljs-built_in">mkdir</span> -p /root/restore-check
+<span class="hljs-built_in">cd</span> /root/restore-check
+aws s3 <span class="hljs-built_in">cp</span> <span class="hljs-string">"s3://<span class="hljs-variable">${S3_BUCKET}</span>/<span class="hljs-variable">${S3_PREFIX}</span>/OBJECT.db.gz"</span> ./restore-check.db.gz \
+  --endpoint-url <span class="hljs-string">"<span class="hljs-variable">$S3_ENDPOINT_URL</span>"</span> --region <span class="hljs-string">"<span class="hljs-variable">$S3_REGION</span>"</span>
+gzip -dc restore-check.db.gz &gt; restore-check.db
+sqlite3 -<span class="hljs-built_in">readonly</span> restore-check.db <span class="hljs-string">'PRAGMA integrity_check;'</span>
+</code></pre>
+   <p>Expect <code>ok</code>, then inspect the tables and records your app needs. Keep the configuration file compatible with shell syntax too; quote values containing spaces or shell metacharacters.</p>
+   <p>For a real restore, stop the app and all other database clients first. Preserve the current database together with any <code>-wal</code> and <code>-shm</code> files. Put the checked snapshot at the configured database path with the app's ownership and permissions, and ensure no old WAL/SHM files remain at that path before restarting the app.</p>
+   <p>This covers one SQLite database. Uploads, configuration, secrets and any other databases need their own backups too.</p>
+   <p>If you need a simple HTTP server on a single VPS with HTTPS and authentication, see the <a href="/en/programming/sharaf-deployment.html">Caddy, Sharaf and VoidAuth post</a>.</p>
+  </main>
+  <footer class="pico container">blog.sake.ba</footer>
+ </body>
+</html>
