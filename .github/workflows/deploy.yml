@@ -20,12 +20,19 @@ jobs:
         # FlatMark downloads Chrome for Testing, outside Ubuntu's Chrome AppArmor profile.
         # https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md
         run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
-      - name: Build
+      - name: Install Flatmark
         run: |
             FLATMARK_VERSION=0.3.0
             curl -L https://github.com/sake92/flatmark/releases/download/v${FLATMARK_VERSION}/flatmark_${FLATMARK_VERSION}_amd64.deb -o flatmark.deb
             sudo apt install -y ./flatmark.deb
-            flatmark build
+      - name: Build for blog.sake.ba
+        run: |
+          flatmark build
+          mv _site _site-production
+      - name: Build for GitHub Pages
+        env:
+          FLATMARK_BASE_URL: /${{ github.event.repository.name }}
+        run: flatmark build --no-cache
       - name: Deploy to GH Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -38,4 +45,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: _site/
+          local-dir: _site-production/
