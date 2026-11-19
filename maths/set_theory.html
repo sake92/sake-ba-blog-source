@@ -6,27 +6,27 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="Kratak uvod u teoriju skupova. Unija, presjek, razlika, De Morgan.">
   <title> Teorija skupova | blog.sake.ba </title>
-  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="/sake-ba-blog-source/images/favicon.png" type="image/png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-  <link rel="stylesheet" href="/styles/default.css">
+  <link rel="stylesheet" href="/sake-ba-blog-source/styles/default.css">
  </head>
  <body>
   <header class="pico container">
    <nav aria-label="Main navigation">
-    <a href="/">blog.sake.ba</a>
+    <a href="/sake-ba-blog-source/">blog.sake.ba</a>
     <div>
-     <a href="/flowrun">FlowRun</a> <a href="/java">Java</a> <a href="/scala">Scala</a> <a href="/programming">Programming</a> <a href="/maths">Maths</a>
+     <a href="/sake-ba-blog-source/flowrun">FlowRun</a> <a href="/sake-ba-blog-source/java">Java</a> <a href="/sake-ba-blog-source/scala">Scala</a> <a href="/sake-ba-blog-source/programming">Programming</a> <a href="/sake-ba-blog-source/maths">Maths</a>
     </div>
-    <form action="/search/results.html" method="get" role="search">
+    <form action="/sake-ba-blog-source/search/results.html" method="get" role="search">
      <input name="q" type="search" placeholder="Search" aria-label="Search this site">
     </form>
     <details class="dropdown">
      <summary>Bosnian</summary>
      <ul dir="rtl">
-      <li><a href="/en">English</a></li>
+      <li><a href="/sake-ba-blog-source/en">English</a></li>
      </ul>
     </details>
    </nav>
@@ -507,7 +507,7 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
        </semantics>
       </math>
      </span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6889em;"></span><span class="mord mathbb">N</span></span></span></span>. To je igralište iz kojeg ne smijemo izlaziti.</p>
-   <p><img src="/images/math/skupovi.svg" alt="Vennov dijagram" width="640"></p>
+   <p><img src="/sake-ba-blog-source/images/math/skupovi.svg" alt="Vennov dijagram" width="640"></p>
    <h3 id="unija">Unija<a href="#unija" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
    <p>Unija dva skupa <span class="katex"><span class="katex-mathml">
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -586,7 +586,7 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
      <br>
      O logičkim operatorima ćemo reći nešto više u idućem poglavlju.</p>
    </blockquote>
-   <p><img src="/images/math/unija.svg" alt="Unija skupova" width="640"></p>
+   <p><img src="/sake-ba-blog-source/images/math/unija.svg" alt="Unija skupova" width="640"></p>
    <h3 id="presjek">Presjek<a href="#presjek" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h3>
    <p>Često se postavlja pitanje šta dva skupa imaju zajedničko.
     <br>
@@ -658,7 +658,7 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
     Prazan skup ipak ima neku svrhu... :D
     <br>
     Za ovakve skupove, koji nemaju zajedničke elemente, kaže se da su <strong>disjunktni</strong>.</p>
-   <p><img src="/images/math/presjek.svg" alt="Presjek skupova" width="640"></p>
+   <p><img src="/sake-ba-blog-source/images/math/presjek.svg" alt="Presjek skupova" width="640"></p>
    <blockquote>
     <p>Matematika se često bavi pitanjem jednakosti, kako možemo jednu te istu stvar izraziti na više načina.
      <br>
@@ -755,7 +755,7 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
        </semantics>
       </math>
      </span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∖</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal">x</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel"><span class="mord"><span class="mrel">∈</span></span><span class="mord vbox"><span class="thinbox"><span class="llap"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="inner"><span class="mord"><span class="mord">/</span><span class="mspace" style="margin-right: 0.0556em;"></span></span></span><span class="fix"></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mclose">}</span></span></span></span>.</p>
-   <p><img src="/images/math/razlika.svg" alt="Razlika skupova" width="640"></p>
+   <p><img src="/sake-ba-blog-source/images/math/razlika.svg" alt="Razlika skupova" width="640"></p>
    <p>Postoje još dvije zanimljive operacije, prva je <em>simetrična razlika</em> (<span class="katex"><span class="katex-mathml">
       <math xmlns="http://www.w3.org/1998/Math/MathML">
        <semantics>

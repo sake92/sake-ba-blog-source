@@ -6,27 +6,27 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="An ordinary Scala HTTP app on AWS Lambda, using a GraalVM native image, the Lambda Web Adapter and OpenTofu.">
   <title> Running a Scala Web App on AWS Lambda | blog.sake.ba </title>
-  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="/sake-ba-blog-source/images/favicon.png" type="image/png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-  <link rel="stylesheet" href="/styles/default.css">
+  <link rel="stylesheet" href="/sake-ba-blog-source/styles/default.css">
  </head>
  <body>
   <header class="pico container">
    <nav aria-label="Main navigation">
-    <a href="/en">blog.sake.ba</a>
+    <a href="/sake-ba-blog-source/en">blog.sake.ba</a>
     <div>
-     <a href="/en/programming">Programming</a> <a href="/en/maths">Maths</a>
+     <a href="/sake-ba-blog-source/en/programming">Programming</a> <a href="/sake-ba-blog-source/en/maths">Maths</a>
     </div>
-    <form action="/search/results.html" method="get" role="search">
+    <form action="/sake-ba-blog-source/search/results.html" method="get" role="search">
      <input name="q" type="search" placeholder="Search" aria-label="Search this site">
     </form>
     <details class="dropdown">
      <summary>English</summary>
      <ul dir="rtl">
-      <li><a href="/">Bosnian</a></li>
+      <li><a href="/sake-ba-blog-source/">Bosnian</a></li>
      </ul>
     </details>
    </nav>
@@ -51,7 +51,6 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
           <li><a href="#graalvm-native-image">GraalVM native image</a></li>
           <li><a href="#infrastructure-with-opentofu">Infrastructure with OpenTofu</a></li>
           <li><a href="#testing-without-an-aws-account">Testing without an AWS account</a></li>
-          <li><a href="#what-about-dynamodb">What about DynamoDB?</a></li>
           <li><a href="#give-it-a-try">Give it a try</a></li>
          </ul></li>
        </ul>
@@ -62,12 +61,10 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
     <div></div>
    </div>
    <h1 id="running-a-scala-web-app-on-aws-lambda">Running a Scala Web App on AWS Lambda<a href="#running-a-scala-web-app-on-aws-lambda" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h1>
-   <p>In the <a href="/en/programming/sharaf-deployment.html">previous post</a>, I wrote about deploying a small web app on a VPS with Caddy and VoidAuth.
+   <p>In the <a href="/sake-ba-blog-source/en/programming/sharaf-deployment.html">previous post</a>, I wrote about deploying a small web app on a VPS with Caddy and VoidAuth.
     <br>
     But what if you don't want to maintain a server at all?</p>
-   <p>I've put together a <a href="https://github.com/sake92/sharaf-aws-lambda-starter">Sharaf AWS Lambda starter</a> for that too.
-    <br>
-    And I've tested the deployment on <strong>AWS</strong>, so this one has also seen the outside world :)</p>
+   <p>I've put together a <a href="https://github.com/sake92/sharaf-aws-lambda-starter">Sharaf AWS Lambda starter</a> for that too. The current GraalVM build still needs an AWS deployment test.</p>
    <p>The setup is fairly small:</p>
    <ul>
     <li><strong>Sharaf</strong> handles HTTP and app logic</li>
@@ -110,15 +107,11 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
    <p>The starter also has an integration test using <a href="https://github.com/floci-io/floci">Floci</a>, a local AWS emulator, through Testcontainers.</p>
    <p>It builds the same Docker image used for deployment and calls it through an emulated Lambda Function URL.
     <br>
-    That exercises the adapter too: JSON bodies, query parameters, validation errors and unknown routes all travel through the full request path.</p>
+    The test sends JSON bodies and query parameters through the adapter and checks that the app returns HTTP 400 for an invalid body and HTTP 404 for an unknown route.</p>
    <p>You need Docker, but no AWS account or credentials for that test.
     <br>
     There are also route tests for the app itself that run on the JVM.</p>
    <p>An emulator doesn't prove every detail of AWS behavior, but it's useful to check the app and adapter together before deploying.</p>
-   <h2 id="what-about-dynamodb">What about DynamoDB?<a href="#what-about-dynamodb" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
-   <p>The starter doesn't have a database yet. For a Lambda app, I'd look at storing persistent data outside the function, for example in DynamoDB.</p>
-   <p>One thing I'd like to try is <a href="https://disneystreaming.github.io/smithy4s/docs/protocols/aws/aws/">Smithy4s</a>. It can generate Scala clients from AWS service models, and its documentation includes a DynamoDB example.</p>
-   <p><strong>I haven't tried this integration yet</strong>, so DynamoDB access, credentials and compatibility with this native build still need checking. It's an idea for the next experiment :)</p>
    <h2 id="give-it-a-try">Give it a try<a href="#give-it-a-try" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
    <p>The <a href="https://github.com/sake92/sharaf-aws-lambda-starter#readme">repository README</a> has the local run, test and AWS deployment instructions, including how to remove the resources afterwards.</p>
    <p>If you want to keep writing a normal Scala web app and let AWS handle the servers, this is a small starting point.

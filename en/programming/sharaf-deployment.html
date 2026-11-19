@@ -6,27 +6,27 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="A small web app deployment setup with automatic HTTPS, authentication, a GraalVM native image and SQLite. Tested on Hetzner!">
   <title> Easy Deployment with Sharaf, Caddy and VoidAuth | blog.sake.ba </title>
-  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="/sake-ba-blog-source/images/favicon.png" type="image/png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-  <link rel="stylesheet" href="/styles/default.css">
+  <link rel="stylesheet" href="/sake-ba-blog-source/styles/default.css">
  </head>
  <body>
   <header class="pico container">
    <nav aria-label="Main navigation">
-    <a href="/en">blog.sake.ba</a>
+    <a href="/sake-ba-blog-source/en">blog.sake.ba</a>
     <div>
-     <a href="/en/programming">Programming</a> <a href="/en/maths">Maths</a>
+     <a href="/sake-ba-blog-source/en/programming">Programming</a> <a href="/sake-ba-blog-source/en/maths">Maths</a>
     </div>
-    <form action="/search/results.html" method="get" role="search">
+    <form action="/sake-ba-blog-source/search/results.html" method="get" role="search">
      <input name="q" type="search" placeholder="Search" aria-label="Search this site">
     </form>
     <details class="dropdown">
      <summary>English</summary>
      <ul dir="rtl">
-      <li><a href="/">Bosnian</a></li>
+      <li><a href="/sake-ba-blog-source/">Bosnian</a></li>
      </ul>
     </details>
    </nav>
@@ -124,7 +124,7 @@ Remote-Groups: users
    <p>VoidAuth stores users and sessions in SQLite. Config, uploads and Caddy's certificate state live in mounted directories.
     <br>
     No separate database server needed for this setup.</p>
-   <p>For SQLite backups, I've written about <a href="/en/programming/sqlite-backups-s3.html">simple daily snapshots to S3-compatible storage</a>, using a small script and a systemd timer. You can lose changes since the last successful snapshot, so choose based on how much data you can afford to lose.</p>
+   <p>For SQLite backups, I've written about <a href="/sake-ba-blog-source/en/programming/sqlite-backups-s3.html">simple daily snapshots to S3-compatible storage</a>, using a small script and a systemd timer. You can lose changes since the last successful snapshot, so choose based on how much data you can afford to lose.</p>
    <p>For continuous backups, you can add <a href="https://litestream.io/">Litestream</a>, which streams database changes to backup storage.
     <br>
     With frequent writes, Litestream can upload many tiny files and consume a lot of storage operations. Check request costs as well as storage space; its <a href="https://litestream.io/reference/config/">sync interval</a> affects that tradeoff.</p>

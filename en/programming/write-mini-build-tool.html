@@ -6,27 +6,27 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="Build tools, make, maven, gradle, sbt, mill, java, scala, groovy, kotlin">
   <title> How to Write a Mini Build Tool? | blog.sake.ba </title>
-  <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="/sake-ba-blog-source/images/favicon.png" type="image/png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.conditional.min.css">
-  <link rel="stylesheet" href="/styles/default.css">
+  <link rel="stylesheet" href="/sake-ba-blog-source/styles/default.css">
  </head>
  <body>
   <header class="pico container">
    <nav aria-label="Main navigation">
-    <a href="/en">blog.sake.ba</a>
+    <a href="/sake-ba-blog-source/en">blog.sake.ba</a>
     <div>
-     <a href="/en/programming">Programming</a> <a href="/en/maths">Maths</a>
+     <a href="/sake-ba-blog-source/en/programming">Programming</a> <a href="/sake-ba-blog-source/en/maths">Maths</a>
     </div>
-    <form action="/search/results.html" method="get" role="search">
+    <form action="/sake-ba-blog-source/search/results.html" method="get" role="search">
      <input name="q" type="search" placeholder="Search" aria-label="Search this site">
     </form>
     <details class="dropdown">
      <summary>English</summary>
      <ul dir="rtl">
-      <li><a href="/">Bosnian</a></li>
+      <li><a href="/sake-ba-blog-source/">Bosnian</a></li>
      </ul>
     </details>
    </nav>
@@ -235,7 +235,7 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
   println(generateDOT(modulesGraph, v =&gt; v.id, v =&gt; <span class="hljs-type">Map</span>(<span class="hljs-string">"label"</span> -&gt; v.id)))
 </code></pre>
    <p>You will see a nice image when you run it through Graphviz:</p>
-   <p><img src="/images/mini_build_tool/modules.svg" alt=""></p>
+   <p><img src="/sake-ba-blog-source/images/mini_build_tool/modules.svg" alt=""></p>
    <hr>
    <p>Then the tasks graph:</p>
    <pre><code class="language-scala hljs" data-highlighted="yes">  <span class="hljs-keyword">val</span> tasksPerModule = allModules.map { module =&gt; module.id -&gt; <span class="hljs-type">ModuleTasksRegistry</span>.getByModule(module) }.toMap
@@ -273,7 +273,7 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
   println(generateDOT(tasksGraph, v =&gt; v.id, v =&gt; <span class="hljs-type">Map</span>(<span class="hljs-string">"label"</span> -&gt; v.id)))
 </code></pre>
    <p>You will see a nice image when you run it through Graphviz:</p>
-   <p><img src="/images/mini_build_tool/tasks.svg" alt=""></p>
+   <p><img src="/sake-ba-blog-source/images/mini_build_tool/tasks.svg" alt=""></p>
    <hr>
    <p>Now the execution subgraph (the exec plan). We get the task that we want to run, plus the tasks that it depends on:</p>
    <pre><code class="language-scala hljs" data-highlighted="yes">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">buildExecSubgraph</span></span>(moduleId: <span class="hljs-type">String</span>, taskName: <span class="hljs-type">String</span>): <span class="hljs-type">AsSubgraph</span>[<span class="hljs-type">Task</span>[?], <span class="hljs-type">DefaultEdge</span>] = {
@@ -299,7 +299,7 @@ for (const link of document.querySelectorAll('body > header > nav > div > a')) {
   println(generateDOT(execSubgraph, v =&gt; v.id, v =&gt; <span class="hljs-type">Map</span>(<span class="hljs-string">"label"</span> -&gt; v.id)))
 </code></pre>
    <p>You will see a nice image when you run it through Graphviz:</p>
-   <p><img src="/images/mini_build_tool/plan.svg" alt=""></p>
+   <p><img src="/sake-ba-blog-source/images/mini_build_tool/plan.svg" alt=""></p>
    <hr>
    <p>OMG there is more.. now we need the "execution stages".
     <br>
