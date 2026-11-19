@@ -9,8 +9,7 @@ publish_date: 2026-11-03 13:00
 In the [previous post](/en/programming/sharaf-deployment.html), I wrote about deploying a small web app on a VPS with Caddy and VoidAuth.  
 But what if you don't want to maintain a server at all?
 
-I've put together a [Sharaf AWS Lambda starter](https://github.com/sake92/sharaf-aws-lambda-starter) for that too.  
-And I've tested the deployment on **AWS**, so this one has also seen the outside world :)
+I've put together a [Sharaf AWS Lambda starter](https://github.com/sake92/sharaf-aws-lambda-starter) for that too. The current GraalVM build still needs an AWS deployment test.
 
 The setup is fairly small:
 
@@ -71,20 +70,12 @@ The demo URL is **public and unauthenticated**. Anyone can call it, and those ca
 The starter also has an integration test using [Floci](https://github.com/floci-io/floci), a local AWS emulator, through Testcontainers.
 
 It builds the same Docker image used for deployment and calls it through an emulated Lambda Function URL.  
-That exercises the adapter too: JSON bodies, query parameters, validation errors and unknown routes all travel through the full request path.
+The test sends JSON bodies and query parameters through the adapter and checks that the app returns HTTP 400 for an invalid body and HTTP 404 for an unknown route.
 
 You need Docker, but no AWS account or credentials for that test.  
 There are also route tests for the app itself that run on the JVM.
 
 An emulator doesn't prove every detail of AWS behavior, but it's useful to check the app and adapter together before deploying.
-
-## What about DynamoDB?
-
-The starter doesn't have a database yet. For a Lambda app, I'd look at storing persistent data outside the function, for example in DynamoDB.
-
-One thing I'd like to try is [Smithy4s](https://disneystreaming.github.io/smithy4s/docs/protocols/aws/aws/). It can generate Scala clients from AWS service models, and its documentation includes a DynamoDB example.
-
-**I haven't tried this integration yet**, so DynamoDB access, credentials and compatibility with this native build still need checking. It's an idea for the next experiment :)
 
 ## Give it a try
 
