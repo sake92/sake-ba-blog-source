@@ -1,6 +1,6 @@
 ---
 title: Easy Deployment with Sharaf, Caddy and VoidAuth
-description: A small web app deployment setup with automatic HTTPS, authentication, Scala Native and SQLite. Tested on Hetzner!
+description: A small web app deployment setup with automatic HTTPS, authentication, a GraalVM native image and SQLite. Tested on Hetzner!
 publish_date: 2026-11-03 12:00
 ---
 
@@ -64,13 +64,11 @@ App-specific permissions still belong in your app. Knowing who Alice is doesn't 
 
 ## Sharaf does the app stuff
 
-The starter uses [Sharaf](https://github.com/sake92/sharaf) with http4s/Ember, compiled with Scala Native.  
+The starter uses [Sharaf](https://github.com/sake92/sharaf) with its experimental Potateh adapter. Docker builds a GraalVM native image and runs the resulting executable in Alpine.
+
 It has a public homepage and assets, and a protected `/me` route that returns the user's identity.
 
-This setup is especially useful for Scala Native. I wanted to avoid getting stuck on Java security API support (`java.security.Signature` and friends) when wiring in auth libraries.  
-You could implement the missing pieces, but that requires work. And even on the JVM, integrating pac4j isn't my idea of fun either..
-
-Here the app only needs to understand HTTP headers, which is a much smaller job.
+VoidAuth handles the login flow, so the app only needs to read the identity headers from Caddy.
 
 Also, **nothing about this requires Sharaf**.  
 You could put another Scala HTTP server, a Go app, a Python app, or pretty much anything that speaks HTTP behind the same setup.

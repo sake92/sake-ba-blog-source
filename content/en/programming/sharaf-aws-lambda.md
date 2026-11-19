@@ -1,6 +1,6 @@
 ---
 title: Running a Scala Web App on AWS Lambda
-description: An ordinary Scala HTTP app on AWS Lambda, using Scala Native, the Lambda Web Adapter and OpenTofu.
+description: An ordinary Scala HTTP app on AWS Lambda, using a GraalVM native image, the Lambda Web Adapter and OpenTofu.
 publish_date: 2026-11-03 13:00
 ---
 
@@ -15,7 +15,7 @@ And I've tested the deployment on **AWS**, so this one has also seen the outside
 The setup is fairly small:
 
 - **Sharaf** handles HTTP and app logic
-- **Scala Native** compiles the app into a native executable for fast startup
+- **GraalVM Native Image** compiles the app into a native executable for fast startup
 - **Lambda Web Adapter** connects the HTTP server to Lambda
 - **OpenTofu** creates the AWS infrastructure
 
@@ -46,19 +46,13 @@ There is no Lambda-specific handler in the app. It has a health endpoint and a s
 And, just like the Caddy setup, **this doesn't require Sharaf**.  
 The adapter works with other HTTP servers too.
 
-## Scala Native
+## GraalVM native image
 
-The starter uses Sharaf with http4s/Ember, compiled with Scala Native.  
-The final Docker image runs the native executable directly, without a JVM.
+The starter uses Sharaf with its experimental Potateh adapter. Docker builds a GraalVM native image, producing a statically linked musl executable. The final Alpine image runs that executable directly, without a JVM.
 
 Startup matters for Lambda because a request can arrive when there is no running instance ready to handle it. AWS then needs to start a new execution environment, including your app. That's the cold start people talk about.
 
-Avoiding JVM startup is one reason I wanted to try Scala Native here.  
-In the [local native footprint measurements](https://sake92.github.io/sharaf/reference/native-footprint.html), a small http4s/Ember app compiled with Scala Native started and returned its first successful HTTP response in **about 30 milliseconds**. That's quick :)
-
-Those are local measurements on a warm host/filesystem. I haven't measured the full AWS Lambda cold start for this starter yet.
-
-You also need dependencies that work on Scala Native. A library that relies on JVM-only APIs won't suddenly work just because the app runs on AWS..
+The native executable skips JVM startup. I haven't measured the full AWS Lambda cold start for this starter yet.
 
 ## Infrastructure with OpenTofu
 
@@ -80,7 +74,7 @@ It builds the same Docker image used for deployment and calls it through an emul
 That exercises the adapter too: JSON bodies, query parameters, validation errors and unknown routes all travel through the full request path.
 
 You need Docker, but no AWS account or credentials for that test.  
-There are also Scala Native route tests for the app itself.
+There are also route tests for the app itself that run on the JVM.
 
 An emulator doesn't prove every detail of AWS behavior, but it's useful to check the app and adapter together before deploying.
 
@@ -90,7 +84,6 @@ The starter doesn't have a database yet. For a Lambda app, I'd look at storing p
 
 One thing I'd like to try is [Smithy4s](https://disneystreaming.github.io/smithy4s/docs/protocols/aws/aws/). It can generate Scala clients from AWS service models, and its documentation includes a DynamoDB example.
 
-That looks interesting for calling AWS services from Scala Native, where using the Java AWS SDK isn't an option.  
 **I haven't tried this integration yet**, so DynamoDB access, credentials and compatibility with this native build still need checking. It's an idea for the next experiment :)
 
 ## Give it a try
