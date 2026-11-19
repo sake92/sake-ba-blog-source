@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="A small web app deployment setup with automatic HTTPS, authentication, Scala Native and SQLite. Tested on Hetzner!">
+  <meta name="description" content="A small web app deployment setup with automatic HTTPS, authentication, a GraalVM native image and SQLite. Tested on Hetzner!">
   <title> Easy Deployment with Sharaf, Caddy and VoidAuth | blog.sake.ba </title>
   <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
@@ -114,13 +114,9 @@ Remote-Groups: users
     The starter keeps the app private and strips incoming identity headers before setting the verified ones. Otherwise anyone could send <code>Remote-User: admin</code>, which would be.. unfortunate.</p>
    <p>App-specific permissions still belong in your app. Knowing who Alice is doesn't automatically mean she can edit Bob's documents.</p>
    <h2 id="sharaf-does-the-app-stuff">Sharaf does the app stuff<a href="#sharaf-does-the-app-stuff" class="flatmark-anchor" aria-label="Anchor"> 🔗</a></h2>
-   <p>The starter uses <a href="https://github.com/sake92/sharaf">Sharaf</a> with http4s/Ember, compiled with Scala Native.
-    <br>
-    It has a public homepage and assets, and a protected <code>/me</code> route that returns the user's identity.</p>
-   <p>This setup is especially useful for Scala Native. I wanted to avoid getting stuck on Java security API support (<code>java.security.Signature</code> and friends) when wiring in auth libraries.
-    <br>
-    You could implement the missing pieces, but that requires work. And even on the JVM, integrating pac4j isn't my idea of fun either..</p>
-   <p>Here the app only needs to understand HTTP headers, which is a much smaller job.</p>
+   <p>The starter uses <a href="https://github.com/sake92/sharaf">Sharaf</a> with its experimental Potateh adapter. Docker builds a GraalVM native image and runs the resulting executable in Alpine.</p>
+   <p>It has a public homepage and assets, and a protected <code>/me</code> route that returns the user's identity.</p>
+   <p>VoidAuth handles the login flow, so the app only needs to read the identity headers from Caddy.</p>
    <p>Also, <strong>nothing about this requires Sharaf</strong>.
     <br>
     You could put another Scala HTTP server, a Go app, a Python app, or pretty much anything that speaks HTTP behind the same setup.</p>
