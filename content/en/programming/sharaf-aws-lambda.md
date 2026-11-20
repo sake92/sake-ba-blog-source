@@ -9,7 +9,11 @@ publish_date: 2026-11-03 13:00
 In the [previous post](/en/programming/sharaf-deployment.html), I wrote about deploying a small web app on a VPS with Caddy and VoidAuth.  
 But what if you don't want to maintain a server at all?
 
-I've put together a [Sharaf AWS Lambda starter](https://github.com/sake92/sharaf-aws-lambda-starter) that packages an ordinary Scala HTTP server for Lambda and stores greetings in DynamoDB. You can try the whole deployment locally with Floci.
+A common approach is to use serverless functions, such as AWS Lambda. But writing functions around Lambda's event types and APIs can feel cumbersome, especially when you already have a web app. I'd rather write ordinary HTTP routes and let something else handle the Lambda-specific plumbing.
+
+When working with AWS infrastructure, I always have that feeling: "Will this work when I deploy it?" An OpenTofu or Terraform plan helps by showing what will change before you apply it. And being able to deploy locally with Floci gives me even more confidence that the pieces work together.
+
+To try this out, I put together a [Sharaf AWS Lambda starter](https://github.com/sake92/sharaf-aws-lambda-starter) that packages an ordinary Scala HTTP server for Lambda and stores greetings in DynamoDB. You can try the whole deployment locally with Floci.
 
 ## An HTTP server inside Lambda
 
